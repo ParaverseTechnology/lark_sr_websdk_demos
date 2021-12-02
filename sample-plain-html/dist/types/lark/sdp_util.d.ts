@@ -1,0 +1,36 @@
+export default class SdpUtil {
+    private static vp8;
+    private static vp9;
+    private static h264;
+    private static av1x;
+    private static h265;
+    private static hevc;
+    private static svac;
+    private static tail;
+    private static config;
+    static isLoopIpAddress(ip: string): boolean;
+    static getRtpmapRegByMode(mode: 'VP8' | 'VP9' | 'H264' | 'AV1X' | 'H265' | 'HEVC' | 'SVAC'): RegExp;
+    static hasVp8(sdp: string): boolean;
+    static hasVp9(sdp: string): boolean;
+    static hasH264(sdp: string): boolean;
+    static hasAV1X(sdp: string): boolean;
+    static hasH265(sdp: string): boolean;
+    static hasHEVC(sdp: string): boolean;
+    static hasSVAC(sdp: string): boolean;
+    static hasMode(sdp: string, mode: 'VP8' | 'VP9' | 'H264' | 'AV1X' | 'H265' | 'HEVC' | 'SVAC'): boolean;
+    static setAudioBitrate(sdp: string, bitrate: number): string;
+    static setBitRate(sdp: string, startBitrate: number, maxBitrate: number, minBitrate: number): string;
+    static setModeBitRate(sdp: string, startBitrate: number, maxBitrate: number, minBitrate: number, mode: 'VP8' | 'VP9' | 'H264' | 'AV1X'): string;
+    static removeVp8(sdp: string): string;
+    static removeVp9(sdp: string): string;
+    static removeH264(sdp: string): string;
+    static removeAV1X(sdp: string): string;
+    static removeH265(sdp: string): string;
+    static removeHEVC(sdp: string): string;
+    static removeSVAC(sdp: string): string;
+    static sdpFilter(sdp: string, mode: 'VP8' | 'VP9' | 'H264' | 'AV1X' | 'H265' | 'HEVC' | 'SVAC'): string;
+    static sdpGooAttrLine(...attrs: string[]): string;
+    static sdpBlankAttrLine(...attrs: string[]): string;
+    static getBlankAttrs(sdpLine: string): string[];
+    static getAttrName(sdpLine: string): string;
+}
