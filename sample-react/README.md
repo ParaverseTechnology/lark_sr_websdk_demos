@@ -1,4 +1,5 @@
-# LarkSR SDK Vue 使用 Demo
+# LarkSR SDK React 使用 Demo
+
 
 ## 使用本 Demo
 
@@ -11,11 +12,10 @@ yarn
 运行
 
 ```cmd
-yarn run serve
+yarn start
 ```
 
-查看示例代码 `src/App.vue`
-
+查看示例代码 `src/App.js`
 
 ## 安装 LarkSR SDK
 
