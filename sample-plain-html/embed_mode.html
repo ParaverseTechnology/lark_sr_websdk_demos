@@ -28,6 +28,27 @@
     <meta name="description" content="lark3.0" />
     <title>平行云</title>
     <link href="./css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .container {
+            padding-top: 50px;
+        }
+        #iframe {
+            width: -webkit-fill-available;
+            /* min-height: -webkit-fill-available; */
+            border: 1px solid lightgreen;
+            height: 500px;
+        }
+        .func-row {
+            margin-bottom: 5px;
+        }
+        .func-row button {
+            margin-right: 5px;
+        }
+        #container {
+            min-height: 500px;
+            position: relative;
+        }
+    </style>
     <script src="./js/jquery.min.js"></script>
     <script src="./dist/larksr-web-sdk.min.js"></script>
     <script>
@@ -49,6 +70,15 @@
                     fullScreenMode: 0,
                     // 测试载入背景图
                     loadingBgUrl: 'https://home-obs.pingxingyun.com/homePage_4_0/bg.jpg',
+                    /**
+                     * 可选项，是否同步传入根的组件的大小样式。
+                     * 默认开启，将跟组件大小设置为浏览器视口大小
+                     * 如果关闭，内部组件将按照传入的根元素大小去显示
+                     * 注意，当关闭时不会自动填充根元素，如果根元素高度为 0 将显示不出来。
+                     * 注意，当关闭时 mobileForceLandscape 将失去作用。
+                     */
+                    handelRootElementSize: false,
+                    logLevel: 'info',
                 }, {
                     // 要使用的云端资源的应用 ID，从后云雀后台接口获取
                     // 参考查询应用一栏文档
@@ -89,7 +119,22 @@
 </head>
 
 <body>
-    <div id="container">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h1>Lark SDK EMBED Demo</h1>
+                    </div>
+                    <div class="panel-body">
+                        <div>
+                            <h1>Container</h1>
+                        </div>
+                        <div id="container" />
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </body>
 

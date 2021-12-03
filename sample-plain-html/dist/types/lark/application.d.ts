@@ -19,17 +19,23 @@ export declare enum APP_STATE {
     DESTROYED = 12
 }
 export declare enum APP_EVENT_TYPE {
-    REMOTE_STREAM = 0,
-    SYNC_CURSORSTYLE = 1,
-    APP_STATE_CHANGE = 2,
-    LK_APP_RESIZE = 3,
-    LK_APP_MOUSE_MODE = 4,
-    LK_APP_PLAER_LIST = 5,
-    LK_APP_REQUEST_TEXT = 6,
-    LK_DATA_CHANNEL_RENDERSERVER_TEXT_MESSAGE = 7,
-    LK_DATA_CHANNEL_RENDERSERVER_BINARY_MESSAGE = 8,
-    LK_DATA_CHANNEL_RENDERSERVER_OPEN = 9,
-    LK_DATA_CHANNEL_RENDERSERVER_CLOSE = 10
+    CONNECT = 0,
+    LOGIN = 1,
+    ERROR = 2,
+    INFO = 3,
+    APP_CLOSE = 4,
+    REMOTE_STREAM = 5,
+    SYNC_CURSORSTYLE = 6,
+    APP_STATE_CHANGE = 7,
+    NET_STATE = 8,
+    LK_APP_RESIZE = 9,
+    LK_APP_MOUSE_MODE = 10,
+    LK_APP_PLAER_LIST = 11,
+    LK_APP_REQUEST_TEXT = 12,
+    LK_DATA_CHANNEL_RENDERSERVER_TEXT_MESSAGE = 13,
+    LK_DATA_CHANNEL_RENDERSERVER_BINARY_MESSAGE = 14,
+    LK_DATA_CHANNEL_RENDERSERVER_OPEN = 15,
+    LK_DATA_CHANNEL_RENDERSERVER_CLOSE = 16
 }
 export interface AppEvent extends LocalEvent<APP_EVENT_TYPE> {
     data?: any;
@@ -96,7 +102,11 @@ export default class Application extends EventBase<APP_EVENT_TYPE, AppEvent> {
     private onDataChannelBinary;
     private onDataChannelOpen;
     private onDataChannelClose;
+    private onPeerConnectionState;
     appStateChange(state: APP_STATE): void;
+    private infoMsg;
+    private errorMsg;
+    private toastMsg;
     private $emit;
     private createAppEvent;
 }

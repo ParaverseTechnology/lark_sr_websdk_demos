@@ -1,6 +1,3 @@
-/**
- * TODO
- */
 export interface LocalEvent<E> {
     type: E;
     target?: any;

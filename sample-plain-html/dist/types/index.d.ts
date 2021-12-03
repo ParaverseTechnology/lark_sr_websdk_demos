@@ -1,9 +1,12 @@
 import 'core-js/stable/symbol';
-import { LarkSR, AppliParams, AppliParamsUtils, LoadAppliParamsStartAppInfo, EventBase, API, Operation, Capabilities, ScaleMode, CloudLark, FullScreen, LockPointer } from "./larksr";
+import { LarkSR, CreateLarkSRClientFromeAPI, CreateLarkSRClientFromeUrl, LarkEventType, LarkSRClientEvent, AppliParams, LoadAppliParamsFromUrl, AppliParamsUtils, LoadAppliParamsStartAppInfo, EventBase, API, Operation, Capabilities, ScaleMode, CloudLark, FullScreen, LockPointer, KEYMAP, ILarkSRConfig, PlayerModeType, UserType, LarkSREvent } from "./larksr";
 declare const _default: {
     LarkSR: typeof LarkSR;
+    CreateLarkSRClientFromeAPI: typeof CreateLarkSRClientFromeAPI;
+    CreateLarkSRClientFromeUrl: typeof CreateLarkSRClientFromeUrl;
     API: typeof API;
     AppliParams: typeof AppliParams;
+    LoadAppliParamsFromUrl: typeof LoadAppliParamsFromUrl;
     AppliParamsUtils: typeof AppliParamsUtils;
     LoadAppliParamsStartAppInfo: typeof LoadAppliParamsStartAppInfo;
     EventBase: typeof EventBase;
@@ -15,4 +18,4 @@ declare const _default: {
     Operation: typeof Operation;
 };
 export default _default;
-export { KEYMAP, ILarkSRConfig, PlayerModeType, UserType, LarkSREvent, LocalEvent, } from "./larksr";
+export { LarkEventType, LarkSRClientEvent, KEYMAP, ILarkSRConfig, PlayerModeType, UserType, LarkSREvent, };

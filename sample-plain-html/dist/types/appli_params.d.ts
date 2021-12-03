@@ -41,7 +41,7 @@ export interface IAppliParams {
     scaleMode: ScaleMode;
     /**
      * 日志级别
-     * @default 'info'
+     * @default 'warn'
      */
     logLevel: 'info' | 'warn' | 'error';
     /**

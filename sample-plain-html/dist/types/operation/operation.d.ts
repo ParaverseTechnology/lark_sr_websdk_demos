@@ -31,6 +31,10 @@ export default class Operation extends EventBase<OPREATION_EVENT_TYPE, Operation
     get fullScreen(): import("../larksr").FullScreen;
     get lockPointer(): import("../larksr").LockPointer;
     constructor(rootElement: HTMLElement, larksr: LarkSR);
+    setMouseEnable(enable: boolean): void;
+    setKeyboardEnable(enable: boolean): void;
+    setGamepadEnable(enable: boolean): void;
+    setTouchEnable(enable: boolean): void;
     resetLocalRendreMousePosition(): void;
     setAppMouseMode(mode: CloudLark.IAppMouseMode): void;
     startListening(): void;
