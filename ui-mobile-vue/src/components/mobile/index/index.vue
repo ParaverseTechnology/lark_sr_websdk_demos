@@ -1,0 +1,323 @@
+<template>
+    <div class="mobile-ui"
+        :style="viewPortWidth"
+        v-on:contextmenu="onContextmenu"
+    >
+        <!-- popup menu -->
+        <div v-if="enableMobileControlBall && !vmouseMode"
+            class="pop pop-toggle"
+            :style="positionStyle"
+            draggable="true"
+            v-on:touchstart="onDragStart"
+            v-on:touchmove="onDrag"
+            v-on:touchend="onDragEnd"
+            v-on:click="togglePop"
+        >
+            <div v-if="popToggled"
+            >
+                <div class="pop-icon"  :style="{'background-image': 'url('+controlBarUrl+')'}"></div>
+                <span v-if="showTimeoutInfo" class="rttInfo rttBad rttBadInfo">{{ui.badNetwork}}</span>
+            </div>
+            <div v-else class="pop" v-on:click="togglePop">
+                <div class="pop-icon" v-on:click="togglePop"  :style="{'background-image': 'url('+controlBarUrl+')'}"></div>
+                <div class="icon icon-mouse" v-on:click="toggleVMouseMode"></div>
+                <div class="icon icon-keyboard" v-on:click="toggleVKeyboard"></div>
+                <div class="icon icon-menu" v-on:click="toggleMenu"></div>
+                <div class="icon icon-exit" v-on:click="onQuit"></div>
+                <div class="icon icon-handle" v-on:click="toggleJoyStick"></div>
+            </div>
+        </div>
+        <Alert />
+        <!-- joystick -->
+        <Joyskick v-if="joystick" />
+        <Notify />
+        <Toast />
+        <Confirm />
+        <Menu v-if="menu" />
+        <Keyboard v-if="vkeyboard" />
+        <VCursor v-if="enableVmouse" :useVMouse="vmouseMode" v-on:exit="toggleVMouseMode" />
+    </div>
+</template>
+<script>
+import {
+    mapState,
+    mapGetters,
+    mapMutations,
+    mapActions,
+}                          from 'vuex';
+import Alert               from '../alert/alert';
+import Joyskick            from '../joystick/joystick';
+import Notify              from '../notify/notify';
+import Toast               from '../toast/toast';
+import Menu                from '../menu/menu';
+import Keyboard            from '../keyboard/keyboard';
+import VCursor             from '../v_cursor/v_cursor';
+import Confirm             from '../confirm/confirm';
+
+export default {
+    components: {
+        Alert,
+        Joyskick,
+        Notify,
+        Toast,
+        Menu,
+        Keyboard,
+        VCursor,
+        Confirm,
+    },
+    data() {
+        return {
+            // vmouseMode: false,
+            popToggled: true,
+            showTimeoutInfo: false,
+            rttCheckTimeout: -1,
+            rttLimitTimeout: -1,
+            lastRttLimitToast: 0,
+            dragStarted: false,
+            dragStartPosition: {
+                x: 0,
+                y: 0,
+            },
+            offsetPositon: {
+                x: 0,
+                y: 0,
+            },
+            position: {
+                x: 0,
+                y: 0,
+            },
+            controlBarUrl: "/getCstzLogoUrl?logoType=controlBar&appKey="+ Load.appKey
+        }
+    },
+    computed: {
+        positionStyle() {
+            if (this.mobileControlBallPosition.x != 0 || this.mobileControlBallPosition.y != 0) {
+                return {
+                    top: this.mobileControlBallPosition.y + "px",
+                    left: this.mobileControlBallPosition.x + "px",
+                }
+            } else {
+                return {
+                    top: 15 + "px",
+                    left: this.viewPort.width / 2 - 45 + "px",
+                };
+            }
+        },
+        rttClass() {
+            if (this.states.rttMs < Load.rttLimit) {
+                return 'rttInfo rttGood';
+            } else {
+                return 'rttInfo rttBad';
+            }
+        },
+        ...mapState({
+            // formate states
+            states: (state) => {
+                const { aggregatedStats, } = state;
+                let rttms = Capabilities.os === 'iOS' ? aggregatedStats.currentRoundTripTime :
+                    aggregatedStats.currentRoundTripTime * 1000;
+                let rtt = rttms.toFixed(2);
+
+                return {
+                    hasPacketsLost: aggregatedStats.packetsLost != 0,
+                    packetsLost: aggregatedStats.packetsLost.toFixed(2),
+                    packetsLostPerc: aggregatedStats.packetsLostPerc.toFixed(3) + "%",
+                    hasBitrate: aggregatedStats.bitrate != 0,
+                    bitrate: (aggregatedStats.bitrate / 1000).toFixed(2),
+                    hasCurrentRoundTripTime: aggregatedStats.currentRoundTripTime != 0,
+                    // hasCurrentRoundTripTime: true,
+                    currentRoundTripTime: rtt,
+                    rttMs: rttms,
+                    // rttMs: 10,
+                };
+            },
+            viewPort: state => state.viewPort,
+            viewPortWidth: state => {
+                return {
+                    width: state.viewPort.width + 'px',
+                }
+            },
+            mobileControlBallPosition: state => state.mobileControlBallPosition,
+            vkeyboard: state => state.vkeyboard,
+            menu: state => state.menu,
+            joystick: state => state.joystick,
+            ui: state => state.ui,
+            screenOrientation: state => state.screenOrientation,
+            enableMobileControlBall: state => { return state.enableMobileControlBall; },
+            vmouseMode: status => { return status.vmouseMode == 'vmouse'; },
+            enableVmouse: status => { return status.vmouseMode != 'none'; },
+            enableRttIcon: state => state.enableRttIcon,
+        }),
+        ...mapGetters([
+        ])
+    },
+    methods: {
+        togglePop(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            this.popToggled = !this.popToggled;
+        },
+        // block default context menu event.
+        onContextmenu(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            Log.info("onContextmenu");
+        },
+        onQuit() {
+            // if (window.confirm(Msg.COURSE_QUIT)) {
+            //     Unit.quit();
+            // }
+            // this.showModalAlert(Msg.COURSE_QUIT)
+            // .then(() => {
+            //     Unit.quit();
+            // });
+            this.showModalConfirm({ des: Msg.COURSE_QUIT, code: CloudlarkEventType.LK_USER_REQUEST_QUIT })
+            .then(()=>{
+                Log.info('user confirm');
+                Unit.quit();
+                // if (Capabilities.os === 'iOS') {
+                //     FullScreen.exitFullscreen();
+                // } else {
+                //     Unit.quit();
+                // }
+            })
+            .catch((e) => {
+                Log.info('user cancle');
+            });
+        },
+        //
+        onVMouseMode() {
+            this.vmouseMode = !this.vmouseMode;
+        },
+        onRttCheck() {
+            if (this.states.rttMs > Load.rttLimit &&
+                this.rttLimitTimeout == -1 &&
+                Date.now() - this.lastRttLimitToast > Load.rttLimitInterval * 1000) {
+                // Log.info("on rtt check", this.states.rttMs, Load.rttLimit, this.rttLimitTimeout, this.rttCheckTimeout, Load.rttLimitInterval);
+                this.showTimeoutInfo = true;
+                this.rttLimitTimeout = window.setTimeout(() => {
+                    // Log.info("on rtt check timeout", this.states.rttMs, Load.rttLimit, this.rttLimitTimeout, this.rttCheckTimeout, Load.rttLimitInterval);
+                    this.showTimeoutInfo = false;
+                    this.rttLimitTimeout = -1;
+                    this.lastRttLimitToast = Date.now();
+                }, 8 * 1000);
+            }
+        },
+        onDragStart(e) {
+            // e.preventDefault();
+            const {
+                screenOrientation
+            } = this;
+            // 注意旋转屏幕时坐标系的变换
+            if (screenOrientation == 'landscape') {
+                const offsetRect = Unit.getBoundingClientRect(e.target);
+                this.offsetPositon = {
+                    x: e.changedTouches[0].clientY - offsetRect.top,
+                    y: offsetRect.right - e.changedTouches[0].clientX,
+                }
+                Log.info("on drag start", offsetRect, e.changedTouches[0].clientX,
+                    offsetRect.right - e.changedTouches[0].clientX,
+                    e.changedTouches[0].clientY - offsetRect.top);
+            } else {
+                const offsetViewPort = Unit.getOffsetViewport(e.target);
+                this.offsetPositon = {
+                    x: e.changedTouches[0].clientX - offsetViewPort.offsetX,
+                    y: e.changedTouches[0].clientY - offsetViewPort.offsetY,
+                }
+            }
+            this.dragStartPosition = {
+                x: e.changedTouches[0].clientX,
+                y: e.changedTouches[0].clientY,
+            }
+        },
+        onDrag(e) {
+            e.preventDefault();
+            const {
+                viewPort,
+                screenOrientation
+            } = this;
+            if (!this.dragStarted) {
+                let disx = e.changedTouches[0].clientX - this.dragStartPosition.x;
+                let disy = e.changedTouches[0].clientY - this.dragStartPosition.y;
+                let distance = Math.sqrt(disx*disx + disy*disy);
+                if (distance < 40) {
+                    return;
+                }
+                this.dragStarted = true;
+            }
+            // 注意旋转屏幕时坐标系的变换
+            if (screenOrientation == 'landscape') {
+                this.setMobileControlBallPosition({
+                    x: e.changedTouches[0].clientY - this.offsetPositon.x,
+                    y: viewPort.height - e.changedTouches[0].clientX - this.offsetPositon.y,
+                });
+            } else {
+                this.setMobileControlBallPosition({
+                    x: e.changedTouches[0].clientX - this.offsetPositon.x,
+                    y: e.changedTouches[0].clientY - this.offsetPositon.y,
+                });
+            }
+            // Log.info("on drag control ball", e);
+        },
+        onDragEnd(e) {
+            // e.preventDefault();
+            const {
+                viewPort,
+                screenOrientation
+            } = this;
+            if (this.dragStarted) {
+                // 注意旋转屏幕时坐标系的变换
+                if (screenOrientation == 'landscape') {
+                    this.setMobileControlBallPosition({
+                        x: e.changedTouches[0].clientY - this.offsetPositon.x,
+                        y: viewPort.height - e.changedTouches[0].clientX - this.offsetPositon.y,
+                    });
+                } else {
+                    this.setMobileControlBallPosition({
+                        x: e.changedTouches[0].clientX - this.offsetPositon.x,
+                        y: e.changedTouches[0].clientY - this.offsetPositon.y,
+                    });
+                }
+            }
+            this.dragStarted = false;
+            this.dragStartPosition = {
+                x: 0,
+                y: 0,
+            }
+            // Log.info("on drag end", e, this.position, this.offsetPositon);
+        },
+        ...mapMutations({
+            setMobileControlBallPosition: 'setMobileControlBallPosition',
+        }),
+        ...mapActions({
+            resize: 'resize',
+            toggleScaleToFitScreen: 'toggleScaleToFitScreen',
+            toggleScaleToFillStretch: 'toggleScaleToFillStretch',
+            toggleState: 'stateModal/toggleState',
+            toggleVMouseMode: 'toggleVMouseMode',
+            toggleVKeyboard: 'toggleVKeyboard',
+            toggleModalSetup: 'toggleModalSetup',
+            showModalAlert: 'modalAlert/showModalAlert',
+            showModalConfirm: 'modalConfirm/showModalConfirm',
+            toggleInitCursorMode: 'toggleInitCursorMode',
+            toggleMenu: 'toggleMenu',
+            toggleJoyStick: 'toggleJoyStick',
+        }),
+    },
+    mounted() {
+        this.rttCheckTimeout =  window.setInterval(this.onRttCheck, 1000);
+        this.appKey = Load.appKey;
+    },
+    beforeDestroy() {
+        if (this.rttCheckTimeout != -1) {
+            window.clearInterval(this.rttCheckTimeout);
+        }
+        if (this.rttLimitTimeout != -1) {
+            window.clearInterval(this.rttLimitTimeout);
+        }
+    }
+}
+</script>
+<style lang="scss" scoped>
+@import 'index.scss';
+</style>

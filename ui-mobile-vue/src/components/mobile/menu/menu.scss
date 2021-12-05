@@ -1,0 +1,68 @@
+@import "~@/assets/styles/mobile_base.scss";
+
+$color-light-blue: #7285bc;
+$color-blue: #99b3fe;
+$color-active: #fff;
+.menu {
+    position: fixed;
+    width: px2rem(455);
+    z-index: $z-index-menu;
+    background-color: $color-bg-trans40-blue;
+    text-align: left;
+    overflow-y: auto;
+    .header {
+        height: px2rem(135);
+        line-height: 1;
+        background-color: $color-bg-trans40-blue;
+        padding: px2rem(70) 0 0 px2rem(80);
+        color: $color-light-blue;
+        font-size: px2rem(24);
+        font-weight: 600;
+        p {
+            margin-bottom: px2rem(5);
+        }
+        .version {
+            font-size: px2rem(16);
+        }
+        .btn-close {
+            position: absolute;
+            right: px2rem(70);
+            font-size: px2rem(24);
+            color: $color-blue;
+            top: px2rem(70);
+            font-weight: 600;
+        }
+    }
+    .body {
+        padding: px2rem(40) 0 0 px2rem(80);
+        overflow-y: scroll;
+        overflow-x: hidden;
+    }
+    .body .item {
+        color: $color-light-blue;
+        margin-bottom: px2rem(32);
+        font-size: px2rem(26);
+        letter-spacing: px2rem(2);
+        font-weight: 600;
+        padding: 0 0 px2rem(15) px2rem(160);
+        border-bottom: 1px solid #fff;
+        .item-left {
+            float: left;
+            margin-left: px2rem(-160);
+            width: px2rem(160);
+            display: block;
+        }
+        .item-right {
+            min-height: px2rem(26);
+            p {
+                margin-bottom: 0;
+            }
+        }
+    }
+    .body .item .active {
+        color: white;
+    }
+    .body .item.item-mousewheel {
+        height: px2rem(80);
+    }
+}

@@ -1,0 +1,48 @@
+@import "~@/assets/styles/mobile_base.scss";
+
+.alert {
+    position: absolute;
+    z-index: $z-index-modal;
+    background-color: $color-bg-trans01-black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    top: 0;
+    /* */
+    .container {
+        width: px2rem(527);
+        height: px2rem(280);
+        /* height: 100px; */
+        background-color: $color-bg-trans80-blue;
+        border: px2rem(2) solid $color-border-trans80-light-blue;
+        overflow: auto;
+        word-break: break-word;
+        color: white;
+        border-radius: px2rem(2);
+        .content {
+            height: px2rem(185);
+            display: flex;
+            text-align: center;
+            align-items: center;
+            justify-content: center;
+            font-size: px2rem(26);
+            letter-spacing: px2rem(2);
+            font-weight: 600;
+        }
+        .button {
+            background-color: $color-bg-blue;
+            border: px2rem(2) solid $color-border-light-blue;
+            color: $color-font-blue;
+            width: px2rem(300);
+            height: px2rem(55);
+            line-height: px2rem(55);
+            border-radius: px2rem(2);
+            font-size: px2rem(26);
+            text-align: center;
+            margin-right: auto;
+            margin-left: auto;
+            margin-bottom: px2rem(35);
+            float: none;
+        }
+    }
+}

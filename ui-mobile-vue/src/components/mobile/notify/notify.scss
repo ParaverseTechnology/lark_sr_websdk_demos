@@ -1,0 +1,36 @@
+@import "~@/assets/styles/mobile_base.scss";
+
+.notify {
+    position: fixed;
+    top: 0;
+    left: 50%;
+    margin-left: px2rem(-526 / 2);
+    z-index: $z-index-modal;
+    text-align: center;
+    overflow: hidden;
+    white-space: nowrap;
+    word-break: break-all;
+    background-color: $color-bg-trans40-blue;
+    color: $color-font-blue;
+    font-size: px2rem(26);
+    line-height: px2rem(60);
+    height: px2rem(60);
+    width: px2rem(526);
+    font-weight: 600;
+    letter-spacing: px2rem(3);
+    border-left: px2rem(2) solid $color-border-trans40-light-blue;
+    border-right: px2rem(2) solid $color-border-trans40-light-blue;
+    border-bottom: px2rem(2) solid $color-border-trans40-light-blue;
+    border-radius: px2rem(2);
+    .btn-close {
+        width: px2rem(60);
+        height: px2rem(60);
+        background-image: url("~@/assets/img/mobile/icon_close.png");
+        background-size: px2rem(26) px2rem(26);
+        background-repeat: no-repeat;
+        background-position: center;
+        position: absolute;
+        top: 0;
+        right: 0;
+    }
+}

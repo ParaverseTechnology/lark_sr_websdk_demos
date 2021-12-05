@@ -1,0 +1,249 @@
+<template>
+    <div class="menu" :style="containerStyle">
+        <div class="header">
+            <p>功能菜单</p>
+            <div class="btn-close" v-on:click="close">关闭</div>
+            <p class="version">{{versionStr}}</p>
+        </div>
+        <div class="body">
+            <div v-if="!isIOS" class="item">
+                <div class="item-left">网页全屏</div>
+                <div class="item-right">
+                    <span v-on:click="launchFullScreen" :class='fullScreenClass' >
+                        全屏
+                    </span>
+                    <span v-on:click="exitFullscreen" :class='exitFullScreenClass'>
+                        普通
+                    </span>
+                </div>
+            </div>
+            <div class="item">
+                <div class="item-left">缩放模式</div>
+                <div class="item-right">
+                    <span v-on:click="setScaleToFillStretch" :class='scretchScaleModeClass'>
+                        填充
+                    </span>
+                    <span v-on:click="setScaleToDefault" :class='defaultScaleModeClass'>
+                        默认
+                    </span>
+                </div>
+            </div>
+            <div class="item" v-on:click="toggleState">
+                <div class="item-left">连接状态</div>
+                <div class="item-right">
+                    <p>RTT: {{states.currentRoundTripTime}} ms</p>
+                </div>
+            </div>
+            <div class="item">
+                <div class="item-left">摇杆快捷键</div>
+                <div class="item-right">
+                    <span v-on:click="showJoyStickAllKeys" :class='showJoystickAllKeysClass' >
+                        全部
+                    </span>
+                    <span v-on:click="hideJoyStickAllKeys" :class='hideJoystickAllKeysClass'>
+                        默认
+                    </span>
+                </div>
+            </div>
+            <!--  -->
+            <div class="item item-mousewheel">
+                <div class="item-left">放大手势与滚轮映射</div>
+                <div class="item-right">
+                    <span v-on:click="setToflipMouseWheel" :class='flipMouseWheelClass' >
+                        上滾
+                    </span>
+                    <span v-on:click="defaultMouseWheel" :class='defaultMouseWheelClass'>
+                        下滾
+                    </span>
+                </div>
+            </div>
+            <!--  -->
+            <div class="item" v-if="isInteractiveMode">
+                <div class="item-left">玩家列表</div>
+                <div class="item-right">
+                    <span v-on:click="showPlayerList" :class='showplayerListClass' >
+                        显示
+                    </span>
+                    <span v-on:click="hidePlayerList" :class='hidePlayerListClass'>
+                        隐藏
+                    </span>
+                </div>
+            </div>
+            <div class="item">
+                <div class="item-left">输入中文</div>
+                <div class="item-right">
+                    <span v-on:click="showInput">打开输入框</span>
+                </div>
+            </div>
+            <div class="item">
+                <div class="item-left">剪贴板</div>
+                <div class="item-right">
+                    <span v-on:click="toggleSyncClipboardParseEvent">{{syncClipboardParseEventText}}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>
+<script>
+import { 
+    mapState, 
+    mapGetters,
+    mapMutations,
+    mapActions,
+}                          from 'vuex';
+
+export default {
+    components: {
+        // Btn,
+    },
+    data() {
+        return {
+            // isToggle: false,
+            imgSrc: {
+                QUIT_IMG            : require('@/assets/img/stop.svg'),
+                FRESH_IMG           : require('@/assets/img/fresh.svg'),
+                FULLSCREEN_IMG      : require('@/assets/img/scale.svg'),
+                EXIT_FULLSCREEN_IMG : require('@/assets/img/scale_down.svg'),
+                LOCK_SCREEN         : require('@/assets/img/lock.svg'),
+                UNLOCK_SCREEN       : require('@/assets/img/unlock.svg'),
+                INFO_IMG            : require('@/assets/img/info.png'),
+                KEYBOARD_IMG        : require('@/assets/img/keyboard_white.png'),
+                ARROR_DOWN          : require('@/assets/img/arror_down_1.svg'),
+                ARROR_LEFT          : require('@/assets/img/arror_left.png'),
+                ARROR_RIGHT         : require('@/assets/img/arror_right.png'),
+                HANDLE_IMG          : require('@/assets/img/handle.png'),
+                SETUP_IMG           : require('@/assets/img/setup.svg')
+            },
+            versionStr: "V" + Config.VersionMarjor + "." + Config.VersionMinorr + "." + Config.VersionRevise + "." + Config.VersionBuild,
+            isIOS: Capabilities.os === 'iOS',
+        }
+    },
+    computed: {
+        containerStyle() {
+            return {
+                height: this.viewPort.height + "px",
+            }
+        },
+        ...mapState({
+            fullScreenClass() {
+                return this.isFullScreen ? 'active' : '';
+            },
+            exitFullScreenClass() {
+                return this.isFullScreen ? '' : 'active';
+            },
+            defaultScaleModeClass() {
+                return this.isChangedScaledMode ? '' : 'active';
+            },
+            scretchScaleModeClass() {
+                return this.isChangedScaledMode ? 'active' : '';
+            },
+            showJoystickAllKeysClass() {
+                return this.joystickAllKeys ? 'active' : '';
+            },
+            hideJoystickAllKeysClass() {
+                return this.joystickAllKeys ? '' : 'active';
+            },
+            flipMouseWheelClass() {
+                return this.flipMouseWheel ? 'active' : '';
+            },
+            defaultMouseWheelClass() {
+                return this.flipMouseWheel ? '' : 'active';
+            },
+            showplayerListClass() {
+                return this.playerMode.showPlayerList ? 'active' : '';
+            },
+            hidePlayerListClass() {
+                return this.playerMode.showPlayerList ? '' : 'active';
+            },
+            states: (state) => {
+                const { aggregatedStats, } = state;
+                let rtt = Capabilities.os === 'iOS' ? 
+                    aggregatedStats.currentRoundTripTime.toFixed(2) :
+                    (aggregatedStats.currentRoundTripTime * 1000).toFixed(2);
+                return {
+                    hasPacketsLost: aggregatedStats.packetsLost != 0,
+                    packetsLost: aggregatedStats.packetsLost.toFixed(2),
+                    packetsLostPerc: aggregatedStats.packetsLostPerc.toFixed(3) + "%",
+                    hasBitrate: aggregatedStats.bitrate != 0,
+                    bitrate: (aggregatedStats.bitrate / 1000).toFixed(2),
+                    hasCurrentRoundTripTime: aggregatedStats.currentRoundTripTime != 0,
+                    currentRoundTripTime: rtt,
+                };
+            },
+            isFullScreen: state => state.isFullScreen,
+            viewPort: state => state.viewPort,
+            ui: state => state.ui,
+            joystickAllKeys: state => state.joystickAllKeys,
+            flipMouseWheel: state => state.flipMouseWheel,
+            playerMode: state => state.playerMode,
+            syncClipboardParseEventText: state => state.syncClipboardParseEvent ? "同步本地剪贴板" : "不同步本地剪贴板",
+        }),
+        ...mapGetters({
+            isChangedScaledMode: 'isChangedScaledMode',
+            viewPortStyle: 'viewPortStyle',
+            isInteractiveMode: 'playerMode/isInteractiveMode',
+        }),
+    },
+    methods: {
+        close() {
+            this.toggleMenu();
+        },
+        onFullScreen() {
+            if (FullScreen.isFullScreen) {
+                FullScreen.exitFullscreen();
+            } else {
+                FullScreen.launchFullScreen();
+            }
+        },
+        exitFullscreen() {
+            FullScreen.exitFullscreen();
+        },
+        launchFullScreen() {
+            FullScreen.launchFullScreen();
+        },
+        setToflipMouseWheel() {
+            this.setFlipMouseWheel(true);
+        },
+        defaultMouseWheel() {
+            this.setFlipMouseWheel(false);
+        },
+        showPlayerList() {
+            this.setShowPlayerList(true);
+        },
+        hidePlayerList() {
+            this.setShowPlayerList(false);
+        },
+        showInput() {
+            this.setInputMethodEnable(true);
+        },
+        ...mapMutations({
+            'setInputMethodEnable': 'setInputMethodEnable',
+            'setShowPlayerList': 'playerMode/setShowPlayerList',
+        }),
+        ...mapActions({
+            resize: 'resize',
+            setScaleToDefault: 'setScaleToDefault',
+            setScaleToFitScreen: 'setScaleToFitScreen',
+            setScaleToFillStretch: 'setScaleToFillStretch',
+            toggleScaleToFitScreen: 'toggleScaleToFitScreen',
+            toggleScaleToFillStretch: 'toggleScaleToFillStretch',
+            toggleState: 'stateModal/toggleState',
+            toggleVMouseMode: 'toggleVMouseMode',
+            toggleVKeyboard: 'toggleVKeyboard',
+            toggleModalSetup: 'toggleModalSetup',
+            showModalAlert: 'modalAlert/showModalAlert',
+            toggleInitCursorMode: 'toggleInitCursorMode',
+            toggleMenu: 'toggleMenu',
+            toggleJoyStick: 'toggleJoyStick',
+            toggleJoyStickAllKeys: 'toggleJoyStickAllKeys',
+            showJoyStickAllKeys: 'showJoyStickAllKeys',
+            hideJoyStickAllKeys: 'hideJoyStickAllKeys',
+            setFlipMouseWheel: 'flipMouseWheel',
+            toggleSyncClipboardParseEvent: "toggleSyncClipboardParseEvent",
+        }),
+    }
+}
+</script>
+<style lang="scss" scoped>
+@import 'menu.scss';
+</style>

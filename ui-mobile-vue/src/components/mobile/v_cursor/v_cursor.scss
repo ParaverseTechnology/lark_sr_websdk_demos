@@ -1,0 +1,162 @@
+@import "~@/assets/styles/mobile_base.scss";
+
+$scale: 1.0;
+$popRadius: 93 * $scale;
+$popImgWidth: 40 * $scale;
+$popImgHeight: 58 * $scale;
+$popIndexImgWidth: 45 * $scale;
+$popIndexImgHeight: 50 * $scale;
+$iconRadius: 60 * $scale;
+
+.touchbackground {
+    position: absolute;
+    z-index: $z-index-index + 1;
+    width: 100vw;
+    height: 100vh;
+}
+
+.pop {
+    position: absolute;
+    z-index: $z-index-index + 2;
+    // top: px2rem(15);
+    // left: 50%;
+    background-color: rgba(0, 55, 241, 0.2);
+    border: px2rem(2) solid $color-border-trans20-light-blue;
+    width: px2rem($popRadius);
+    height: px2rem($popRadius);
+    // margin-left: px2rem(-$popRadius / 2);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    img {
+        display: inline-block;
+        width: px2rem($popImgWidth);
+        height: px2rem($popImgHeight);
+    }
+    .icon {
+        position: absolute;
+        z-index: $z-index-index + 2;
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center;
+        width: px2rem($iconRadius);
+        height: px2rem($iconRadius);
+        line-height: px2rem($iconRadius);
+        border-radius: 50%;
+        background-color: $color-bg-trans40-blue;
+        color: white;
+        text-align: center;
+
+        .mouselock {
+            top: px2rem(5);
+            left: px2rem(5);
+            width: px2rem(8);
+            height: px2rem(8);
+            border-radius: px2rem(8);
+            position: absolute;
+        }
+        .mouselock.mouselock-lock {
+            background-color: lightgreen;
+        }
+        .mouselock.mouselock-unlock {
+            background-color: lightgray;
+        }
+    }
+    .icon.icon-mouse-left {
+        top: px2rem(60 + 40);
+        left: px2rem(($popRadius - $iconRadius) / 2 - 50 - 30);
+    }
+    .icon.icon-mouse-mid {
+        top: px2rem(60 + 40);
+        left: px2rem(($popRadius - $iconRadius) / 2);
+    }
+    .icon.icon-mouse-right {
+        top: px2rem(60 + 40);
+        left: px2rem(($popRadius - $iconRadius) / 2 + 50 + 30);
+    }
+    .icon.active {
+        border: px2rem(2) solid lightgreen;
+    }
+    .icon.icon-mouse {
+        top: px2rem(10 * $scale);
+        left: px2rem(-108 * $scale);
+        background-image: url("~@/assets/img/mobile/icon_hand.png");
+    }
+    .icon.icon-keyboard {
+        top: px2rem(92 * $scale);
+        left: px2rem(-71 * $scale);
+        background-image: url("~@/assets/img/mobile/icon_keyboard_bg.png");
+    }
+    .icon.icon-menu {
+        top: px2rem(92 * $scale);
+        left: px2rem(91 * $scale);
+        background-image: url("~@/assets/img/mobile/icon_menu_bg.png");
+    }
+    .icon.icon-exit {
+        top: px2rem(10 * $scale);
+        left: px2rem(130 * $scale);
+        background-image: url("~@/assets/img/mobile/icon_exit_bg.png");
+    }
+    .icon.icon-handle {
+        top: px2rem(132 * $scale);
+        left: px2rem(($popRadius - $iconRadius) / 2);
+        background-image: url("~@/assets/img/mobile/icon_handle.png");
+    }
+}
+.pop.pop-index {
+    img {
+        display: inline-block;
+        width: px2rem($popIndexImgWidth);
+        height: px2rem($popIndexImgHeight);
+    }
+}
+
+.pointerContainer {
+    position: absolute;
+    pointer-events: none;
+    top: 0;
+    left: 0;
+    .pointer {
+        width: 6px;
+        height: 6px;
+        margin-left: -3px;
+        margin-top: -3px;
+        background-color: #32cdcd;
+        border-radius: 50%;
+        pointer-events: none;
+    }
+}
+
+.rttInfo {
+    pointer-events: none;
+    text-align: center;
+    line-height: px2rem(25);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    left: px2rem(48);
+    top: px2rem(30);
+    .icon-rtt {
+        margin-right: px2rem(8);
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center;
+        display: inline-block;
+        width: px2rem(25);
+        height: px2rem(25);
+    }
+}
+.rttInfo.rttBad {
+    color: red;
+    .icon-rtt {
+        background-image: url("~@/assets/img/mobile/network_cell_bad.png");
+    }
+}
+.rttInfo.rttGood {
+    color: #34a853;
+    .icon-rtt {
+        background-image: url("~@/assets/img/mobile/network_cell.png");
+    }
+}
