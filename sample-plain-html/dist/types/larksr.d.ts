@@ -10,7 +10,7 @@ import API from './api';
 import ScreenState from './screen_state';
 import Operation from './operation/operation';
 import { CloudLark } from './protobuf/cloudlark';
-import { KEYMAP, VirtualKey, VritualKeyMapOptions } from './operation/keymap';
+import { KEYMAP, VirtualKey } from './operation/keymap';
 import FullScreen from './utils/full_screen';
 import LockPointer from './utils/lock_pointer';
 import ScaleMode from './utils/scale_mode';
@@ -333,7 +333,7 @@ declare class LarkSR extends EventBase<LarkSRClientEvent, LarkSREvent> {
     private _fullScreen;
     get lockPointer(): LockPointer;
     private _lockPointer;
-    private view;
+    private _view;
     /**
      * 视频元素
      */
@@ -455,4 +455,4 @@ declare class LarkSR extends EventBase<LarkSRClientEvent, LarkSREvent> {
     private onOperationTimeout;
     private onOperationInput;
 }
-export { LarkSR, ILarkSRConfig, PlayerModeType, UserType, LarkSREvent, LarkEventType, LarkSRClientEvent, AppliParams, AppliParamsUtils, LoadAppliParamsFromUrl, LoadAppliParamsStartAppInfo, EventBase, API, Operation, Capabilities, ScaleMode, VirtualKey, VritualKeyMapOptions, KEYMAP, CloudLark, FullScreen, LockPointer, };
+export { LarkSR, ILarkSRConfig, PlayerModeType, UserType, LarkSREvent, LarkEventType, LarkSRClientEvent, AppliParams, AppliParamsUtils, LoadAppliParamsFromUrl, LoadAppliParamsStartAppInfo, EventBase, API, Operation, Capabilities, ScaleMode, VirtualKey, KEYMAP, CloudLark, FullScreen, LockPointer, };

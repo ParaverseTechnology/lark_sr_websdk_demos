@@ -30,9 +30,13 @@
     <link href="./css/bootstrap.min.css" rel="stylesheet">
     <script src="./js/jquery.min.js"></script>
     <script src="./dist/larksr-web-sdk.min.js"></script>
+    <script src="https://unpkg.com/vconsole@latest/dist/vconsole.min.js" crossorigin="anonymous"></script>
     <script>
+        var client;
         $(document).ready(function () {
-            var client;
+            // console
+            // var vConsole = new window.VConsole();
+
             // 直接调用进入应用接口创建实例，自动配置连接云端资源
             larksr_websdk.CreateLarkSRClientFromeAPI({
                     // 设置挂载显示的元素
@@ -79,6 +83,12 @@
                     });                    
                     client.on('meidaplaymute', function(e) { 
                         console.log("LarkSRClientEvent meidaplaymute", e); 
+                    });                    
+                    client.on('error', function(e) {
+                        console.error("LarkSRClientEvent error", e); 
+                    });                   
+                    client.on('info', function(e) {
+                        console.log("LarkSRClientEvent info", e); 
                     });
                 })
                 .catch((e) => {

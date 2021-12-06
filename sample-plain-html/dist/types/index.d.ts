@@ -18,7 +18,7 @@ declare const _default: {
     Operation: typeof Operation;
     LarkSRClientEvent: typeof LarkSRClientEvent;
     LarkEventType: typeof LarkEventType;
-    KEYMAP: import("./larksr").VritualKeyMapOptions;
+    KEYMAP: import("./operation/keymap").VritualKeyMapOptions;
 };
 export default _default;
 export { ILarkSRConfig, PlayerModeType, UserType, LarkSREvent, };

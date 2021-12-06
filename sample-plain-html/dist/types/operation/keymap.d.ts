@@ -8,7 +8,12 @@
  * TODO fix：atl + tab, f5,ctr,bug
  * REMOVE F11
  */
-export interface VirtualKey {
+export interface IVirtualKey {
+    scancode: number;
+    vkey: number;
+    unicode: number;
+}
+export declare class VirtualKey implements IVirtualKey {
     scancode: number;
     vkey: number;
     unicode: number;
