@@ -35,7 +35,7 @@
         var client;
         $(document).ready(function () {
             // console
-            // var vConsole = new window.VConsole();
+            var vConsole = new window.VConsole();
 
             // 直接调用进入应用接口创建实例，自动配置连接云端资源
             larksr_websdk.CreateLarkSRClientFromeAPI({
@@ -94,12 +94,53 @@
                 .catch((e) => {
                     console.error('enter appli falied', e);
                 });
+
+            // ui handler
+            $("#handler").on("touchmove", function(e) {
+                console.log('on handler touchmove', e);
+            })
+            $("#handler").on("touchstart", function(e) {
+                console.log('on handler touchstart', e);
+                $("#handler").addClass('handler-touchstart');
+            })
+            $("#handler").on("touchend", function(e) {
+                console.log('on handler touchend', e);
+                $("#handler").removeClass('handler-touchstart');
+            })
         });
     </script>
+    <style>
+        .ui {
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: 1000;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+        .ui .handler {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background-color:green;
+            position: absolute;
+            bottom: 20px;
+            left: 20px;
+            pointer-events: all;
+        }
+        .ui .handler.handler-touchstart {
+            background-color:red;
+        }
+    </style>
 </head>
 
 <body>
     <div id="container">
+        <!-- 演示 UI 层 -->
+        <div class="ui">
+            <div class="handler" id="handler"></div>
+        </div>
     </div>
 </body>
 
