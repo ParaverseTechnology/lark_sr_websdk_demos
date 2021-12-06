@@ -20,10 +20,10 @@ export const StateModal/*: Module<StateModalState, RootState>*/ = {
         toggleState({ state, commit }) {
             commit('setStateModal', {show: !state.stateModal.show});
         },
-		showState({ state, commit }) {
+		showState({ commit }) {
             commit('setStateModal', {show: true});
         },
-        closeState({ state, commit }) {
+        closeState({ commit }) {
             commit('clearStateModal');
         }
 	}

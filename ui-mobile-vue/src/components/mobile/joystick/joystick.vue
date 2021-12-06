@@ -183,19 +183,19 @@ export default {
     },
     methods: {
         onKeyStart(key) {
-            Log.info("onKeyStart", key);
+            console.log("onKeyStart", key);
             // sync pressed key
             this.leftKey = key;
             Bus.emit(createGlobalEvent(GLOBAL_EVENT_TYPE.VIRTUAL_KEY_DOWN), {isRepeat: false, key});
         },
         onKeyEnd(key) {
-            Log.info("onKeyEnd", key);
+            console.log("onKeyEnd", key);
             // sync pressed key
             this.leftKey = 'none';
             Bus.emit(createGlobalEvent(GLOBAL_EVENT_TYPE.VIRTUAL_KEY_UP), {key});
         },
         onRepeat(key) {
-            Log.info("onRepeat", key);
+            console.log("onRepeat", key);
             Bus.emit(createGlobalEvent(GLOBAL_EVENT_TYPE.VIRTUAL_KEY_DOWN), {isRepeat: true, key});
         },
         onLockLeft() {
@@ -241,18 +241,18 @@ export default {
         // right key: MouseLeft MouseRight MouseUp MouseDown
         onMouseStart(key) {
             this.rightKey = key;
-            // Log.info('onMouseStart', key);
+            // console.log('onMouseStart', key);
             Bus.emit(createGlobalEvent(GLOBAL_EVENT_TYPE.JOY_STICK_MOUSE_MOVE), this.getRelMousePositionByKey('start', key));
         },
         // right key: MouseLeft MouseRight MouseUp MouseDown
         onMouseEnd(key) {
             this.rightKey = 'none';
-            // Log.info('onMouseEnd', key);
+            // console.log('onMouseEnd', key);
             Bus.emit(createGlobalEvent(GLOBAL_EVENT_TYPE.JOY_STICK_MOUSE_MOVE), this.getRelMousePositionByKey('end', key));
         },
         // right key: MouseLeft MouseRight MouseUp MouseDown
         onMouseRepeat(key) {
-            // Log.info('onMouseRepeat', key);
+            // console.log('onMouseRepeat', key);
             Bus.emit(createGlobalEvent(GLOBAL_EVENT_TYPE.JOY_STICK_MOUSE_MOVE), this.getRelMousePositionByKey('move', key));
         },
         // joysick button
@@ -319,28 +319,28 @@ export default {
             // 角度区域
             const deg = this.getDegAreia(this.vector);
             if (deg == 1 && (areia == 1 || areia == 4))  {
-                // Log.info("d");
+                // console.log("d");
                 this.leftJoysStickKeyChannge(["KeyD"]);
             } else if (deg == 2 && areia == 1) {
-                // Log.info("d + w");
+                // console.log("d + w");
                 this.leftJoysStickKeyChannge(["KeyD", "KeyW"]);
             } else if (deg == 3 && (areia == 1 || areia == 2)) {
-                // Log.info("w");
+                // console.log("w");
                 this.leftJoysStickKeyChannge(["KeyW"]);
             } else if (deg == 2 && areia == 2) {
-                // Log.info("w + a");
+                // console.log("w + a");
                 this.leftJoysStickKeyChannge(["KeyW", "KeyA"]);
             } else if (deg == 1 && (areia == 2 || areia == 3)) {
-                // Log.info("a");
+                // console.log("a");
                 this.leftJoysStickKeyChannge(["KeyA"]);
             } else if (deg == 2 && areia == 3) {
-                // Log.info("a + s");
+                // console.log("a + s");
                 this.leftJoysStickKeyChannge(["KeyA", "KeyS"]);
             } else if (deg == 3 && (areia == 3 || areia == 4)) {
-                // Log.info("s");
+                // console.log("s");
                 this.leftJoysStickKeyChannge(["KeyS"]);
             } else if (deg == 2 && areia == 4) {
-                // Log.info("s + d");
+                // console.log("s + d");
                 this.leftJoysStickKeyChannge(["KeyS", "KeyD"]);
             }
         },
@@ -348,7 +348,7 @@ export default {
             let oldKeys = this.leftJoyStickKeys;
             // key start press
             if (oldKeys.length === 0) {
-                Log.info("press start", newKeys);
+                console.log("press start", newKeys);
                 for (let key of newKeys) {
                     Bus.emit(createGlobalEvent(GLOBAL_EVENT_TYPE.VIRTUAL_KEY_DOWN),
                         {isRepeat: false, key});
@@ -371,7 +371,7 @@ export default {
 
             for (let i = 0; i < oldKeys.length; i ++) {
                 if (oldKeyChannged[i]) {
-                    Log.info("release old key ", oldKeys[i]);
+                    console.log("release old key ", oldKeys[i]);
                     Bus.emit(createGlobalEvent(GLOBAL_EVENT_TYPE.VIRTUAL_KEY_UP), {key: oldKeys[i]});
                 }
             }
@@ -391,11 +391,11 @@ export default {
 
             for (let i = 0; i < newKeys.length; i ++) {
                 if (newKeyChannged[i]) {
-                    Log.info("press new key", newKeys[i]);
+                    console.log("press new key", newKeys[i]);
                     Bus.emit(createGlobalEvent(GLOBAL_EVENT_TYPE.VIRTUAL_KEY_DOWN),
                         {isRepeat: false, key: newKeys[i]});
                 } else {
-                    // Log.info("repeat key", newKeys[i]);
+                    // console.log("repeat key", newKeys[i]);
                     Bus.emit(createGlobalEvent(GLOBAL_EVENT_TYPE.VIRTUAL_KEY_DOWN),
                         {isRepeat: true, key: newKeys[i]});
                 }
@@ -429,13 +429,13 @@ export default {
             let deg = Math.atan(vector.ry / vector.rx) * 180 / Math.PI;
             let absDeg = Math.abs(deg);
             if (absDeg <= 22.5) {
-                // Log.info("deg h", deg, vector.dx, vector.dy);
+                // console.log("deg h", deg, vector.dx, vector.dy);
                 return 1;
             } else if (absDeg > 22.5 && absDeg <= 67.5) {
-                // Log.info("deg center", deg, vector.dx, vector.dy);
+                // console.log("deg center", deg, vector.dx, vector.dy);
                 return 2;
             } else {
-                // Log.info("deg up", deg, vector.dx, vector.dy);
+                // console.log("deg up", deg, vector.dx, vector.dy);
                 return 3;
             }
         },
@@ -521,7 +521,7 @@ export default {
 
         const joystick = this.$refs['joystick'];
         if (joystick && joystick.getRootElement()) {
-            Log.info('joystick size:', joystick.getRootElement().clientWidth, joystick.getRootElement().clientHeight);
+            console.log('joystick size:', joystick.getRootElement().clientWidth, joystick.getRootElement().clientHeight);
             this.joystickElement =  {
                 root: joystick.getRootElement(),
                 width: joystick.getRootElement().clientWidth,
@@ -535,7 +535,7 @@ export default {
         this.subscribeAction = store.subscribeAction({after: (actions, state) => {
             const joystickElement = this.$refs['joystick'];
             if (actions.type === 'resize') {
-                Log.info('joystick sub scribe action resize.');
+                console.log('joystick sub scribe action resize.');
                 this.joystickElement =  {
                     root: joystickElement.getRootElement(),
                     width: joystickElement.getRootElement().clientWidth,

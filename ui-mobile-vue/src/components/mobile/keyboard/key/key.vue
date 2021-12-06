@@ -42,7 +42,7 @@ export default {
         onTouchStart(e) {
             e.preventDefault();
             e.stopPropagation();
-            // Log.info("onTouchStart");
+            // console.log("onTouchStart");
             this.showTip = true;
             this.touched = true;
             this.touchStartTime = Date.now();
@@ -54,7 +54,7 @@ export default {
         onTouchEnd(e) {
             e.preventDefault();
             e.stopPropagation();
-            // Log.info("onTouchEnd");
+            // console.log("onTouchEnd");
             this.showTip = false;
             this.touched = false;
             this.longPressed = false;

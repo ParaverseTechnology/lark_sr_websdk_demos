@@ -111,11 +111,11 @@
                 }
             },
             rttClass() {
-                if (this.states.rttMs < Load.rttLimit) {
-                    return 'rttInfo rttGood';
-                } else {
+                // if (this.states.rttMs < Load.rttLimit) {
+                    // return 'rttInfo rttGood';
+                // } else {
                     return 'rttInfo rttBad';
-                }
+                // }
             },
             isLockLeft() {
                 return this.mouseButton == 'left';
@@ -167,9 +167,7 @@
                     const {
                         aggregatedStats,
                     } = state;
-                    let rtt = Capabilities.os === 'iOS' ?
-                        aggregatedStats.currentRoundTripTime.toFixed(2) :
-                        (aggregatedStats.currentRoundTripTime * 1000).toFixed(2);
+                    let rtt = (aggregatedStats.currentRoundTripTime * 1000).toFixed(2);
                     return {
                         hasPacketsLost: aggregatedStats.packetsLost != 0,
                         packetsLost: aggregatedStats.packetsLost.toFixed(2),
@@ -244,17 +242,17 @@
                 // .then(() => {
                 //     Unit.quit();
                 // });
-                this.showModalConfirm({ des: Msg.COURSE_QUIT, code: CloudlarkEventType.LK_USER_REQUEST_QUIT })
+                this.showModalConfirm({ des: '', code: 1 })
                     .then(() => {
-                        Log.info('user confirm');
+                        console.log('user confirm');
                         Unit.quit();
                     })
                     .catch((e) => {
-                        Log.info('user cancle');
+                        console.log('user cancle');
                     });
             },
             // vmouse motion.
-            onTouchStart(e) {
+            onTouchStart() {
                 const p = this.vmousePosition;
                 Bus.emit(createGlobalEvent(GLOBAL_EVENT_TYPE.VIRTUAL_MOUSE_DOWN), {
                     button: this.mouseButton,
@@ -268,9 +266,9 @@
                     }
                 });
             },
-            onTouchEnd(e) {
+            onTouchEnd() {
                 const p = this.vmousePosition;
-                Bus.emit(createGlobalEvent(GLOBAL_EVENT_TYPE.VIRTUAL_MOUSE_UP), {
+                Bus.emit(createGlobalEvent(1), {
                     button: this.mouseButton,
                     position: {
                         x: p.x,
@@ -282,7 +280,7 @@
                     }
                 });
             },
-            onDrag(e) {
+            onDrag() {
                 const {
                     viewPort,
                     screenOrientation
@@ -324,7 +322,7 @@
                 });
             },
             onVmousePointer(event, data) {
-                // Log.info("onVmousePointer", data);
+                // console.log("onVmousePointer", data);
                 if (this.useVMouse) {
                     this.vmousePosition = data;
                 } else {
@@ -343,7 +341,7 @@
                         x: e.changedTouches[0].clientY - offsetRect.top,
                         y: offsetRect.right - e.changedTouches[0].clientX,
                     }
-                    Log.info("on drag start", offsetRect, e.changedTouches[0].clientX,
+                    console.log("on drag start", offsetRect, e.changedTouches[0].clientX,
                         offsetRect.right - e.changedTouches[0].clientX,
                         e.changedTouches[0].clientY - offsetRect.top);
                 } else {
@@ -384,7 +382,7 @@
                         y: e.changedTouches[0].clientY - this.offsetPositon.y,
                     });
                 }
-                // Log.info("on drag control ball", e);
+                // console.log("on drag control ball", e);
             },
             onDragEnd(e) {
                 const {
@@ -410,7 +408,7 @@
                     x: 0,
                     y: 0,
                 }
-                // Log.info("on drag end", e, this.position, this.offsetPositon);
+                // console.log("on drag end", e, this.position, this.offsetPositon);
             },
             ...mapMutations({
                 setMobileControlBallPosition: 'setMobileControlBallPosition',

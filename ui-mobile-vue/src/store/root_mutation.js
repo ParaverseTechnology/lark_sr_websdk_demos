@@ -1,4 +1,4 @@
-import DefaultState from './default_state';
+// import DefaultState from './default_state';
 
 export const RootMutation/*: MutationTree<RootState>*/ = {
 }

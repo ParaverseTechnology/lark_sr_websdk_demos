@@ -161,7 +161,7 @@ export default {
         onContextmenu(e) {
             e.preventDefault();
             e.stopPropagation();
-            Log.info("onContextmenu");
+            console.log("onContextmenu");
         },
         onQuit() {
             // if (window.confirm(Msg.COURSE_QUIT)) {
@@ -173,7 +173,7 @@ export default {
             // });
             this.showModalConfirm({ des: Msg.COURSE_QUIT, code: CloudlarkEventType.LK_USER_REQUEST_QUIT })
             .then(()=>{
-                Log.info('user confirm');
+                console.log('user confirm');
                 Unit.quit();
                 // if (Capabilities.os === 'iOS') {
                 //     FullScreen.exitFullscreen();
@@ -182,7 +182,7 @@ export default {
                 // }
             })
             .catch((e) => {
-                Log.info('user cancle');
+                console.log('user cancle');
             });
         },
         //
@@ -193,10 +193,10 @@ export default {
             if (this.states.rttMs > Load.rttLimit &&
                 this.rttLimitTimeout == -1 &&
                 Date.now() - this.lastRttLimitToast > Load.rttLimitInterval * 1000) {
-                // Log.info("on rtt check", this.states.rttMs, Load.rttLimit, this.rttLimitTimeout, this.rttCheckTimeout, Load.rttLimitInterval);
+                // console.log("on rtt check", this.states.rttMs, Load.rttLimit, this.rttLimitTimeout, this.rttCheckTimeout, Load.rttLimitInterval);
                 this.showTimeoutInfo = true;
                 this.rttLimitTimeout = window.setTimeout(() => {
-                    // Log.info("on rtt check timeout", this.states.rttMs, Load.rttLimit, this.rttLimitTimeout, this.rttCheckTimeout, Load.rttLimitInterval);
+                    // console.log("on rtt check timeout", this.states.rttMs, Load.rttLimit, this.rttLimitTimeout, this.rttCheckTimeout, Load.rttLimitInterval);
                     this.showTimeoutInfo = false;
                     this.rttLimitTimeout = -1;
                     this.lastRttLimitToast = Date.now();
@@ -215,7 +215,7 @@ export default {
                     x: e.changedTouches[0].clientY - offsetRect.top,
                     y: offsetRect.right - e.changedTouches[0].clientX,
                 }
-                Log.info("on drag start", offsetRect, e.changedTouches[0].clientX,
+                console.log("on drag start", offsetRect, e.changedTouches[0].clientX,
                     offsetRect.right - e.changedTouches[0].clientX,
                     e.changedTouches[0].clientY - offsetRect.top);
             } else {
@@ -257,7 +257,7 @@ export default {
                     y: e.changedTouches[0].clientY - this.offsetPositon.y,
                 });
             }
-            // Log.info("on drag control ball", e);
+            // console.log("on drag control ball", e);
         },
         onDragEnd(e) {
             // e.preventDefault();
@@ -284,7 +284,7 @@ export default {
                 x: 0,
                 y: 0,
             }
-            // Log.info("on drag end", e, this.position, this.offsetPositon);
+            // console.log("on drag end", e, this.position, this.offsetPositon);
         },
         ...mapMutations({
             setMobileControlBallPosition: 'setMobileControlBallPosition',

@@ -113,7 +113,7 @@ export const PlayerMode/*: Module<PlayerModeState, RootState>*/ = {
          * @param param0 
          */
         updatePlayerListFromProto({ state, commit }, list/*: CloudLark.CloudLark.IPlayerDesc[]*/) {
-            Log.info('updatePlayerListFromProto', list);
+            console.log('updatePlayerListFromProto', list);
             let playerList/*: Player[]*/ = [];
             for (let i of list) {
                 let player/*: Player*/ = {

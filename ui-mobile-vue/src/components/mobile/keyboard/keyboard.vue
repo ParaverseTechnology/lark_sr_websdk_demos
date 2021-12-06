@@ -299,7 +299,7 @@ export default {
         Key,
     },
     data() {
-        Log.info('keymap', LetterKeyMap);
+        console.log('keymap', LetterKeyMap);
         return {
             letterKeyboard: true,
             capsLock: false,
@@ -342,7 +342,7 @@ export default {
             this.letterKeyboard = !this.letterKeyboard;
         },
         onCapsLock(key) {
-            Log.info('on caps lock', this.capsLock);
+            console.log('on caps lock', this.capsLock);
             this.capsLock = !this.capsLock;
             // relase capslock.
             this.onKeyEnd(key);
@@ -357,7 +357,7 @@ export default {
             this.onKeyStart(key);
         },
         longPressShift(key) {
-            Log.info("longPressLeftShift");
+            console.log("longPressLeftShift");
             this.shiftLock = true;
             this.shiftLockKeyName = key;
         },
@@ -371,27 +371,27 @@ export default {
                 this.shift = false;
                 this.onKeyEnd(key);
             } else {
-                Log.info('lock shift key. not release.');
+                console.log('lock shift key. not release.');
             }
         },
         onKeyStart(key) {
-            Log.info("onKeyStart", key);
+            console.log("onKeyStart", key);
             Bus.emit(createGlobalEvent(GLOBAL_EVENT_TYPE.VIRTUAL_KEY_DOWN), {isRepeat: false, key});
         },
         onKeyEnd(key) {
-            Log.info("onKeyEnd", key);
+            console.log("onKeyEnd", key);
             Bus.emit(createGlobalEvent(GLOBAL_EVENT_TYPE.VIRTUAL_KEY_UP), {key});
         },
         onRepeat(key) {
-            Log.info("onRepeat", key);
+            console.log("onRepeat", key);
             Bus.emit(createGlobalEvent(GLOBAL_EVENT_TYPE.VIRTUAL_KEY_DOWN), {isRepeat: true, key});
         }
     },
     mounted() {
-        Log.info('**keyboard mounted.**');
+        console.log('**keyboard mounted.**');
     },
     beforeDestroy() {
-        Log.info('**before destory.**');
+        console.log('**before destory.**');
         // send shif release;
         if (this.shiftLock) {
             this.onKeyEnd(this.shiftLockKeyName);

@@ -1,5 +1,5 @@
-// import Vue from 'vue';
-// import Vuex from 'vuex';
+import Vue from 'vue';
+import Vuex from 'vuex';
 import { ModalAlert } from './modules/modal_alert';
 import { NotifyBar } from './modules/notifybar';
 import { Controlbar } from './modules/controlbar';

@@ -45,7 +45,7 @@ export default {
                 x: current.x - this.lastMovePositon.x, 
                 y: current.y - this.lastMovePositon.y ,
             };
-            // Log.info('motion', motion);
+            // console.log('motion', motion);
             this.$emit('drag', motion);
             this.lastMovePositon = current;
         },

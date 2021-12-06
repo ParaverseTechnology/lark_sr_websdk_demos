@@ -54,7 +54,7 @@ export const Toast/*: Module<ToastState, RootState>*/ = {
 			}
 			
 			if (level < state.toast.level) {
-				Log.info('more import toast has been showen. skip current.', toast);
+				console.log('more import toast has been showen. skip current.', toast);
 				return;
 			}
 
