@@ -53,6 +53,7 @@ import Menu                from '../menu/menu';
 import Keyboard            from '../keyboard/keyboard';
 import VCursor             from '../v_cursor/v_cursor';
 import Confirm             from '../confirm/confirm';
+import Unit                from '../../../utils/unit';
 
 export default {
     components: {
@@ -86,7 +87,7 @@ export default {
                 x: 0,
                 y: 0,
             },
-            controlBarUrl: "/getCstzLogoUrl?logoType=controlBar&appKey="+ Load.appKey
+            controlBarUrl: "/getCstzLogoUrl?logoType=controlBar"
         }
     },
     computed: {
@@ -104,7 +105,7 @@ export default {
             }
         },
         rttClass() {
-            if (this.states.rttMs < Load.rttLimit) {
+            if (this.states.rttMs < this.appliParams.rttLimit) {
                 return 'rttInfo rttGood';
             } else {
                 return 'rttInfo rttBad';
@@ -114,8 +115,7 @@ export default {
             // formate states
             states: (state) => {
                 const { aggregatedStats, } = state;
-                let rttms = Capabilities.os === 'iOS' ? aggregatedStats.currentRoundTripTime :
-                    aggregatedStats.currentRoundTripTime * 1000;
+                let rttms = aggregatedStats.currentRoundTripTime * 1000;
                 let rtt = rttms.toFixed(2);
 
                 return {
@@ -148,8 +148,9 @@ export default {
             enableVmouse: status => { return status.vmouseMode != 'none'; },
             enableRttIcon: state => state.enableRttIcon,
         }),
-        ...mapGetters([
-        ])
+        ...mapGetters({
+            appliParams: 'appliParams',
+        })
     },
     methods: {
         togglePop(e) {
@@ -164,24 +165,12 @@ export default {
             console.log("onContextmenu");
         },
         onQuit() {
-            // if (window.confirm(Msg.COURSE_QUIT)) {
-            //     Unit.quit();
-            // }
-            // this.showModalAlert(Msg.COURSE_QUIT)
-            // .then(() => {
-            //     Unit.quit();
-            // });
-            this.showModalConfirm({ des: Msg.COURSE_QUIT, code: CloudlarkEventType.LK_USER_REQUEST_QUIT })
+            this.showModalConfirm({ des: "确定退出当前页面?" })
             .then(()=>{
                 console.log('user confirm');
                 Unit.quit();
-                // if (Capabilities.os === 'iOS') {
-                //     FullScreen.exitFullscreen();
-                // } else {
-                //     Unit.quit();
-                // }
             })
-            .catch((e) => {
+            .catch(() => {
                 console.log('user cancle');
             });
         },
@@ -190,13 +179,11 @@ export default {
             this.vmouseMode = !this.vmouseMode;
         },
         onRttCheck() {
-            if (this.states.rttMs > Load.rttLimit &&
+            if (this.states.rttMs > this.appliParams.rttLimit &&
                 this.rttLimitTimeout == -1 &&
-                Date.now() - this.lastRttLimitToast > Load.rttLimitInterval * 1000) {
-                // console.log("on rtt check", this.states.rttMs, Load.rttLimit, this.rttLimitTimeout, this.rttCheckTimeout, Load.rttLimitInterval);
+                Date.now() - this.lastRttLimitToast > this.appliParams.rttLimitInterval * 1000) {
                 this.showTimeoutInfo = true;
                 this.rttLimitTimeout = window.setTimeout(() => {
-                    // console.log("on rtt check timeout", this.states.rttMs, Load.rttLimit, this.rttLimitTimeout, this.rttCheckTimeout, Load.rttLimitInterval);
                     this.showTimeoutInfo = false;
                     this.rttLimitTimeout = -1;
                     this.lastRttLimitToast = Date.now();
@@ -306,7 +293,6 @@ export default {
     },
     mounted() {
         this.rttCheckTimeout =  window.setInterval(this.onRttCheck, 1000);
-        this.appKey = Load.appKey;
     },
     beforeDestroy() {
         if (this.rttCheckTimeout != -1) {

@@ -293,6 +293,8 @@ import {
     mapMutations, 
     mapActions
 }                                    from 'vuex'
+import { LetterKeyMap } from './letter_keymap';
+import { NumberKeyMap } from './num_keymap';
 
 export default {
     components: {
@@ -335,6 +337,7 @@ export default {
             videoSource: state => state.videoSource,
             renderMode: state => state.renderMode,
             waterMark: state => state.waterMark,
+            larksr: state => state.larksr,
         })
     },
     methods: {
@@ -376,15 +379,15 @@ export default {
         },
         onKeyStart(key) {
             console.log("onKeyStart", key);
-            Bus.emit(createGlobalEvent(GLOBAL_EVENT_TYPE.VIRTUAL_KEY_DOWN), {isRepeat: false, key});
+            this.larksr.keyDown(key, false);
         },
         onKeyEnd(key) {
             console.log("onKeyEnd", key);
-            Bus.emit(createGlobalEvent(GLOBAL_EVENT_TYPE.VIRTUAL_KEY_UP), {key});
+            this.larksr.keyUp(key);
         },
         onRepeat(key) {
             console.log("onRepeat", key);
-            Bus.emit(createGlobalEvent(GLOBAL_EVENT_TYPE.VIRTUAL_KEY_DOWN), {isRepeat: true, key});
+            this.larksr.keyUp(key, true);
         }
     },
     mounted() {

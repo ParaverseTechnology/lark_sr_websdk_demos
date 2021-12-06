@@ -91,6 +91,7 @@ import {
     mapMutations,
     mapActions,
 }                          from 'vuex';
+import Capabilities from '../../../utils/capabilities';
 
 export default {
     components: {
@@ -114,7 +115,7 @@ export default {
                 HANDLE_IMG          : require('@/assets/img/handle.png'),
                 SETUP_IMG           : require('@/assets/img/setup.svg')
             },
-            versionStr: "V" + Config.VersionMarjor + "." + Config.VersionMinorr + "." + Config.VersionRevise + "." + Config.VersionBuild,
+            versionStr: "V3.2.2.0",
             isIOS: Capabilities.os === 'iOS',
         }
     },
@@ -125,6 +126,7 @@ export default {
             }
         },
         ...mapState({
+            larksr: state => state.larksr,
             fullScreenClass() {
                 return this.isFullScreen ? 'active' : '';
             },
@@ -189,17 +191,29 @@ export default {
             this.toggleMenu();
         },
         onFullScreen() {
-            if (FullScreen.isFullScreen) {
-                FullScreen.exitFullscreen();
+            if (!this.larksr) {
+                return;
+            }
+            const { fullscreen } = this.larksr;
+            if (fullscreen.isFullScreen) {
+                fullscreen.exitFullscreen();
             } else {
-                FullScreen.launchFullScreen();
+                fullscreen.launchFullScreen();
             }
         },
         exitFullscreen() {
-            FullScreen.exitFullscreen();
+            if (!this.larksr) {
+                return;
+            }
+            const { fullscreen } = this.larksr;
+            fullscreen.exitFullscreen();
         },
         launchFullScreen() {
-            FullScreen.launchFullScreen();
+            if (!this.larksr) {
+                return;
+            }
+            const { fullscreen } = this.larksr;
+            fullscreen.launchFullScreen();
         },
         setToflipMouseWheel() {
             this.setFlipMouseWheel(true);

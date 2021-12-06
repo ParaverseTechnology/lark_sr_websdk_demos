@@ -1,7 +1,7 @@
 <template>
   <div id="app" ref="appContainer">
       <!-- 手机端 UI -->
-      <MobileIndex v-if="isMobile"></MobileIndex>
+      <MobileIndex></MobileIndex>
   </div>
 </template>
 

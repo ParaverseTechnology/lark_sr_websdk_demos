@@ -28,6 +28,7 @@ export const defaultAppMouseMode/*: Input.CloudLark.IAppMouseMode*/ = {
 };
 
 export const DefaultState/*: RootState*/ = {
+    larksr: null,
     aggregatedStats: defaultAggregatedStats,
     viewPort: {
         width: 1920, height: 1080

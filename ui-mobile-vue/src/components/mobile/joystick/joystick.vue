@@ -56,9 +56,10 @@ import {
 }                          from 'vuex';
 import JoyButton           from './joy_button/joy_button'
 import Key                 from '../keyboard/key/key'
-
+import Unit                from '../../../utils/unit'
+import store               from '@/store/index'
 // 阻尼
-const DAMPING = 0.08;
+// const DAMPING = 0.08;
 
 export default {
     components: {
@@ -179,6 +180,7 @@ export default {
             joystickAllKeys: state =>  state.joystickAllKeys,
             screenOrientation: state => state.screenOrientation,
             mobilePixelUnit: state => state.mobilePixelUnit,
+            larksr: state => state.larksr,
         }),
     },
     methods: {
@@ -186,17 +188,17 @@ export default {
             console.log("onKeyStart", key);
             // sync pressed key
             this.leftKey = key;
-            Bus.emit(createGlobalEvent(GLOBAL_EVENT_TYPE.VIRTUAL_KEY_DOWN), {isRepeat: false, key});
+            this.larksr?.keyDown(key, false);
         },
         onKeyEnd(key) {
             console.log("onKeyEnd", key);
             // sync pressed key
             this.leftKey = 'none';
-            Bus.emit(createGlobalEvent(GLOBAL_EVENT_TYPE.VIRTUAL_KEY_UP), {key});
+            this.larksr?.keyUp(key);
         },
         onRepeat(key) {
             console.log("onRepeat", key);
-            Bus.emit(createGlobalEvent(GLOBAL_EVENT_TYPE.VIRTUAL_KEY_DOWN), {isRepeat: true, key});
+            this.larksr?.keyDown(key, true);
         },
         onLockLeft() {
             if (this.lockMouse == 'left') {
@@ -302,7 +304,7 @@ export default {
             this.vector = null;
             // release all keys.
             for (let key of this.leftJoyStickKeys) {
-                Bus.emit(createGlobalEvent(GLOBAL_EVENT_TYPE.VIRTUAL_KEY_UP), {key});
+                this.larksr?.keyUp(key);
             }
             this.leftJoyStickKeys = [];
         },
@@ -350,8 +352,7 @@ export default {
             if (oldKeys.length === 0) {
                 console.log("press start", newKeys);
                 for (let key of newKeys) {
-                    Bus.emit(createGlobalEvent(GLOBAL_EVENT_TYPE.VIRTUAL_KEY_DOWN),
-                        {isRepeat: false, key});
+                    this.larksr?.keyDown(key, false);
                 }
                 this.leftJoyStickKeys = newKeys;
                 return;
@@ -372,7 +373,7 @@ export default {
             for (let i = 0; i < oldKeys.length; i ++) {
                 if (oldKeyChannged[i]) {
                     console.log("release old key ", oldKeys[i]);
-                    Bus.emit(createGlobalEvent(GLOBAL_EVENT_TYPE.VIRTUAL_KEY_UP), {key: oldKeys[i]});
+                    this.larksr?.keyUp(oldKeys[i]);
                 }
             }
 
@@ -392,12 +393,10 @@ export default {
             for (let i = 0; i < newKeys.length; i ++) {
                 if (newKeyChannged[i]) {
                     console.log("press new key", newKeys[i]);
-                    Bus.emit(createGlobalEvent(GLOBAL_EVENT_TYPE.VIRTUAL_KEY_DOWN),
-                        {isRepeat: false, key: newKeys[i]});
+                    this.larksr?.keyDown(newKeys[i], false);
                 } else {
                     // console.log("repeat key", newKeys[i]);
-                    Bus.emit(createGlobalEvent(GLOBAL_EVENT_TYPE.VIRTUAL_KEY_DOWN),
-                        {isRepeat: true, key: newKeys[i]});
+                    this.larksr?.keyDown(newKeys[i], true);
                 }
             }
 
@@ -493,32 +492,6 @@ export default {
         }
     },
     mounted() {
-        let logoServer = "";
-        if (process.env.NODE_ENV !== 'production' && Load.debugWebServer) {
-            logoServer = "http://" + Load.debugWebServer;
-        }
-        let that = this;
-        let img =new Image();
-        img.src = logoServer+"/image/LarkXR_joystickLogo.png"
-        img.onload=function (){
-            that.joystickUrl =  logoServer+"/image/LarkXR_joystickLogo.png"
-        };
-        img.onerror=function(){
-            that.joystickUrl = logoServer+"/static/img/joy_left_bottom.png"
-        }
-
-        let imgCenter =new Image();
-        imgCenter.src = logoServer+"/image/LarkXR_joystickCenterLogo.png"
-        imgCenter.onload=function (){
-            //that.joysickCenterStyle['background-image'] = 'url(/image/LarkXR_joystickCenterLogo.png)'
-            that.joystickCenterUrl =  logoServer+"/image/LarkXR_joystickCenterLogo.png"
-        };
-        imgCenter.onerror=function(){
-           // that.joysickCenterStyle['background-image'] = 'url(~@/assets/img/mobile/joy_stick_top.png)'
-            that.joystickCenterUrl = logoServer+"/static/img/joy_stick_top.png"
-        }
-
-
         const joystick = this.$refs['joystick'];
         if (joystick && joystick.getRootElement()) {
             console.log('joystick size:', joystick.getRootElement().clientWidth, joystick.getRootElement().clientHeight);
@@ -532,7 +505,7 @@ export default {
                 y: this.joystickElement.height / 2,
             };
         }
-        this.subscribeAction = store.subscribeAction({after: (actions, state) => {
+        this.subscribeAction = store.subscribeAction({after: (actions) => {
             const joystickElement = this.$refs['joystick'];
             if (actions.type === 'resize') {
                 console.log('joystick sub scribe action resize.');
