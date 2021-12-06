@@ -1,4 +1,4 @@
-export declare const enum LarkEventType {
+export declare enum LarkEventType {
     LK_WEB_CLIENT_LOAD_SUCCESS = 1,
     LK_API_ENTERAPPLI_SUCCESS = 10,
     LK_API_ENTERAPPLI_FAILED = 11,

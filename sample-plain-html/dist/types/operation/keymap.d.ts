@@ -8,13 +8,12 @@
  * TODO fix：atl + tab, f5,ctr,bug
  * REMOVE F11
  */
-interface Key {
+export interface VirtualKey {
     scancode: number;
     vkey: number;
     unicode: number;
 }
-declare type tplotOptions = {
-    [key: string]: Key;
+export declare type VritualKeyMapOptions = {
+    [key: string]: VirtualKey;
 };
-export declare const KEYMAP: tplotOptions;
-export {};
+export declare const KEYMAP: VritualKeyMapOptions;
