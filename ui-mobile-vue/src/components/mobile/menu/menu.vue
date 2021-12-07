@@ -17,68 +17,10 @@
                     </span>
                 </div>
             </div>
-            <div class="item">
-                <div class="item-left">缩放模式</div>
-                <div class="item-right">
-                    <span v-on:click="setScaleToFillStretch" :class='scretchScaleModeClass'>
-                        填充
-                    </span>
-                    <span v-on:click="setScaleToDefault" :class='defaultScaleModeClass'>
-                        默认
-                    </span>
-                </div>
-            </div>
             <div class="item" v-on:click="toggleState">
                 <div class="item-left">连接状态</div>
                 <div class="item-right">
                     <p>RTT: {{states.currentRoundTripTime}} ms</p>
-                </div>
-            </div>
-            <div class="item">
-                <div class="item-left">摇杆快捷键</div>
-                <div class="item-right">
-                    <span v-on:click="showJoyStickAllKeys" :class='showJoystickAllKeysClass' >
-                        全部
-                    </span>
-                    <span v-on:click="hideJoyStickAllKeys" :class='hideJoystickAllKeysClass'>
-                        默认
-                    </span>
-                </div>
-            </div>
-            <!--  -->
-            <div class="item item-mousewheel">
-                <div class="item-left">放大手势与滚轮映射</div>
-                <div class="item-right">
-                    <span v-on:click="setToflipMouseWheel" :class='flipMouseWheelClass' >
-                        上滾
-                    </span>
-                    <span v-on:click="defaultMouseWheel" :class='defaultMouseWheelClass'>
-                        下滾
-                    </span>
-                </div>
-            </div>
-            <!--  -->
-            <div class="item" v-if="isInteractiveMode">
-                <div class="item-left">玩家列表</div>
-                <div class="item-right">
-                    <span v-on:click="showPlayerList" :class='showplayerListClass' >
-                        显示
-                    </span>
-                    <span v-on:click="hidePlayerList" :class='hidePlayerListClass'>
-                        隐藏
-                    </span>
-                </div>
-            </div>
-            <div class="item">
-                <div class="item-left">输入中文</div>
-                <div class="item-right">
-                    <span v-on:click="showInput">打开输入框</span>
-                </div>
-            </div>
-            <div class="item">
-                <div class="item-left">剪贴板</div>
-                <div class="item-right">
-                    <span v-on:click="toggleSyncClipboardParseEvent">{{syncClipboardParseEventText}}</span>
                 </div>
             </div>
         </div>
@@ -178,7 +120,6 @@ export default {
             joystickAllKeys: state => state.joystickAllKeys,
             flipMouseWheel: state => state.flipMouseWheel,
             playerMode: state => state.playerMode,
-            syncClipboardParseEventText: state => state.syncClipboardParseEvent ? "同步本地剪贴板" : "不同步本地剪贴板",
         }),
         ...mapGetters({
             isChangedScaledMode: 'isChangedScaledMode',
@@ -227,9 +168,6 @@ export default {
         hidePlayerList() {
             this.setShowPlayerList(false);
         },
-        showInput() {
-            this.setInputMethodEnable(true);
-        },
         ...mapMutations({
             'setInputMethodEnable': 'setInputMethodEnable',
             'setShowPlayerList': 'playerMode/setShowPlayerList',
@@ -253,7 +191,6 @@ export default {
             showJoyStickAllKeys: 'showJoyStickAllKeys',
             hideJoyStickAllKeys: 'hideJoyStickAllKeys',
             setFlipMouseWheel: 'flipMouseWheel',
-            toggleSyncClipboardParseEvent: "toggleSyncClipboardParseEvent",
         }),
     }
 }

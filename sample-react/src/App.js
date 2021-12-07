@@ -30,29 +30,36 @@ export default class App extends React.Component {
         this.larksr = larksr;
         this.larksr.start();
         // 监听连接成功事件
-        this.larksr.on('connect', function (e) {
+        this.larksr.on('connect', (e) => {
           console.log("LarkSRClientEvent CONNECT", e);
         });
-        this.larksr.on('gotremotesteam', function (e) {
+        this.larksr.on('gotremotesteam', (e) => {
           console.log("LarkSRClientEvent gotremotesteam", e);
         });
-        this.larksr.on('meidaloaded', function (e) {
+        this.larksr.on('meidaloaded', (e) => {
           console.log("LarkSRClientEvent meidaloaded", e);
         });
-        this.larksr.on('mediaplaysuccess', function (e) {
+        this.larksr.on('mediaplaysuccess', (e) => {
           console.log("LarkSRClientEvent mediaplaysuccess", e);
         });
-        this.larksr.on('mediaplayfailed', function (e) {
+        this.larksr.on('mediaplayfailed', (e) => {
           console.log("LarkSRClientEvent mediaplayfailed", e);
         });
-        this.larksr.on('meidaplaymute', function (e) {
+        this.larksr.on('meidaplaymute', (e) => {
           console.log("LarkSRClientEvent meidaplaymute", e);
         });
-        console.log("load appli success", larksr);
+        this.larksr.on('error', (e) => {
+          console.error("LarkSRClientEvent error", e); 
+          alert(JSON.stringify(e.message));
+        });                   
+        this.larksr.on('info', (e) => {
+            console.log("LarkSRClientEvent info", e); 
+        });
         console.log('load appli success', larksr);
       })
       .catch((e) => {
         console.log('load appli failed', e);
+        alert(JSON.stringify(e));
       });
 
     console.log('ref', this.myRef.current);

@@ -9,6 +9,7 @@
 import { CreateLarkSRClientFromeAPI } from "larksr_websdk";
 import MobileIndex from "./components/mobile/index";
 import { mapState, mapGetters, mapMutations, mapActions } from "vuex";
+import Unit from './utils/unit';
 
 export default {
   name: "App",
@@ -29,9 +30,14 @@ export default {
   methods: {
     ...mapMutations({
         setLarksr: "setLarksr",
+        setAggregatedStats: "setAggregatedStats",
     }),
     ...mapActions({
       resize: "resize",
+      'toast': 'toast/toast',
+      'notify': 'notifyBar/notify',
+      'alert': 'modalAlert/showModalAlert',
+      'confirm': 'modalConfirm/showModalConfirm',
     }),
   },
   mounted() {
@@ -55,24 +61,54 @@ export default {
     )
       .then((larksr) => {
         larksr.start();
+        
         // 监听连接成功事件
-        larksr.on("connect", function (e) {
+        larksr.on("connect", (e) => {
           console.log("LarkSRClientEvent CONNECT", e);
         });
-        larksr.on("gotremotesteam", function (e) {
+
+        larksr.on("gotremotesteam", (e) => {
           console.log("LarkSRClientEvent gotremotesteam", e);
         });
-        larksr.on("meidaloaded", function (e) {
+
+        larksr.on("meidaloaded", (e) => {
           console.log("LarkSRClientEvent meidaloaded", e);
         });
-        larksr.on("mediaplaysuccess", function (e) {
+
+        larksr.on("mediaplaysuccess", (e) => {
           console.log("LarkSRClientEvent mediaplaysuccess", e);
         });
-        larksr.on("mediaplayfailed", function (e) {
+
+        larksr.on("mediaplayfailed", (e) => {
           console.log("LarkSRClientEvent mediaplayfailed", e);
+          this.alert({des: "开始"})
+          .then(() => {
+              larksr.videoElement.sountPlayout();
+              larksr.videoElement.playVideo();
+          });
         });
-        larksr.on("meidaplaymute", function (e) {
+
+        larksr.on("meidaplaymute", (e) => {
           console.log("LarkSRClientEvent meidaplaymute", e);
+          this.toast({text: '点击屏幕中心打开音频', position: 2, level: 3});
+        });
+
+        larksr.on("peerstatusreport", (e) => {
+          console.log("LarkSRClientEvent peerstatusreport", e);
+          this.setAggregatedStats(e.data);
+        });
+
+        larksr.on('error', (e) => {
+            console.error("LarkSRClientEvent error", e.message); 
+            this.alert({des: e.message, code: e.code})
+            .then(() => {
+                Unit.quit();
+            });
+        });   
+
+        larksr.on('info', (e) => {
+            console.log("LarkSRClientEvent info", e); 
+            this.toast({text: e.message});
         });
         console.log("load appli success", larksr);
 
@@ -81,6 +117,7 @@ export default {
       })
       .catch((e) => {
         console.log("load appli failed", e);
+        alert(JSON.stringify(e));
       });
 
     console.log("ref", this.$refs["appContainer"]);

@@ -130,13 +130,12 @@ export default {
         };
     },
     ...mapState({
-      viewPort: (state) => state.viewPort,
-      screenOrientation: (state) => state.screenOrientation,
       mobilePixelUnit: (state) => state.mobilePixelUnit,
       larksr: (state) => state.larksr,
     }),
     ...mapGetters({
         viewPort: 'viewPort',
+        screenOrientation: 'screenOrientation',
     }),
   },
   methods: {
@@ -144,8 +143,6 @@ export default {
     onJoyStickStart(key, e) {
       const { screenOrientation, leftJoystickPosition } = this;
 
-      // Bus.emit(createGlobalEvent(GLOBAL_EVENT_TYPE.JOY_STICK_MOUSE_MOVE),
-      //     {type: "start", mouseKey: this.lockMouse, rx: 0, ry: 0});
       let p = { x: 0, y: 0 };
       // 通过旋转横屏时注意触摸的坐标系变换
       if (screenOrientation === "landscape") {
@@ -164,6 +161,7 @@ export default {
     onJoyStickMove(key, e) {
       const { screenOrientation, leftJoystickPosition } = this;
       let p = { x: 0, y: 0 };
+      console.log('screen state ', screenOrientation);
       // 通过旋转横屏时注意触摸的坐标系变换
       if (screenOrientation === "landscape") {
         p.x = e.targetTouches[0].clientY - leftJoystickPosition.top;
@@ -392,6 +390,10 @@ export default {
         y: this.joystickElement.height / 2,
       };
     }
+
+    window.addEventListener('resize', () => {
+
+    });
     this.subscribeAction = store.subscribeAction({
       after: (actions) => {
         const joystickElement = this.$refs["joystick"];

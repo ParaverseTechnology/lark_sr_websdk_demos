@@ -86,6 +86,7 @@
                     });                    
                     client.on('error', function(e) {
                         console.error("LarkSRClientEvent error", e); 
+                        alert(JSON.stringify(e.message));
                     });                   
                     client.on('info', function(e) {
                         console.log("LarkSRClientEvent info", e); 
@@ -93,6 +94,7 @@
                 })
                 .catch((e) => {
                     console.error('enter appli falied', e);
+                    alert(JSON.stringify(e));
                 });
 
             // ui handler
