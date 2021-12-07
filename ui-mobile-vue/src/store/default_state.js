@@ -7,6 +7,7 @@ import { defaulStateModal } from './modules/state_modal';
 import { defalutModalConfirm } from './modules/modal_confirm';
 import { defautlPlayerMode } from './modules/player_mode';
 import { CursorType } from './interface';
+import Capabilities from '../utils/capabilities';
 
 // 默认连接状态
 export const defaultAggregatedStats/*: AggregatedStats*/ = {
@@ -30,6 +31,7 @@ export const defaultAppMouseMode/*: Input.CloudLark.IAppMouseMode*/ = {
 export const DefaultState/*: RootState*/ = {
     larksr: null,
     aggregatedStats: defaultAggregatedStats,
+    isMobile: Capabilities.isMobile,
     viewPort: {
         width: 1920, height: 1080
     },
@@ -61,7 +63,6 @@ export const DefaultState/*: RootState*/ = {
     scaleMode: 'contain',
     isFullScreen: false,
     isLockMouse: false,
-    isMobile: false,
     vmouseMode: 'pointer',
     vkeyboard: false,
     modalSetup: false,

@@ -5,6 +5,7 @@ import store from '@/store';
 Vue.config.productionTip = false
 
 new Vue({
+  mixins: [],
   render: h => h(App),
   store,
 }).$mount('#app')

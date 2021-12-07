@@ -4,7 +4,7 @@
         v-on:contextmenu="onContextmenu"
     >
         <!-- popup menu -->
-        <div v-if="enableMobileControlBall && !vmouseMode"
+        <div v-if="!vmouseMode"
             class="pop pop-toggle"
             :style="positionStyle"
             draggable="true"
@@ -15,11 +15,11 @@
         >
             <div v-if="popToggled"
             >
-                <div class="pop-icon"  :style="{'background-image': 'url('+controlBarUrl+')'}"></div>
+                <div class="pop-icon"></div>
                 <span v-if="showTimeoutInfo" class="rttInfo rttBad rttBadInfo">{{ui.badNetwork}}</span>
             </div>
             <div v-else class="pop" v-on:click="togglePop">
-                <div class="pop-icon" v-on:click="togglePop"  :style="{'background-image': 'url('+controlBarUrl+')'}"></div>
+                <div class="pop-icon" v-on:click="togglePop"></div>
                 <div class="icon icon-mouse" v-on:click="toggleVMouseMode"></div>
                 <div class="icon icon-keyboard" v-on:click="toggleVKeyboard"></div>
                 <div class="icon icon-menu" v-on:click="toggleMenu"></div>
@@ -87,7 +87,6 @@ export default {
                 x: 0,
                 y: 0,
             },
-            controlBarUrl: "/getCstzLogoUrl?logoType=controlBar"
         }
     },
     computed: {
@@ -111,6 +110,9 @@ export default {
                 return 'rttInfo rttBad';
             }
         },
+        viewPortWidth() {
+            return this.viewPort.width + 'px';
+        },
         ...mapState({
             // formate states
             states: (state) => {
@@ -131,25 +133,19 @@ export default {
                     // rttMs: 10,
                 };
             },
-            viewPort: state => state.viewPort,
-            viewPortWidth: state => {
-                return {
-                    width: state.viewPort.width + 'px',
-                }
-            },
             mobileControlBallPosition: state => state.mobileControlBallPosition,
             vkeyboard: state => state.vkeyboard,
             menu: state => state.menu,
             joystick: state => state.joystick,
             ui: state => state.ui,
             screenOrientation: state => state.screenOrientation,
-            enableMobileControlBall: state => { return state.enableMobileControlBall; },
             vmouseMode: status => { return status.vmouseMode == 'vmouse'; },
             enableVmouse: status => { return status.vmouseMode != 'none'; },
             enableRttIcon: state => state.enableRttIcon,
         }),
         ...mapGetters({
             appliParams: 'appliParams',
+            viewPort: 'viewPort',
         })
     },
     methods: {

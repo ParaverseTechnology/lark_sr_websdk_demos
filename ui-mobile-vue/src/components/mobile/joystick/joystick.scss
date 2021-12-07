@@ -9,7 +9,7 @@
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
-
+        
     .btn {
         pointer-events: none;
         position: absolute;
@@ -51,7 +51,7 @@
         background-size: cover;
         background-repeat: no-repeat;
         background-position: center;
-       // background-image: url("/image/LarkXR_joystickCenterLogo.png");
+        background-image: url("~@/assets/img/mobile/joy_stick_top.png");
         width: px2rem(74);
         height: px2rem(74);
         top: 50%;
@@ -71,14 +71,14 @@
     .center.top {
         top: px2rem(40);
         left: px2rem(129);
-    }
+    }    
     .center.bottom {
         top: px2rem(212);
         left: px2rem(129);
     }
 }
 .joystick.left {
-/*    background-image: url("/image/LarkXR_joystickLogo.png");*/
+    background-image: url("~@/assets/img/mobile/joy_left_bottom.png");
     left: px2rem(48);
     bottom: px2rem(48);
     width: px2rem(255);

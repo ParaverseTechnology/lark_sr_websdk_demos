@@ -59,6 +59,8 @@
         mapActions,
     }                       from 'vuex';
     import MouseButton      from './mouse_button/mouse_button';
+    import Unit             from '../../../utils/unit'
+    import store            from '../../../store/index'
 
     export default {
         components: {
@@ -111,11 +113,11 @@
                 }
             },
             rttClass() {
-                // if (this.states.rttMs < Load.rttLimit) {
-                    // return 'rttInfo rttGood';
-                // } else {
+                if (this.states.rttMs < this.larksr?.params.rttLimit) {
+                    return 'rttInfo rttGood';
+                } else {
                     return 'rttInfo rttBad';
-                // }
+                }
             },
             isLockLeft() {
                 return this.mouseButton == 'left';
@@ -162,6 +164,7 @@
                 }
             },
             ...mapState({
+                larksr: state => state.larksr,
                 // formate states
                 states: (state) => {
                     const {
@@ -181,24 +184,17 @@
                         // rttMs: 100,
                     };
                 },
-                appMouseMode: state => state.appMouseMode,
-                viewPort: state => state.viewPort,
-                viewPortWidth: state => {
-                    return {
-                        width: state.viewPort.width + 'px',
-                    }
-                },
                 mobileControlBallPosition: state => state.mobileControlBallPosition,
                 isMobile: state => state.isMobile,
-                screenOrientation: state => state.screenOrientation,
                 vmouseMode: state => state.vmouseMode,
-                container: state => state.container,
-                isLockMouse: state => state.isLockMouse,
                 enableMobileControlBall: state => { return state.enableMobileControlBall; },
                 enableRttIcon: state => state.enableRttIcon,
             }),
             ...mapGetters([
                 "viewPortStyle",
+                "viewPort",
+                "screenOrientation",
+                "container",
             ])
         },
         methods: {
@@ -235,14 +231,7 @@
                 }
             },
             onQuit() {
-                // if (window.confirm(Msg.COURSE_QUIT)) {
-                //     Unit.quit();
-                // }
-                // this.showModalAlert(Msg.COURSE_QUIT)
-                // .then(() => {
-                //     Unit.quit();
-                // });
-                this.showModalConfirm({ des: '', code: 1 })
+                this.showModalConfirm({ des: '确认退出应用' })
                     .then(() => {
                         console.log('user confirm');
                         Unit.quit();
@@ -254,33 +243,13 @@
             // vmouse motion.
             onTouchStart() {
                 const p = this.vmousePosition;
-                Bus.emit(createGlobalEvent(GLOBAL_EVENT_TYPE.VIRTUAL_MOUSE_DOWN), {
-                    button: this.mouseButton,
-                    position: {
-                        x: p.x,
-                        y: p.y
-                    },
-                    motion: {
-                        x: 0,
-                        y: 0
-                    }
-                });
+                this.onVirtualMouseDown(this.mouseButton, p.x, p.y);
             },
             onTouchEnd() {
                 const p = this.vmousePosition;
-                Bus.emit(createGlobalEvent(1), {
-                    button: this.mouseButton,
-                    position: {
-                        x: p.x,
-                        y: p.y
-                    },
-                    motion: {
-                        x: 0,
-                        y: 0
-                    }
-                });
+                this.onVirtualMouseUp(this.mouseButton, p.x, p.y);
             },
-            onDrag() {
+            onDrag(e) {
                 const {
                     viewPort,
                     screenOrientation
@@ -310,24 +279,8 @@
                 this.vmouseBottomEdge = (p.y >= viewPort.height - 30);
 
                 this.vmousePosition = p;
-                Bus.emit(createGlobalEvent(GLOBAL_EVENT_TYPE.VIRTUAL_MOUSE_MOVE), {
-                    position: {
-                        x: p.x,
-                        y: p.y
-                    },
-                    motion: {
-                        x: e.x,
-                        y: e.y
-                    }
-                });
-            },
-            onVmousePointer(event, data) {
-                // console.log("onVmousePointer", data);
-                if (this.useVMouse) {
-                    this.vmousePosition = data;
-                } else {
-                    this.pointerPosition = data;
-                }
+
+                this.onVirtualMouseMove(p.x, p.y, e.x, e.y);
             },
             // control ball.
             onDragStart(e) {
@@ -410,6 +363,69 @@
                 }
                 // console.log("on drag end", e, this.position, this.offsetPositon);
             },
+            // 网页坐标转换为云端应用坐标
+            getVMouseTouchPosition(localX, localY, localRX, localRY) {
+                const {
+                    container, 
+                    appSize
+                } = store.getters;
+                const scale = store.getters.operateScale;
+                let p = { x: 0, y: 0, rx: 0, ry: 0 };
+                p.x = localX - container.marginLeft;
+                p.y = localY - container.marginTop;
+                p.rx = localRX;
+                p.ry = localRY;
+                p.x = Math.round(p.x * scale.scaleX);
+                p.y = Math.round(p.y * scale.scaleY);
+                // WARNING 虚拟鼠标不同与触摸事件.
+                p.rx = Math.round(p.rx * scale.scaleX);
+                p.ry = Math.round(p.ry * scale.scaleX);
+                // check p;
+                if (p.x < 0 || p.y < 0 || p.x > appSize.width || p.y > appSize.height) {
+                    // outside app screen.
+                    return null;
+                }
+                return p;
+            },
+            
+            onVirtualMouseMove(localX, localY, localRX, localRY) {
+                const p = this.getVMouseTouchPosition(localX, localY, localRX, localRY);
+                if (!p) return;
+                this.larksr?.moseMove(p.x, p.y, p.rx, p.ry);
+            },
+
+            onVirtualMouseDown(button, localX, localY) {
+                const p = this.getVMouseTouchPosition(localX, localY, 0, 0);
+                if (!p) return;
+                switch (button) {
+                    case 'left':
+                        this.larksr?.mouseDown(p.x, p.y, 0);
+                        break;
+                    case 'right':
+                        this.larksr?.mouseDown(p.x, p.y, 1);
+                        break;
+                    case 'mid':
+                        this.larksr?.mouseDown(p.x, p.y, 2);
+                        break;
+                }
+            },
+
+            onVirtualMouseUp(button, localX, localY) {
+                const p = this.getVMouseTouchPosition(localX, localY, 0, 0);
+                if (!p) return;
+                switch (button) {
+                    case 'left':
+                        this.larksr?.mouseUp(p.x, p.y, 0);
+                        break;
+                    case 'right':
+                        this.larksr?.mouseUp(p.x, p.y, 1);
+                        break;
+                    case 'mid':
+                        this.larksr?.mouseUp(p.x, p.y, 2);
+                        break;
+                }
+            },
+
             ...mapMutations({
                 setMobileControlBallPosition: 'setMobileControlBallPosition',
             }),
@@ -429,29 +445,8 @@
             }),
         },
         mounted() {
-            const {
-                width,
-                height
-            } = this.viewPort;
-            // init first position.
-            // this.cursorPosition = {
-            //     x: this.container.width / 2,
-            //     y: this.container.height / 2,
-            // };
-            this.pointerPosition = {
-                x: width / 2,
-                y: height / 2,
-            };
-            this.vmousePosition = {
-                x: width / 2,
-                y: height / 2,
-            };
-            Bus.on(GLOBAL_EVENT_TYPE.VIRTUAL_MOUSE_POINTER, this.onVmousePointer, this);
-            // Bus.on(GLOBAL_EVENT_TYPE.CURSOR_MOVE, this.onCursorMove, this);
         },
         beforeDestroy() {
-            Bus.off(GLOBAL_EVENT_TYPE.VIRTUAL_MOUSE_POINTER, this.onVmousePointer, this);
-            // Bus.on(GLOBAL_EVENT_TYPE.CURSOR_MOVE, this.onCursorMove, this);
         },
         watch: {
             useVMouse: {

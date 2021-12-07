@@ -194,26 +194,26 @@ export default {
             if (!this.larksr) {
                 return;
             }
-            const { fullscreen } = this.larksr;
-            if (fullscreen.isFullScreen) {
-                fullscreen.exitFullscreen();
+            const { fullScreen } = this.larksr;
+            if (fullScreen.isFullScreen) {
+                fullScreen.exitFullscreen();
             } else {
-                fullscreen.launchFullScreen();
+                fullScreen.launchFullScreen();
             }
         },
         exitFullscreen() {
             if (!this.larksr) {
                 return;
             }
-            const { fullscreen } = this.larksr;
-            fullscreen.exitFullscreen();
+            const { fullScreen } = this.larksr;
+            fullScreen.exitFullscreen();
         },
         launchFullScreen() {
             if (!this.larksr) {
                 return;
             }
-            const { fullscreen } = this.larksr;
-            fullscreen.launchFullScreen();
+            const { fullScreen } = this.larksr;
+            fullScreen.launchFullScreen();
         },
         setToflipMouseWheel() {
             this.setFlipMouseWheel(true);

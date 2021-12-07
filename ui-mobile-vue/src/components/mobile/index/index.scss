@@ -2,7 +2,7 @@
 
 .mobile-ui{
     position: absolute;
-    z-index: $z-index-index;
+    z-index: $z-index-index; 
     top: 0;
     left: 0;
     .pop {
@@ -17,7 +17,7 @@
             background-size: cover;
             background-repeat: no-repeat;
             background-position: center;
-           /* background-image: url("/images/control_bar.png");*/
+            background-image: url("~@/assets/img/mobile/icon_logo_bg.png");
             width: px2rem(93);
             height: px2rem(93);
         }
