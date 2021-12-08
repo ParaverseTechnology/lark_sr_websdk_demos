@@ -78,15 +78,6 @@ export default {
             defaultScaleModeClass() {
                 return this.isChangedScaledMode ? '' : 'active';
             },
-            scretchScaleModeClass() {
-                return this.isChangedScaledMode ? 'active' : '';
-            },
-            showJoystickAllKeysClass() {
-                return this.joystickAllKeys ? 'active' : '';
-            },
-            hideJoystickAllKeysClass() {
-                return this.joystickAllKeys ? '' : 'active';
-            },
             flipMouseWheelClass() {
                 return this.flipMouseWheel ? 'active' : '';
             },
@@ -112,13 +103,13 @@ export default {
                     currentRoundTripTime: rtt,
                 };
             },
-            viewPort: state => state.viewPort,
             ui: state => state.ui,
             joystickAllKeys: state => state.joystickAllKeys,
             flipMouseWheel: state => state.flipMouseWheel,
             playerMode: state => state.playerMode,
         }),
         ...mapGetters({
+            viewPort: 'viewPort',
             isFullScreen: 'isFullScreen',
             isChangedScaledMode: 'isChangedScaledMode',
             viewPortStyle: 'viewPortStyle',
@@ -156,12 +147,6 @@ export default {
             console.log('launchFullScreen');
             fullScreen.launchFullScreen();
         },
-        setToflipMouseWheel() {
-            this.setFlipMouseWheel(true);
-        },
-        defaultMouseWheel() {
-            this.setFlipMouseWheel(false);
-        },
         showPlayerList() {
             this.setShowPlayerList(true);
         },
@@ -174,23 +159,13 @@ export default {
         }),
         ...mapActions({
             resize: 'resize',
-            setScaleToDefault: 'setScaleToDefault',
-            setScaleToFitScreen: 'setScaleToFitScreen',
-            setScaleToFillStretch: 'setScaleToFillStretch',
-            toggleScaleToFitScreen: 'toggleScaleToFitScreen',
-            toggleScaleToFillStretch: 'toggleScaleToFillStretch',
             toggleState: 'stateModal/toggleState',
             toggleVMouseMode: 'toggleVMouseMode',
             toggleVKeyboard: 'toggleVKeyboard',
             toggleModalSetup: 'toggleModalSetup',
             showModalAlert: 'modalAlert/showModalAlert',
-            toggleInitCursorMode: 'toggleInitCursorMode',
             toggleMenu: 'toggleMenu',
             toggleJoyStick: 'toggleJoyStick',
-            toggleJoyStickAllKeys: 'toggleJoyStickAllKeys',
-            showJoyStickAllKeys: 'showJoyStickAllKeys',
-            hideJoyStickAllKeys: 'hideJoyStickAllKeys',
-            setFlipMouseWheel: 'flipMouseWheel',
         }),
     }
 }

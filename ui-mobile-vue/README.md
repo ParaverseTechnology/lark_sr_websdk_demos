@@ -28,3 +28,16 @@ yarn add larksr_websdk
 ```javascript
 import { CreateLarkSRClientFromeAPI } from "larksr_websdk";
 ```
+> 需要修改 authCode 为您的 authCode；
+
+## 效果
+
+![joystick](./doc/joystick.png)
+
+![vmouse](./doc/vmouse.png)
+
+![vkeyboard](./doc/vkeyboard.png)
+
+![menu](./doc/menu.png)
+
+![confirm](./doc/confirm.png)

@@ -1,13 +1,3 @@
-// import { 
-//     Module
-// } from 'vuex';
-// import { RootState } from '../root_state';
-
-// export interface ControlBarInterface {
-//     // 是否折叠控制栏
-//     isToggle: boolean;
-// }
-
 export const defaultControlBar/*: ControlBarInterface*/ = {
     isToggle: false,
 }

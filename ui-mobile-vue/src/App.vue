@@ -1,7 +1,12 @@
 <template>
   <div id="app" ref="appContainer">
     <!-- 手机端 UI -->
-    <MobileIndex v-if="isMobile"></MobileIndex>
+    <MobileIndex v-if="cloudReady && isMobile"></MobileIndex>
+    <Alert />
+    <Notify />
+    <Toast />
+    <Confirm />
+    <RttInfo />
   </div>
 </template>
 
@@ -10,15 +15,26 @@ import { CreateLarkSRClientFromeAPI } from "larksr_websdk";
 import MobileIndex from "./components/mobile/index";
 import { mapState, mapGetters, mapMutations, mapActions } from "vuex";
 import Unit from './utils/unit';
+import Alert               from './components/alert/alert';
+import Notify              from './components/notify/notify';
+import Toast               from './components/toast/toast';
+import Confirm             from './components/confirm/confirm';
+import RttInfo             from './components/rttinfo/rttinfo';
 
 export default {
   name: "App",
   components: {
     MobileIndex,
+    Alert,
+    Notify,
+    Toast,
+    Confirm,
+    RttInfo,
   },
   data() {
     return {
       appContainer: null,
+      cloudReady: false,
     };
   },
   computed: {
@@ -49,7 +65,7 @@ export default {
         // 如：http://222.128.6.137:8181/
         serverAddress: "http://222.128.6.137:8181/",
         // 授权码
-        authCode: "2ad9f9a6aa454a11df274e900613510b",
+        authCode: "授权码",
         // 视频缩放模式，默认保留宽高比，不会拉伸并完整显示在容器中
         scaleMode: "contain",
         // 0 -》 用户手动触发, 1 -》 首次点击进入触发, 2 -》 每次点击触发
@@ -76,6 +92,7 @@ export default {
 
         larksr.on("meidaloaded", (e) => {
           console.log("LarkSRClientEvent meidaloaded", e);
+          this.cloudReady = true;
         });
 
         larksr.on("mediaplaysuccess", (e) => {
@@ -123,6 +140,8 @@ export default {
         alert(JSON.stringify(e));
       });
 
+    // this.alert({des: 1});
+    // this.confirm({des:"22"});
     console.log("ref", this.$refs["appContainer"]);
 
     let resizeTimeput = null;

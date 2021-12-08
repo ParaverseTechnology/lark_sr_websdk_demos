@@ -31,7 +31,7 @@
             <div class="icon icon-exit" v-on:click="onQuit"></div>
             <div class="icon icon-handle" v-on:click="toggleJoyStick"></div>
         </div>
-        <div v-if="enableRttIcon && states.hasCurrentRoundTripTime" :class="rttClass">
+        <div v-if="states.hasCurrentRoundTripTime" :class="rttClass">
             <div class="icon-rtt"></div>
             {{states.currentRoundTripTime}} ms
         </div>
@@ -175,7 +175,6 @@
                 isMobile: state => state.isMobile,
                 vmouseMode: state => state.vmouseMode,
                 enableMobileControlBall: state => { return state.enableMobileControlBall; },
-                enableRttIcon: state => state.enableRttIcon,
             }),
             ...mapGetters([
                 "viewPortStyle",
@@ -418,14 +417,11 @@
             }),
             ...mapActions({
                 resize: 'resize',
-                toggleScaleToFitScreen: 'toggleScaleToFitScreen',
-                toggleScaleToFillStretch: 'toggleScaleToFillStretch',
                 toggleState: 'stateModal/toggleState',
                 toggleVMouseMode: 'toggleVMouseMode',
                 toggleVKeyboard: 'toggleVKeyboard',
                 toggleModalSetup: 'toggleModalSetup',
                 showModalAlert: 'modalAlert/showModalAlert',
-                toggleInitCursorMode: 'toggleInitCursorMode',
                 toggleMenu: 'toggleMenu',
                 toggleJoyStick: 'toggleJoyStick',
                 showModalConfirm: 'modalConfirm/showModalConfirm',

@@ -27,12 +27,9 @@
                 <div class="icon icon-handle" v-on:click="toggleJoyStick"></div>
             </div>
         </div>
-        <Alert />
         <!-- joystick -->
         <Joyskick v-if="joystick" />
-        <Notify />
-        <Toast />
-        <Confirm />
+        
         <Menu v-if="menu" />
         <Keyboard v-if="vkeyboard" />
         <VCursor v-if="enableVmouse" :useVMouse="vmouseMode" v-on:exit="toggleVMouseMode" />
@@ -45,26 +42,18 @@ import {
     mapMutations,
     mapActions,
 }                          from 'vuex';
-import Alert               from '../alert/alert';
 import Joyskick            from '../joystick/joystick';
-import Notify              from '../notify/notify';
-import Toast               from '../toast/toast';
 import Menu                from '../menu/menu';
 import Keyboard            from '../keyboard/keyboard';
 import VCursor             from '../v_cursor/v_cursor';
-import Confirm             from '../confirm/confirm';
 import Unit                from '../../../utils/unit';
 
 export default {
     components: {
-        Alert,
         Joyskick,
-        Notify,
-        Toast,
         Menu,
         Keyboard,
         VCursor,
-        Confirm,
     },
     data() {
         return {
@@ -140,7 +129,6 @@ export default {
             ui: state => state.ui,
             vmouseMode: status => { return status.vmouseMode == 'vmouse'; },
             enableVmouse: status => { return status.vmouseMode != 'none'; },
-            enableRttIcon: state => state.enableRttIcon,
             mobilePixelUnit: (state) => state.mobilePixelUnit,
         }),
         ...mapGetters({
@@ -275,15 +263,12 @@ export default {
         }),
         ...mapActions({
             resize: 'resize',
-            toggleScaleToFitScreen: 'toggleScaleToFitScreen',
-            toggleScaleToFillStretch: 'toggleScaleToFillStretch',
             toggleState: 'stateModal/toggleState',
             toggleVMouseMode: 'toggleVMouseMode',
             toggleVKeyboard: 'toggleVKeyboard',
             toggleModalSetup: 'toggleModalSetup',
             showModalAlert: 'modalAlert/showModalAlert',
             showModalConfirm: 'modalConfirm/showModalConfirm',
-            toggleInitCursorMode: 'toggleInitCursorMode',
             toggleMenu: 'toggleMenu',
             toggleJoyStick: 'toggleJoyStick',
         }),
