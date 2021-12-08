@@ -26,6 +26,9 @@ export const RootGetters/*: GetterTree<RootState, RootState>*/ = {
     },
     viewPortStyle({ larksr }) {
         return larksr ? larksr.screenState.viewPortStyle : "";
+    },
+    isFullScreen({ larksr }) {
+        return larksr ? larksr.fullScreen.isFullScreen : false;
     }
 }
 

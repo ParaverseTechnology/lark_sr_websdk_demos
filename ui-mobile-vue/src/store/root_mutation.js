@@ -25,6 +25,9 @@ export const RootMutation/*: MutationTree<RootState>*/ = {
     setVmouseMode(state, vmouseMode/*: VirtualMouseMode*/) {
         state.vmouseMode = vmouseMode;
     },
+    setMobilePixelUnit(state, mobilePixelUnit/*: ViewPort*/) {
+        state.mobilePixelUnit  = mobilePixelUnit;
+    },
 }
 
 export default RootMutation;

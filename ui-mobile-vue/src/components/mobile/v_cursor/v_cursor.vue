@@ -47,9 +47,6 @@
             v-on:drag="onDrag">
         </MouseButton>
     </div>
-    <div v-else class="pointerContainer" v-bind:style="pointerStyle">
-        <div class="pointer"></div>
-    </div>
 </template>
 <script>
     import {
@@ -72,10 +69,6 @@
                 toggle: true,
                 // mouse btn left right mid none
                 mouseButton: 'left',
-                pointerPosition: {
-                    x: 0,
-                    y: 0,
-                },
                 vmousePosition: {
                     x: 0,
                     y: 0,
@@ -156,12 +149,6 @@
                     res.transformOrigin = "left top";
                 }
                 return res;
-            },
-            pointerStyle() {
-                return {
-                    top: this.pointerPosition.y + 'px',
-                    left: this.pointerPosition.x + 'px',
-                }
             },
             ...mapState({
                 larksr: state => state.larksr,

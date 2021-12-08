@@ -118,7 +118,6 @@ export default class Unit {
     //  */
     static singlePointRelativePosition(e/*: Touch|MouseEvent*/, element/*: HTMLElement*/)/*: Point*/ {
         const offset  = Unit.offsetViewport(element);
-        // Log.info('singlePointRelativePosition', e, element, offset, e.clientX, e.clientY);
         return {
             x: e.clientX - offset.offsetX,
             y: e.clientY - offset.offsetY

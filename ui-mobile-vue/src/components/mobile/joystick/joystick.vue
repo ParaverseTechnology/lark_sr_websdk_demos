@@ -12,10 +12,7 @@
     >
       <div
         class="center"
-        :style="{
-          left: joysickTouchesPosition.x + 'px',
-          top: joysickTouchesPosition.y + 'px',
-        }"
+        :style="joysickCenterStyle"
       ></div>
     </JoyButton>
   </div>
@@ -161,7 +158,7 @@ export default {
     onJoyStickMove(key, e) {
       const { screenOrientation, leftJoystickPosition } = this;
       let p = { x: 0, y: 0 };
-      console.log('screen state ', screenOrientation);
+      
       // 通过旋转横屏时注意触摸的坐标系变换
       if (screenOrientation === "landscape") {
         p.x = e.targetTouches[0].clientY - leftJoystickPosition.top;
@@ -391,9 +388,6 @@ export default {
       };
     }
 
-    window.addEventListener('resize', () => {
-
-    });
     this.subscribeAction = store.subscribeAction({
       after: (actions) => {
         const joystickElement = this.$refs["joystick"];

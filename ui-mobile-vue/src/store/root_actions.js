@@ -4,14 +4,19 @@ import Unit from '@/utils/unit';
 export const RootActions/*: ActionTree<RootState, RootState>*/ = {
     resize({ commit, state, getters }) {
         // 浏览器窗口宽
-        let screenW = Unit.viewport().width;
+        let screenW = getters.screenOrientation === 'landscape' ? 
+                Unit.viewport().height :
+                Unit.viewport().width;
+        let pixUnit = screenW / 100;
+
         if (Capabilities.isMobile) {
             // resize rem.
-            document.documentElement.style.fontSize = screenW / 100 + 'px';
+            document.documentElement.style.fontSize = pixUnit + 'px';
         } else {
             // document.documentElement.style.fontSize = screenW / 200 + 'px';
             document.documentElement.style.fontSize = '9px';
         }
+        commit('setMobilePixelUnit', pixUnit);
     },
     // keyboard,menu,joystick  同时只显示一个
     toggleVKeyboard({commit, state}) {

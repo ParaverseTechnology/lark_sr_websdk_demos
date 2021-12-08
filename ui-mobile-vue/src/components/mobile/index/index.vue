@@ -99,7 +99,7 @@ export default {
             } else {
                 return {
                     top: 15 + "px",
-                    left: this.viewPort.width / 2 - 45 + "px",
+                    left: (this.viewPort.width / 2 - Unit.getMobliePixelWidth(93, this.mobilePixelUnit) / 2) + "px",
                 };
             }
         },
@@ -138,12 +138,13 @@ export default {
             menu: state => state.menu,
             joystick: state => state.joystick,
             ui: state => state.ui,
-            screenOrientation: state => state.screenOrientation,
             vmouseMode: status => { return status.vmouseMode == 'vmouse'; },
             enableVmouse: status => { return status.vmouseMode != 'none'; },
             enableRttIcon: state => state.enableRttIcon,
+            mobilePixelUnit: (state) => state.mobilePixelUnit,
         }),
         ...mapGetters({
+            screenOrientation: 'screenOrientation',
             appliParams: 'appliParams',
             viewPort: 'viewPort',
         })

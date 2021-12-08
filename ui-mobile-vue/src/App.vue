@@ -49,13 +49,16 @@ export default {
         // 如：http://222.128.6.137:8181/
         serverAddress: "http://222.128.6.137:8181/",
         // 授权码
-        authCode: "授权码",
+        authCode: "2ad9f9a6aa454a11df274e900613510b",
         // 视频缩放模式，默认保留宽高比，不会拉伸并完整显示在容器中
         scaleMode: "contain",
         // 0 -》 用户手动触发, 1 -》 首次点击进入触发, 2 -》 每次点击触发
         fullScreenMode: 0,
+        mobileFullScreenMode: 1,
         // 测试载入背景图
         loadingBgUrl: "https://home-obs.pingxingyun.com/homePage_4_0/bg.jpg",
+        // show log
+        logLevel: 'info',
       },
       { appliId: "879414254636105728" }
     )
@@ -122,8 +125,25 @@ export default {
 
     console.log("ref", this.$refs["appContainer"]);
 
-    window.addEventListener("resize", this.resize);
-    window.addEventListener("orientationchange", this.resize);
+    let resizeTimeput = null;
+    window.addEventListener("resize", () => {
+        if (resizeTimeput) {
+            window.clearTimeout(resizeTimeput);
+        }
+        resizeTimeput = window.setTimeout(() => {
+            this.resize();
+            resizeTimeput = null;
+        }, 100);
+    });
+    window.addEventListener("orientationchange", () => {
+        if (resizeTimeput) {
+            window.clearTimeout(resizeTimeput);
+        }
+        resizeTimeput = window.setTimeout(() => {
+            this.resize();
+            resizeTimeput = null;
+        }, 100);
+    });
     this.resize();
   },
 };

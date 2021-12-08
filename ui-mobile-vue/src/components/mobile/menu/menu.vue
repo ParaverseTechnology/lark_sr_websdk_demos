@@ -67,14 +67,14 @@ export default {
                 height: this.viewPort.height + "px",
             }
         },
+        fullScreenClass() {
+            return this.isFullScreen ? 'active' : '';
+        },
+        exitFullScreenClass() {
+            return this.isFullScreen ? '' : 'active';
+        },
         ...mapState({
             larksr: state => state.larksr,
-            fullScreenClass() {
-                return this.isFullScreen ? 'active' : '';
-            },
-            exitFullScreenClass() {
-                return this.isFullScreen ? '' : 'active';
-            },
             defaultScaleModeClass() {
                 return this.isChangedScaledMode ? '' : 'active';
             },
@@ -101,9 +101,7 @@ export default {
             },
             states: (state) => {
                 const { aggregatedStats, } = state;
-                let rtt = Capabilities.os === 'iOS' ? 
-                    aggregatedStats.currentRoundTripTime.toFixed(2) :
-                    (aggregatedStats.currentRoundTripTime * 1000).toFixed(2);
+                let rtt = (aggregatedStats.currentRoundTripTime * 1000).toFixed(2);
                 return {
                     hasPacketsLost: aggregatedStats.packetsLost != 0,
                     packetsLost: aggregatedStats.packetsLost.toFixed(2),
@@ -114,7 +112,6 @@ export default {
                     currentRoundTripTime: rtt,
                 };
             },
-            isFullScreen: state => state.isFullScreen,
             viewPort: state => state.viewPort,
             ui: state => state.ui,
             joystickAllKeys: state => state.joystickAllKeys,
@@ -122,6 +119,7 @@ export default {
             playerMode: state => state.playerMode,
         }),
         ...mapGetters({
+            isFullScreen: 'isFullScreen',
             isChangedScaledMode: 'isChangedScaledMode',
             viewPortStyle: 'viewPortStyle',
             isInteractiveMode: 'playerMode/isInteractiveMode',
@@ -147,6 +145,7 @@ export default {
                 return;
             }
             const { fullScreen } = this.larksr;
+            console.log('exitFullscreen', fullScreen);
             fullScreen.exitFullscreen();
         },
         launchFullScreen() {
@@ -154,6 +153,7 @@ export default {
                 return;
             }
             const { fullScreen } = this.larksr;
+            console.log('launchFullScreen');
             fullScreen.launchFullScreen();
         },
         setToflipMouseWheel() {
