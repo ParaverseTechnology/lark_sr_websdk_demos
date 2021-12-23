@@ -261,6 +261,10 @@ interface ILarkSRConfig {
      * 可选项，手机端是否强制横屏
      */
     mobileForceLandscape?: boolean;
+    /**
+     * 初始化鼠标模式, true 锁定，false 非锁定
+     */
+    initCursorMode?: boolean;
 }
 /**
  * 通过调用后台接口获取云端应用参数
@@ -304,6 +308,7 @@ declare class LarkSR extends EventBase<LarkSRClientEvent, LarkSREvent> {
      * 当前是否是交互模式，交互默认即可以操作的模式
      */
     get isInteractiveMode(): boolean;
+    get isPixelStreaming(): boolean;
     /**
      * 当前 app 的状态
      */
@@ -328,6 +333,10 @@ declare class LarkSR extends EventBase<LarkSRClientEvent, LarkSREvent> {
      */
     get op(): Operation;
     private _op;
+    /**
+     * 像素流送输入控制
+     */
+    private pixelInput;
     private iframeHandler;
     get fullScreen(): FullScreen;
     private _fullScreen;
@@ -337,11 +346,19 @@ declare class LarkSR extends EventBase<LarkSRClientEvent, LarkSREvent> {
     /**
      * 视频元素
      */
-    get videoElement(): any;
+    get videoElement(): HTMLVideoElement;
     /**
      * 视频显示组件
      */
     get videoComponent(): any;
+    /**
+     * 视频显示组件的父容器
+     */
+    get containerElement(): any;
+    /**
+     *
+     */
+    get viewportElement(): any;
     get rootElement(): HTMLElement;
     private _rootElement;
     get serverAddress(): string;
@@ -351,6 +368,16 @@ declare class LarkSR extends EventBase<LarkSRClientEvent, LarkSREvent> {
     private _config;
     private loadingTimeout;
     private sdkAuth;
+    /**
+     * 后台分配的用户id
+     */
+    get uid(): number;
+    private _uid;
+    /**
+     * @returns 是否是 Task的拥有者
+     */
+    isTaskOwner(): boolean;
+    _isTaskOwner: boolean;
     /**
      * LarkSR 客户端。所有操作和事件通过该类传递
      * 注意，如果手动创建该类，要清楚参数的意义，一般只有调试等特殊情况才手动创建该类

@@ -92,6 +92,7 @@ SDK 加载成功之后，非模块模式下，SDK 挂载为全局对象 larksr_w
 1. `sample-plain-html` 直接引用
 2. `sample-react` 在 react 中使用
 3. `sample-vue` 在 vue 中使用
+4. `ui-mobile-vue` 带基本 UI 的 Demo, 包括手机端的菜单，摇杆，虚拟鼠标，虚拟键盘等。
 
 ### 文档
 

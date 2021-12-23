@@ -3,13 +3,14 @@
 $color-light-blue: #7285bc;
 $color-blue: #99b3fe;
 $color-active: #fff;
+
 .menu {
     position: fixed;
-    width: px2rem(455);
-    z-index: $z-index-menu;
+    width: px2rem(520);
+    z-index: 1029;
     background-color: $color-bg-trans40-blue;
-    text-align: left;
-    overflow-y: auto;
+    top: 0;
+    transition: all .5s ease-in-out;
     .header {
         height: px2rem(135);
         line-height: 1;
@@ -31,12 +32,11 @@ $color-active: #fff;
             color: $color-blue;
             top: px2rem(70);
             font-weight: 600;
+            cursor: pointer;
         }
     }
     .body {
         padding: px2rem(40) 0 0 px2rem(80);
-        overflow-y: scroll;
-        overflow-x: hidden;
     }
     .body .item {
         color: $color-light-blue;
@@ -49,20 +49,29 @@ $color-active: #fff;
         .item-left {
             float: left;
             margin-left: px2rem(-160);
-            width: px2rem(160);
             display: block;
         }
         .item-right {
             min-height: px2rem(26);
             p {
+                cursor: pointer;
                 margin-bottom: 0;
+            }
+            span {
+                cursor: pointer;
+            }
+            span+span {
+                margin-left: 20px;
             }
         }
     }
     .body .item .active {
         color: white;
     }
-    .body .item.item-mousewheel {
-        height: px2rem(80);
-    }
+}
+.menu.enable {
+    left: 0,
+}
+.menu.disable {
+    left: -999px;
 }

@@ -36,6 +36,8 @@ export interface GetTaskResult {
 }
 export interface StartAppInfo {
     appliId: string;
+    appliType: number;
+    appliName: string;
     taskId: string;
     renderServerIp: string;
     wsProxy: string;

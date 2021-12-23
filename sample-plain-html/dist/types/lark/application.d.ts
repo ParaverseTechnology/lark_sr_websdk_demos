@@ -3,6 +3,7 @@ import * as Msg from '../protobuf/cloudlark';
 import WebSocektChannel from './websocket_channel';
 import WebsocketProxy from './websocket_proxy';
 import { LarkSR } from '../larksr';
+import PixelStreamingWebsocketChannel from './test_pixel_streaming';
 export declare enum APP_STATE {
     BEFORE_CREATE = 0,
     INITED = 1,
@@ -44,6 +45,7 @@ export interface AppEvent extends LocalEvent<APP_EVENT_TYPE> {
 export default class Application extends EventBase<APP_EVENT_TYPE, AppEvent> {
     private websocketChannel;
     private websocketProxy;
+    private testPixelStreaming;
     private peerConnection;
     get state(): APP_STATE;
     set state(state: APP_STATE);
@@ -60,7 +62,7 @@ export default class Application extends EventBase<APP_EVENT_TYPE, AppEvent> {
     sendTextToDataChannel(text: string): void;
     sendBinaryToDataChannel(binary: Uint8Array): void;
     start(): Promise<void>;
-    connect(): Promise<WebsocketProxy> | Promise<WebSocektChannel> | undefined;
+    connect(): Promise<PixelStreamingWebsocketChannel> | Promise<WebsocketProxy> | Promise<WebSocektChannel> | undefined;
     disConnect(): void;
     closeRtc(): void;
     versionCheck(): void;
@@ -71,8 +73,9 @@ export default class Application extends EventBase<APP_EVENT_TYPE, AppEvent> {
     restartApp(): void;
     rtcOffer(): void;
     setAnswer(sdp: string): void;
-    setIce(candidate: string): void;
+    setIce(sdpMlineindex: number, sdpmid: string, candidate: string): void;
     sendInput(input: Msg.CloudLark.ClientInput): void;
+    sendInputBuffer(buffer: ArrayBuffer): void;
     private onChannelOpen;
     private onClose;
     private onChannelMsg;

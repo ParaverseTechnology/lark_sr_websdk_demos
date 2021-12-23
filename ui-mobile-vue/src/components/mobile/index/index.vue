@@ -30,7 +30,6 @@
         <!-- joystick -->
         <Joyskick v-if="joystick" />
         
-        <Menu v-if="menu" />
         <Keyboard v-if="vkeyboard" />
         <VCursor v-if="enableVmouse" :useVMouse="vmouseMode" v-on:exit="toggleVMouseMode" />
     </div>
@@ -43,7 +42,6 @@ import {
     mapActions,
 }                          from 'vuex';
 import Joyskick            from '../joystick/joystick';
-import Menu                from '../menu/menu';
 import Keyboard            from '../keyboard/keyboard';
 import VCursor             from '../v_cursor/v_cursor';
 import Unit                from '../../../utils/unit';
@@ -51,7 +49,6 @@ import Unit                from '../../../utils/unit';
 export default {
     components: {
         Joyskick,
-        Menu,
         Keyboard,
         VCursor,
     },
@@ -124,7 +121,6 @@ export default {
             },
             mobileControlBallPosition: state => state.mobileControlBallPosition,
             vkeyboard: state => state.vkeyboard,
-            menu: state => state.menu,
             joystick: state => state.joystick,
             ui: state => state.ui,
             vmouseMode: status => { return status.vmouseMode == 'vmouse'; },

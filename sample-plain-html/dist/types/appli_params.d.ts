@@ -10,6 +10,10 @@ export interface IAppliParams {
      */
     appPort: string;
     /**
+     * appli type
+     */
+    appliType: number;
+    /**
      * 是否使用 websocket 代理
      */
     wsProxy: boolean;
@@ -24,7 +28,7 @@ export interface IAppliParams {
     /**
      * 当前应用名称
      */
-    courseName: string;
+    appliName: string;
     /**
      * @deprecated
      * 应用的宽高。现在云端自动获取宽高
@@ -184,13 +188,25 @@ export interface IAppliParams {
     enableSoundRequire: boolean;
     toastLevel: number;
 }
+export declare enum AppliType {
+    DESKTOP = 1,
+    SHARED = 2,
+    PIXEL_STREAMING = 13,
+    VR = 3,
+    VR_STEAM = 5,
+    NV_VR = 6,
+    XR = 7,
+    PXY_AR = 9,
+    NV_AR = 11
+}
 export declare class AppliParams implements IAppliParams {
     appServer: string;
     appPort: string;
+    appliType: AppliType;
     wsProxy: boolean;
     preferPubOutIp: string;
     taskid: string;
-    courseName: string;
+    appliName: string;
     width: number;
     height: number;
     scaleMode: ScaleMode;

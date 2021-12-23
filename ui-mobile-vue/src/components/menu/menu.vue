@@ -1,5 +1,5 @@
 <template>
-    <div class="menu" :style="containerStyle">
+    <div :class="menuClass" :style="containerStyle">
         <div class="header">
             <p>功能菜单</p>
             <div class="btn-close" v-on:click="close">关闭</div>
@@ -33,7 +33,7 @@ import {
     mapMutations,
     mapActions,
 }                          from 'vuex';
-import Capabilities from '../../../utils/capabilities';
+import Capabilities from '../../utils/capabilities';
 
 export default {
     components: {
@@ -62,6 +62,9 @@ export default {
         }
     },
     computed: {
+        menuClass() {
+            return this.menu ? "menu enable" : "menu disable";
+        },
         containerStyle() {
             return {
                 height: this.viewPort.height + "px",
@@ -107,6 +110,7 @@ export default {
             joystickAllKeys: state => state.joystickAllKeys,
             flipMouseWheel: state => state.flipMouseWheel,
             playerMode: state => state.playerMode,
+            menu: state => state.menu,
         }),
         ...mapGetters({
             viewPort: 'viewPort',
