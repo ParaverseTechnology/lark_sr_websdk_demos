@@ -8,6 +8,8 @@
     <Confirm />
     <RttInfo />
     <Menu />
+    <ControlBall />
+    <States />
   </div>
 </template>
 
@@ -22,6 +24,8 @@ import Toast               from './components/toast/toast';
 import Confirm             from './components/confirm/confirm';
 import RttInfo             from './components/rttinfo/rttinfo';
 import Menu                from './components/menu/menu';
+import ControlBall         from './components/control_ball/control_ball'; 
+import States              from './components/states_modal/states_modal';
 
 export default {
   name: "App",
@@ -33,6 +37,8 @@ export default {
     Confirm,
     RttInfo,
     Menu,
+    ControlBall,
+    States,
   },
   data() {
     return {
@@ -57,6 +63,7 @@ export default {
       'notify': 'notifyBar/notify',
       'alert': 'modalAlert/showModalAlert',
       'confirm': 'modalConfirm/showModalConfirm',
+      'resetLocalization': 'resetLocalization',
     }),
   },
   mounted() {
@@ -135,7 +142,9 @@ export default {
         });
         console.log("load appli success", larksr);
 
+        // reset states.
         this.setLarksr(larksr);
+        this.resetLocalization();
         this.resize();
       })
       .catch((e) => {

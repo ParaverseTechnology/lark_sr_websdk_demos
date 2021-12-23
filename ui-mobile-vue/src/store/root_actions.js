@@ -1,5 +1,7 @@
 import Capabilities from '@/utils/capabilities';
 import Unit from '@/utils/unit';
+import LocalizationLoader from '@/localization/loader';
+import { ScaleMode } from 'larksr_websdk';
 
 export const RootActions/*: ActionTree<RootState, RootState>*/ = {
     resize({ commit, state, getters }) {
@@ -46,6 +48,58 @@ export const RootActions/*: ActionTree<RootState, RootState>*/ = {
         } else {
             commit('setVmouseMode', 'vmouse');
         }
+    },
+    resetLocalization({commit, state, dispatch}) {
+        dispatch('setLocalization', state.larksr.params.language);
+    },
+    setLocalization({commit, state, dispatch}, language) {
+        LocalizationLoader.init(language);
+        commit('setUI', LocalizationLoader.ui);
+    },
+    // scale mode
+    resetScaleMode({ commit, state, getters,dispatch }) {
+        commit('resetScaleMode');
+        dispatch('resize');
+    },
+    setScaleMode({ commit, state, getters, dispatch }, mode) {
+        commit('setScaleMode', mode);
+        dispatch('resize');
+    },
+    setScaleToDefault({ commit, state, getters, dispatch }) {
+        commit('resetScaleMode');
+        dispatch('resize');
+    },
+    setScaleToFitScreen({ commit, state, getters, dispatch }) {
+        commit('setScaleMode', ScaleMode.FIT_SCREEN);
+        dispatch('resize');
+    },
+    setScaleToFillStretch({ commit, state, getters, dispatch }) {
+        commit('setScaleMode', ScaleMode.FILL_STRETCH);
+        dispatch('resize');
+    },
+    toggleScaleToFitScreen({ commit, state, getters, dispatch }) {
+        const { larksr } = state;
+        if (ScaleMode.FIT_SCREEN === larksr.params.scaleMode) {
+            return;
+        }
+        if (getters.isChangedScaledMode) {
+            commit('resetScaleMode');
+        } else {
+            commit('setScaleMode', ScaleMode.FIT_SCREEN);
+        }
+        dispatch('resize');
+    },
+    toggleScaleToFillStretch({ commit, state, getters,dispatch }) {
+        const { larksr } = state;
+        if (ScaleMode.FILL_STRETCH === larksr.params.scaleMode) {
+            return;
+        }
+        if (getters.isChangedScaledMode) {
+            commit('resetScaleMode');
+        } else {
+            commit('setScaleMode', ScaleMode.FILL_STRETCH);
+        }
+        dispatch('resize');
     },
 };
 

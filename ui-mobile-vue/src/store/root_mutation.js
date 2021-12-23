@@ -28,6 +28,15 @@ export const RootMutation/*: MutationTree<RootState>*/ = {
     setMobilePixelUnit(state, mobilePixelUnit/*: ViewPort*/) {
         state.mobilePixelUnit  = mobilePixelUnit;
     },
+    setUI(state, ui/*: UI*/) {
+        state.ui = ui;
+    },
+    setScaleMode(state, scaleMode) {
+        state.scaleMode = scaleMode;
+    },
+    resetScaleMode(state) {
+        state.scaleMode = state.larksr.params.scaleMode;
+    },
 }
 
 export default RootMutation;

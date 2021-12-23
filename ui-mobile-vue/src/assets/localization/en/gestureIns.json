@@ -1,0 +1,47 @@
+{
+    "name": "Instructions",
+    "session": [
+        {
+            "name": "Local operation",
+            "items": [
+                {
+                    "name": "Open or hide the control bar:",
+                    "des": "A single finger draws a counterclockwise arc (half smile) on the screen to open or hide the control bar."
+                }
+            ]
+        },
+        {
+           "name": "Mouse and keyboard operation simulation",
+           "items": [
+               {
+                    "name": "Moving the mouse:",
+                    "des": "A single finger swipes across the screen to move the mouse."
+               },
+               {
+                    "name": "Left click:",
+                    "des": "A single-finger tap screen indicates a left mouse click."
+               },
+               {
+                    "name": "Drag operation:",
+                    "des": "Press and hold the screen with a single finger, and drag it when the mouse is pressed. When the single finger is raised, the mouse appears and the drag is completed."
+               },
+               {
+                    "name": "Context menu / right mouse button:",
+                    "des": "Double-finger click to simulate the right mouse button press."
+               },
+               {
+                    "name": "Right mouse button press/drag:",
+                    "des": "Press the screen with two fingers and press the button with the right mouse button. Two fingers leave the screen and the right mouse button is raised."
+               },
+               {
+                   "name": "Mouse wheel/middle button scrolling:",
+                   "des": "Two fingers simultaneously up/down, simulating mouse wheel."
+               },
+               {
+                   "name": "Mouse wheel press/drag:",
+                   "des": "Three fingers long press the screen, the middle mouse button appears, press the prompt and drag. Three fingers leave the screen and the middle mouse button lifts up."
+               }
+           ]
+        }
+    ]
+}

@@ -40,6 +40,7 @@ export const DefaultState/*: RootState*/ = {
     ui: {},
     menu: false,
     vmouseMode: 'pointer',
+    scaleMode: 'contain',
     // default show joystick;
     joystick: true,
     joystickAllKeys: false,

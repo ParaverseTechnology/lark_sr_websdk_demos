@@ -34,16 +34,7 @@ import {
     mapActions,
 }                                   from 'vuex';
 import Unit                         from '../../utils/unit'
-import store                        from '../store';
-import {
-    Msg
-}                                   from '@/lib_sr/event/message';
-import FullScreen                   from '@/lib_sr/utils/full_screen';
-import Bus                          from '@/lib_sr/event/bus';
-import GLOBAL_EVENT_TYPE, {
-    createGlobalEvent
-}                                   from '@/lib_sr/event/events';
-import CloudlarkEvent, { CloudlarkEventType } from '@/lib_sr/cloudlark_event_type';
+import store                        from '../../store';
 
 export default {
     components: {
@@ -94,14 +85,13 @@ export default {
             return clazz;
         },
         ...mapState({
+            larksr: state => state.larksr,
             ui: state => state.ui,
-            isFullScreen: state => state.isFullScreen,
-            viewPort: state => {
-                return state.viewPort;
-            },
         }),
         ...mapGetters({
-            isChangedScaledMode: 'isChangedScaledMode',
+            isFullScreen: 'isFullScreen',
+
+            viewPort: 'viewPort',
         })
     },
     methods: {
@@ -109,7 +99,6 @@ export default {
             this.popToggled = !this.popToggled;
         },
         onDragStart(e) {
-            Log.info("on drag start", e);
             const offsetViewPort = Unit.getOffsetViewport(e.target);
             this.offsetPositon = {
                 x: e.clientX - offsetViewPort.offsetX,
@@ -117,10 +106,8 @@ export default {
             }
         },
         onDrag(e) {
-            Log.info("on drag control ball", e);
         },
         onDragEnd(e) {
-            Log.info("on drag end", e);
             this.position = {
                 x: e.clientX - this.offsetPositon.x,
                 y: e.clientY - this.offsetPositon.y,
@@ -130,7 +117,6 @@ export default {
             if (this.position.x == 0 && this.position.y == 0) {
                 return;
             }
-            Log.info("resizePosition ", this.position.x, this.viewPort.width);
             if (this.position.x + 64 > this.viewPort.width) {
                 this.position.x = this.viewPort.width - 100;
             }
@@ -139,28 +125,27 @@ export default {
             }
         },
         onFullScreen() {
-            if (FullScreen.isFullScreen) {
-                FullScreen.exitFullscreen();
+            if (!this.larksr) {
+                return;
+            }
+            const { fullScreen } = this.larksr;
+            if (fullScreen.isFullScreen) {
+                fullScreen.exitFullscreen();
             } else {
-                FullScreen.launchFullScreen();
+                fullScreen.launchFullScreen();
             }
         },
         // functions
         onQuit() {
-            this.showModalConfirm({ des: Msg.COURSE_QUIT, code: CloudlarkEventType.LK_USER_REQUEST_QUIT })
+            this.showModalConfirm({ des: "确定退出当前页面" })
             .then(()=>{
-                Log.info('user confirm');
                 Unit.quit();
             })
             .catch((e) => {
-                Log.info('user cancle');
             });
         },
         onEsc() {
-            Bus.emit(createGlobalEvent(GLOBAL_EVENT_TYPE.VIRTUAL_KEY_DOWN), {isRepeat: false, key: "Escape"});
-            setTimeout(()=>{
-                Bus.emit(createGlobalEvent(GLOBAL_EVENT_TYPE.VIRTUAL_KEY_UP), {key: "Escape"});
-            }, 200);
+           // TODO press esc key
         },
         ...mapActions({
             resize: 'resize',
@@ -175,6 +160,7 @@ export default {
             toggleInitCursorMode: 'toggleInitCursorMode',
             toggleMenu: 'toggleMenu',
             toggleJoyStick: 'toggleJoyStick',
+            isChangedScaledMode: 'isChangedScaledMode',
         }),
     },
     mounted() {

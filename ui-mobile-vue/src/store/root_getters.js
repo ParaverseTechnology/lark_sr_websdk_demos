@@ -29,7 +29,10 @@ export const RootGetters/*: GetterTree<RootState, RootState>*/ = {
     },
     isFullScreen({ larksr }) {
         return larksr ? larksr.fullScreen.isFullScreen : false;
-    }
+    },
+    isChangedScaledMode({scaleMode, larksr}) {
+        return scaleMode !== larksr.params.scaleMode;
+    },
 }
 
 export default RootGetters;

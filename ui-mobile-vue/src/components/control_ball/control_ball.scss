@@ -1,4 +1,4 @@
-@import "~@/webclient/assets/styles/mobile_base.scss";
+@import "~@/assets/styles/mobile_base.scss";
 
 .controlBall {
     position: absolute;
@@ -50,7 +50,7 @@
         .icon.icon-scale {
             top: px2rem(-93);
             left: px2rem(93 / 2 - 70 / 2);
-            background-image: url("~@/webclient/assets/img/mobile/icon_bg.png");
+            background-image: url("~@/assets/img/mobile/icon_bg.png");
         }
         .icon.icon-fullscreen {
             top: px2rem(-70);
