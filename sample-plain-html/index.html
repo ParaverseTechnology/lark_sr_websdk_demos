@@ -58,7 +58,11 @@
                     // 参考查询应用一栏文档
                     // https://www.pingxingyun.com/online/api3_2.html?id=476
                     // 如 222.128.6.137:8181 系统下的 879408743551336448 应用
-                    appliId: "879414254636105728"
+                    appliId: "879414254636105728",
+                    playerMode: 2,
+                    userType: 1,
+                    // taskId: "",
+                    nickname: "Test",
                 })
                 .then((res) => {
                     console.log('enter appli success', res);
@@ -83,7 +87,10 @@
                     });                    
                     client.on('meidaplaymute', function(e) { 
                         console.log("LarkSRClientEvent meidaplaymute", e); 
-                    });                    
+                    });
+                    client.on('playerlist', function(e) {
+                        console.log("LarkSRClientEvent playerlist", e); 
+                    });                  
                     client.on('error', function(e) {
                         console.error("LarkSRClientEvent error", e); 
                         alert(JSON.stringify(e.message));

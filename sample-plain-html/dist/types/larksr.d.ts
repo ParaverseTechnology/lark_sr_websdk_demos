@@ -278,6 +278,7 @@ export declare function CreateLarkSRClientFromeAPI(config: ILarkSRConfig, params
     userType?: number;
     roomCode?: string;
     taskId?: string;
+    nickname?: string;
 }): Promise<LarkSR>;
 /**
  * 通过从url参数中获取云端应用相关参数

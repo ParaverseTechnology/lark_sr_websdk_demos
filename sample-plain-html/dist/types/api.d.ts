@@ -65,6 +65,7 @@ export interface StartAppInfo {
     playerMode?: number;
     userType?: number;
     roomCode?: string;
+    nickName?: string;
     nickname?: string;
 }
 export default class API {
