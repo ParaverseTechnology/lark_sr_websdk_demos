@@ -52,10 +52,9 @@
     <script src="./js/jquery.min.js"></script>
     <script src="./dist/larksr-web-sdk.min.js"></script>
     <script>
+        var client;
         $(document).ready(function () {
-            var client;
-            // 直接调用进入应用接口创建实例，自动配置连接云端资源
-            larksr_websdk.CreateLarkSRClientFromeAPI({
+            client = new larksr_websdk.LarkSR({
                     // 设置挂载显示的元素
                     // 注意*不要*设置为 document.documentElement
                     rootElement: document.getElementById('container'),
@@ -63,7 +62,7 @@
                     // 如：http://222.128.6.137:8181/
                     serverAddress: "http://222.128.6.137:8181/",
                     // 授权码
-                    authCode: '您的 SDK 授权码 联系 business@pingxingyun.com 获取',
+                    // authCode: '您的 SDK 授权码 联系 business@pingxingyun.com 获取',
                     // 视频缩放模式，默认保留宽高比，不会拉伸并完整显示在容器中
                     scaleMode: 'contain',
                     // 0 -》 用户手动触发, 1 -》 首次点击进入触发, 2 -》 每次点击触发
@@ -79,49 +78,59 @@
                      */
                     handelRootElementSize: false,
                     logLevel: 'info',
-                }, {
+            });
+
+            client.initSDKAuthCode('您的 SDK ID 联系 business@pingxingyun.com 获取')
+            .then(function() {
+                // 开始连接
+                client.connect({
                     // 要使用的云端资源的应用 ID，从后云雀后台接口获取
                     // 参考查询应用一栏文档
                     // https://www.pingxingyun.com/online/api3_2.html?id=476
                     // 如 222.128.6.137:8181 系统下的 879408743551336448 应用
-                    appliId: "879414254636105728"
+                    appliId: "879414254636105728",
+                    // playerMode: 2,
+                    // userType: 1,
+                    // taskId: "",
+                    // nickname: "Test",
                 })
-                .then((res) => {
-                    console.log('enter appli success', res);
-                    client = res;
-                    client.start();
-
-                    // 监听连接成功事件
-                    client.on('connect', function(e) { 
-                        console.log("LarkSRClientEvent CONNECT", e); 
-                    });                    
-                    client.on('gotremotesteam', function(e) { 
-                        console.log("LarkSRClientEvent gotremotesteam", e); 
-                    });                 
-                    client.on('meidaloaded', function(e) { 
-                        console.log("LarkSRClientEvent meidaloaded", e); 
-                    });                    
-                    client.on('mediaplaysuccess', function(e) { 
-                        console.log("LarkSRClientEvent mediaplaysuccess", e); 
-                    });                    
-                    client.on('mediaplayfailed', function(e) { 
-                        console.log("LarkSRClientEvent mediaplayfailed", e); 
-                    });                    
-                    client.on('meidaplaymute', function(e) { 
-                        console.log("LarkSRClientEvent meidaplaymute", e); 
-                    });
-                    client.on('error', function(e) {
-                        console.error("LarkSRClientEvent error", e); 
-                        alert(JSON.stringify(e.message));
-                    });                   
-                    client.on('info', function(e) {
-                        console.log("LarkSRClientEvent info", e); 
-                    });
-                })
-                .catch((e) => {
+                .catch(function(e) {
                     console.error('enter appli falied', e);
                     alert(JSON.stringify(e));
                 });
+            })
+            .catch(function(e) {
+                console.error('auth falied', e);
+                alert(JSON.stringify(e));
+            });
+
+            
+            // 监听连接成功事件
+            client.on('connect', function(e) { 
+                console.log("LarkSRClientEvent CONNECT", e); 
+            });                    
+            client.on('gotremotesteam', function(e) { 
+                console.log("LarkSRClientEvent gotremotesteam", e); 
+            });                 
+            client.on('meidaloaded', function(e) { 
+                console.log("LarkSRClientEvent meidaloaded", e); 
+            });                    
+            client.on('mediaplaysuccess', function(e) { 
+                console.log("LarkSRClientEvent mediaplaysuccess", e); 
+            });                    
+            client.on('mediaplayfailed', function(e) { 
+                console.log("LarkSRClientEvent mediaplayfailed", e); 
+            });                    
+            client.on('meidaplaymute', function(e) { 
+                console.log("LarkSRClientEvent meidaplaymute", e); 
+            });
+            client.on('error', function(e) {
+                console.error("LarkSRClientEvent error", e); 
+                alert(JSON.stringify(e.message));
+            });                   
+            client.on('info', function(e) {
+                console.log("LarkSRClientEvent info", e); 
+            });
         });
     </script>
 </head>

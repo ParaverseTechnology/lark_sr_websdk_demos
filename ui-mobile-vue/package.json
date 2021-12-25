@@ -9,7 +9,7 @@
   },
   "dependencies": {
     "core-js": "^3.6.5",
-    "larksr_websdk": "^3.2.6",
+    "larksr_websdk": "^3.2.7",
     "vue": "^2.6.11",
     "vuex": "^3.6.2"
   },
@@ -37,10 +37,10 @@
       "parser": "babel-eslint"
     },
     "rules": {
-      "no-debugger":"off",
+      "no-debugger": "off",
       "no-console": "off",
-      "no-empty":"off",
-      "no-unused-vars":"off"
+      "no-empty": "off",
+      "no-unused-vars": "off"
     }
   },
   "browserslist": [

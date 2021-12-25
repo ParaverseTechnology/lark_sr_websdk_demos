@@ -1,5 +1,6 @@
 import ScaleMode from './utils/scale_mode';
 import { StartAppInfo } from './api';
+import { ILarkSRConfig } from './larksr';
 export interface IAppliParams {
     /**
      * appserver 的ip地址
@@ -244,6 +245,8 @@ export declare class AppliParams implements IAppliParams {
     enableRttIcon: boolean;
     enableSoundRequire: boolean;
     toastLevel: number;
+    static copyAndCreate(params?: IAppliParams): AppliParams;
+    static setUpWithSDKConfig(params: IAppliParams, config: ILarkSRConfig): AppliParams;
 }
 export declare function CreateAppliParams(): IAppliParams;
 export declare class AppliParamsUtils {

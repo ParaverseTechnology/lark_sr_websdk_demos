@@ -45,8 +45,6 @@ export declare function CreateLarkSRClientFromeUrl(config: ILarkSRConfig): Promi
 
 ## 手动创建
 
-> 注意，如果手动创建该类，要清楚参数的意义，一般只有调试等特殊情况才手动创建该类
-
 ```typescript
 /**
 * LarkSR 客户端。所有操作和事件通过该类传递
@@ -55,7 +53,49 @@ export declare function CreateLarkSRClientFromeUrl(config: ILarkSRConfig): Promi
 * @param config 本地配置，如果有 IAppliParams 相同的配置项，优先级最高
 * @param params 云端应用参数等，通过后台接口或者url参数获取。
 */
-constructor(config: ILarkSRConfig, params: IAppliParams);
+constructor(config: ILarkSRConfig, params?: IAppliParams);
+```
+
+example:
+
+```js
+var client = new LarkSR({ 
+    // 设置挂载显示的元素
+    // 注意*不要*设置为 document.documentElement
+    rootElement: document.getElementById('container'),
+    // 服务器地址,实际使用中填写您的服务器地址
+    // 如：http://222.128.6.137:8181/
+    serverAddress: "Lark 服务器前台地址",
+    // SDK ID 也可在 initSDKAuthCode 设置
+    // authCode: '您的 SDK ID',
+    // 测试载入背景图
+    // loadingBgUrl: 'https://home-obs.pingxingyun.com/homePage_4_0/bg.jpg',
+});
+
+// 授权码,验证成功之后才能调用 connect
+client.initSDKAuthCode('您的 SDK ID')
+.then(() => {
+    // start connect;
+    client.connect({
+        // 要使用的云端资源的应用 ID，从后云雀后台接口获取
+        // 参考查询应用一栏文档
+        // https://www.pingxingyun.com/online/api3_2.html?id=476
+        // 如 222.128.6.137:8181 系统下的 879408743551336448 应用
+        appliId: "应用ID"
+    })
+    .then(() => {
+        console.log('enter success');
+    })
+    .catch((e) => {
+        console.error(e);
+    }); 
+})
+.catch((e) => {
+    console.error(e);
+});
+// ...
+// 主动关闭并清理资源
+// client.close();
 ```
 
 ## 文档目录

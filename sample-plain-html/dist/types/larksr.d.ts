@@ -290,7 +290,7 @@ declare class LarkSR extends EventBase<LarkSRClientEvent, LarkSREvent> {
     /**
      * 应用参数，构建时传入
      */
-    get params(): IAppliParams;
+    get params(): AppliParams;
     private _params;
     /**
      * 当前的玩家模式，
@@ -384,9 +384,9 @@ declare class LarkSR extends EventBase<LarkSRClientEvent, LarkSREvent> {
      * 注意，如果手动创建该类，要清楚参数的意义，一般只有调试等特殊情况才手动创建该类
      * @see CreateLarkSRClientFromeAPI, CreateLarkSRClientFromeUrl
      * @param config 本地配置，如果有 IAppliParams 相同的配置项，优先级最高
-     * @param params 云端应用参数等，通过后台接口或者url参数获取。
+     * @param params [可选参数] 云端应用参数等，通过后台接口或者url参数获取。
      */
-    constructor(config: ILarkSRConfig, params: IAppliParams);
+    constructor(config: ILarkSRConfig, params?: IAppliParams);
     /**
      *
      * @param id sdk id 初始化sdkid
@@ -394,7 +394,26 @@ declare class LarkSR extends EventBase<LarkSRClientEvent, LarkSREvent> {
      */
     initSDKAuthCode(id: string): Promise<void>;
     /**
+     * 连接云端渲染资源
+     * @params appID 云端资源的 ID
+     * @returns Promise 调用接口并校验授权通过返回成功并自动开始连接
+     */
+    connect(params: {
+        appliId: string;
+        playerMode?: number;
+        userType?: number;
+        roomCode?: string;
+        taskId?: string;
+        nickname?: string;
+    }): Promise<void>;
+    /**
+     * 手动重设进入应用参数
+     * @param params
+     */
+    setAppliParams(params: IAppliParams): void;
+    /**
      * 开始云渲染流程
+     * 启动时应用参数不能为空，包括 taskID，appServer，appPort
      * @returns 是否成功。主要校验授权码是否成功
      */
     start(): Promise<void>;
@@ -406,6 +425,10 @@ declare class LarkSR extends EventBase<LarkSRClientEvent, LarkSREvent> {
      * 重新启动云端应用
      */
     restartApp(): void;
+    /**
+     * 主动关闭连接
+     */
+    close(): void;
     /**
      * 切换当前操作者
      * @param uid 用户id
