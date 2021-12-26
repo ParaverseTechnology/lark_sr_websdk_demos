@@ -6,9 +6,9 @@
     <Notify />
     <Toast />
     <Confirm />
-    <RttInfo />
+    <RttInfo v-if="cloudReady" />
     <Menu />
-    <ControlBall />
+    <ControlBall v-if="cloudReady" />
     <States />
   </div>
 </template>
@@ -58,7 +58,7 @@ export default {
         setAggregatedStats: "setAggregatedStats",
     }),
     ...mapActions({
-      resize: "resize",
+      "resize": "resize",
       'toast': 'toast/toast',
       'notify': 'notifyBar/notify',
       'alert': 'modalAlert/showModalAlert',
@@ -68,7 +68,7 @@ export default {
   },
   mounted() {
     // 直接调用进入应用接口创建实例，自动配置连接云端资源
-    this.larksr = new LarkSR({
+    const larksr = new LarkSR({
         rootElement: this.$refs["appContainer"],
         // 服务器地址,实际使用中填写您的服务器地址
         // 如：http://222.128.6.137:8181/
@@ -81,13 +81,13 @@ export default {
         // 测试载入背景图
         loadingBgUrl: "https://home-obs.pingxingyun.com/homePage_4_0/bg.jpg",
         // show log
-        logLevel: 'info',
+        logLevel: 'warn',
     });
     
-    this.larksr.initSDKAuthCode(Unit.queryString("sdkID")) // 初始化您的授权ID，此处演示从url载入
+    larksr.initSDKAuthCode(Unit.queryString("sdkID")) // 初始化您的授权ID，此处演示从url载入
     .then(() => {
       // start connect;
-      this.larksr.connect({
+      larksr.connect({
         // people beijig 879414254636105728
         appliId: "879414254636105728",
         // playerMode: 2,
@@ -109,43 +109,43 @@ export default {
     });
 
     // 监听连接成功事件
-    this.larksr.on("connect", (e) => {
+    larksr.on("connect", (e) => {
       console.log("LarkSRClientEvent CONNECT", e);
     });
 
-    this.larksr.on("gotremotesteam", (e) => {
+    larksr.on("gotremotesteam", (e) => {
       console.log("LarkSRClientEvent gotremotesteam", e);
     });
 
-    this.larksr.on("meidaloaded", (e) => {
+    larksr.on("meidaloaded", (e) => {
       console.log("LarkSRClientEvent meidaloaded", e);
       this.cloudReady = true;
     });
 
-    this.larksr.on("mediaplaysuccess", (e) => {
+    larksr.on("mediaplaysuccess", (e) => {
       console.log("LarkSRClientEvent mediaplaysuccess", e);
     });
 
-    this.larksr.on("mediaplayfailed", (e) => {
+    larksr.on("mediaplayfailed", (e) => {
       console.log("LarkSRClientEvent mediaplayfailed", e);
       this.alert({des: "开始"})
       .then(() => {
-          this.larksr.videoElement.sountPlayout();
-          this.larksr.videoElement.playVideo();
+          larksr.videoElement.sountPlayout();
+          larksr.videoElement.playVideo();
       });
     });
 
-    this.larksr.on("meidaplaymute", (e) => {
+    larksr.on("meidaplaymute", (e) => {
       console.log("LarkSRClientEvent meidaplaymute", e);
       this.toast({text: '点击屏幕中心打开音频', position: 2, level: 3});
     });
 
-    this.larksr.on("peerstatusreport", (e) => {
+    larksr.on("peerstatusreport", (e) => {
       console.log("LarkSRClientEvent peerstatusreport", e);
       this.setAggregatedStats(e.data);
     });
 
-    this.larksr.on('error', (e) => {
+    larksr.on('error', (e) => {
         console.error("LarkSRClientEvent error", e.message); 
         this.alert({des: e.message, code: e.code})
         .then(() => {
@@ -153,14 +153,14 @@ export default {
         });
     });   
 
-    this.larksr.on('info', (e) => {
+    larksr.on('info', (e) => {
         console.log("LarkSRClientEvent info", e); 
         this.toast({text: e.message});
     });
-    console.log("load appli success", this.larksr);
+    console.log("load appli success", larksr);
 
     // reset states.
-    this.setLarksr(this.larksr);
+    this.setLarksr(larksr);
     this.resetLocalization();
     this.resize();
 
