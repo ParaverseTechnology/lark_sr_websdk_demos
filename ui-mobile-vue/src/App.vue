@@ -157,10 +157,10 @@ export default {
         console.log("LarkSRClientEvent info", e); 
         this.toast({text: e.message});
     });
-    console.log("load appli success", larksr);
+    console.log("load appli success", this.larksr);
 
     // reset states.
-    this.setLarksr(larksr);
+    this.setLarksr(this.larksr);
     this.resetLocalization();
     this.resize();
 
