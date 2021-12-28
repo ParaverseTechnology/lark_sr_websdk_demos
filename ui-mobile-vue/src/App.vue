@@ -48,7 +48,6 @@ export default {
   },
   computed: {
     ...mapState({
-      larsr: state => state.larsr,
       isMobile: (state) => state.isMobile,
     }),
   },

@@ -326,17 +326,7 @@ export default {
         rightShiftLockClass() {
             return this.shiftLock ? "shiftlock shiftlock-lock shiftlock-right" : "shiftlock shiftlock-unlock shiftlock-right";
         },
-        containerStyle() {
-            return {
-                width: this.viewPort.width + "px",
-            };
-        },
         ...mapState({
-            viewPort: state => state.viewPort,
-            container: state => state.container,
-            videoSource: state => state.videoSource,
-            renderMode: state => state.renderMode,
-            waterMark: state => state.waterMark,
             larksr: state => state.larksr,
         })
     },
