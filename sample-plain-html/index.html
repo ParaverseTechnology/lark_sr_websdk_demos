@@ -43,6 +43,7 @@
                     rootElement: document.getElementById('container'),
                     // 服务器地址,实际使用中填写您的服务器地址
                     // 如：http://222.128.6.137:8181/
+                    // 当使用托管服务时服务器地址自动分配,可留空。
                     serverAddress: "http://222.128.6.137:8181/",
                     // 授权码
                     // authCode: '您的 SDK ID 联系 business@pingxingyun.com 获取',
@@ -57,6 +58,24 @@
             client.initSDKAuthCode('您的 SDK ID 联系 business@pingxingyun.com 获取')
             .then(function() {
                 // 开始连接
+
+                // 连接平行云托管平台的应用
+                // client.connectWithPxyHost({
+                //     // 要使用的云端资源的应用 ID，从后云雀后台接口获取
+                //     // 参考查询应用一栏文档
+                //     // https://www.pingxingyun.com/online/api3_2.html?id=476
+                //     // 如 222.128.6.137:8181 系统下的 879408743551336448 应用
+                //     appliId: "879414254636105728",
+                //     // playerMode: 2,
+                //     // userType: 1,
+                //     // taskId: "",
+                //     // nickname: "Test",
+                // })
+                // .catch(function(e) {
+                //     console.error('enter appli falied', e);
+                //     alert(JSON.stringify(e));
+                // });
+                
                 client.connect({
                     // 要使用的云端资源的应用 ID，从后云雀后台接口获取
                     // 参考查询应用一栏文档

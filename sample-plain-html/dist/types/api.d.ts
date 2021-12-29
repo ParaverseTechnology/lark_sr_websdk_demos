@@ -73,12 +73,32 @@ export default class API {
     static GetTaskPATH: string;
     static ClientLogErrorPath: string;
     static GetStartInfoPath: string;
+    private static PocHostApplGetUrl;
+    static HostAppliGetUrl(params: {
+        appliId: string;
+        playerMode?: number;
+        userType?: number;
+        roomCode?: string;
+        taskId?: string;
+    }): Promise<{
+        host: string;
+        origin: string;
+        params: {
+            appliId: string;
+            appKey: string;
+            timestamp: string;
+            signature: string;
+        };
+    }>;
     static GetStartInfo(serverAddress: string, params: {
         appliId: string;
         playerMode?: number;
         userType?: number;
         roomCode?: string;
         taskId?: string;
+        appKey?: string;
+        timestamp?: string;
+        signature?: string;
     }): Promise<StartAppInfo>;
     static CheckUTLockInfo(config: ILarkSRConfig): Promise<UTLockInfo>;
     static GetTask(config: ILarkSRConfig, taskid: string): Promise<GetTaskResult>;

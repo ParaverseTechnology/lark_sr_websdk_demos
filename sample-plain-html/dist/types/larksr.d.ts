@@ -173,10 +173,12 @@ interface ILarkSRConfig {
      */
     rootElement: HTMLElement;
     /**
-     * 必选项 服务器地址. LarkServer 前台访问的地址
+     * 可选项 服务器地址. LarkServer 前台访问的地址
      * 如： http://192.168.0.55:8181/
+     * 当使用托管服务时服务器地址自动分配,可留空。
+     * 使用托管服务时@see CreateLarkSRClientFromePXYHost @see larksr.connectWithPxyHost
      */
-    serverAddress: string;
+    serverAddress?: string;
     /**
      * 可选项。 sdk 授权码。如果不在此处填，则必须在后续的实例里调用 initSDKAuthCode 初始化。
      */
@@ -266,6 +268,20 @@ interface ILarkSRConfig {
      */
     initCursorMode?: boolean;
 }
+/**
+ * 通过平行云托管平台创建客户端并启动应用
+ * @param config 传入 config @see ILarkSRConfig
+ * @param params 进入应用接口参数。appliId 为必填项
+ * @returns Promise 创建 larksr client 是否成功
+ */
+export declare function CreateLarkSRClientFromePXYHost(config: ILarkSRConfig, params: {
+    appliId: string;
+    playerMode?: number;
+    userType?: number;
+    roomCode?: string;
+    taskId?: string;
+    nickname?: string;
+}): Promise<LarkSR>;
 /**
  * 通过调用后台接口获取云端应用参数
  * @param config 传入 config @see ILarkSRConfig
@@ -393,6 +409,13 @@ declare class LarkSR extends EventBase<LarkSRClientEvent, LarkSREvent> {
      * @returns
      */
     initSDKAuthCode(id: string): Promise<void>;
+    connectWithPxyHost(params: {
+        appliId: string;
+        playerMode?: number;
+        userType?: number;
+        roomCode?: string;
+        taskId?: string;
+    }): Promise<void>;
     /**
      * 连接云端渲染资源
      * @params appID 云端资源的 ID
@@ -405,6 +428,9 @@ declare class LarkSR extends EventBase<LarkSRClientEvent, LarkSREvent> {
         roomCode?: string;
         taskId?: string;
         nickname?: string;
+        appKey?: string;
+        timestamp?: string;
+        signature?: string;
     }): Promise<void>;
     /**
      * 手动重设进入应用参数
