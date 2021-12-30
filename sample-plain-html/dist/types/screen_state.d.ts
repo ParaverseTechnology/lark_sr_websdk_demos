@@ -3,6 +3,7 @@ import { IAppliParams } from "./appli_params";
 import { CloudLark } from "./protobuf/cloudlark";
 import ScaleMode from "./utils/scale_mode";
 import { LocalEvent, EventBase } from './event/event_base';
+import { LarkSR } from "./larksr";
 export interface ContainerSize {
     marginTop: number;
     marginLeft: number;
@@ -83,7 +84,9 @@ export default class ScreenState extends EventBase<SCREEN_EVENT_TYPE, ScreenEven
     get isLockMouse(): boolean;
     private _isLockMouse;
     get cursorStyle(): SyncCursorStyle;
+    set cursorStyle(style: SyncCursorStyle);
     private _cursorStyle;
+    private get cursorCSSStyle();
     get appMouseMode(): CloudLark.IAppMouseMode;
     set appMouseMode(mode: CloudLark.IAppMouseMode);
     private _appMouseMode;
@@ -103,7 +106,8 @@ export default class ScreenState extends EventBase<SCREEN_EVENT_TYPE, ScreenEven
     private mobileForceLandScape;
     private bgColor;
     private handelRootElementSize;
-    constructor(rootElement: HTMLElement, params: IAppliParams, handelRootElementSize?: boolean);
+    private larksr;
+    constructor(rootElement: HTMLElement, params: IAppliParams, larksr: LarkSR, handelRootElementSize?: boolean);
     reset(params: IAppliParams): void;
     resize(): void;
 }

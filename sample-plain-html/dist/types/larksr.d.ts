@@ -379,7 +379,6 @@ declare class LarkSR extends EventBase<LarkSRClientEvent, LarkSREvent> {
     get rootElement(): HTMLElement;
     private _rootElement;
     get serverAddress(): string;
-    private _serverAddress;
     get serverIp(): string;
     get config(): ILarkSRConfig;
     private _config;
