@@ -69,7 +69,11 @@ declare enum LarkSRClientEvent {
     /**
      * 获取到远端视频流 .
      */
-    GOT_REMOTE_STREAM = "gotremotesteam",
+    GOT_REMOTE_STREAM = "gotremotestream",
+    /**
+     * 获取到远端音频流 .
+     */
+    GOT_REMOTE_AUDIO_STREAM = "gotremoteaudiostream",
     /**
      * 视频加载成功，等待播放 .
      */
@@ -369,6 +373,14 @@ declare class LarkSR extends EventBase<LarkSRClientEvent, LarkSREvent> {
      */
     get videoComponent(): any;
     /**
+     * 音频元素
+     */
+    get audioElement(): HTMLAudioElement;
+    /**
+     * 是否有单独的音频流
+     */
+    get isSeprateAudioTrack(): any;
+    /**
      * 视频显示组件的父容器
      */
     get containerElement(): any;
@@ -515,10 +527,12 @@ declare class LarkSR extends EventBase<LarkSRClientEvent, LarkSREvent> {
     $emitError(message?: string, code?: number): void;
     $emitInfo(message?: string, code?: number): void;
     private createEvent;
+    private setupListener;
     private taskProcess;
     private startProcess;
     private onAppStateChange;
     private onGotRemoteStream;
+    private onGotRemoteAudioStream;
     private onCursorStyle;
     private onAppResize;
     private onAppMouseMode;
