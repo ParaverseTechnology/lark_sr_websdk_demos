@@ -67,6 +67,8 @@ export interface StartAppInfo {
     roomCode?: string;
     nickName?: string;
     nickname?: string;
+    appKey?: string;
+    groupId?: string;
 }
 export default class API {
     static CheckUTLockInfoPath: string;
@@ -96,6 +98,10 @@ export default class API {
         userType?: number;
         roomCode?: string;
         taskId?: string;
+        clientMac?: string;
+        groupId?: string;
+        regionId?: string;
+        targetServerIp?: string;
         appKey?: string;
         timestamp?: string;
         signature?: string;

@@ -15,7 +15,7 @@ import FullScreen from './utils/full_screen';
 import LockPointer from './utils/lock_pointer';
 import ScaleMode from './utils/scale_mode';
 import Capabilities from './utils/capabilities';
-declare const enum PlayerModeType {
+declare enum PlayerModeType {
     /**
      * 普通模式
      */
@@ -32,7 +32,7 @@ declare const enum PlayerModeType {
 /**
  * 当前用户的身份
  */
-declare const enum UserType {
+declare enum UserType {
     /**
      * 观看者
      */
@@ -164,6 +164,9 @@ interface LarkSREvent extends LocalEvent<LarkSRClientEvent> {
     code?: number;
     larkevent?: LarkEventType;
 }
+declare type PublicPortMapping = {
+    [key: string]: string;
+};
 /**
  * 构造 LarkSR 参数
  */
@@ -271,6 +274,19 @@ interface ILarkSRConfig {
      * 初始化鼠标模式, true 锁定，false 非锁定
      */
     initCursorMode?: boolean;
+    /**
+     * 渲染服务器外网端口映射
+     * 格式为  key=[渲染服务器IP:PORT] value=[外网IP:PORT]
+     * {
+     *    "RENDER-A-IP:RENDER-A-PORT1": "PUBLIC-A-IP:PORT1",
+     *    "RENDER-B-IP:RENDER-B-PORT1": "PUBLIC-A-IP:PORT2",
+     *    "RENDER-C-IP:RENDER-C-PORT1": "PUBLIC-A-IP:PORT3",
+     *    "RENDER-D-IP:RENDER-D-PORT1": "PUBLIC-B-IP:PORT1",
+     *    "RENDER-E-IP:RENDER-E-PORT1": "PUBLIC-B-IP:PORT2",
+     *    "RENDER-E-IP:RENDER-E-PORT2": "PUBLIC-C-IP:PORT1",
+     * }
+     */
+    publicPortMapping?: PublicPortMapping;
 }
 /**
  * 通过平行云托管平台创建客户端并启动应用
@@ -298,7 +314,13 @@ export declare function CreateLarkSRClientFromeAPI(config: ILarkSRConfig, params
     userType?: number;
     roomCode?: string;
     taskId?: string;
-    nickname?: string;
+    clientMac?: string;
+    groupId?: string;
+    regionId?: string;
+    targetServerIp?: string;
+    appKey?: string;
+    timestamp?: string;
+    signature?: string;
 }): Promise<LarkSR>;
 /**
  * 通过从url参数中获取云端应用相关参数
@@ -438,11 +460,18 @@ declare class LarkSR extends EventBase<LarkSRClientEvent, LarkSREvent> {
         userType?: number;
         roomCode?: string;
         taskId?: string;
-        nickname?: string;
+        clientMac?: string;
+        groupId?: string;
+        regionId?: string;
+        targetServerIp?: string;
         appKey?: string;
         timestamp?: string;
         signature?: string;
     }): Promise<void>;
+    /**
+     * 用户手动填昵称，需要在 start 或 connect 设置才能生效。
+     */
+    setNickname(nickname: string): void;
     /**
      * 手动重设进入应用参数
      * @param params
@@ -502,6 +531,7 @@ declare class LarkSR extends EventBase<LarkSRClientEvent, LarkSREvent> {
      * 可以不使用该方法退出页面
      */
     quit(): void;
+    resetAppMouseLockState(): void;
     /**
      * 操作相关事件
      * 所有事件坐标相对于云端应用，不相对于网页

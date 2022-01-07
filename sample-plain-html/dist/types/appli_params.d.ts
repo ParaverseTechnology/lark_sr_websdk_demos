@@ -188,6 +188,8 @@ export interface IAppliParams {
     enableRttIcon: boolean;
     enableSoundRequire: boolean;
     toastLevel: number;
+    appKey: string;
+    groupId: string;
 }
 export declare enum AppliType {
     DESKTOP = 1,
@@ -245,6 +247,8 @@ export declare class AppliParams implements IAppliParams {
     enableRttIcon: boolean;
     enableSoundRequire: boolean;
     toastLevel: number;
+    appKey: string;
+    groupId: string;
     static copyAndCreate(params?: IAppliParams): AppliParams;
     static setUpWithSDKConfig(params: IAppliParams, config: ILarkSRConfig): AppliParams;
 }
