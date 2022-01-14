@@ -63,3 +63,12 @@ sendTextToDataChannel(text: string): void;
  */
 sendBinaryToDataChannel(binary: Uint8Array): void;
 ```
+
+## 其他
+
+```typescript
+/**
+* 采集一帧图像
+*/
+captrueFrame(data: any)
+```

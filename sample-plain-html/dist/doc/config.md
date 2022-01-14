@@ -104,5 +104,18 @@ interface ILarkSRConfig {
      * 可选项，手机端是否强制横屏
      */
     mobileForceLandscape?: boolean;
+    /**
+     * 渲染服务器外网端口映射
+     * 格式为  key=[渲染服务器IP:PORT] value=[外网IP:PORT]
+     * {
+     *    "RENDER-A-IP:RENDER-A-PORT1": "PUBLIC-A-IP:PORT1",
+     *    "RENDER-B-IP:RENDER-B-PORT1": "PUBLIC-A-IP:PORT2",
+     *    "RENDER-C-IP:RENDER-C-PORT1": "PUBLIC-A-IP:PORT3",
+     *    "RENDER-D-IP:RENDER-D-PORT1": "PUBLIC-B-IP:PORT1",
+     *    "RENDER-E-IP:RENDER-E-PORT1": "PUBLIC-B-IP:PORT2",
+     *    "RENDER-E-IP:RENDER-E-PORT2": "PUBLIC-C-IP:PORT1",
+     * }
+     */
+    publicPortMapping?: PublicPortMapping;
 }
 ```

@@ -78,11 +78,10 @@ export default class ScreenState extends EventBase<SCREEN_EVENT_TYPE, ScreenEven
     get screenOrientation(): ScreenOrientation;
     private _screenOrientation;
     get scaleMode(): ScaleMode;
+    set scaleMode(scaleMode: ScaleMode);
     private _scaleMode;
     get isFullScreen(): boolean;
     private _isFullScreen;
-    get isLockMouse(): boolean;
-    private _isLockMouse;
     get cursorStyle(): SyncCursorStyle;
     set cursorStyle(style: SyncCursorStyle);
     private _cursorStyle;
@@ -95,6 +94,7 @@ export default class ScreenState extends EventBase<SCREEN_EVENT_TYPE, ScreenEven
         scaleY: number;
     };
     get initCursorMode(): boolean;
+    set initCursorMode(mode: boolean);
     private _initCursorMode;
     get isMobile(): boolean;
     private _isMobile;
@@ -102,7 +102,6 @@ export default class ScreenState extends EventBase<SCREEN_EVENT_TYPE, ScreenEven
     get isLockMosue(): boolean | null | undefined;
     get rootElement(): HTMLElement;
     private _rootElement;
-    private videoViewPort;
     private mobileForceLandScape;
     private bgColor;
     private handelRootElementSize;

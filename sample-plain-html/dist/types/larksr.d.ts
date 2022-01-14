@@ -371,6 +371,10 @@ declare class LarkSR extends EventBase<LarkSRClientEvent, LarkSREvent> {
     get screenState(): ScreenState;
     private _screenState;
     /**
+     * 动态设置scalemode
+     */
+    set scaleMode(scaleMode: ScaleMode);
+    /**
      * 当前的输入控制
      * @see Operation
      */
@@ -410,6 +414,14 @@ declare class LarkSR extends EventBase<LarkSRClientEvent, LarkSREvent> {
      *
      */
     get viewportElement(): any;
+    /**
+     * 是否显示移动端触摸点
+     */
+    set isEnableTouchPonit(enable: boolean);
+    /**
+     * 是否显示载入画面时底部文字
+     */
+    set isEnableLoadingStateBar(enable: boolean);
     get rootElement(): HTMLElement;
     private _rootElement;
     get serverAddress(): string;
@@ -429,9 +441,13 @@ declare class LarkSR extends EventBase<LarkSRClientEvent, LarkSREvent> {
     isTaskOwner(): boolean;
     _isTaskOwner: boolean;
     /**
+     * true：锁定模式 false：非锁定模式
+     */
+    set initCursorMode(mode: boolean);
+    get initCursorMode(): boolean;
+    /**
      * LarkSR 客户端。所有操作和事件通过该类传递
-     * 注意，如果手动创建该类，要清楚参数的意义，一般只有调试等特殊情况才手动创建该类
-     * @see CreateLarkSRClientFromeAPI, CreateLarkSRClientFromeUrl
+     * @see CreateLarkSRClientFromeAPI, @see CreateLarkSRClientFromeUrl @see CreateLarkSRClientFromePXYHost
      * @param config 本地配置，如果有 IAppliParams 相同的配置项，优先级最高
      * @param params [可选参数] 云端应用参数等，通过后台接口或者url参数获取。
      */
@@ -469,7 +485,7 @@ declare class LarkSR extends EventBase<LarkSRClientEvent, LarkSREvent> {
         signature?: string;
     }): Promise<void>;
     /**
-     * 用户手动填昵称，需要在 start 或 connect 设置才能生效。
+     * 用户手动填昵称，需要在 start 或 connect 之前设置才能生效。
      */
     setNickname(nickname: string): void;
     /**
@@ -532,6 +548,10 @@ declare class LarkSR extends EventBase<LarkSRClientEvent, LarkSREvent> {
      */
     quit(): void;
     resetAppMouseLockState(): void;
+    /**
+     * 采集一帧图像
+     */
+    captrueFrame(data: any): void;
     /**
      * 操作相关事件
      * 所有事件坐标相对于云端应用，不相对于网页

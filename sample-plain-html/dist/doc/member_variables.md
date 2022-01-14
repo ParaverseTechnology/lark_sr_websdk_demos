@@ -33,6 +33,20 @@ larksr.videoComponent.captrueFrame(data);
 larksr.videoElement;
 ```
 
+3. 控制显示元素
+
+```javascript
+// 是否显示移动端触摸点
+larksr.isEnableTouchPonit = false;
+// 是否显示载入画面时底部文字
+larksr.isEnableLoadingStateBar = false;
+```
+
+```javascript
+// 设置缩放模式
+larksr.scaleMode = ScaleMode.CONTAIN_APP;
+```
+
 ## 配置参数
 
 ```javascript
