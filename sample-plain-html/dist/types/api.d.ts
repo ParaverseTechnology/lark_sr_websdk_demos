@@ -93,6 +93,7 @@ export default class API {
         };
     }>;
     static GetStartInfo(serverAddress: string, params: {
+        sdkId: string;
         appliId: string;
         playerMode?: number;
         userType?: number;

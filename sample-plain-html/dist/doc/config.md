@@ -26,6 +26,7 @@ interface ILarkSRConfig {
     authCode?: string;
     /**
      * 可选项，授权是否成功
+     *  @deprecated 目前不会回调该参数。如果SDK验证失败将在 connect 返回失败
      */
     authCodeCallback?: (isSuccess: boolean, e: any) => void;
     /**

@@ -132,7 +132,7 @@ export interface IAppliParams {
     /**
      * 口令:8位唯一码,写入TaskInfo. 房间code，备用。
      */
-    roomCode: number;
+    roomCode: string;
     /**
      * debug task. 跳过task检测
      */
@@ -231,7 +231,7 @@ export declare class AppliParams implements IAppliParams {
     playerMode: number;
     userType: number;
     nickname: string;
-    roomCode: number;
+    roomCode: string;
     debugTask: boolean;
     debugWebServer: string;
     loadingTimeout: number;

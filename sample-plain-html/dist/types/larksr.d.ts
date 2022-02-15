@@ -4,7 +4,7 @@
  */
 import { EventBase, LocalEvent } from './event/event_base';
 import Application, { APP_STATE } from './lark/application';
-import { AppliParams, AppliParamsUtils, IAppliParams, LoadAppliParamsFromUrl, LoadAppliParamsStartAppInfo } from './appli_params';
+import { AppliParams, AppliParamsUtils, LoadAppliParamsFromUrl, LoadAppliParamsStartAppInfo } from './appli_params';
 import { LarkEventType } from './lark/lark_event_type';
 import API from './api';
 import ScreenState from './screen_state';
@@ -46,6 +46,14 @@ declare enum UserType {
  * LarkSR 实例会发出的事件
  */
 declare enum LarkSRClientEvent {
+    /**
+     * TASK 创建成功，返回 Task 相关信息
+     */
+    TASK_CREATE_SUCCESS = "taskcreatesuccess",
+    /**
+     * TASK 创建失败
+     */
+    TASK_CREATE_FAILED = "taskcreatefailed",
     /**
      * 连接渲染服务器成功 .
      */
@@ -192,6 +200,7 @@ interface ILarkSRConfig {
     authCode?: string;
     /**
      * 可选项，授权是否成功
+     * @deprecated 目前不会回调该参数。如果SDK验证失败将在 connect 返回失败
      */
     authCodeCallback?: (isSuccess: boolean, e: any) => void;
     /**
@@ -288,46 +297,6 @@ interface ILarkSRConfig {
      */
     publicPortMapping?: PublicPortMapping;
 }
-/**
- * 通过平行云托管平台创建客户端并启动应用
- * @param config 传入 config @see ILarkSRConfig
- * @param params 进入应用接口参数。appliId 为必填项
- * @returns Promise 创建 larksr client 是否成功
- */
-export declare function CreateLarkSRClientFromePXYHost(config: ILarkSRConfig, params: {
-    appliId: string;
-    playerMode?: number;
-    userType?: number;
-    roomCode?: string;
-    taskId?: string;
-    nickname?: string;
-}): Promise<LarkSR>;
-/**
- * 通过调用后台接口获取云端应用参数
- * @param config 传入 config @see ILarkSRConfig
- * @param params 进入应用接口参数。appliId 为必填项
- * @returns Promise 创建 larksr client 是否成功
- */
-export declare function CreateLarkSRClientFromeAPI(config: ILarkSRConfig, params: {
-    appliId: string;
-    playerMode?: number;
-    userType?: number;
-    roomCode?: string;
-    taskId?: string;
-    clientMac?: string;
-    groupId?: string;
-    regionId?: string;
-    targetServerIp?: string;
-    appKey?: string;
-    timestamp?: string;
-    signature?: string;
-}): Promise<LarkSR>;
-/**
- * 通过从url参数中获取云端应用相关参数
- * @param config 传入 config @see ILarkSRConfig
- * @returns Promise 创建 larksr client 是否成功
- */
-export declare function CreateLarkSRClientFromeUrl(config: ILarkSRConfig): Promise<LarkSR>;
 declare class LarkSR extends EventBase<LarkSRClientEvent, LarkSREvent> {
     /**
      * 应用参数，构建时传入
@@ -374,6 +343,11 @@ declare class LarkSR extends EventBase<LarkSRClientEvent, LarkSREvent> {
      * 动态设置scalemode
      */
     set scaleMode(scaleMode: ScaleMode);
+    get mouseZoomDirection(): number;
+    /**
+     * 动态设置滚轮和缩放手势对应关系
+     */
+    set mouseZoomDirection(direction: number);
     /**
      * 当前的输入控制
      * @see Operation
@@ -429,7 +403,6 @@ declare class LarkSR extends EventBase<LarkSRClientEvent, LarkSREvent> {
     get config(): ILarkSRConfig;
     private _config;
     private loadingTimeout;
-    private sdkAuth;
     /**
      * 后台分配的用户id
      */
@@ -447,13 +420,11 @@ declare class LarkSR extends EventBase<LarkSRClientEvent, LarkSREvent> {
     get initCursorMode(): boolean;
     /**
      * LarkSR 客户端。所有操作和事件通过该类传递
-     * @see CreateLarkSRClientFromeAPI, @see CreateLarkSRClientFromeUrl @see CreateLarkSRClientFromePXYHost
-     * @param config 本地配置，如果有 IAppliParams 相同的配置项，优先级最高
-     * @param params [可选参数] 云端应用参数等，通过后台接口或者url参数获取。
+     * @param config 本地配置，优先级最高
      */
-    constructor(config: ILarkSRConfig, params?: IAppliParams);
+    constructor(config: ILarkSRConfig);
     /**
-     *
+     * 单独设置sdk授权码，目前总会返回成功 promise，具体验证失败将在 connectWithPxyHost 或 connect 返回
      * @param id sdk id 初始化sdkid
      * @returns
      */
@@ -492,13 +463,13 @@ declare class LarkSR extends EventBase<LarkSRClientEvent, LarkSREvent> {
      * 手动重设进入应用参数
      * @param params
      */
-    setAppliParams(params: IAppliParams): void;
+    private setAppliParams;
     /**
      * 开始云渲染流程
      * 启动时应用参数不能为空，包括 taskID，appServer，appPort
      * @returns 是否成功。主要校验授权码是否成功
      */
-    start(): Promise<void>;
+    private start;
     /**
      * 重新开始云渲染流程
      */
