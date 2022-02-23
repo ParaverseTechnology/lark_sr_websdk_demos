@@ -161,7 +161,19 @@ declare enum LarkSRClientEvent {
     /**
      * 一般信息提示
      */
-    INFO = "info"
+    INFO = "info",
+    /**
+     * 语音对话的状态
+     */
+    AI_VOICE_STATUS = "aivoicestatus",
+    /**
+     * 语音识别转文字的结果
+     */
+    AI_VOICE_ASR_RESULT = "aivoiceasrresult",
+    /**
+     * 对话返回的结果
+     */
+    AI_VOICE_DM_RESULT = "aivoicedmresult"
 }
 /**
  * LarkSR 发出的事件
@@ -492,6 +504,24 @@ declare class LarkSR extends EventBase<LarkSRClientEvent, LarkSREvent> {
      * @param text 文字
      */
     inputText(text: string): void;
+    /**
+     * 开始智能语音对话文本输入
+     * 应在只能语音为开始状态下开始输入
+     * @param text 输入的文本
+     * @returns 返回对话 ID
+     */
+    aiDmTextInput(text: string): number;
+    /**
+     * 开始智能语音对话语音输入，自动请求录音权限
+     * 应在只能语音为开始状态下开始输入
+     * @returns 成功返回对话id，失败返回异常
+     */
+    startAiDmVoiceInput(): Promise<number>;
+    /**
+     * 停止智能语音输入，通知语音引擎当前用户输入对话结束
+     * @returns 返回当前对话的id
+     */
+    stopAiDmVoiceInput(): number;
     /**
      * 发送文字消息给数据通道
      * 注意 云端应用要继承数据通道功能
