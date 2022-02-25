@@ -76,6 +76,7 @@ export default class API {
     static ClientLogErrorPath: string;
     static GetStartInfoPath: string;
     private static PocHostApplGetUrl;
+    private static TaskInfoClientStartedPath;
     static HostAppliGetUrl(params: {
         appliId: string;
         playerMode?: number;
@@ -111,5 +112,6 @@ export default class API {
     static GetTask(config: ILarkSRConfig, taskid: string): Promise<GetTaskResult>;
     static LogError(errorCode: number, errorMsg: string, params: string, config: ILarkSRConfig): void;
     static ClientInfo(config: ILarkSRConfig, params: AppliParams): void;
+    static TaskInfoClientStarted(config: ILarkSRConfig, params: AppliParams): void;
     static joinParam(params: any): string;
 }
