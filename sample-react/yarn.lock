@@ -6914,10 +6914,10 @@ language-tags@^1.0.5:
   dependencies:
     language-subtag-registry "~0.3.2"
 
-larksr_websdk@^3.2.3:
-  version "3.2.3"
-  resolved "https://registry.yarnpkg.com/larksr_websdk/-/larksr_websdk-3.2.3.tgz#130c14135e9968a4d899f69eb6c7ae274d6f99e4"
-  integrity sha512-4+yvahbIzoMyUn9AZsoz5PoYBWxj3oxnSisOnritpzLJDoCjsOz9gAA5gIUdg56x/FyfS6Q4aVsBpejRGbHibA==
+larksr_websdk@^3.2.36:
+  version "3.2.36"
+  resolved "https://registry.yarnpkg.com/larksr_websdk/-/larksr_websdk-3.2.36.tgz#4758e3ab522d93dc0c68a41f9c5f8c9c42815645"
+  integrity sha512-QK5ccEEY6xhJgBPDvmdO3iD0k9gsbeUmSvnDPKfy9gMILjLYfhuMviGk56dhBcVggOhjmU53xjU/ggDySz6/6g==
   dependencies:
     axios "^0.24.0"
     bowser "^2.11.0"
@@ -6925,6 +6925,7 @@ larksr_websdk@^3.2.3:
     crypto-js "^4.1.1"
     protobufjs "^6.11.2"
     webrtc-adapter "^8.1.0"
+    weixin-js-sdk "^1.6.0"
 
 last-call-webpack-plugin@^3.0.0:
   version "3.0.0"
@@ -11250,6 +11251,11 @@ websocket-extensions@>=0.1.1:
   version "0.1.4"
   resolved "https://registry.yarnpkg.com/websocket-extensions/-/websocket-extensions-0.1.4.tgz#7f8473bc839dfd87608adb95d7eb075211578a42"
   integrity sha512-OqedPIGOfsDlo31UNwYbCFMSaO9m9G/0faIHj5/dZFDMFqPTcx6UwqyOy3COEaEOg/9VsGIpdqn62W5KhoKSpg==
+
+weixin-js-sdk@^1.6.0:
+  version "1.6.0"
+  resolved "https://registry.yarnpkg.com/weixin-js-sdk/-/weixin-js-sdk-1.6.0.tgz#ff50484d8118ce1208f11248cf4a1c0831577514"
+  integrity sha512-3IYQH7aalJGFJrwdT3epvTdR1MboMiH7vIZ5BRL2eYOJ12BNah7csoMkmSZzkq1+l92sSq29XdTCVjCJoK2sBQ==
 
 whatwg-encoding@^1.0.5:
   version "1.0.5"

@@ -173,7 +173,11 @@ declare enum LarkSRClientEvent {
     /**
      * 对话返回的结果
      */
-    AI_VOICE_DM_RESULT = "aivoicedmresult"
+    AI_VOICE_DM_RESULT = "aivoicedmresult",
+    /**
+     * 对话出错详细信息
+     */
+    AI_VOICE_ERROR = "aivoiceerror"
 }
 /**
  * LarkSR 发出的事件

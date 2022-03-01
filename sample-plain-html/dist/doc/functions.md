@@ -140,11 +140,30 @@ keyDown(key: string, isRepeat: boolean): void;
  * @returns 是否发送成功，如果key参数传递错误可能发送失败
  */
 keyUp(key: string): void;
-/**
+ /**
+ * 手柄接口消息按照 windows xbox 360 手柄标准定义，即包含 xbox 360 手柄的功能，如按钮，摇杆，扳机键。windows 上最多支持4个手柄，
+ * 当前版本服务端只处理1个手柄，后续会放开多个手柄的支持。接口中发送的按键值为对应的 windows 中定义的按键值。
  * 向云端发送手柄按钮按下事件
- * 參考 https://developer.mozilla.org/zh-CN/docs/Web/API/Gamepad_API/Using_the_Gamepad_API
- * @param userIndex 手柄的索引
- * @param button 按鍵
+ * 參考 js 中获取手柄事件，参考 https://developer.mozilla.org/zh-CN/docs/Web/API/Gamepad_API/Using_the_Gamepad_API
+ * @param userIndex 手柄的索引,硬件设备索引 0-3. 第一个连接的手柄为0，第二个为1，以此类推。
+ * @param button 按鍵 @see https://docs.microsoft.com/en-us/windows/win32/api/xinput/ns-xinput-xinput_gamepad
+ * export const enum XINPUT_BUTTONS {
+ *       XINPUT_GAMEPAD_DPAD_UP        = 0x0001,
+ *       XINPUT_GAMEPAD_DPAD_DOWN      = 0x0002,
+ *       XINPUT_GAMEPAD_DPAD_LEFT      = 0x0004,
+ *       XINPUT_GAMEPAD_DPAD_RIGHT     = 0x0008,
+ *       XINPUT_GAMEPAD_START          = 0x0010,
+ *       XINPUT_GAMEPAD_BACK           = 0x0020,
+ *       XINPUT_GAMEPAD_LEFT_THUMB     = 0x0040,
+ *       XINPUT_GAMEPAD_RIGHT_THUMB    = 0x0080,
+ *       XINPUT_GAMEPAD_LEFT_SHOULDER  = 0x0100,
+ *       XINPUT_GAMEPAD_RIGHT_SHOULDER = 0x0200,
+ *       XINPUT_GAMEPAD_A              = 0x1000,
+ *       XINPUT_GAMEPAD_B              = 0x2000,
+ *       XINPUT_GAMEPAD_X              = 0x4000,
+ *       XINPUT_GAMEPAD_Y              = 0x8000,
+ *       XINPUT_UNKNOWN                = -1,
+ *   }
  * @param isRepeat 是否重复按下
  * @returns
  */
@@ -162,18 +181,23 @@ gamepadButtonUp(userIndex: number, button: number): void;
  * 參考 https://developer.mozilla.org/zh-CN/docs/Web/API/Gamepad_API/Using_the_Gamepad_API
  * @param userIndex 手柄的索引
  * @param isleft 是否是左trigger
- * @param value trigger的值
+ * @param value trigger的值 扳机键的值 0-255
  * @returns
  */
 gamepadTrigger(userIndex: number, isleft: boolean, value: number): void;
 /**
  * 向云端发送手柄按摇杆的值，即 axes 值
- * 參考 https://developer.mozilla.org/zh-CN/docs/Web/API/Gamepad_API/Using_the_Gamepad_API
+ * win      MAX
+ *           |
+ *  MIN-------------MAX
+ *          |
+ *         MIN
+ * js 中获取硬件手柄參考 https://developer.mozilla.org/zh-CN/docs/Web/API/Gamepad_API/Using_the_Gamepad_API
  * @param userIndex 手柄的索引
- * @param thumblx 手柄摇杆的x轴坐标
- * @param thumbly 手柄摇杆的y轴坐标
- * @param thumbrx 手柄摇杆的x轴相对坐标
- * @param thumbry 手柄摇杆的y轴相对坐标
+ * @param thumblx 左摇杆 X 值，-32767 到 32767
+ * @param thumbly 左摇杆 Y 值，-32767 到 32767
+ * @param thumbrx 右摇杆 X 值，-32767 到 32767
+ * @param thumbry 右摇杆 Y 值，-32767 到 32767
  * @returns
  */
 joystick(userIndex: number, thumblx: number, thumbly: number, thumbrx: number, thumbry: number): void;
