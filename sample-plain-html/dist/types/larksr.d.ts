@@ -451,6 +451,8 @@ declare class LarkSR extends EventBase<LarkSRClientEvent, LarkSREvent> {
         userType?: number;
         roomCode?: string;
         taskId?: string;
+        regionId?: string;
+        groupId?: string;
     }): Promise<void>;
     /**
      * 连接云端渲染资源
@@ -498,6 +500,13 @@ declare class LarkSR extends EventBase<LarkSRClientEvent, LarkSREvent> {
      * 主动关闭连接
      */
     close(): void;
+    /**
+     * 设置是否强制横屏显示内容.
+     * handelRootElementSize 必须设置为 true 才有作用。
+     * 要注意强制横屏模式下网页的坐标系xy和视觉上相反，如果通过外部输入 input 事件。要注意调整
+     * @param force 是否强制横屏
+     */
+    setMobileForceLandScape(force: boolean): void;
     /**
      * 切换当前操作者
      * @param uid 用户id

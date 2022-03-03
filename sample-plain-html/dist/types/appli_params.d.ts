@@ -263,5 +263,17 @@ export declare class AppliParamsUtils {
     static getIntOption(option: string | null | undefined, emptyValue?: number): number;
     static getBgColor(option: string | null | undefined): string;
 }
+/**
+ * WARNING 服务器端返回数据随机性较大，统一在该函数里做兼容处理
+ * 服务器端可能随意修改字段名称或值，需要注意测试
+ * @param startAppInfo
+ * @returns
+ */
 export declare function LoadAppliParamsFromUrl(): IAppliParams;
+/**
+ * WARNING 服务器端返回数据随机性较大，统一在该函数里做兼容处理
+ * 服务器端可能随意修改字段名称或值，需要注意测试
+ * @param startAppInfo
+ * @returns
+ */
 export declare function LoadAppliParamsStartAppInfo(startAppInfo: StartAppInfo): IAppliParams;
