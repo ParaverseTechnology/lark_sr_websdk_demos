@@ -77,6 +77,7 @@ export default class API {
     static GetStartInfoPath: string;
     private static PocHostApplGetUrl;
     private static TaskInfoClientStartedPath;
+    private static PortMappingListPath;
     static HostAppliGetUrl(params: {
         appliId: string;
         playerMode?: number;
@@ -113,5 +114,6 @@ export default class API {
     static LogError(errorCode: number, errorMsg: string, params: string, config: ILarkSRConfig): void;
     static ClientInfo(config: ILarkSRConfig, params: AppliParams): void;
     static TaskInfoClientStarted(config: ILarkSRConfig, params: AppliParams): void;
+    static PortMappingList(config: ILarkSRConfig): Promise<unknown>;
     static joinParam(params: any): string;
 }

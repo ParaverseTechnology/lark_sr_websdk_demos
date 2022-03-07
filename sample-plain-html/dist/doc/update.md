@@ -52,3 +52,15 @@ larksr.on('aivoicedmresult', (e) => {
     // 智能语音对话结果
 });
 ```
+
+## V3.2.37
+
+```typescript
+/**
+ * 设置是否强制横屏显示内容.
+ * handelRootElementSize 必须设置为 true 才有作用。
+ * 要注意强制横屏模式下网页的坐标系xy和视觉上相反，如果通过外部输入 input 事件。要注意调整
+ * @param force 是否强制横屏
+ */
+setMobileForceLandScape(force: boolean): void;
+```

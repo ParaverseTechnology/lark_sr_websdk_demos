@@ -425,6 +425,11 @@ declare class LarkSR extends EventBase<LarkSRClientEvent, LarkSREvent> {
     get uid(): number;
     private _uid;
     /**
+     * 云端应用是否是预启动状态
+     */
+    get isPreStart(): boolean;
+    private _isPreStart;
+    /**
      * @returns 是否是 Task的拥有者
      */
     isTaskOwner(): boolean;
