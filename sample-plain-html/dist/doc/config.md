@@ -87,7 +87,10 @@ interface ILarkSRConfig {
     perferDecoder?: 'auto' | 'vp8' | 'vp9' | 'h264' | 'av1x';
     /**
      * 可选项，视频在容器中的缩放模式
-     *
+     * 'contain' | 'fill_clip' | 'fill_stretch'
+     * contain: 以应用原始尺寸的缩放
+     * fill_clip: 裁剪模式，完全填充屏幕但保留宽高比
+     * fill_stretch: 拉伸模式，完全填充屏幕但不保留宽高比
      */
     scaleMode?: ScaleMode;
     /**
