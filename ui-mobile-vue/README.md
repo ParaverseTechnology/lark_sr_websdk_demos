@@ -26,7 +26,7 @@ yarn add larksr_websdk
 ## 引入
 
 ```javascript
-import { CreateLarkSRClientFromeAPI } from "larksr_websdk";
+import { LarkSR } from "larksr_websdk";
 ```
 > 需要修改 authCode 为您的 authCode；
 

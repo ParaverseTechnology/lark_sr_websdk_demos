@@ -26,5 +26,5 @@ yarn add larksr_websdk
 ## 引入
 
 ```javascript
-import { CreateLarkSRClientFromeAPI } from "larksr_websdk";
+import { LarkSR } from "larksr_websdk";
 ```

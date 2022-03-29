@@ -87,7 +87,7 @@ client.initSDKAuthCode('您的 SDK ID')
 
 SDK 加载成功之后，非模块模式下，SDK 挂载为全局对象 larksr_websdk。
 
-连接云端资源，管理生命周期和事件等主要在 LarkSR 对象下。通过调用 CreateLarkSRClientFromeAPI 配置后台请求参数，创建 LarkSR 对象实例。
+连接云端资源，管理生命周期和事件等主要在 LarkSR 对象下。
 
 > 默认情况下自动连接云端资源，将容器设置为浏览器视口高度，并配置网页 100% 宽高显示。SDK 内部自动处理按键输入输出。
 
