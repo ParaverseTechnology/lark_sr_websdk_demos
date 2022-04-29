@@ -430,6 +430,9 @@ export namespace CloudLark {
 
         /** TaskResponse uid */
         uid?: (number|null);
+
+        /** TaskResponse prestart */
+        prestart?: (boolean|null);
     }
 
     /** Represents a TaskResponse. */
@@ -446,6 +449,9 @@ export namespace CloudLark {
 
         /** TaskResponse uid. */
         public uid: number;
+
+        /** TaskResponse prestart. */
+        public prestart: boolean;
 
         /**
          * Creates a new TaskResponse instance using the specified properties.
@@ -2472,6 +2478,498 @@ export namespace CloudLark {
         }
     }
 
+    /** Properties of a LarkXRDataChannelState. */
+    interface ILarkXRDataChannelState {
+
+        /** LarkXRDataChannelState state */
+        state?: (CloudLark.LarkXRDataChannelState.State|null);
+    }
+
+    /** Represents a LarkXRDataChannelState. */
+    class LarkXRDataChannelState implements ILarkXRDataChannelState {
+
+        /**
+         * Constructs a new LarkXRDataChannelState.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: CloudLark.ILarkXRDataChannelState);
+
+        /** LarkXRDataChannelState state. */
+        public state: CloudLark.LarkXRDataChannelState.State;
+
+        /**
+         * Creates a new LarkXRDataChannelState instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns LarkXRDataChannelState instance
+         */
+        public static create(properties?: CloudLark.ILarkXRDataChannelState): CloudLark.LarkXRDataChannelState;
+
+        /**
+         * Encodes the specified LarkXRDataChannelState message. Does not implicitly {@link CloudLark.LarkXRDataChannelState.verify|verify} messages.
+         * @param message LarkXRDataChannelState message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: CloudLark.ILarkXRDataChannelState, writer?: $protobuf.Writer): $protobuf.Writer;
+
+        /**
+         * Encodes the specified LarkXRDataChannelState message, length delimited. Does not implicitly {@link CloudLark.LarkXRDataChannelState.verify|verify} messages.
+         * @param message LarkXRDataChannelState message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: CloudLark.ILarkXRDataChannelState, writer?: $protobuf.Writer): $protobuf.Writer;
+
+        /**
+         * Decodes a LarkXRDataChannelState message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns LarkXRDataChannelState
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): CloudLark.LarkXRDataChannelState;
+
+        /**
+         * Decodes a LarkXRDataChannelState message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns LarkXRDataChannelState
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): CloudLark.LarkXRDataChannelState;
+
+        /**
+         * Verifies a LarkXRDataChannelState message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a LarkXRDataChannelState message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns LarkXRDataChannelState
+         */
+        public static fromObject(object: { [k: string]: any }): CloudLark.LarkXRDataChannelState;
+
+        /**
+         * Creates a plain object from a LarkXRDataChannelState message. Also converts values to other types if specified.
+         * @param message LarkXRDataChannelState
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: CloudLark.LarkXRDataChannelState, options?: $protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this LarkXRDataChannelState to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    namespace LarkXRDataChannelState {
+
+        /** State enum. */
+        enum State {
+            OPEN = 0,
+            CLOSE = 1
+        }
+    }
+
+    /** Properties of a LarkXRChannelMessage. */
+    interface ILarkXRChannelMessage {
+
+        /** LarkXRChannelMessage type */
+        type?: (CloudLark.LarkXRChannelMessage.Type|null);
+
+        /** LarkXRChannelMessage data */
+        data?: (Uint8Array|null);
+    }
+
+    /** Represents a LarkXRChannelMessage. */
+    class LarkXRChannelMessage implements ILarkXRChannelMessage {
+
+        /**
+         * Constructs a new LarkXRChannelMessage.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: CloudLark.ILarkXRChannelMessage);
+
+        /** LarkXRChannelMessage type. */
+        public type: CloudLark.LarkXRChannelMessage.Type;
+
+        /** LarkXRChannelMessage data. */
+        public data: Uint8Array;
+
+        /**
+         * Creates a new LarkXRChannelMessage instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns LarkXRChannelMessage instance
+         */
+        public static create(properties?: CloudLark.ILarkXRChannelMessage): CloudLark.LarkXRChannelMessage;
+
+        /**
+         * Encodes the specified LarkXRChannelMessage message. Does not implicitly {@link CloudLark.LarkXRChannelMessage.verify|verify} messages.
+         * @param message LarkXRChannelMessage message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: CloudLark.ILarkXRChannelMessage, writer?: $protobuf.Writer): $protobuf.Writer;
+
+        /**
+         * Encodes the specified LarkXRChannelMessage message, length delimited. Does not implicitly {@link CloudLark.LarkXRChannelMessage.verify|verify} messages.
+         * @param message LarkXRChannelMessage message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: CloudLark.ILarkXRChannelMessage, writer?: $protobuf.Writer): $protobuf.Writer;
+
+        /**
+         * Decodes a LarkXRChannelMessage message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns LarkXRChannelMessage
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): CloudLark.LarkXRChannelMessage;
+
+        /**
+         * Decodes a LarkXRChannelMessage message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns LarkXRChannelMessage
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): CloudLark.LarkXRChannelMessage;
+
+        /**
+         * Verifies a LarkXRChannelMessage message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a LarkXRChannelMessage message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns LarkXRChannelMessage
+         */
+        public static fromObject(object: { [k: string]: any }): CloudLark.LarkXRChannelMessage;
+
+        /**
+         * Creates a plain object from a LarkXRChannelMessage message. Also converts values to other types if specified.
+         * @param message LarkXRChannelMessage
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: CloudLark.LarkXRChannelMessage, options?: $protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this LarkXRChannelMessage to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    namespace LarkXRChannelMessage {
+
+        /** Type enum. */
+        enum Type {
+            STRING = 0,
+            BIN = 1
+        }
+    }
+
+    /** Properties of a LarkXRPlayerDesc. */
+    interface ILarkXRPlayerDesc {
+
+        /** LarkXRPlayerDesc id */
+        id?: (number|null);
+
+        /** LarkXRPlayerDesc nickName */
+        nickName?: (string|null);
+
+        /** LarkXRPlayerDesc taskOwner */
+        taskOwner?: (boolean|null);
+
+        /** LarkXRPlayerDesc controller */
+        controller?: (boolean|null);
+    }
+
+    /** Represents a LarkXRPlayerDesc. */
+    class LarkXRPlayerDesc implements ILarkXRPlayerDesc {
+
+        /**
+         * Constructs a new LarkXRPlayerDesc.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: CloudLark.ILarkXRPlayerDesc);
+
+        /** LarkXRPlayerDesc id. */
+        public id: number;
+
+        /** LarkXRPlayerDesc nickName. */
+        public nickName: string;
+
+        /** LarkXRPlayerDesc taskOwner. */
+        public taskOwner: boolean;
+
+        /** LarkXRPlayerDesc controller. */
+        public controller: boolean;
+
+        /**
+         * Creates a new LarkXRPlayerDesc instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns LarkXRPlayerDesc instance
+         */
+        public static create(properties?: CloudLark.ILarkXRPlayerDesc): CloudLark.LarkXRPlayerDesc;
+
+        /**
+         * Encodes the specified LarkXRPlayerDesc message. Does not implicitly {@link CloudLark.LarkXRPlayerDesc.verify|verify} messages.
+         * @param message LarkXRPlayerDesc message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: CloudLark.ILarkXRPlayerDesc, writer?: $protobuf.Writer): $protobuf.Writer;
+
+        /**
+         * Encodes the specified LarkXRPlayerDesc message, length delimited. Does not implicitly {@link CloudLark.LarkXRPlayerDesc.verify|verify} messages.
+         * @param message LarkXRPlayerDesc message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: CloudLark.ILarkXRPlayerDesc, writer?: $protobuf.Writer): $protobuf.Writer;
+
+        /**
+         * Decodes a LarkXRPlayerDesc message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns LarkXRPlayerDesc
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): CloudLark.LarkXRPlayerDesc;
+
+        /**
+         * Decodes a LarkXRPlayerDesc message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns LarkXRPlayerDesc
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): CloudLark.LarkXRPlayerDesc;
+
+        /**
+         * Verifies a LarkXRPlayerDesc message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a LarkXRPlayerDesc message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns LarkXRPlayerDesc
+         */
+        public static fromObject(object: { [k: string]: any }): CloudLark.LarkXRPlayerDesc;
+
+        /**
+         * Creates a plain object from a LarkXRPlayerDesc message. Also converts values to other types if specified.
+         * @param message LarkXRPlayerDesc
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: CloudLark.LarkXRPlayerDesc, options?: $protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this LarkXRPlayerDesc to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of a LarkXRUpdatePlayersDesc. */
+    interface ILarkXRUpdatePlayersDesc {
+
+        /** LarkXRUpdatePlayersDesc descs */
+        descs?: (CloudLark.ILarkXRPlayerDesc[]|null);
+    }
+
+    /** Represents a LarkXRUpdatePlayersDesc. */
+    class LarkXRUpdatePlayersDesc implements ILarkXRUpdatePlayersDesc {
+
+        /**
+         * Constructs a new LarkXRUpdatePlayersDesc.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: CloudLark.ILarkXRUpdatePlayersDesc);
+
+        /** LarkXRUpdatePlayersDesc descs. */
+        public descs: CloudLark.ILarkXRPlayerDesc[];
+
+        /**
+         * Creates a new LarkXRUpdatePlayersDesc instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns LarkXRUpdatePlayersDesc instance
+         */
+        public static create(properties?: CloudLark.ILarkXRUpdatePlayersDesc): CloudLark.LarkXRUpdatePlayersDesc;
+
+        /**
+         * Encodes the specified LarkXRUpdatePlayersDesc message. Does not implicitly {@link CloudLark.LarkXRUpdatePlayersDesc.verify|verify} messages.
+         * @param message LarkXRUpdatePlayersDesc message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: CloudLark.ILarkXRUpdatePlayersDesc, writer?: $protobuf.Writer): $protobuf.Writer;
+
+        /**
+         * Encodes the specified LarkXRUpdatePlayersDesc message, length delimited. Does not implicitly {@link CloudLark.LarkXRUpdatePlayersDesc.verify|verify} messages.
+         * @param message LarkXRUpdatePlayersDesc message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: CloudLark.ILarkXRUpdatePlayersDesc, writer?: $protobuf.Writer): $protobuf.Writer;
+
+        /**
+         * Decodes a LarkXRUpdatePlayersDesc message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns LarkXRUpdatePlayersDesc
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): CloudLark.LarkXRUpdatePlayersDesc;
+
+        /**
+         * Decodes a LarkXRUpdatePlayersDesc message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns LarkXRUpdatePlayersDesc
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): CloudLark.LarkXRUpdatePlayersDesc;
+
+        /**
+         * Verifies a LarkXRUpdatePlayersDesc message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a LarkXRUpdatePlayersDesc message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns LarkXRUpdatePlayersDesc
+         */
+        public static fromObject(object: { [k: string]: any }): CloudLark.LarkXRUpdatePlayersDesc;
+
+        /**
+         * Creates a plain object from a LarkXRUpdatePlayersDesc message. Also converts values to other types if specified.
+         * @param message LarkXRUpdatePlayersDesc
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: CloudLark.LarkXRUpdatePlayersDesc, options?: $protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this LarkXRUpdatePlayersDesc to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of a LarkXRDispatchController. */
+    interface ILarkXRDispatchController {
+
+        /** LarkXRDispatchController id */
+        id?: (number|null);
+    }
+
+    /** Represents a LarkXRDispatchController. */
+    class LarkXRDispatchController implements ILarkXRDispatchController {
+
+        /**
+         * Constructs a new LarkXRDispatchController.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: CloudLark.ILarkXRDispatchController);
+
+        /** LarkXRDispatchController id. */
+        public id: number;
+
+        /**
+         * Creates a new LarkXRDispatchController instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns LarkXRDispatchController instance
+         */
+        public static create(properties?: CloudLark.ILarkXRDispatchController): CloudLark.LarkXRDispatchController;
+
+        /**
+         * Encodes the specified LarkXRDispatchController message. Does not implicitly {@link CloudLark.LarkXRDispatchController.verify|verify} messages.
+         * @param message LarkXRDispatchController message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: CloudLark.ILarkXRDispatchController, writer?: $protobuf.Writer): $protobuf.Writer;
+
+        /**
+         * Encodes the specified LarkXRDispatchController message, length delimited. Does not implicitly {@link CloudLark.LarkXRDispatchController.verify|verify} messages.
+         * @param message LarkXRDispatchController message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: CloudLark.ILarkXRDispatchController, writer?: $protobuf.Writer): $protobuf.Writer;
+
+        /**
+         * Decodes a LarkXRDispatchController message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns LarkXRDispatchController
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): CloudLark.LarkXRDispatchController;
+
+        /**
+         * Decodes a LarkXRDispatchController message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns LarkXRDispatchController
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): CloudLark.LarkXRDispatchController;
+
+        /**
+         * Verifies a LarkXRDispatchController message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a LarkXRDispatchController message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns LarkXRDispatchController
+         */
+        public static fromObject(object: { [k: string]: any }): CloudLark.LarkXRDispatchController;
+
+        /**
+         * Creates a plain object from a LarkXRDispatchController message. Also converts values to other types if specified.
+         * @param message LarkXRDispatchController
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: CloudLark.LarkXRDispatchController, options?: $protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this LarkXRDispatchController to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
     /** Properties of a ToServerMessage. */
     interface IToServerMessage {
 
@@ -2504,6 +3002,12 @@ export namespace CloudLark {
 
         /** ToServerMessage startNewVrstreamRequest */
         startNewVrstreamRequest?: (CloudLark.IStartNewVrStreamRequest|null);
+
+        /** ToServerMessage datachannelData */
+        datachannelData?: (CloudLark.ILarkXRChannelMessage|null);
+
+        /** ToServerMessage dispatchController */
+        dispatchController?: (CloudLark.ILarkXRDispatchController|null);
     }
 
     /** Represents a ToServerMessage. */
@@ -2545,8 +3049,14 @@ export namespace CloudLark {
         /** ToServerMessage startNewVrstreamRequest. */
         public startNewVrstreamRequest?: (CloudLark.IStartNewVrStreamRequest|null);
 
+        /** ToServerMessage datachannelData. */
+        public datachannelData?: (CloudLark.ILarkXRChannelMessage|null);
+
+        /** ToServerMessage dispatchController. */
+        public dispatchController?: (CloudLark.ILarkXRDispatchController|null);
+
         /** ToServerMessage msg. */
-        public msg?: ("versionCheckRequest"|"taskRequest"|"startStreamRequest"|"webrtcOfferAnswer"|"webrtcIcecandidate"|"processControl"|"startVrsteamRequest"|"vrMonitorRequest"|"startNewVrstreamRequest");
+        public msg?: ("versionCheckRequest"|"taskRequest"|"startStreamRequest"|"webrtcOfferAnswer"|"webrtcIcecandidate"|"processControl"|"startVrsteamRequest"|"vrMonitorRequest"|"startNewVrstreamRequest"|"datachannelData"|"dispatchController");
 
         /**
          * Creates a new ToServerMessage instance using the specified properties.
@@ -2654,6 +3164,15 @@ export namespace CloudLark {
 
         /** ToClientMessage vrMonitorResponse */
         vrMonitorResponse?: (CloudLark.IVrMonitorResponse|null);
+
+        /** ToClientMessage datachannelState */
+        datachannelState?: (CloudLark.ILarkXRDataChannelState|null);
+
+        /** ToClientMessage datachannelData */
+        datachannelData?: (CloudLark.ILarkXRChannelMessage|null);
+
+        /** ToClientMessage updatePlayers */
+        updatePlayers?: (CloudLark.ILarkXRUpdatePlayersDesc|null);
     }
 
     /** Represents a ToClientMessage. */
@@ -2698,8 +3217,17 @@ export namespace CloudLark {
         /** ToClientMessage vrMonitorResponse. */
         public vrMonitorResponse?: (CloudLark.IVrMonitorResponse|null);
 
+        /** ToClientMessage datachannelState. */
+        public datachannelState?: (CloudLark.ILarkXRDataChannelState|null);
+
+        /** ToClientMessage datachannelData. */
+        public datachannelData?: (CloudLark.ILarkXRChannelMessage|null);
+
+        /** ToClientMessage updatePlayers. */
+        public updatePlayers?: (CloudLark.ILarkXRUpdatePlayersDesc|null);
+
         /** ToClientMessage msg. */
-        public msg?: ("versionCheckResponse"|"taskResponse"|"startStreamResponse"|"webrtcOfferAnswer"|"webrtcIcecandidate"|"webrtcError"|"processNotifi"|"logout"|"startVrstreamResponse"|"vrMonitorResponse");
+        public msg?: ("versionCheckResponse"|"taskResponse"|"startStreamResponse"|"webrtcOfferAnswer"|"webrtcIcecandidate"|"webrtcError"|"processNotifi"|"logout"|"startVrstreamResponse"|"vrMonitorResponse"|"datachannelState"|"datachannelData"|"updatePlayers");
 
         /**
          * Creates a new ToClientMessage instance using the specified properties.
@@ -3563,7 +4091,7 @@ export namespace CloudLark {
         PosY?: (number|null);
 
         /** TouchUp time */
-        time?: (number|null);
+        time?: (number|Long|null);
 
         /** TouchUp ID */
         ID?: (number|null);
@@ -3585,7 +4113,7 @@ export namespace CloudLark {
         public PosY: number;
 
         /** TouchUp time. */
-        public time: (number);
+        public time: (number|Long);
 
         /** TouchUp ID. */
         public ID: number;
@@ -3671,7 +4199,7 @@ export namespace CloudLark {
         PosY?: (number|null);
 
         /** TouchDown time */
-        time?: (number|null);
+        time?: (number|Long|null);
 
         /** TouchDown ID */
         ID?: (number|null);
@@ -3693,7 +4221,7 @@ export namespace CloudLark {
         public PosY: number;
 
         /** TouchDown time. */
-        public time: (number);
+        public time: (number|Long);
 
         /** TouchDown ID. */
         public ID: number;
@@ -3779,7 +4307,7 @@ export namespace CloudLark {
         PosY?: (number|null);
 
         /** TouchMove time */
-        time?: (number|null);
+        time?: (number|Long|null);
 
         /** TouchMove ID */
         ID?: (number|null);
@@ -3801,7 +4329,7 @@ export namespace CloudLark {
         public PosY: number;
 
         /** TouchMove time. */
-        public time: (number);
+        public time: (number|Long);
 
         /** TouchMove ID. */
         public ID: number;
@@ -5606,6 +6134,858 @@ export namespace CloudLark {
         }
     }
 
+    /** Properties of an AiVoiceServiceStatus. */
+    interface IAiVoiceServiceStatus {
+
+        /** AiVoiceServiceStatus success */
+        success?: (boolean|null);
+
+        /** AiVoiceServiceStatus reason */
+        reason?: (string|null);
+    }
+
+    /** Represents an AiVoiceServiceStatus. */
+    class AiVoiceServiceStatus implements IAiVoiceServiceStatus {
+
+        /**
+         * Constructs a new AiVoiceServiceStatus.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: CloudLark.IAiVoiceServiceStatus);
+
+        /** AiVoiceServiceStatus success. */
+        public success: boolean;
+
+        /** AiVoiceServiceStatus reason. */
+        public reason: string;
+
+        /**
+         * Creates a new AiVoiceServiceStatus instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns AiVoiceServiceStatus instance
+         */
+        public static create(properties?: CloudLark.IAiVoiceServiceStatus): CloudLark.AiVoiceServiceStatus;
+
+        /**
+         * Encodes the specified AiVoiceServiceStatus message. Does not implicitly {@link CloudLark.AiVoiceServiceStatus.verify|verify} messages.
+         * @param message AiVoiceServiceStatus message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: CloudLark.IAiVoiceServiceStatus, writer?: $protobuf.Writer): $protobuf.Writer;
+
+        /**
+         * Encodes the specified AiVoiceServiceStatus message, length delimited. Does not implicitly {@link CloudLark.AiVoiceServiceStatus.verify|verify} messages.
+         * @param message AiVoiceServiceStatus message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: CloudLark.IAiVoiceServiceStatus, writer?: $protobuf.Writer): $protobuf.Writer;
+
+        /**
+         * Decodes an AiVoiceServiceStatus message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns AiVoiceServiceStatus
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): CloudLark.AiVoiceServiceStatus;
+
+        /**
+         * Decodes an AiVoiceServiceStatus message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns AiVoiceServiceStatus
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): CloudLark.AiVoiceServiceStatus;
+
+        /**
+         * Verifies an AiVoiceServiceStatus message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates an AiVoiceServiceStatus message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns AiVoiceServiceStatus
+         */
+        public static fromObject(object: { [k: string]: any }): CloudLark.AiVoiceServiceStatus;
+
+        /**
+         * Creates a plain object from an AiVoiceServiceStatus message. Also converts values to other types if specified.
+         * @param message AiVoiceServiceStatus
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: CloudLark.AiVoiceServiceStatus, options?: $protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this AiVoiceServiceStatus to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of an AiVoiceStreamStart. */
+    interface IAiVoiceStreamStart {
+
+        /** AiVoiceStreamStart voiceId */
+        voiceId?: (number|null);
+    }
+
+    /** Represents an AiVoiceStreamStart. */
+    class AiVoiceStreamStart implements IAiVoiceStreamStart {
+
+        /**
+         * Constructs a new AiVoiceStreamStart.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: CloudLark.IAiVoiceStreamStart);
+
+        /** AiVoiceStreamStart voiceId. */
+        public voiceId: number;
+
+        /**
+         * Creates a new AiVoiceStreamStart instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns AiVoiceStreamStart instance
+         */
+        public static create(properties?: CloudLark.IAiVoiceStreamStart): CloudLark.AiVoiceStreamStart;
+
+        /**
+         * Encodes the specified AiVoiceStreamStart message. Does not implicitly {@link CloudLark.AiVoiceStreamStart.verify|verify} messages.
+         * @param message AiVoiceStreamStart message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: CloudLark.IAiVoiceStreamStart, writer?: $protobuf.Writer): $protobuf.Writer;
+
+        /**
+         * Encodes the specified AiVoiceStreamStart message, length delimited. Does not implicitly {@link CloudLark.AiVoiceStreamStart.verify|verify} messages.
+         * @param message AiVoiceStreamStart message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: CloudLark.IAiVoiceStreamStart, writer?: $protobuf.Writer): $protobuf.Writer;
+
+        /**
+         * Decodes an AiVoiceStreamStart message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns AiVoiceStreamStart
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): CloudLark.AiVoiceStreamStart;
+
+        /**
+         * Decodes an AiVoiceStreamStart message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns AiVoiceStreamStart
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): CloudLark.AiVoiceStreamStart;
+
+        /**
+         * Verifies an AiVoiceStreamStart message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates an AiVoiceStreamStart message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns AiVoiceStreamStart
+         */
+        public static fromObject(object: { [k: string]: any }): CloudLark.AiVoiceStreamStart;
+
+        /**
+         * Creates a plain object from an AiVoiceStreamStart message. Also converts values to other types if specified.
+         * @param message AiVoiceStreamStart
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: CloudLark.AiVoiceStreamStart, options?: $protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this AiVoiceStreamStart to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of an AiVoiceStreamSlice. */
+    interface IAiVoiceStreamSlice {
+
+        /** AiVoiceStreamSlice voiceId */
+        voiceId?: (number|null);
+
+        /** AiVoiceStreamSlice sliceId */
+        sliceId?: (number|null);
+
+        /** AiVoiceStreamSlice audio */
+        audio?: (Uint8Array|null);
+    }
+
+    /** Represents an AiVoiceStreamSlice. */
+    class AiVoiceStreamSlice implements IAiVoiceStreamSlice {
+
+        /**
+         * Constructs a new AiVoiceStreamSlice.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: CloudLark.IAiVoiceStreamSlice);
+
+        /** AiVoiceStreamSlice voiceId. */
+        public voiceId: number;
+
+        /** AiVoiceStreamSlice sliceId. */
+        public sliceId: number;
+
+        /** AiVoiceStreamSlice audio. */
+        public audio: Uint8Array;
+
+        /**
+         * Creates a new AiVoiceStreamSlice instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns AiVoiceStreamSlice instance
+         */
+        public static create(properties?: CloudLark.IAiVoiceStreamSlice): CloudLark.AiVoiceStreamSlice;
+
+        /**
+         * Encodes the specified AiVoiceStreamSlice message. Does not implicitly {@link CloudLark.AiVoiceStreamSlice.verify|verify} messages.
+         * @param message AiVoiceStreamSlice message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: CloudLark.IAiVoiceStreamSlice, writer?: $protobuf.Writer): $protobuf.Writer;
+
+        /**
+         * Encodes the specified AiVoiceStreamSlice message, length delimited. Does not implicitly {@link CloudLark.AiVoiceStreamSlice.verify|verify} messages.
+         * @param message AiVoiceStreamSlice message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: CloudLark.IAiVoiceStreamSlice, writer?: $protobuf.Writer): $protobuf.Writer;
+
+        /**
+         * Decodes an AiVoiceStreamSlice message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns AiVoiceStreamSlice
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): CloudLark.AiVoiceStreamSlice;
+
+        /**
+         * Decodes an AiVoiceStreamSlice message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns AiVoiceStreamSlice
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): CloudLark.AiVoiceStreamSlice;
+
+        /**
+         * Verifies an AiVoiceStreamSlice message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates an AiVoiceStreamSlice message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns AiVoiceStreamSlice
+         */
+        public static fromObject(object: { [k: string]: any }): CloudLark.AiVoiceStreamSlice;
+
+        /**
+         * Creates a plain object from an AiVoiceStreamSlice message. Also converts values to other types if specified.
+         * @param message AiVoiceStreamSlice
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: CloudLark.AiVoiceStreamSlice, options?: $protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this AiVoiceStreamSlice to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of an AiVoiceStreamStop. */
+    interface IAiVoiceStreamStop {
+
+        /** AiVoiceStreamStop voiceId */
+        voiceId?: (number|null);
+    }
+
+    /** Represents an AiVoiceStreamStop. */
+    class AiVoiceStreamStop implements IAiVoiceStreamStop {
+
+        /**
+         * Constructs a new AiVoiceStreamStop.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: CloudLark.IAiVoiceStreamStop);
+
+        /** AiVoiceStreamStop voiceId. */
+        public voiceId: number;
+
+        /**
+         * Creates a new AiVoiceStreamStop instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns AiVoiceStreamStop instance
+         */
+        public static create(properties?: CloudLark.IAiVoiceStreamStop): CloudLark.AiVoiceStreamStop;
+
+        /**
+         * Encodes the specified AiVoiceStreamStop message. Does not implicitly {@link CloudLark.AiVoiceStreamStop.verify|verify} messages.
+         * @param message AiVoiceStreamStop message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: CloudLark.IAiVoiceStreamStop, writer?: $protobuf.Writer): $protobuf.Writer;
+
+        /**
+         * Encodes the specified AiVoiceStreamStop message, length delimited. Does not implicitly {@link CloudLark.AiVoiceStreamStop.verify|verify} messages.
+         * @param message AiVoiceStreamStop message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: CloudLark.IAiVoiceStreamStop, writer?: $protobuf.Writer): $protobuf.Writer;
+
+        /**
+         * Decodes an AiVoiceStreamStop message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns AiVoiceStreamStop
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): CloudLark.AiVoiceStreamStop;
+
+        /**
+         * Decodes an AiVoiceStreamStop message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns AiVoiceStreamStop
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): CloudLark.AiVoiceStreamStop;
+
+        /**
+         * Verifies an AiVoiceStreamStop message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates an AiVoiceStreamStop message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns AiVoiceStreamStop
+         */
+        public static fromObject(object: { [k: string]: any }): CloudLark.AiVoiceStreamStop;
+
+        /**
+         * Creates a plain object from an AiVoiceStreamStop message. Also converts values to other types if specified.
+         * @param message AiVoiceStreamStop
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: CloudLark.AiVoiceStreamStop, options?: $protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this AiVoiceStreamStop to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of an AiVoiceText. */
+    interface IAiVoiceText {
+
+        /** AiVoiceText voiceId */
+        voiceId?: (number|null);
+
+        /** AiVoiceText text */
+        text?: (string|null);
+    }
+
+    /** Represents an AiVoiceText. */
+    class AiVoiceText implements IAiVoiceText {
+
+        /**
+         * Constructs a new AiVoiceText.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: CloudLark.IAiVoiceText);
+
+        /** AiVoiceText voiceId. */
+        public voiceId: number;
+
+        /** AiVoiceText text. */
+        public text: string;
+
+        /**
+         * Creates a new AiVoiceText instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns AiVoiceText instance
+         */
+        public static create(properties?: CloudLark.IAiVoiceText): CloudLark.AiVoiceText;
+
+        /**
+         * Encodes the specified AiVoiceText message. Does not implicitly {@link CloudLark.AiVoiceText.verify|verify} messages.
+         * @param message AiVoiceText message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: CloudLark.IAiVoiceText, writer?: $protobuf.Writer): $protobuf.Writer;
+
+        /**
+         * Encodes the specified AiVoiceText message, length delimited. Does not implicitly {@link CloudLark.AiVoiceText.verify|verify} messages.
+         * @param message AiVoiceText message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: CloudLark.IAiVoiceText, writer?: $protobuf.Writer): $protobuf.Writer;
+
+        /**
+         * Decodes an AiVoiceText message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns AiVoiceText
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): CloudLark.AiVoiceText;
+
+        /**
+         * Decodes an AiVoiceText message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns AiVoiceText
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): CloudLark.AiVoiceText;
+
+        /**
+         * Verifies an AiVoiceText message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates an AiVoiceText message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns AiVoiceText
+         */
+        public static fromObject(object: { [k: string]: any }): CloudLark.AiVoiceText;
+
+        /**
+         * Creates a plain object from an AiVoiceText message. Also converts values to other types if specified.
+         * @param message AiVoiceText
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: CloudLark.AiVoiceText, options?: $protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this AiVoiceText to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of an AiVoiceStreamReset. */
+    interface IAiVoiceStreamReset {
+
+        /** AiVoiceStreamReset voiceId */
+        voiceId?: (number|null);
+    }
+
+    /** Represents an AiVoiceStreamReset. */
+    class AiVoiceStreamReset implements IAiVoiceStreamReset {
+
+        /**
+         * Constructs a new AiVoiceStreamReset.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: CloudLark.IAiVoiceStreamReset);
+
+        /** AiVoiceStreamReset voiceId. */
+        public voiceId: number;
+
+        /**
+         * Creates a new AiVoiceStreamReset instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns AiVoiceStreamReset instance
+         */
+        public static create(properties?: CloudLark.IAiVoiceStreamReset): CloudLark.AiVoiceStreamReset;
+
+        /**
+         * Encodes the specified AiVoiceStreamReset message. Does not implicitly {@link CloudLark.AiVoiceStreamReset.verify|verify} messages.
+         * @param message AiVoiceStreamReset message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: CloudLark.IAiVoiceStreamReset, writer?: $protobuf.Writer): $protobuf.Writer;
+
+        /**
+         * Encodes the specified AiVoiceStreamReset message, length delimited. Does not implicitly {@link CloudLark.AiVoiceStreamReset.verify|verify} messages.
+         * @param message AiVoiceStreamReset message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: CloudLark.IAiVoiceStreamReset, writer?: $protobuf.Writer): $protobuf.Writer;
+
+        /**
+         * Decodes an AiVoiceStreamReset message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns AiVoiceStreamReset
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): CloudLark.AiVoiceStreamReset;
+
+        /**
+         * Decodes an AiVoiceStreamReset message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns AiVoiceStreamReset
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): CloudLark.AiVoiceStreamReset;
+
+        /**
+         * Verifies an AiVoiceStreamReset message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates an AiVoiceStreamReset message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns AiVoiceStreamReset
+         */
+        public static fromObject(object: { [k: string]: any }): CloudLark.AiVoiceStreamReset;
+
+        /**
+         * Creates a plain object from an AiVoiceStreamReset message. Also converts values to other types if specified.
+         * @param message AiVoiceStreamReset
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: CloudLark.AiVoiceStreamReset, options?: $protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this AiVoiceStreamReset to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of an AiVoiceRealTimeParseResult. */
+    interface IAiVoiceRealTimeParseResult {
+
+        /** AiVoiceRealTimeParseResult voiceId */
+        voiceId?: (number|null);
+
+        /** AiVoiceRealTimeParseResult text */
+        text?: (string|null);
+    }
+
+    /** Represents an AiVoiceRealTimeParseResult. */
+    class AiVoiceRealTimeParseResult implements IAiVoiceRealTimeParseResult {
+
+        /**
+         * Constructs a new AiVoiceRealTimeParseResult.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: CloudLark.IAiVoiceRealTimeParseResult);
+
+        /** AiVoiceRealTimeParseResult voiceId. */
+        public voiceId: number;
+
+        /** AiVoiceRealTimeParseResult text. */
+        public text: string;
+
+        /**
+         * Creates a new AiVoiceRealTimeParseResult instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns AiVoiceRealTimeParseResult instance
+         */
+        public static create(properties?: CloudLark.IAiVoiceRealTimeParseResult): CloudLark.AiVoiceRealTimeParseResult;
+
+        /**
+         * Encodes the specified AiVoiceRealTimeParseResult message. Does not implicitly {@link CloudLark.AiVoiceRealTimeParseResult.verify|verify} messages.
+         * @param message AiVoiceRealTimeParseResult message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: CloudLark.IAiVoiceRealTimeParseResult, writer?: $protobuf.Writer): $protobuf.Writer;
+
+        /**
+         * Encodes the specified AiVoiceRealTimeParseResult message, length delimited. Does not implicitly {@link CloudLark.AiVoiceRealTimeParseResult.verify|verify} messages.
+         * @param message AiVoiceRealTimeParseResult message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: CloudLark.IAiVoiceRealTimeParseResult, writer?: $protobuf.Writer): $protobuf.Writer;
+
+        /**
+         * Decodes an AiVoiceRealTimeParseResult message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns AiVoiceRealTimeParseResult
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): CloudLark.AiVoiceRealTimeParseResult;
+
+        /**
+         * Decodes an AiVoiceRealTimeParseResult message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns AiVoiceRealTimeParseResult
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): CloudLark.AiVoiceRealTimeParseResult;
+
+        /**
+         * Verifies an AiVoiceRealTimeParseResult message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates an AiVoiceRealTimeParseResult message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns AiVoiceRealTimeParseResult
+         */
+        public static fromObject(object: { [k: string]: any }): CloudLark.AiVoiceRealTimeParseResult;
+
+        /**
+         * Creates a plain object from an AiVoiceRealTimeParseResult message. Also converts values to other types if specified.
+         * @param message AiVoiceRealTimeParseResult
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: CloudLark.AiVoiceRealTimeParseResult, options?: $protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this AiVoiceRealTimeParseResult to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of an AiVoiceResult. */
+    interface IAiVoiceResult {
+
+        /** AiVoiceResult voiceId */
+        voiceId?: (number|null);
+
+        /** AiVoiceResult text */
+        text?: (string|null);
+    }
+
+    /** Represents an AiVoiceResult. */
+    class AiVoiceResult implements IAiVoiceResult {
+
+        /**
+         * Constructs a new AiVoiceResult.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: CloudLark.IAiVoiceResult);
+
+        /** AiVoiceResult voiceId. */
+        public voiceId: number;
+
+        /** AiVoiceResult text. */
+        public text: string;
+
+        /**
+         * Creates a new AiVoiceResult instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns AiVoiceResult instance
+         */
+        public static create(properties?: CloudLark.IAiVoiceResult): CloudLark.AiVoiceResult;
+
+        /**
+         * Encodes the specified AiVoiceResult message. Does not implicitly {@link CloudLark.AiVoiceResult.verify|verify} messages.
+         * @param message AiVoiceResult message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: CloudLark.IAiVoiceResult, writer?: $protobuf.Writer): $protobuf.Writer;
+
+        /**
+         * Encodes the specified AiVoiceResult message, length delimited. Does not implicitly {@link CloudLark.AiVoiceResult.verify|verify} messages.
+         * @param message AiVoiceResult message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: CloudLark.IAiVoiceResult, writer?: $protobuf.Writer): $protobuf.Writer;
+
+        /**
+         * Decodes an AiVoiceResult message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns AiVoiceResult
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): CloudLark.AiVoiceResult;
+
+        /**
+         * Decodes an AiVoiceResult message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns AiVoiceResult
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): CloudLark.AiVoiceResult;
+
+        /**
+         * Verifies an AiVoiceResult message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates an AiVoiceResult message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns AiVoiceResult
+         */
+        public static fromObject(object: { [k: string]: any }): CloudLark.AiVoiceResult;
+
+        /**
+         * Creates a plain object from an AiVoiceResult message. Also converts values to other types if specified.
+         * @param message AiVoiceResult
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: CloudLark.AiVoiceResult, options?: $protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this AiVoiceResult to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of an AivoiceError. */
+    interface IAivoiceError {
+
+        /** AivoiceError voiceId */
+        voiceId?: (number|null);
+
+        /** AivoiceError text */
+        text?: (string|null);
+    }
+
+    /** Represents an AivoiceError. */
+    class AivoiceError implements IAivoiceError {
+
+        /**
+         * Constructs a new AivoiceError.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: CloudLark.IAivoiceError);
+
+        /** AivoiceError voiceId. */
+        public voiceId: number;
+
+        /** AivoiceError text. */
+        public text: string;
+
+        /**
+         * Creates a new AivoiceError instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns AivoiceError instance
+         */
+        public static create(properties?: CloudLark.IAivoiceError): CloudLark.AivoiceError;
+
+        /**
+         * Encodes the specified AivoiceError message. Does not implicitly {@link CloudLark.AivoiceError.verify|verify} messages.
+         * @param message AivoiceError message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: CloudLark.IAivoiceError, writer?: $protobuf.Writer): $protobuf.Writer;
+
+        /**
+         * Encodes the specified AivoiceError message, length delimited. Does not implicitly {@link CloudLark.AivoiceError.verify|verify} messages.
+         * @param message AivoiceError message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: CloudLark.IAivoiceError, writer?: $protobuf.Writer): $protobuf.Writer;
+
+        /**
+         * Decodes an AivoiceError message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns AivoiceError
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): CloudLark.AivoiceError;
+
+        /**
+         * Decodes an AivoiceError message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns AivoiceError
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): CloudLark.AivoiceError;
+
+        /**
+         * Verifies an AivoiceError message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates an AivoiceError message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns AivoiceError
+         */
+        public static fromObject(object: { [k: string]: any }): CloudLark.AivoiceError;
+
+        /**
+         * Creates a plain object from an AivoiceError message. Also converts values to other types if specified.
+         * @param message AivoiceError
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: CloudLark.AivoiceError, options?: $protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this AivoiceError to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
     /** Properties of a ClientInput. */
     interface IClientInput {
 
@@ -5665,6 +7045,21 @@ export namespace CloudLark {
 
         /** ClientInput touchUp */
         touchUp?: (CloudLark.ITouchUp|null);
+
+        /** ClientInput aiVoicestreamStart */
+        aiVoicestreamStart?: (CloudLark.IAiVoiceStreamStart|null);
+
+        /** ClientInput aiVoicestreamSlice */
+        aiVoicestreamSlice?: (CloudLark.IAiVoiceStreamSlice|null);
+
+        /** ClientInput aiVoicestreamStop */
+        aiVoicestreamStop?: (CloudLark.IAiVoiceStreamStop|null);
+
+        /** ClientInput aiVoicestreamReset */
+        aiVoicestreamReset?: (CloudLark.IAiVoiceStreamReset|null);
+
+        /** ClientInput aiVoiceText */
+        aiVoiceText?: (CloudLark.IAiVoiceText|null);
     }
 
     /** Represents a ClientInput. */
@@ -5733,8 +7128,23 @@ export namespace CloudLark {
         /** ClientInput touchUp. */
         public touchUp?: (CloudLark.ITouchUp|null);
 
+        /** ClientInput aiVoicestreamStart. */
+        public aiVoicestreamStart?: (CloudLark.IAiVoiceStreamStart|null);
+
+        /** ClientInput aiVoicestreamSlice. */
+        public aiVoicestreamSlice?: (CloudLark.IAiVoiceStreamSlice|null);
+
+        /** ClientInput aiVoicestreamStop. */
+        public aiVoicestreamStop?: (CloudLark.IAiVoiceStreamStop|null);
+
+        /** ClientInput aiVoicestreamReset. */
+        public aiVoicestreamReset?: (CloudLark.IAiVoiceStreamReset|null);
+
+        /** ClientInput aiVoiceText. */
+        public aiVoiceText?: (CloudLark.IAiVoiceText|null);
+
         /** ClientInput input. */
-        public input?: ("mouseMove"|"mouseDown"|"mouseUp"|"mouseWheel"|"keyDown"|"keyUp"|"clientEnter"|"clientLeave"|"dispatchController"|"requesController"|"textInput"|"gamepadInputJoystickStates"|"gamepadInputButtonDown"|"gamepadInputButtonUp"|"gamepadInputTriger"|"clientDcMsg"|"touchMove"|"touchDown"|"touchUp");
+        public input?: ("mouseMove"|"mouseDown"|"mouseUp"|"mouseWheel"|"keyDown"|"keyUp"|"clientEnter"|"clientLeave"|"dispatchController"|"requesController"|"textInput"|"gamepadInputJoystickStates"|"gamepadInputButtonDown"|"gamepadInputButtonUp"|"gamepadInputTriger"|"clientDcMsg"|"touchMove"|"touchDown"|"touchUp"|"aiVoicestreamStart"|"aiVoicestreamSlice"|"aiVoicestreamStop"|"aiVoicestreamReset"|"aiVoiceText");
 
         /**
          * Creates a new ClientInput instance using the specified properties.
@@ -5833,6 +7243,18 @@ export namespace CloudLark {
 
         /** AppNotification cursorStyle */
         cursorStyle?: (CloudLark.ISyncCursorStyle|null);
+
+        /** AppNotification aiVoiceRealtimeParseresult */
+        aiVoiceRealtimeParseresult?: (CloudLark.IAiVoiceRealTimeParseResult|null);
+
+        /** AppNotification aiVoiceResult */
+        aiVoiceResult?: (CloudLark.IAiVoiceResult|null);
+
+        /** AppNotification aiVoiceServiceStatus */
+        aiVoiceServiceStatus?: (CloudLark.IAiVoiceServiceStatus|null);
+
+        /** AppNotification aiVoiceErr */
+        aiVoiceErr?: (CloudLark.IAivoiceError|null);
     }
 
     /** Represents an AppNotification. */
@@ -5868,8 +7290,20 @@ export namespace CloudLark {
         /** AppNotification cursorStyle. */
         public cursorStyle?: (CloudLark.ISyncCursorStyle|null);
 
+        /** AppNotification aiVoiceRealtimeParseresult. */
+        public aiVoiceRealtimeParseresult?: (CloudLark.IAiVoiceRealTimeParseResult|null);
+
+        /** AppNotification aiVoiceResult. */
+        public aiVoiceResult?: (CloudLark.IAiVoiceResult|null);
+
+        /** AppNotification aiVoiceServiceStatus. */
+        public aiVoiceServiceStatus?: (CloudLark.IAiVoiceServiceStatus|null);
+
+        /** AppNotification aiVoiceErr. */
+        public aiVoiceErr?: (CloudLark.IAivoiceError|null);
+
         /** AppNotification notify. */
-        public notify?: ("resize"|"mousemode"|"updatePlayers"|"requestInput"|"gamepadOutput"|"datachannelState"|"appDcMsg"|"cursorStyle");
+        public notify?: ("resize"|"mousemode"|"updatePlayers"|"requestInput"|"gamepadOutput"|"datachannelState"|"appDcMsg"|"cursorStyle"|"aiVoiceRealtimeParseresult"|"aiVoiceResult"|"aiVoiceServiceStatus"|"aiVoiceErr");
 
         /**
          * Creates a new AppNotification instance using the specified properties.

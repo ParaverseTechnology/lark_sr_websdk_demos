@@ -1,19 +1,23 @@
 import { CloudLark } from '../protobuf/cloudlark';
 import { LocalEvent, EventBase } from '../event/event_base';
+import { Point } from '../common/interface';
 import { LarkSR } from '../larksr';
 export declare const enum OPREATION_EVENT_TYPE {
     Input = 0,
-    NoOperationTimeout = 1
+    NoOperationTimeout = 1,
+    ClipboardText = 2,
+    CursorMove = 3
 }
 export interface OperationEvent extends LocalEvent<OPREATION_EVENT_TYPE> {
     input?: CloudLark.ClientInput;
+    data?: any;
+    cursorPoint?: Point;
 }
 export default class Operation extends EventBase<OPREATION_EVENT_TYPE, OperationEvent> {
     private gestureHandler;
     private keyboardHandler;
     private mouseHandler;
     private gamepadHandler;
-    private useTouch;
     private touchHandler;
     private _startListen;
     set enableParse(enable: boolean);
@@ -30,13 +34,17 @@ export default class Operation extends EventBase<OPREATION_EVENT_TYPE, Operation
     get screenState(): import("../screen_state").default;
     get fullScreen(): import("../larksr").FullScreen;
     get lockPointer(): import("../larksr").LockPointer;
+    get mouseZoomDirection(): number;
+    set mouseZoomDirection(direction: number);
     constructor(rootElement: HTMLElement, larksr: LarkSR);
     setMouseEnable(enable: boolean): void;
     setKeyboardEnable(enable: boolean): void;
     setGamepadEnable(enable: boolean): void;
     setTouchEnable(enable: boolean): void;
+    setGestureEnable(enable: boolean): void;
     resetLocalRendreMousePosition(): void;
     setAppMouseMode(mode: CloudLark.IAppMouseMode): void;
+    resetAppMouseLockState(): void;
     startListening(): void;
     stopListenling(): void;
     private startOperationCheck;
@@ -59,4 +67,5 @@ export default class Operation extends EventBase<OPREATION_EVENT_TYPE, Operation
     $emitTouchUp(id: number, x: number, y: number): void;
     $emitInputEvent(input: CloudLark.IClientInput): void;
     $emitNoOperationTimeoutEvent(): void;
+    $emitCursorMove(p: Point): void;
 }

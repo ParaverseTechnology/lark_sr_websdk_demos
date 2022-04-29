@@ -15,6 +15,7 @@ import FullScreen from './utils/full_screen';
 import LockPointer from './utils/lock_pointer';
 import ScaleMode from './utils/scale_mode';
 import Capabilities from './utils/capabilities';
+import Recorder from './lark/recoder';
 declare enum PlayerModeType {
     /**
      * 普通模式
@@ -312,6 +313,18 @@ interface ILarkSRConfig {
      * }
      */
     publicPortMapping?: PublicPortMapping;
+    /**
+     * 是否提示输入文字 APP_REQUEST_INPUT
+     * 当服务端检测到输入法事件后会抛出事件，可在 web 层添加输入框，配合 inputText 发送文字到云端
+     * 默认打开，当手动关闭时将不会抛出 APP_REQUEST_INPUT 事件
+     */
+    textInputEventPrompt?: boolean;
+    /**
+     * 当启用音频输入功能，是否自动连入音频设备。
+     * 默认关闭。
+     * 需要注意默认打开的时系统中默认的音频设备。
+     */
+    audioInputAutoStart?: boolean;
 }
 declare class LarkSR extends EventBase<LarkSRClientEvent, LarkSREvent> {
     /**
@@ -440,6 +453,14 @@ declare class LarkSR extends EventBase<LarkSRClientEvent, LarkSREvent> {
     set initCursorMode(mode: boolean);
     get initCursorMode(): boolean;
     /**
+     * 当前打开的音频设备 ID，如果打开时没指定为空
+     */
+    get audioDeviceId(): string | undefined;
+    /**
+     * 当前打开音频的track对象，未打开状态为空
+     */
+    get audioTrack(): MediaStreamTrack | undefined;
+    /**
      * LarkSR 客户端。所有操作和事件通过该类传递
      * @param config 本地配置，优先级最高
      */
@@ -477,7 +498,7 @@ declare class LarkSR extends EventBase<LarkSRClientEvent, LarkSREvent> {
         appKey?: string;
         timestamp?: string;
         signature?: string;
-    }): Promise<void>;
+    } | any): Promise<void>;
     /**
      * 用户手动填昵称，需要在 start 或 connect 之前设置才能生效。
      */
@@ -492,7 +513,7 @@ declare class LarkSR extends EventBase<LarkSRClientEvent, LarkSREvent> {
      * 启动时应用参数不能为空，包括 taskID，appServer，appPort
      * @returns 是否成功。主要校验授权码是否成功
      */
-    private start;
+    start(): Promise<void>;
     /**
      * 重新开始云渲染流程
      */
@@ -749,6 +770,62 @@ declare class LarkSR extends EventBase<LarkSRClientEvent, LarkSREvent> {
      * @returns  LEFT = 0,RIGHT = 1,MIDDLE = 2
      */
     getMouseButtonType(button: 'left' | 'mid' | 'right'): CloudLark.MouseKey;
+    /**
+     * 媒体采集相关
+     */
+    /**
+     * 设置当前已开启的音频track是否启用状态
+     * @param enable 是否启用
+     * @returns
+     */
+    setAudioEnable(enable: boolean): void | undefined;
+    setVideoEnable(enable: boolean): void | undefined;
+    setShareEnable(enable: boolean): void | undefined;
+    /**
+     * 关闭当前的音频设备
+     * @returns
+     */
+    closeAudio(): boolean | undefined;
+    closeVideo(): boolean | undefined;
+    closeShare(): boolean | undefined;
+    /**
+     * 打开一个音频设备，要注意浏览器限制在 https 或者 localhost 下才能打开音频
+     * @param deviceId 音频设备id，如果不传将打开默认设备。@see getConnectedAudioinputDevices
+     * @returns
+     */
+    openAudio(deviceId?: string): Promise<{
+        streams: MediaStream;
+        rtcRtpSenders: import("./lark/peer_connection").RTCMediaTrackBinding[];
+    } | undefined>;
+    openVideo(audio?: boolean, cameraId?: string): Promise<{
+        streams: MediaStream;
+        rtcRtpSenders: import("./lark/peer_connection").RTCMediaTrackBinding[];
+    } | undefined>;
+    openDefaultMedia(video?: boolean, audio?: boolean): Promise<void | undefined>;
+    openShareMediaDevice(): Promise<void | undefined>;
+    /**
+     * 返回已连接的音频设备列表，设备列表中的设备的 deviceId 可用来打开某个音频设备
+     * @returns
+     */
+    getConnectedAudioinputDevices(): Promise<MediaDeviceInfo[] | undefined>;
+    getConnectedAudioOutputDevices(): Promise<MediaDeviceInfo[] | undefined>;
+    getConnectedVideoinputDevices(): Promise<MediaDeviceInfo[] | undefined>;
+    getConnectedDevices(type: MediaDeviceKind): Promise<MediaDeviceInfo[] | undefined>;
+    openAudioDevice(deviceId: string, kind?: "audioinput" | "audiooutput"): Promise<{
+        streams: MediaStream;
+        rtcRtpSenders: import("./lark/peer_connection").RTCMediaTrackBinding[];
+    } | undefined>;
+    openCamera(cameraId: string, minWidth?: number, minHeight?: number): Promise<{
+        streams: MediaStream;
+        rtcRtpSenders: import("./lark/peer_connection").RTCMediaTrackBinding[];
+    } | undefined>;
+    openUserMeida(constraints?: MediaStreamConstraints): Promise<{
+        streams: MediaStream;
+        rtcRtpSenders: import("./lark/peer_connection").RTCMediaTrackBinding[];
+    } | undefined>;
+    addMediaTrack(track: MediaStreamTrack, ...streams: MediaStream[]): boolean | undefined;
+    removeMediaTrack(track: RTCRtpSender): boolean | undefined;
+    requestUserMediaPermission(constraints?: MediaStreamConstraints): Promise<MediaStream> | undefined;
     $emit(type: LarkEventType, data?: any, message?: string): void;
     $emitError(message?: string, code?: number): void;
     $emitInfo(message?: string, code?: number): void;
@@ -771,4 +848,4 @@ declare class LarkSR extends EventBase<LarkSRClientEvent, LarkSREvent> {
     private onOperationTimeout;
     private onOperationInput;
 }
-export { LarkSR, ILarkSRConfig, PlayerModeType, UserType, LarkSREvent, LarkEventType, LarkSRClientEvent, AppliParams, AppliParamsUtils, LoadAppliParamsFromUrl, LoadAppliParamsStartAppInfo, EventBase, API, Operation, Capabilities, ScaleMode, VirtualKey, KEYMAP, CloudLark, FullScreen, LockPointer, };
+export { LarkSR, ILarkSRConfig, PlayerModeType, UserType, LarkSREvent, LarkEventType, LarkSRClientEvent, AppliParams, AppliParamsUtils, LoadAppliParamsFromUrl, LoadAppliParamsStartAppInfo, EventBase, API, Operation, Capabilities, ScaleMode, VirtualKey, KEYMAP, CloudLark, FullScreen, LockPointer, Recorder, };

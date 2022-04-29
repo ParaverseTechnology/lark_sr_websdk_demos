@@ -4,6 +4,7 @@
 import { CSSPosition, Point, ViewPort, OffsetView, Vector } from '../common/interface';
 export default class Unit {
     static queryString(name: string): string;
+    static queryURL(uri: URL, name: string): string;
     /**
      * 深度拷贝对象,创建新对象
      * @param source 输入对象

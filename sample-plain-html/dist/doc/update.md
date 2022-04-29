@@ -64,3 +64,35 @@ larksr.on('aivoicedmresult', (e) => {
  */
 setMobileForceLandScape(force: boolean): void;
 ```
+
+## V3.2.311
+
+新增麦克风输入接口。客户端打开后云端应用可直接通过读取声卡上的麦克风接收到音频。
+
+> 该功能匹配的服务端版本最低为 V3.2.51
+> 使用该功能要注意在后台开启智能语音功能
+
+```typescript
+/**
+ * 打开一个音频设备，要注意浏览器限制在 https 或者 localhost 下才能打开音频
+ * @param deviceId 音频设备id，如果不传将打开默认设备。@see getConnectedAudioinputDevices
+ * @returns
+ */
+openAudio(deviceId?: string);
+/**
+ * 关闭当前的音频设备
+ * @returns
+ */
+closeAudio(): boolean | undefined;
+/**
+ * 返回已连接的音频设备列表，设备列表中的设备的 deviceId 可用来打开某个音频设备
+ * @returns
+ */
+getConnectedAudioinputDevices(): Promise<MediaDeviceInfo[] | undefined>;
+/**
+ * 设置当前已开启的音频track是否启用状态
+ * @param enable 是否启用
+ * @returns
+ */
+setAudioEnable(enable: boolean): void | undefined;
+```

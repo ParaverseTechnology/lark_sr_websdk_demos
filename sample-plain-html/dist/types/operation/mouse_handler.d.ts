@@ -8,6 +8,7 @@ export default class MouseHandler extends HandlerBase {
     private isFocus;
     private rootElement;
     private subscribeUpdatePlayerListFromProtoAction;
+    private pressedMouseButtons;
     constructor(rootElement: HTMLElement, op: Operation);
     resetLocalRendreMousePosition(p: Point): void;
     setRootElement(rootElement: HTMLElement): void;
@@ -36,5 +37,6 @@ export default class MouseHandler extends HandlerBase {
     private onWindowBlur;
     private onWindowFocus;
     private onWindowVisibilityChange;
+    private releaseMouseButtons;
     private toastMsg;
 }

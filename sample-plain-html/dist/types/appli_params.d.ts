@@ -190,6 +190,9 @@ export interface IAppliParams {
     toastLevel: number;
     appKey: string;
     groupId: string;
+    textInputEventPrompt: boolean;
+    audioInput: boolean;
+    audioInputAutoStart: boolean;
 }
 export declare enum AppliType {
     DESKTOP = 1,
@@ -249,6 +252,9 @@ export declare class AppliParams implements IAppliParams {
     toastLevel: number;
     appKey: string;
     groupId: string;
+    textInputEventPrompt: boolean;
+    audioInput: boolean;
+    audioInputAutoStart: boolean;
     static copyAndCreate(params?: IAppliParams): AppliParams;
     static setUpWithSDKConfig(params: IAppliParams, config: ILarkSRConfig): AppliParams;
 }

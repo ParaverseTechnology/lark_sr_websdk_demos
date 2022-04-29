@@ -9,22 +9,27 @@ export declare enum IceState {
 }
 export declare enum WEBRTC_EVENT_TYPE {
     GOT_REMOTE_STREAM = 0,
-    ICE_STATE_CHANGE = 1,
-    LK_APP_RESIZE = 2,
-    LK_APP_MOUSE_MODE = 3,
-    LK_APP_PLAER_LIST = 4,
-    LK_APP_REQUEST_TEXT = 5,
-    LK_DATA_CHANNEL_RENDERSERVER_TEXT_MESSAGE = 6,
-    LK_DATA_CHANNEL_RENDERSERVER_BINARY_MESSAGE = 7,
-    LK_DATA_CHANNEL_RENDERSERVER_OPEN = 8,
-    LK_DATA_CHANNEL_RENDERSERVER_CLOSE = 9,
-    LK_RTC_EVENT_PEERCONNECTION_STATE = 10,
-    NET_STATE = 11,
-    SYNC_CURSORSTYLE = 12,
-    BAD_NETWORK = 13,
-    ERROR = 14,
-    RTC_SDP = 15,
-    RTC_ICECANDIDATE = 16
+    GOT_REMOTE_AUDIO_STREAM = 1,
+    ICE_STATE_CHANGE = 2,
+    LK_APP_RESIZE = 3,
+    LK_APP_MOUSE_MODE = 4,
+    LK_APP_PLAER_LIST = 5,
+    LK_APP_REQUEST_TEXT = 6,
+    LK_DATA_CHANNEL_RENDERSERVER_TEXT_MESSAGE = 7,
+    LK_DATA_CHANNEL_RENDERSERVER_BINARY_MESSAGE = 8,
+    LK_DATA_CHANNEL_RENDERSERVER_OPEN = 9,
+    LK_DATA_CHANNEL_RENDERSERVER_CLOSE = 10,
+    LK_RTC_EVENT_PEERCONNECTION_STATE = 11,
+    NET_STATE = 12,
+    SYNC_CURSORSTYLE = 13,
+    BAD_NETWORK = 14,
+    ERROR = 15,
+    RTC_SDP = 16,
+    RTC_ICECANDIDATE = 17,
+    AI_VOICE_STATUS = 18,
+    AI_VOICE_ASR_RESULT = 19,
+    AI_VOICE_DM_RESULT = 20,
+    AI_VOICE_ERROR = 21
 }
 export interface GoogleBitRate {
     start: number;
@@ -72,6 +77,11 @@ export interface AggregatedStats {
     currentRoundTripTime: number;
     packetsLostPerc: number;
 }
+export interface RTCMediaTrackBinding {
+    deviceId: string;
+    track: MediaStreamTrack;
+    sender: RTCRtpSender | undefined;
+}
 export default class PeerConnection extends EventBase<WEBRTC_EVENT_TYPE, WebRTCEvent> {
     private config;
     private pc;
@@ -84,12 +94,60 @@ export default class PeerConnection extends EventBase<WEBRTC_EVENT_TYPE, WebRTCE
     private lastPacktetsLost;
     private lastPacktetsReceived;
     private larksr;
+    private audioStream;
+    private videoStream;
+    get audioDeviceId(): string | undefined;
+    get audioTrack(): MediaStreamTrack | undefined;
+    private localAudioTrackBinding;
+    private localVideoTrackBinding;
+    private localShareTrackBinding;
+    private sdpCreateSuccess;
     constructor(larksr: LarkSR, config: WebRTCConfig);
     create(): void;
     createOffer(): void;
     close(): void;
+    setAudioEnable(enable: boolean): void;
+    setVideoEnable(enable: boolean): void;
+    setShareEnable(enable: boolean): void;
+    closeAudio(): boolean;
+    closeVideo(): boolean;
+    closeShare(): boolean;
+    private stopLocalTrackBing;
+    openAudio(deviceId?: string): Promise<{
+        streams: MediaStream;
+        rtcRtpSenders: RTCMediaTrackBinding[];
+    }>;
+    openVideo(audio?: boolean, cameraId?: string): Promise<{
+        streams: MediaStream;
+        rtcRtpSenders: RTCMediaTrackBinding[];
+    }>;
+    openDefaultMedia(video?: boolean, audio?: boolean): Promise<void>;
+    openShareMediaDevice(): Promise<void>;
+    getConnectedAudioinputDevices(): Promise<MediaDeviceInfo[]>;
+    getConnectedAudioOutputDevices(): Promise<MediaDeviceInfo[]>;
+    getConnectedVideoinputDevices(): Promise<MediaDeviceInfo[]>;
+    getConnectedDevices(type: MediaDeviceKind): Promise<MediaDeviceInfo[]>;
+    openAudioDevice(deviceId: string, kind?: "audioinput" | "audiooutput"): Promise<{
+        streams: MediaStream;
+        rtcRtpSenders: RTCMediaTrackBinding[];
+    }>;
+    openCamera(cameraId: string, minWidth?: number, minHeight?: number): Promise<{
+        streams: MediaStream;
+        rtcRtpSenders: RTCMediaTrackBinding[];
+    }>;
+    openUserMeida(constraints?: MediaStreamConstraints): Promise<{
+        streams: MediaStream;
+        rtcRtpSenders: RTCMediaTrackBinding[];
+    }>;
+    addMediaTrack(track: MediaStreamTrack, ...streams: MediaStream[]): boolean;
+    removeMediaTrack(track: RTCRtpSender): boolean;
+    requestUserMediaPermission(constraints?: MediaStreamConstraints): Promise<MediaStream>;
+    /**
+     * 接收到sdp
+     * @param des sdp
+     */
     onRemoteDescription(des: RTCSessionDescriptionInit): void;
-    onReceiveCandidate(candateInit: RTCIceCandidateInit | null): void;
+    onReceiveCandidate(candateInit: RTCIceCandidateInit): void;
     startNetTest(): void;
     stopNetTest(): void;
     sendInput(input: Input.CloudLark.ClientInput): void;
@@ -105,7 +163,7 @@ export default class PeerConnection extends EventBase<WEBRTC_EVENT_TYPE, WebRTCE
     private onCreateOfferSuccess;
     private onIceCandidate;
     private onIceStateChange;
-    private gotRemoteStream;
+    private ontrack;
     private addIceCandidate;
     private iceStateChange;
     private $emit;

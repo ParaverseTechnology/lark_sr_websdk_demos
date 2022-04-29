@@ -11,7 +11,13 @@ export default class ScaleMode {
      * 以应用原始尺寸的缩放.
      */
     static CONTAIN_APP: string;
+    /**
+     * 裁剪模式，完全填充屏幕但保留宽高比
+     */
     static FILL_CLIP: string;
+    /**
+     * 拉伸模式，完全填充屏幕但不保留宽高比
+     */
     static FILL_STRETCH: string;
     /**
      * offset 控制条的高度

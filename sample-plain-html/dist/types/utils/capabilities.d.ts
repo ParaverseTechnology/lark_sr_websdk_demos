@@ -27,6 +27,10 @@ declare class Capabilities {
     static get isMobile(): boolean;
     static $isWeChat: boolean;
     static get isWeChat(): boolean;
+    static $isQQ: boolean;
+    static get isQQ(): boolean;
+    static $isHuawei: boolean;
+    static get isHuawei(): boolean;
     /**
      * @private
      */

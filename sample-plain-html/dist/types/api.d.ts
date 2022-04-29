@@ -33,6 +33,8 @@ export interface GetTaskResult {
     updateDate: string;
     useGamepad: number;
     wm: number;
+    textInputEventPrompt: number;
+    audioInput: number;
 }
 export interface StartAppInfo {
     appliId: string;
@@ -108,7 +110,7 @@ export default class API {
         appKey?: string;
         timestamp?: string;
         signature?: string;
-    }): Promise<StartAppInfo>;
+    } | any): Promise<StartAppInfo>;
     static CheckUTLockInfo(config: ILarkSRConfig): Promise<UTLockInfo>;
     static GetTask(config: ILarkSRConfig, taskid: string): Promise<GetTaskResult>;
     static LogError(errorCode: number, errorMsg: string, params: string, config: ILarkSRConfig): void;
