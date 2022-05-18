@@ -242,6 +242,7 @@ getMouseButtonType(button: 'left' | 'mid' | 'right'): CloudLark.MouseKey;
 /**
  * 发送文字消息给数据通道
  * 注意 云端应用要继承数据通道功能
+ * > V3.2.314 版本对应服务器版本和数据通道版本为 3.2.5.1 及以上
  * @param text 文字
  */
 sendTextToDataChannel(text: string): void;

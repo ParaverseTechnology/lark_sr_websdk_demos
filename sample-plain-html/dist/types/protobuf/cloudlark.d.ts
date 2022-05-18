@@ -433,6 +433,9 @@ export namespace CloudLark {
 
         /** TaskResponse prestart */
         prestart?: (boolean|null);
+
+        /** TaskResponse reason */
+        reason?: (string|null);
     }
 
     /** Represents a TaskResponse. */
@@ -452,6 +455,9 @@ export namespace CloudLark {
 
         /** TaskResponse prestart. */
         public prestart: boolean;
+
+        /** TaskResponse reason. */
+        public reason: string;
 
         /**
          * Creates a new TaskResponse instance using the specified properties.

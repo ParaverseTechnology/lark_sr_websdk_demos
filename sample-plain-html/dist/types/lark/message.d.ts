@@ -15,6 +15,6 @@ export default class Message {
     static getStartStreamResponseMsg(ressponse: Msg.CloudLark.StartStreamResponse.Response): string;
     static getCloudlarkTaskEvent(ressponse: Msg.CloudLark.TaskResponse.Response): LarkEventType;
     static getCloudlarkStartStreamEvent(ressponse: Msg.CloudLark.StartStreamResponse.Response): LarkEventType;
-    static getCloudlarkTaskEventMsg(type: LarkEventType): string;
+    static getCloudlarkTaskEventMsg(type: LarkEventType, reason?: string | null | undefined): string;
     static getCloudlarkStartStreamingEventMsg(type: LarkEventType): string;
 }

@@ -107,6 +107,7 @@ declare const enum LarkSRClientEvent {
     DATACHANNEL_CLOSE = "datachannelclose",
     /**
      * 数据通达收到文字消息 .
+     * > V3.2.314 版本对应服务器版本和数据通道版本为 3.2.5.1 及以上
      */
     DATACHANNEL_TEXT = "datachanneltext",
     /**

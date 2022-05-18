@@ -21,6 +21,12 @@ SDK 功能包括:
 * 处理全屏模式，并可配置
 * 自动处理横屏模式，手机端强制横屏模式，并可配置
 
+### 注意
+
+> V3.2.30 开始仅支持服务端 [V3.2.3.1](https://www.pingxingyun.com/devCenter.html) 以上版本。
+> [老版本 SDK Demo 下载](https://github.com/pingxingyun/lark_sr_websdk_demos/releases/tag/V3.2.10)
+> V3.2.314 版本对应服务器版本和数据通道版本为 3.2.5.1 及以上
+
 ## 快速接入
 
 ### 安装

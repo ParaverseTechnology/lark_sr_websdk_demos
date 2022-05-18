@@ -22,6 +22,7 @@ npm i larksr_websdk
 
 > V3.2.30 开始仅支持服务端 [V3.2.3.1](https://www.pingxingyun.com/devCenter.html) 以上版本。
 > [老版本 SDK Demo 下载](https://github.com/pingxingyun/lark_sr_websdk_demos/releases/tag/V3.2.10)
+> V3.2.314 版本对应服务器版本和数据通道版本为 3.2.5.1 及以上
 
 ## 创建 LarkSR 实例
 

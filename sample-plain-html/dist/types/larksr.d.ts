@@ -145,6 +145,7 @@ declare enum LarkSRClientEvent {
     DATACHANNEL_CLOSE = "datachannelclose",
     /**
      * 数据通达收到文字消息 .
+     * > V3.2.314 版本对应服务器版本和数据通道版本为 3.2.5.1 及以上
      */
     DATACHANNEL_TEXT = "datachanneltext",
     /**
@@ -564,6 +565,7 @@ declare class LarkSR extends EventBase<LarkSRClientEvent, LarkSREvent> {
     /**
      * 发送文字消息给数据通道
      * 注意 云端应用要继承数据通道功能
+     * > V3.2.314 版本对应服务器版本和数据通道版本为 3.2.5.1 及以上
      * @param text 文字
      */
     sendTextToDataChannel(text: string): void;
