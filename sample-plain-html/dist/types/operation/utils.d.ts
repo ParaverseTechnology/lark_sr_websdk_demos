@@ -1,6 +1,6 @@
 import { GestureEvent } from './gesture';
 import ScreenState from '../screen_state';
-export declare function getTouchPosition(event: GestureEvent, isOpposite: boolean | undefined, screenState: ScreenState): {
+export declare function getTouchPosition(event: GestureEvent, isOpposite: boolean | undefined, screenState: ScreenState, rootElement: HTMLElement): {
     x: number;
     y: number;
     rx: number;
@@ -10,7 +10,7 @@ export declare function getTouchPosition(event: GestureEvent, isOpposite: boolea
 /**
  * 获取虚拟鼠标相对位置
  */
-export declare function getVMouseTouchPosition(data: GestureEvent, screenState: ScreenState): {
+export declare function getVMouseTouchPosition(data: GestureEvent, screenState: ScreenState, rootElement: HTMLElement): {
     x: number;
     y: number;
     rx: number;

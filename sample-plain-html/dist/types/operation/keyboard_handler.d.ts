@@ -14,5 +14,5 @@ export default class KeyboardHandler extends HandlerBase {
     private onWindowBlur;
     private onWindowFocus;
     private onWindowVisibilityChange;
-    private releaseKeys;
+    releaseKeys(): void;
 }

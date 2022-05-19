@@ -45,6 +45,7 @@ export default class Operation extends EventBase<OPREATION_EVENT_TYPE, Operation
     resetLocalRendreMousePosition(): void;
     setAppMouseMode(mode: CloudLark.IAppMouseMode): void;
     resetAppMouseLockState(): void;
+    releaseKeys(): void;
     startListening(): void;
     stopListenling(): void;
     private startOperationCheck;
