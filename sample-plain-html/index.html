@@ -112,6 +112,8 @@
                 alert(JSON.stringify(e));
             });
 
+            // all event names under larksr_websdk.LarkSRClientEvent
+            // larksr_websdk.LarkSRClientEvent.DATACHANNEL_TEXT same as "datachanneltext"
             // 监听连接成功事件
             client.on('connect', function(e) { 
                 console.log("LarkSRClientEvent CONNECT", e); 
@@ -140,6 +142,9 @@
             });                   
             client.on('info', function(e) {
                 console.log("LarkSRClientEvent info", e); 
+            });
+            client.on('datachanneltext', function(e) {
+                console.log("LarkSRClientEvent DATACHANNEL_TEXT", e); 
             });
 
             // 音频设备相关

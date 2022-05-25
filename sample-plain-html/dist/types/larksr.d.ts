@@ -189,6 +189,7 @@ interface LarkSREvent extends LocalEvent<LarkSRClientEvent> {
     message?: string;
     code?: number;
     larkevent?: LarkEventType;
+    rawData?: any;
 }
 declare type PublicPortMapping = {
     [key: string]: string;
