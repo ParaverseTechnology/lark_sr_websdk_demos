@@ -9,7 +9,7 @@
   },
   "dependencies": {
     "core-js": "^3.6.5",
-    "larksr_websdk": "^3.2.316",
+    "larksr_websdk": "^3.2.317",
     "vue": "^2.6.11",
     "vuex": "^3.6.2"
   },
