@@ -277,7 +277,7 @@ interface ILarkSRConfig {
     /**
      * 可选项，优选选择的视频编码格式
      */
-    perferDecoder?: 'auto' | 'vp8' | 'vp9' | 'h264' | 'av1x';
+    preferDecoder?: 'auto' | 'vp8' | 'vp9' | 'h264' | 'h265' | 'hevc' | 'av1x';
     /**
      * 可选项，视频在容器中的缩放模式
      *

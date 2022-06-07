@@ -19,7 +19,7 @@ export default class Unit {
      * @returns { width: 窗口宽, height: 窗口高 }
      */
     static viewport(): ViewPort;
-    static getElementViewport(element: HTMLElement): ViewPort;
+    static getElementViewport(element: HTMLElement, baseElementScale?: number): ViewPort;
     /**
      * 获取某元素距离文档的距离
      * @param element 元素对象
@@ -32,12 +32,6 @@ export default class Unit {
      * @returns 左侧距离
      */
     static elementLeft(element: HTMLElement): number;
-    /**
-     * 获取元素相对文档位置
-     * @param element 元素对象
-     * @returns { offsetX:X, offsetY:Y }
-     */
-    static offsetViewport(element: HTMLElement): OffsetView;
     static singlePointRelativePosition(e: Touch | MouseEvent, element: HTMLElement): Point;
     /**
      * 获取触摸点相对元素的坐标
