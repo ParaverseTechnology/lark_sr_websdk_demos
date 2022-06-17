@@ -1,5 +1,5 @@
 <template>
-  <div id="app" ref="appContainer">
+  <div id="app" ref="appContainer" @contextmenu.prevent  @mouseup="onMutePlay" @touchend="onMutePlay">
     <!-- 手机端 UI -->
     <MobileIndex v-if="cloudReady && isMobile"></MobileIndex>
     <Alert />
@@ -10,6 +10,7 @@
     <Menu />
     <ControlBall v-if="cloudReady" />
     <States />
+    <Input v-if="cloudReady" />
   </div>
 </template>
 
@@ -26,6 +27,7 @@ import RttInfo             from './components/rttinfo/rttinfo';
 import Menu                from './components/menu/menu';
 import ControlBall         from './components/control_ball/control_ball'; 
 import States              from './components/states_modal/states_modal';
+import Input               from './components/input/input.vue'
 
 export default {
   name: "App",
@@ -39,11 +41,13 @@ export default {
     Menu,
     ControlBall,
     States,
+    Input,
   },
   data() {
     return {
       appContainer: null,
       cloudReady: false,
+      mutePlay: false,
     };
   },
   computed: {
@@ -52,6 +56,14 @@ export default {
     }),
   },
   methods: {
+    onMutePlay() {
+      if (!this.mutePlay) {
+        return;
+      }
+      this.larksr.videoComponent.sountPlayout();
+      this.larksr.videoComponent.playVideo();
+      this.mutePlay = false;
+    },
     ...mapMutations({
         setLarksr: "setLarksr",
         setAggregatedStats: "setAggregatedStats",
@@ -68,6 +80,7 @@ export default {
   mounted() {
     // 直接调用进入应用接口创建实例，自动配置连接云端资源
     const larksr = new LarkSR({
+        // doc https://pingxingyun.github.io/webclient_sdk/config.html
         rootElement: this.$refs["appContainer"],
         // 服务器地址,实际使用中填写您的服务器地址
         // 如：http://222.128.6.137:8181/
@@ -88,14 +101,50 @@ export default {
     // 使用 Unit.queryString("sdkID") 可从 url 载入名称为 sdkID 的参数
     larksr.initSDKAuthCode("SDK 授权码，联系 business@pingxingyun.com 获取,注意是 SDK 本身的授权码，不是服务器上的授权")
     .then(() => {
+
+      // 连接平行云托管平台的应用
+      // client.connectWithPxyHost({
+      //     // 从平行云托管平台获取
+      //     appliId: "924970933473509376",
+      //     // playerMode: 2,
+      //     // userType: 1,
+      //     // taskId: "",
+      //     // nickname: "Test",
+      // })
+      // .catch(function(e) {
+      //     console.error('enter appli falied', e);
+      //     alert(JSON.stringify(e));
+      // });
+
       // start connect;
       larksr.connect({
-        // people beijig 879414254636105728
+        // 要使用的云端资源的应用 ID，从后云雀后台接口获取
+        // 参考查询应用一栏文档
+        // https://www.pingxingyun.com/online/api3_2.html?id=476
+        // 如 222.128.6.137:8181 系统下的 879414254636105728 应用
         appliId: "879414254636105728",
-        // playerMode: 2,
-        // userType: Unit.queryString("userType") as any,
-        // taskId: Unit.queryString("taskid") as any,
-        // nickname: "Test",
+        // 其他可选参数如下
+        // 互动模式
+        //启动模式：0：普通模式, 1：互动模式（一人操作多人观看），2: 多人协同（键盘鼠标放开，需要应用配合）
+        // playerMode: 1,
+        //Task所有者:1 /  观察者:0
+        // userType: 1,
+        //口令:8位唯一码,写入TaskInfo
+        // roomCode: '',
+        // taskId: '',
+        // groups
+        // clientMac: '',
+        // groupId: '',
+        // regionId: '',
+        //指定节点分配
+        // targetServerIp: '',
+        // keys
+        // appKey: '',
+        // timestamp: '',
+        // signature: '',
+        // "extraParam.test1": "test1", // extrams
+        // "extraParam.test2": "test2", // extrams
+        // "extraParam.test3": "test3", // extrams
       })
       .then(() => {
         console.log('enter success');
@@ -109,6 +158,24 @@ export default {
       console.error(e);
       alert(JSON.stringify(e));
     });
+
+    // 音频设备相关
+    // 该功能匹配的服务端版本最低为 V3.2.51
+    // 客户端打开后云端应用可直接通过读取声卡上的麦克风接收到音频。
+    // 使用该功能要注意在后台开启智能语音功能
+    // 打开音频设备，可选传入 deviceId,
+    // client.openAudio();
+    // 设置已打开的音频track状态
+    // client.setAudioEnable(true);
+    // 关闭已打开的音频流
+    // client.closeAudio();
+    // 返回可用的音频设备
+    // client.getConnectedAudioinputDevices();
+
+
+    // ...
+    // 主动关闭并清理资源
+    // client.close();
 
     // 监听连接成功事件
     larksr.on("connect", (e) => {
@@ -139,6 +206,7 @@ export default {
 
     larksr.on("meidaplaymute", (e) => {
       console.log("LarkSRClientEvent meidaplaymute", e);
+      this.mutePlay = true;
       this.toast({text: '点击屏幕中心打开音频', position: 2, level: 3});
     });
 

@@ -1,0 +1,70 @@
+@import "~@/assets/styles/mobile_base.scss";
+
+.inputText {
+    transition: all .5s ease-in-out;
+    position: absolute;
+    z-index: 1029;
+    background-color: $color-bg-trans40-blue;
+    width: 600px;
+    left: 50%;
+    margin-left: -300px;
+    color: #fff;
+    font-size: 16px;
+    padding: 5px 15px;
+    .title {
+        margin-bottom: 5px;
+    }
+    textarea {
+        // width: 300px;
+        width: 100%;
+        border: 0;
+        box-shadow: 0 0 black;
+        font-size: 14px;
+        line-height: 20px;
+        padding: 5px;
+        outline: 0;
+        margin: 5px 0;
+    }
+    .closeBtn {
+        width: 24px;
+        height: 24px;
+        position: absolute;
+        top: 5px;
+        right: 15px;
+    }
+    .submitBtn {
+        width: 200px;
+        background-color: $color-bg-trans40-blue;
+        color: $color-font-blue;
+        height: px2rem(40);
+        line-height: px2rem(40);
+        border-radius: px2rem(2);
+        font-size: 14;
+        text-align: center;
+    }
+    .button-group {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        margin: 5px 0;
+        padding: 0 0 0 200px;
+        .button {
+            background-color: $color-bg-trans40-blue;
+            color: $color-font-blue;
+            height: px2rem(40);
+            line-height: px2rem(40);
+            border-radius: px2rem(2);
+            font-size: 14;
+            text-align: center;
+        }
+        .button+.button {
+            margin-left: px2rem(20);
+        }
+    }
+}
+.inputText.enable {
+    bottom: 0;
+}
+.inputText.disable {
+    bottom: -999px;
+}
