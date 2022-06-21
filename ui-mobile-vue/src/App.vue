@@ -2,14 +2,24 @@
   <div id="app" ref="appContainer" @contextmenu.prevent  @mouseup="onMutePlay" @touchend="onMutePlay">
     <!-- 手机端 UI -->
     <MobileIndex v-if="cloudReady && isMobile"></MobileIndex>
+    <!-- 通用 UI -->
+    <!-- 警告框 -->
     <Alert />
+    <!-- 顶部提示框 -->
     <Notify />
+    <!-- 浮动提示 -->
     <Toast />
+    <!-- 确认框 -->
     <Confirm />
+    <!-- 左上角延时显示 -->
     <RttInfo v-if="cloudReady" />
+    <!-- 菜单 -->
     <Menu />
-    <ControlBall v-if="cloudReady" />
+    <!-- PC 版控制球 -->
+    <ControlBall v-if="cloudReady && !isMobile" />
+    <!-- 网络状态 -->
     <States />
+    <!-- 输入框，用于云端输入 -->
     <Input v-if="cloudReady" />
   </div>
 </template>
@@ -52,6 +62,8 @@ export default {
   },
   computed: {
     ...mapState({
+      larksr: (state) => state.larksr,
+      ui: (state) => state.ui,
       isMobile: (state) => state.isMobile,
     }),
   },
@@ -199,8 +211,8 @@ export default {
       console.log("LarkSRClientEvent mediaplayfailed", e);
       this.alert({des: "开始"})
       .then(() => {
-          larksr.videoElement.sountPlayout();
-          larksr.videoElement.playVideo();
+          larksr.videoComponent.sountPlayout();
+          larksr.videoComponent.playVideo();
       });
     });
 
