@@ -134,5 +134,12 @@ interface ILarkSRConfig {
      * 需要注意默认打开的时系统中默认的音频设备。
      */
     audioInputAutoStart?: boolean;
+
+    /**
+     * 当启用视频输入功能，是否自动连入视频设备。
+     * 默认关闭。
+     * 需要注意默认打开的是系统中默认的视频设备。
+     */
+    videoInputAutoStart?: boolean;
 }
 ```

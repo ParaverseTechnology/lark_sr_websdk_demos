@@ -299,6 +299,7 @@ larksr.on('aivoicedmresult', (e) => {
 
 > 该功能匹配的服务端版本最低为 V3.2.51
 > 使用该功能要注意在后台开启智能语音功能
+> 注意要在连接成功之后打开媒体设备。即 `mediaPlayed` 之后调用才有效
 
 ```typescript
 /**
@@ -323,6 +324,69 @@ getConnectedAudioinputDevices(): Promise<MediaDeviceInfo[] | undefined>;
  * @returns
  */
 setAudioEnable(enable: boolean): void | undefined;
+```
+
+larksr 配置项自动打开麦克风配置,在`new LarkSR({ ... 此处省略其他配置 ... audioInputAutoStart: true})` 时传入，
+
+> 手动传入的 `audioInputAutoStart` 优先级高于后台配置
+
+```javascript
+/**
+* 当启用音频输入功能，是否自动连入音频设备。
+* 默认关闭。
+* 需要注意默认打开的是系统中默认的音频设备。
+*/
+audioInputAutoStart?: boolean;
+```
+
+## 视频输入接口
+
+客户端打开后云端应用可直接通过读取服务端的摄像头读取视频数据。
+
+> 该功能匹配的服务端版本最低为 V3.2.61
+> 使用该功能要注意在后台应用管理中开启视频输入功能
+> 注意要在连接成功之后打开媒体设备。即 `mediaPlayed` 之后调用才有效
+
+```typescript
+/**
+ * 打开一个视频设备，要注意浏览器限制在 https 或者 localhost 下才能打开视频
+ * 注意不包含音频，如果需要同时打开默认的视频和音频请 @see openDefaultMedia
+ * @param cameraId 视频设备id，如果不传将打开默认设备。@see getConnectedVideoinputDevices
+ * @returns Promise
+ */
+openVideo(audio?: boolean, cameraId?: string);
+/**
+ * 打开默认媒体设备，要注意浏览器限制在 https 或者 localhost 下
+ * 如果需要指定特殊的媒体设备请单独使用 @see openAudio @see openVideo
+ * @param video 是否包含视频
+ * @param audio 是否包含音频
+ * @returns Promise
+ */
+openDefaultMedia(video?: boolean, audio?: boolean)>;
+/**
+ * 返回已连接的视频设备
+ * @returns Promise<MediaDeviceInfo[]>
+ */
+getConnectedVideoinputDevices();
+/**
+ * 设置当前已开启的视频track是否启用状态
+ * @param enable 是否启用
+ * @returns void
+ */
+setVideoEnable(enable: boolean);
+```
+
+larksr 配置项自动打开视频输入配置,在`new LarkSR({ ... 此处省略其他配置 ... videoInputAutoStart: true})` 时传入
+
+> 手动传入的 `videoInputAutoStart` 优先级高于后台配置
+
+```javascript
+/**
+ * 当启用视频输入功能，是否自动连入视频设备。
+ * 默认关闭。
+ * 需要注意默认打开的是系统中默认的视频设备。
+ */
+videoInputAutoStart?: boolean;
 ```
 
 ## 其他

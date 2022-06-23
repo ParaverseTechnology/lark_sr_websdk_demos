@@ -35,6 +35,9 @@ export interface GetTaskResult {
     wm: number;
     textInputEventPrompt: number;
     audioInput: number;
+    audioInputAutoStart: number;
+    videoInput: number;
+    videoInputAutoStart: number;
 }
 export interface StartAppInfo {
     appliId: string;

@@ -22,6 +22,15 @@ larksr.on('connect', function(e) {
  */
 declare const enum LarkSRClientEvent {
     /**
+     * TASK 创建成功，返回 Task 相关信息
+     */
+    TASK_CREATE_SUCCESS = 'taskcreatesuccess',
+
+    /**
+     * TASK 创建失败
+     */
+    TASK_CREATE_FAILED = 'taskcreatefailed',
+    /**
      * 连接渲染服务器成功 .
      */
     CONNECT = "connect",

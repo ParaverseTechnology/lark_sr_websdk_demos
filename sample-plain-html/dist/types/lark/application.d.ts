@@ -59,6 +59,8 @@ export default class Application extends EventBase<APP_EVENT_TYPE, AppEvent> {
     private _state;
     get audioDeviceId(): string | undefined;
     get audioTrack(): MediaStreamTrack | undefined;
+    get videoDeviceId(): string | undefined;
+    get videoTrack(): MediaStreamTrack | undefined;
     private retryTime;
     private larksr;
     get voiceId(): number;

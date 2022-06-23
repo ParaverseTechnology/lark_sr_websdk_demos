@@ -324,9 +324,15 @@ interface ILarkSRConfig {
     /**
      * 当启用音频输入功能，是否自动连入音频设备。
      * 默认关闭。
-     * 需要注意默认打开的时系统中默认的音频设备。
+     * 需要注意默认打开的是系统中默认的音频设备。
      */
     audioInputAutoStart?: boolean;
+    /**
+     * 当启用视频输入功能，是否自动连入视频设备。
+     * 默认关闭。
+     * 需要注意默认打开的是系统中默认的视频设备。
+     */
+    videoInputAutoStart?: boolean;
 }
 declare class LarkSR extends EventBase<LarkSRClientEvent, LarkSREvent> {
     /**
@@ -462,6 +468,14 @@ declare class LarkSR extends EventBase<LarkSRClientEvent, LarkSREvent> {
      * 当前打开音频的track对象，未打开状态为空
      */
     get audioTrack(): MediaStreamTrack | undefined;
+    /**
+     * 当前打开视频设备 ID，如果打开时没指定特设备id为空
+     */
+    get videoDeviceId(): string | undefined;
+    /**
+     * 当前打开视频track对象，未打开状态为空
+     */
+    get videoTrack(): MediaStreamTrack | undefined;
     /**
      * LarkSR 客户端。所有操作和事件通过该类传递
      * @param config 本地配置，优先级最高
@@ -782,6 +796,11 @@ declare class LarkSR extends EventBase<LarkSRClientEvent, LarkSREvent> {
      * @returns
      */
     setAudioEnable(enable: boolean): void | undefined;
+    /**
+     * 设置当前已开启的视频track是否启用状态
+     * @param enable 是否启用
+     * @returns
+     */
     setVideoEnable(enable: boolean): void | undefined;
     setShareEnable(enable: boolean): void | undefined;
     /**
@@ -794,24 +813,41 @@ declare class LarkSR extends EventBase<LarkSRClientEvent, LarkSREvent> {
     /**
      * 打开一个音频设备，要注意浏览器限制在 https 或者 localhost 下才能打开音频
      * @param deviceId 音频设备id，如果不传将打开默认设备。@see getConnectedAudioinputDevices
-     * @returns
+     * @returns Promise
      */
     openAudio(deviceId?: string): Promise<{
         streams: MediaStream;
         rtcRtpSenders: import("./lark/peer_connection").RTCMediaTrackBinding[];
     } | undefined>;
+    /**
+     * 打开一个视频设备，要注意浏览器限制在 https 或者 localhost 下才能打开视频
+     * 注意不包含音频，如果需要同时打开默认的视频和音频请 @see openDefaultMedia
+     * @param cameraId 视频设备id，如果不传将打开默认设备。@see getConnectedVideoinputDevices
+     * @returns Promise
+     */
     openVideo(audio?: boolean, cameraId?: string): Promise<{
         streams: MediaStream;
         rtcRtpSenders: import("./lark/peer_connection").RTCMediaTrackBinding[];
     } | undefined>;
+    /**
+     * 打开默认媒体设备，要注意浏览器限制在 https 或者 localhost 下
+     * 如果需要指定特殊的媒体设备请单独使用 @see openAudio @see openVideo
+     * @param video 是否包含视频
+     * @param audio 是否包含音频
+     * @returns Promise
+     */
     openDefaultMedia(video?: boolean, audio?: boolean): Promise<void | undefined>;
     openShareMediaDevice(): Promise<void | undefined>;
     /**
      * 返回已连接的音频设备列表，设备列表中的设备的 deviceId 可用来打开某个音频设备
-     * @returns
+     * @returns Promise<MediaDeviceInfo[]>
      */
     getConnectedAudioinputDevices(): Promise<MediaDeviceInfo[] | undefined>;
     getConnectedAudioOutputDevices(): Promise<MediaDeviceInfo[] | undefined>;
+    /**
+     * 返回已连接的视频设备
+     * @returns Promise<MediaDeviceInfo[]>
+     */
     getConnectedVideoinputDevices(): Promise<MediaDeviceInfo[] | undefined>;
     getConnectedDevices(type: MediaDeviceKind): Promise<MediaDeviceInfo[] | undefined>;
     openAudioDevice(deviceId: string, kind?: "audioinput" | "audiooutput"): Promise<{

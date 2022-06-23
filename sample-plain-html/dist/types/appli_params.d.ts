@@ -193,6 +193,8 @@ export interface IAppliParams {
     textInputEventPrompt: boolean;
     audioInput: boolean;
     audioInputAutoStart: boolean;
+    videoInput: boolean;
+    videoInputAutoStart: boolean;
 }
 export declare enum AppliType {
     DESKTOP = 1,
@@ -255,6 +257,8 @@ export declare class AppliParams implements IAppliParams {
     textInputEventPrompt: boolean;
     audioInput: boolean;
     audioInputAutoStart: boolean;
+    videoInput: boolean;
+    videoInputAutoStart: boolean;
     static copyAndCreate(params?: IAppliParams): AppliParams;
     static setUpWithSDKConfig(params: IAppliParams, config: ILarkSRConfig): AppliParams;
 }
