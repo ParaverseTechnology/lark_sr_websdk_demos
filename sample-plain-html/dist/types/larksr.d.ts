@@ -821,7 +821,7 @@ declare class LarkSR extends EventBase<LarkSRClientEvent, LarkSREvent> {
     } | undefined>;
     /**
      * 打开一个视频设备，要注意浏览器限制在 https 或者 localhost 下才能打开视频
-     * 注意不包含音频，如果需要同时打开默认的视频和音频请 @see openDefaultMedia
+     * @param audio boolean 是否同时开启音频
      * @param cameraId 视频设备id，如果不传将打开默认设备。@see getConnectedVideoinputDevices
      * @returns Promise
      */

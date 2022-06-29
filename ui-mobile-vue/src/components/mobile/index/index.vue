@@ -3,6 +3,8 @@
         :style="viewPortWidth"
         v-on:contextmenu="onContextmenu"
     >
+        <MicInput />
+        <VideoInput />
         <!-- popup menu -->
         <div v-if="!vmouseMode"
             class="pop pop-toggle"
@@ -45,12 +47,16 @@ import Joyskick            from '../joystick/joystick';
 import Keyboard            from '../keyboard/keyboard';
 import VCursor             from '../v_cursor/v_cursor';
 import Unit                from '../../../utils/unit';
+import MicInput            from '../../mic_input/mic_input.vue';
+import VideoInput          from '../../video_input/video_input.vue';
 
 export default {
     components: {
         Joyskick,
         Keyboard,
         VCursor,
+        MicInput,
+        VideoInput,
     },
     data() {
         return {

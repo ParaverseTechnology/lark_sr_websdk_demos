@@ -152,13 +152,18 @@
             // 客户端打开后云端应用可直接通过读取声卡上的麦克风接收到音频。
             // 使用该功能要注意在后台开启智能语音功能
             // 打开音频设备，可选传入 deviceId,
-            // client.openAudio();
-            // 设置已打开的音频track状态
-            // client.setAudioEnable(true);
-            // 关闭已打开的音频流
-            // client.closeAudio();
-            // 返回可用的音频设备
-            // client.getConnectedAudioinputDevices();
+            // 注意当连接成功之后打开音频或视频通道才有实际意义，如 mediaplaysuccess 之后
+            // 
+            // client.on('mediaplaysuccess', function(e) { 
+                    //    console.log("LarkSRClientEvent mediaplaysuccess", e); 
+                    // client.openAudio();
+                    // 设置已打开的音频track状态
+                    // client.setAudioEnable(true);
+                    // 关闭已打开的音频流
+                    // client.closeAudio();
+                    // 返回可用的音频设备
+                    // client.getConnectedAudioinputDevices();
+            // });   
 
 
             // ...

@@ -6,6 +6,8 @@
         v-on:dragstart="onDragStart"
         v-on:dragend="onDragEnd"
     >
+        <MicInput v-if="popToggled" />
+        <VideoInput v-if="popToggled" />
         <div
             v-if="popToggled" class="pop pop-toggle"
         >
@@ -35,9 +37,13 @@ import {
 }                                   from 'vuex';
 import Unit                         from '../../utils/unit'
 import store                        from '../../store';
+import MicInput                     from '../mic_input/mic_input.vue';
+import VideoInput                   from '../video_input/video_input.vue';
 
 export default {
     components: {
+        MicInput,
+        VideoInput,
     },
     data() {
         return {
