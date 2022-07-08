@@ -4,6 +4,9 @@ export default class KeyboardHandler extends HandlerBase {
     private needSyncKeyState;
     private fistSyncKeyState;
     private pressedKeys;
+    set preventKeys(keys: string[]);
+    get preventKeys(): string[];
+    private _preventKeys;
     constructor(op: Operation);
     startListening(): void;
     stopListening(): void;

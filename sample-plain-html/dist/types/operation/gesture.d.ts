@@ -9,7 +9,7 @@ export interface GestureEvent extends LocalEvent<GESTRUE_EVENT_TYPE> {
     motion: Vector;
     distance: number;
 }
-export declare const enum GESTURE_TYPE {
+export declare enum GESTURE_TYPE {
     SINGLE_FINGER_TOUCH_START = 1,
     SINGLE_FINGER_TAP = 2,
     SINGLE_FINGER_TAP_DOWN = 3,
@@ -43,6 +43,8 @@ export default class Gesture extends EventBase<GESTRUE_EVENT_TYPE, GestureEvent>
     private touchStartPoints;
     private touchChangedPoins;
     private tapStart;
+    setTapLimitRadius(radius: number): void;
+    setTapLimitTimeout(timeout: number): void;
     private tapLimit;
     private lastTap;
     private tapPressTimeout;

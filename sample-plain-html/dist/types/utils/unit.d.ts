@@ -14,11 +14,6 @@ export default class Unit {
     /**
      * 浏览器窗口大小相关
      */
-    /**
-     * 获取浏览器窗口大小
-     * @returns { width: 窗口宽, height: 窗口高 }
-     */
-    static viewport(): ViewPort;
     static getElementViewport(element: HTMLElement, baseElementScale?: number): ViewPort;
     /**
      * 获取某元素距离文档的距离

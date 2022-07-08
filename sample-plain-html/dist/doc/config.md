@@ -141,5 +141,18 @@ interface ILarkSRConfig {
      * 需要注意默认打开的是系统中默认的视频设备。
      */
     videoInputAutoStart?: boolean;
+    /**
+     * mouseZoomDirection
+     * 用于移动端捏合缩放操作与应用鼠标缩放的对应关系
+     * 1:鼠标滚轮向上为放大，
+     * 0:鼠标滚轮向下为放大(default)
+     */
+    mouseZoomDirection?: number;
+    /**
+     * 触摸指令模式，对应后台应用管理->应用编辑->移动端高级设置->触摸指令模式 优先级高于后台配置
+     * 触摸指令，移动端的触摸指令对应为云端的触屏还是鼠标
+     * 'touchScreen' | 'mouse'
+     */
+    touchOperateMode?: 'touchScreen' | 'mouse';
 }
 ```

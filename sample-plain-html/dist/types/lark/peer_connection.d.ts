@@ -29,7 +29,8 @@ export declare enum WEBRTC_EVENT_TYPE {
     AI_VOICE_STATUS = 18,
     AI_VOICE_ASR_RESULT = 19,
     AI_VOICE_DM_RESULT = 20,
-    AI_VOICE_ERROR = 21
+    AI_VOICE_ERROR = 21,
+    INFO = 22
 }
 export interface GoogleBitRate {
     start: number;
@@ -105,7 +106,7 @@ export default class PeerConnection extends EventBase<WEBRTC_EVENT_TYPE, WebRTCE
     private localShareTrackBinding;
     private sdpCreateSuccess;
     constructor(larksr: LarkSR, config: WebRTCConfig);
-    create(): void;
+    create(streams?: MediaStream | undefined | null): Promise<void>;
     createOffer(): void;
     close(): void;
     setAudioEnable(enable: boolean): void;

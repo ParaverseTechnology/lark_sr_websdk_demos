@@ -393,8 +393,10 @@ videoInputAutoStart?: boolean;
 
 ```typescript
 /**
-* 采集一帧图像
-*/
+ * 采集一帧图像
+ * @params data: any 抛出采集事件时抛出的附加data，比如采集的时间戳
+ * @return { data: any, base64: base64string } 返回传入的 data 和采集的 base64 字符串
+ */
 captrueFrame(data: any)
 /**
  * 设置是否强制横屏显示内容.
@@ -403,4 +405,8 @@ captrueFrame(data: any)
  * @param force 是否强制横屏
  */
 setMobileForceLandScape(force: boolean): void;
+/**
+ * 从DOM种删除渲染组件，注意删除渲染组件之后将无法再次进入应用，所有状态将失效,不可恢复，只能重新new LarkSR
+ */
+destroy(): void;
 ```

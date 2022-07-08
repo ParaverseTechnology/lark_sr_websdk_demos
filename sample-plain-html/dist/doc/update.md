@@ -160,3 +160,76 @@ larksr 配置项新增自动打开视频输入配置,在`new LarkSR({ ... 此处
  */
 videoInputAutoStart?: boolean;
 ```
+
+## V3.2.321
+
+larksr 配置项新增默认放大手势和鼠标滚轮对应关系和是否使用触摸屏模式,在`new LarkSR({ ... 此处省略其他配置 ... mouseZoomDirection: 0， touchOperateMode: "mouse"})` 时传入
+
+> 手动传入的配置优先级高于后台配置
+
+```javascript
+/**
+ * mouseZoomDirection
+ * 用于移动端捏合缩放操作与应用鼠标缩放的对应关系
+ * 1:鼠标滚轮向上为放大，
+ * 0:鼠标滚轮向下为放大(default)
+ */
+mouseZoomDirection?: number;
+/**
+ * 触摸指令模式，对应后台应用管理->应用编辑->移动端高级设置->触摸指令模式 优先级高于后台配置
+ * 触摸指令，移动端的触摸指令对应为云端的触屏还是鼠标
+ * 'touchScreen' | 'mouse'
+ */
+touchOperateMode?: 'touchScreen' | 'mouse';
+```
+
+captrueFrame 方法会将截图和通过返回值带出来
+
+```javascript
+/**
+ * 采集一帧图像
+ * @params data: any 抛出采集事件时抛出的附加data，比如采集的时间戳
+ * @return { data: any, base64: base64string } 返回传入的 data 和采集的 base64 字符串
+ */
+captrueFrame(data: any)
+```
+
+新增销毁方法，要注意，销毁之后 larksr 对象不再可用
+
+```javascript
+/**
+ * 从DOM种删除渲染组件，注意删除渲染组件之后将无法再次进入应用，所有状态将失效,不可恢复，只能重新new LarkSR
+ */
+destroy(): void;
+```
+
+添加操作类中的 keyboardhandler 开放访问，可用配置拦截哪些按键的默认行为
+
+```javascript
+// 设置键盘事件默认拦截浏览器默认行为。
+// 在 preventKeys 中的将拦截，如果数组设置为空则全部不拦截
+// 默认拦截 F1 F5 F12
+larksr.op.keyboardHandler.preventKeys = [["F1", "F5", "F12"]];
+```
+
+操作类中添加 gestureHandler 公开访问,gestureHandler 处理将移动端触摸事件对应为鼠标事件的过程。
+
+可用通过 gestureHandler 调节触摸事件触发参数
+
+```javascript
+// 触摸事件在对应为鼠标事件中，提供的鼠标相对移动的速度。
+// 即 rx = （pxNew-pxOld） * relativeMouseMoveSpeed
+//    ry = （pyNew-pyOld）* relativeMouseMoveSpeed
+// 可能会影响使用相对移动（rawInput）判断的云端应用的效果
+larksr.op.gestureHandler.relativeMouseMoveSpeed = 2;
+// 触摸模拟为鼠标事件时，模拟点击的判断范围。
+// 实际的鼠标事件点击时一般不会移动，而触摸操作基本上一定会触发移动事件
+// 如果要模拟PC上的击事件，比如单击或双击，在鼠标按下和抬起之间不应再插入鼠标移动
+// 当触发移动事件时，超出该判断范围才发送移动事件。
+// 注意，修改该值可能会导致云端应用上判断单击或双击失败，如果云端应用不包含类似操作基本影响不大
+larksr.op.gestureHandler.tapLimitRadius = 20;
+// 在该时间范围下将尝试发送单机按下事件，修改该值可能会导致单机事件的触发成功率
+larksr.op.gestureHandler.tapLimitTimeout = 100;
+```
+
+可用通过 gestureHandler 拦截触摸事件回调, 通过 `larksr.op.gestureHandler` 设置回调函数

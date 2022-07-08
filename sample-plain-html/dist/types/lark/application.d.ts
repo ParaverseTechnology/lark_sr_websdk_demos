@@ -89,7 +89,7 @@ export default class Application extends EventBase<APP_EVENT_TYPE, AppEvent> {
     startMonitorSteam(): void;
     restart(): void;
     restartApp(): void;
-    rtcOffer(): void;
+    rtcOffer(): Promise<void>;
     setAnswer(sdp: string): void;
     setIce(sdpMlineindex: number, sdpmid: string, candidate: string): void;
     sendInput(input: Msg.CloudLark.ClientInput): void;
@@ -113,6 +113,7 @@ export default class Application extends EventBase<APP_EVENT_TYPE, AppEvent> {
     private onRemoteStream;
     private onAudioRemoteStream;
     private onRtcError;
+    private onRtcInfo;
     private onIceStateChange;
     retryPeerconnection(): void;
     setAudioEnable(enable: boolean): void | undefined;

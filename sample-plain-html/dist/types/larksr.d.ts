@@ -16,6 +16,7 @@ import LockPointer from './utils/lock_pointer';
 import ScaleMode from './utils/scale_mode';
 import Capabilities from './utils/capabilities';
 import Recorder from './lark/recoder';
+import { GESTURE_TYPE } from './operation/gesture';
 declare enum PlayerModeType {
     /**
      * 普通模式
@@ -333,6 +334,19 @@ interface ILarkSRConfig {
      * 需要注意默认打开的是系统中默认的视频设备。
      */
     videoInputAutoStart?: boolean;
+    /**
+     * mouseZoomDirection
+     * 用于移动端捏合缩放操作与应用鼠标缩放的对应关系
+     * 1:鼠标滚轮向上为放大，
+     * 0:鼠标滚轮向下为放大(default)
+     */
+    mouseZoomDirection?: number;
+    /**
+     * 触摸指令模式，对应后台应用管理->应用编辑->移动端高级设置->触摸指令模式 优先级高于后台配置
+     * 触摸指令，移动端的触摸指令对应为云端的触屏还是鼠标
+     * 'touchScreen' | 'mouse'
+     */
+    touchOperateMode?: 'touchScreen' | 'mouse';
 }
 declare class LarkSR extends EventBase<LarkSRClientEvent, LarkSREvent> {
     /**
@@ -543,6 +557,10 @@ declare class LarkSR extends EventBase<LarkSRClientEvent, LarkSREvent> {
      */
     close(): void;
     /**
+     * 从DOM种删除渲染组件，注意删除渲染组件之后将无法再次进入应用，所有状态将失效,不可恢复，只能重新new LarkSR
+     */
+    destroy(): void;
+    /**
      * 设置是否强制横屏显示内容.
      * handelRootElementSize 必须设置为 true 才有作用。
      * 要注意强制横屏模式下网页的坐标系xy和视觉上相反，如果通过外部输入 input 事件。要注意调整
@@ -607,8 +625,13 @@ declare class LarkSR extends EventBase<LarkSRClientEvent, LarkSREvent> {
     resetAppMouseLockState(): void;
     /**
      * 采集一帧图像
+     * @params data: any 抛出采集事件时抛出的附加data，比如采集的时间戳
+     * @return { data: any, base64: base64string } 返回传入的 data 和采集的 base64 字符串
      */
-    captrueFrame(data: any): void;
+    captrueFrame(data: any): {
+        data: any;
+        base64: any;
+    };
     /**
      * 操作相关事件
      * 所有事件坐标相对于云端应用，不相对于网页
@@ -887,4 +910,4 @@ declare class LarkSR extends EventBase<LarkSRClientEvent, LarkSREvent> {
     private onOperationTimeout;
     private onOperationInput;
 }
-export { LarkSR, ILarkSRConfig, PlayerModeType, UserType, LarkSREvent, LarkEventType, LarkSRClientEvent, AppliParams, AppliParamsUtils, LoadAppliParamsFromUrl, LoadAppliParamsStartAppInfo, EventBase, API, Operation, Capabilities, ScaleMode, VirtualKey, KEYMAP, CloudLark, FullScreen, LockPointer, Recorder, };
+export { LarkSR, ILarkSRConfig, PlayerModeType, UserType, LarkSREvent, LarkEventType, LarkSRClientEvent, AppliParams, AppliParamsUtils, LoadAppliParamsFromUrl, LoadAppliParamsStartAppInfo, EventBase, API, Operation, Capabilities, ScaleMode, VirtualKey, KEYMAP, CloudLark, FullScreen, LockPointer, Recorder, GESTURE_TYPE, };

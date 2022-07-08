@@ -1,5 +1,5 @@
 import 'core-js/stable/symbol';
-import { LarkSR, LarkEventType, LarkSRClientEvent, AppliParams, LoadAppliParamsFromUrl, AppliParamsUtils, LoadAppliParamsStartAppInfo, EventBase, API, Operation, Capabilities, ScaleMode, CloudLark, FullScreen, LockPointer, ILarkSRConfig, PlayerModeType, UserType, LarkSREvent } from "./larksr";
+import { LarkSR, LarkEventType, LarkSRClientEvent, AppliParams, LoadAppliParamsFromUrl, AppliParamsUtils, LoadAppliParamsStartAppInfo, EventBase, API, Operation, Capabilities, ScaleMode, CloudLark, FullScreen, LockPointer, ILarkSRConfig, PlayerModeType, UserType, LarkSREvent, GESTURE_TYPE } from "./larksr";
 declare const _default: {
     LarkSR: typeof LarkSR;
     API: typeof API;
@@ -16,6 +16,7 @@ declare const _default: {
     Operation: typeof Operation;
     LarkSRClientEvent: typeof LarkSRClientEvent;
     LarkEventType: typeof LarkEventType;
+    GESTURE_TYPE: typeof GESTURE_TYPE;
     KEYMAP: import("./operation/keymap").VritualKeyMapOptions;
 };
 export default _default;

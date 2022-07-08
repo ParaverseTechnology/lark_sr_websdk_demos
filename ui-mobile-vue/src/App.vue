@@ -96,8 +96,8 @@ export default {
         rootElement: this.$refs["appContainer"],
         // 服务器地址,实际使用中填写您的服务器地址
         // 如：http://222.128.6.137:8181/
-        // serverAddress: "http://222.128.6.137:8181/",
-        serverAddress: "http://192.168.0.55:8181/",
+        serverAddress: "http://222.128.6.137:8181/",
+        // serverAddress: "http://192.168.0.55:8181/",
         // 视频缩放模式，默认保留宽高比，不会拉伸并完整显示在容器中
         scaleMode: "contain",
         // 0 -》 用户手动触发, 1 -》 首次点击进入触发, 2 -》 每次点击触发
@@ -112,7 +112,7 @@ export default {
     // 初始化您的授权ID
     // "SDK 授权码，联系 business@pingxingyun.com 获取,注意是 SDK 本身的授权码，不是服务器上的授权"
     // 使用 Unit.queryString("sdkID") 可从 url 载入名称为 sdkID 的参数
-    larksr.initSDKAuthCode("28c2eb1d50e14105b005940dc80588d1")
+    larksr.initSDKAuthCode("SDK 授权码，联系 business@pingxingyun.com 获取,注意是 SDK 本身的授权码，不是服务器上的授权")
     .then(() => {
 
       // 连接平行云托管平台的应用
@@ -135,7 +135,7 @@ export default {
         // 参考查询应用一栏文档
         // https://www.pingxingyun.com/online/api3_2.html?id=476
         // 如 222.128.6.137:8181 系统下的 879414254636105728 应用
-        appliId: "989914749066018816",
+        appliId: "879414254636105728",
         // 其他可选参数如下
         // 互动模式
         //启动模式：0：普通模式, 1：互动模式（一人操作多人观看），2: 多人协同（键盘鼠标放开，需要应用配合）

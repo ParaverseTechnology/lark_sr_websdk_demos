@@ -48,5 +48,7 @@ declare class Capabilities {
      * </ul>
      */
     static get os(): string;
+    static $isIOSSafari: boolean;
+    static get isIOSSafari(): boolean;
 }
 export default Capabilities;
