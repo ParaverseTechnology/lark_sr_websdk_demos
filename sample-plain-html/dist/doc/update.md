@@ -233,3 +233,8 @@ larksr.op.gestureHandler.tapLimitTimeout = 100;
 ```
 
 可用通过 gestureHandler 拦截触摸事件回调, 通过 `larksr.op.gestureHandler` 设置回调函数
+
+## V3.2.322
+
+1. 修复某些情况下后台设置的 LOGO 会闪一下默认 LOGO 的问题
+2. 添加 `larksr.virtualCursorPosition` 和 `larksr.virtualCursorPositionRaw` (省略 larksr 对象创建代码) 获取当前虚拟鼠标或者触摸点的位置。

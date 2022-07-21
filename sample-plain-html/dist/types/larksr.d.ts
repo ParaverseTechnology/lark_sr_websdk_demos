@@ -443,6 +443,21 @@ declare class LarkSR extends EventBase<LarkSRClientEvent, LarkSREvent> {
      * 是否显示移动端触摸点
      */
     set isEnableTouchPonit(enable: boolean);
+    set isEnableTouchPoint(enable: boolean);
+    /**
+     * 虚拟鼠标的当前位置,相对于整体容器
+     */
+    get virtualCursorPosition(): {
+        x: any;
+        y: any;
+    };
+    /**
+     * 虚拟鼠标的当前位置,内部缩放容器，与实际显示虚拟鼠标 CSS 样式相同
+     */
+    get virtualCursorPositionRaw(): {
+        x: any;
+        y: any;
+    };
     /**
      * 是否显示载入画面时底部文字
      */

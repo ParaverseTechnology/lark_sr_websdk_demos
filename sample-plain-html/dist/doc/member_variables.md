@@ -37,7 +37,7 @@ larksr.videoElement;
 
 ```javascript
 // 是否显示移动端触摸点
-larksr.isEnableTouchPonit = false;
+larksr.isEnableTouchPoint = false;
 // 是否显示载入画面时底部文字
 larksr.isEnableLoadingStateBar = false;
 ```
@@ -45,6 +45,69 @@ larksr.isEnableLoadingStateBar = false;
 ```javascript
 // 设置缩放模式
 larksr.scaleMode = ScaleMode.CONTAIN_APP;
+```
+
+4. 虚拟鼠标和触摸点
+
+```javascript
+/**
+ * 虚拟鼠标的当前位置,相对于整体容器
+ */
+larksr.virtualCursorPosition
+/**
+ * 虚拟鼠标的当前位置,内部缩放容器，与实际显示虚拟鼠标 CSS 样式相同
+ */
+larksr.virtualCursorPositionRaw
+```
+
+例：
+
+下面示例代码使用 react 演示点击一个按钮，同步一个外层的元素和虚拟鼠标的位置
+
+```javascript
+// ....
+// 省略 react 创建代码
+export default class App extends React.Component {
+    private state: any = {
+        pointPosition: {
+            x: 0,
+            y: 0,
+        }
+    };
+    // ....
+    // 此处省略 larksr 创建过程等其他代码
+    render() {
+        return (
+            <div>
+                // ...
+                // 省略其他元素
+                <div style={{
+                        zIndex: 1000,
+                        position: 'absolute', 
+                        left: this.state.pointPosition.x, 
+                        top: this.state.pointPosition.y,
+                        backgroundColor: "red",
+                        width: 50,
+                        height: 50,
+                        borderRadius: "50%"
+                    }}>
+                </div>
+                <button style={{pointerEvents: "all"}} 
+                    onClick={()=>{
+                        // 获取虚拟鼠标的位置
+                        console.log("touch point", this.larksr.virtualCursorPosition);
+                        // 同步虚拟鼠标的位置
+                        this.setState({
+                            pointPosition: this.larksr.virtualCursorPosition,
+                        })
+                    }}
+                    >
+                    touchPoint
+                </button>
+            </div>
+        )
+    }
+}
 ```
 
 ## 配置参数
