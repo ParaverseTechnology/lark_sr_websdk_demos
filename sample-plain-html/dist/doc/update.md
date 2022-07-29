@@ -238,3 +238,14 @@ larksr.op.gestureHandler.tapLimitTimeout = 100;
 
 1. 修复某些情况下后台设置的 LOGO 会闪一下默认 LOGO 的问题
 2. 添加 `larksr.virtualCursorPosition` 和 `larksr.virtualCursorPositionRaw` (省略 larksr 对象创建代码) 获取当前虚拟鼠标或者触摸点的位置。
+
+## V3.2.324
+
+1. 修复 iOS 屏幕高度判断问题
+2. 添加获取应用列表接口 `API.GetAppliList(server: string, params: any);`
+3. 添加获取区域列表接口 `API.RegionList(server: string, params: any);`
+4. 添加获取后台配置UI接口 `larksr.getTouchCtrMapping()`
+5. 添加  `RTMP_STREAM_STATE  = "rtmpstreamstate"` 事件，返回云端直播推流事件
+6. 添加 `RTMP_STREAM_ERROR = "rtmpstreamerror"` 事件，返回云端直播推流错误
+7. 添加 `larksr.StartCloudLiveStreaming(params)` 接口，启动云端直播推流功能
+8. 添加 `larksr.StopLiveStreaming()` 接口，关闭云端直播推流功能.

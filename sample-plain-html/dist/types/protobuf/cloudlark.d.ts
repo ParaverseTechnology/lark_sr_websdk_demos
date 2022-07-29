@@ -6992,6 +6992,452 @@ export namespace CloudLark {
         public toJSON(): { [k: string]: any };
     }
 
+    /** Properties of a Rtmp_Start. */
+    interface IRtmp_Start {
+
+        /** Rtmp_Start width */
+        width?: (number|null);
+
+        /** Rtmp_Start height */
+        height?: (number|null);
+
+        /** Rtmp_Start framerate */
+        framerate?: (number|null);
+
+        /** Rtmp_Start bitrate */
+        bitrate?: (number|null);
+
+        /** Rtmp_Start path */
+        path?: (string|null);
+
+        /** Rtmp_Start key */
+        key?: (string|null);
+
+        /** Rtmp_Start reconnect */
+        reconnect?: (boolean|null);
+
+        /** Rtmp_Start reconnectRetries */
+        reconnectRetries?: (number|null);
+
+        /** Rtmp_Start voice */
+        voice?: (boolean|null);
+    }
+
+    /** Represents a Rtmp_Start. */
+    class Rtmp_Start implements IRtmp_Start {
+
+        /**
+         * Constructs a new Rtmp_Start.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: CloudLark.IRtmp_Start);
+
+        /** Rtmp_Start width. */
+        public width: number;
+
+        /** Rtmp_Start height. */
+        public height: number;
+
+        /** Rtmp_Start framerate. */
+        public framerate: number;
+
+        /** Rtmp_Start bitrate. */
+        public bitrate: number;
+
+        /** Rtmp_Start path. */
+        public path: string;
+
+        /** Rtmp_Start key. */
+        public key: string;
+
+        /** Rtmp_Start reconnect. */
+        public reconnect: boolean;
+
+        /** Rtmp_Start reconnectRetries. */
+        public reconnectRetries: number;
+
+        /** Rtmp_Start voice. */
+        public voice: boolean;
+
+        /**
+         * Creates a new Rtmp_Start instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns Rtmp_Start instance
+         */
+        public static create(properties?: CloudLark.IRtmp_Start): CloudLark.Rtmp_Start;
+
+        /**
+         * Encodes the specified Rtmp_Start message. Does not implicitly {@link CloudLark.Rtmp_Start.verify|verify} messages.
+         * @param message Rtmp_Start message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: CloudLark.IRtmp_Start, writer?: $protobuf.Writer): $protobuf.Writer;
+
+        /**
+         * Encodes the specified Rtmp_Start message, length delimited. Does not implicitly {@link CloudLark.Rtmp_Start.verify|verify} messages.
+         * @param message Rtmp_Start message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: CloudLark.IRtmp_Start, writer?: $protobuf.Writer): $protobuf.Writer;
+
+        /**
+         * Decodes a Rtmp_Start message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns Rtmp_Start
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): CloudLark.Rtmp_Start;
+
+        /**
+         * Decodes a Rtmp_Start message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns Rtmp_Start
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): CloudLark.Rtmp_Start;
+
+        /**
+         * Verifies a Rtmp_Start message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a Rtmp_Start message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns Rtmp_Start
+         */
+        public static fromObject(object: { [k: string]: any }): CloudLark.Rtmp_Start;
+
+        /**
+         * Creates a plain object from a Rtmp_Start message. Also converts values to other types if specified.
+         * @param message Rtmp_Start
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: CloudLark.Rtmp_Start, options?: $protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this Rtmp_Start to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of a Rtmp_Stop. */
+    interface IRtmp_Stop {
+
+        /** Rtmp_Stop flag */
+        flag?: (boolean|null);
+    }
+
+    /** Represents a Rtmp_Stop. */
+    class Rtmp_Stop implements IRtmp_Stop {
+
+        /**
+         * Constructs a new Rtmp_Stop.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: CloudLark.IRtmp_Stop);
+
+        /** Rtmp_Stop flag. */
+        public flag: boolean;
+
+        /**
+         * Creates a new Rtmp_Stop instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns Rtmp_Stop instance
+         */
+        public static create(properties?: CloudLark.IRtmp_Stop): CloudLark.Rtmp_Stop;
+
+        /**
+         * Encodes the specified Rtmp_Stop message. Does not implicitly {@link CloudLark.Rtmp_Stop.verify|verify} messages.
+         * @param message Rtmp_Stop message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: CloudLark.IRtmp_Stop, writer?: $protobuf.Writer): $protobuf.Writer;
+
+        /**
+         * Encodes the specified Rtmp_Stop message, length delimited. Does not implicitly {@link CloudLark.Rtmp_Stop.verify|verify} messages.
+         * @param message Rtmp_Stop message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: CloudLark.IRtmp_Stop, writer?: $protobuf.Writer): $protobuf.Writer;
+
+        /**
+         * Decodes a Rtmp_Stop message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns Rtmp_Stop
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): CloudLark.Rtmp_Stop;
+
+        /**
+         * Decodes a Rtmp_Stop message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns Rtmp_Stop
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): CloudLark.Rtmp_Stop;
+
+        /**
+         * Verifies a Rtmp_Stop message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a Rtmp_Stop message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns Rtmp_Stop
+         */
+        public static fromObject(object: { [k: string]: any }): CloudLark.Rtmp_Stop;
+
+        /**
+         * Creates a plain object from a Rtmp_Stop message. Also converts values to other types if specified.
+         * @param message Rtmp_Stop
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: CloudLark.Rtmp_Stop, options?: $protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this Rtmp_Stop to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of a Rtmp_State. */
+    interface IRtmp_State {
+
+        /** Rtmp_State state */
+        state?: (CloudLark.Rtmp_State.STATE|null);
+
+        /** Rtmp_State desc */
+        desc?: (string|null);
+    }
+
+    /** Represents a Rtmp_State. */
+    class Rtmp_State implements IRtmp_State {
+
+        /**
+         * Constructs a new Rtmp_State.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: CloudLark.IRtmp_State);
+
+        /** Rtmp_State state. */
+        public state: CloudLark.Rtmp_State.STATE;
+
+        /** Rtmp_State desc. */
+        public desc: string;
+
+        /**
+         * Creates a new Rtmp_State instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns Rtmp_State instance
+         */
+        public static create(properties?: CloudLark.IRtmp_State): CloudLark.Rtmp_State;
+
+        /**
+         * Encodes the specified Rtmp_State message. Does not implicitly {@link CloudLark.Rtmp_State.verify|verify} messages.
+         * @param message Rtmp_State message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: CloudLark.IRtmp_State, writer?: $protobuf.Writer): $protobuf.Writer;
+
+        /**
+         * Encodes the specified Rtmp_State message, length delimited. Does not implicitly {@link CloudLark.Rtmp_State.verify|verify} messages.
+         * @param message Rtmp_State message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: CloudLark.IRtmp_State, writer?: $protobuf.Writer): $protobuf.Writer;
+
+        /**
+         * Decodes a Rtmp_State message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns Rtmp_State
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): CloudLark.Rtmp_State;
+
+        /**
+         * Decodes a Rtmp_State message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns Rtmp_State
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): CloudLark.Rtmp_State;
+
+        /**
+         * Verifies a Rtmp_State message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a Rtmp_State message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns Rtmp_State
+         */
+        public static fromObject(object: { [k: string]: any }): CloudLark.Rtmp_State;
+
+        /**
+         * Creates a plain object from a Rtmp_State message. Also converts values to other types if specified.
+         * @param message Rtmp_State
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: CloudLark.Rtmp_State, options?: $protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this Rtmp_State to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    namespace Rtmp_State {
+
+        /** STATE enum. */
+        enum STATE {
+            CONNECTING = 0,
+            CONNECTED = 1,
+            RECONNECTING = 2,
+            DISCONNECTING = 3,
+            DISCONNECTED = 4
+        }
+    }
+
+    /** Properties of a Rtmp_Error. */
+    interface IRtmp_Error {
+
+        /** Rtmp_Error error */
+        error?: (CloudLark.Rtmp_Error.ERR|null);
+
+        /** Rtmp_Error desc */
+        desc?: (string|null);
+    }
+
+    /** Represents a Rtmp_Error. */
+    class Rtmp_Error implements IRtmp_Error {
+
+        /**
+         * Constructs a new Rtmp_Error.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: CloudLark.IRtmp_Error);
+
+        /** Rtmp_Error error. */
+        public error: CloudLark.Rtmp_Error.ERR;
+
+        /** Rtmp_Error desc. */
+        public desc: string;
+
+        /**
+         * Creates a new Rtmp_Error instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns Rtmp_Error instance
+         */
+        public static create(properties?: CloudLark.IRtmp_Error): CloudLark.Rtmp_Error;
+
+        /**
+         * Encodes the specified Rtmp_Error message. Does not implicitly {@link CloudLark.Rtmp_Error.verify|verify} messages.
+         * @param message Rtmp_Error message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: CloudLark.IRtmp_Error, writer?: $protobuf.Writer): $protobuf.Writer;
+
+        /**
+         * Encodes the specified Rtmp_Error message, length delimited. Does not implicitly {@link CloudLark.Rtmp_Error.verify|verify} messages.
+         * @param message Rtmp_Error message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: CloudLark.IRtmp_Error, writer?: $protobuf.Writer): $protobuf.Writer;
+
+        /**
+         * Decodes a Rtmp_Error message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns Rtmp_Error
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): CloudLark.Rtmp_Error;
+
+        /**
+         * Decodes a Rtmp_Error message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns Rtmp_Error
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): CloudLark.Rtmp_Error;
+
+        /**
+         * Verifies a Rtmp_Error message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a Rtmp_Error message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns Rtmp_Error
+         */
+        public static fromObject(object: { [k: string]: any }): CloudLark.Rtmp_Error;
+
+        /**
+         * Creates a plain object from a Rtmp_Error message. Also converts values to other types if specified.
+         * @param message Rtmp_Error
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: CloudLark.Rtmp_Error, options?: $protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this Rtmp_Error to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    namespace Rtmp_Error {
+
+        /** ERR enum. */
+        enum ERR {
+            PROCESS = 0,
+            BADPATH = 1,
+            ENCODER = 2,
+            CONNECTE_FAILED = 3,
+            INVALID_STREAM = 4,
+            DISCONNECTED = 5,
+            UNSUPPORTED = 6
+        }
+    }
+
     /** Properties of a ClientInput. */
     interface IClientInput {
 
@@ -7066,6 +7512,12 @@ export namespace CloudLark {
 
         /** ClientInput aiVoiceText */
         aiVoiceText?: (CloudLark.IAiVoiceText|null);
+
+        /** ClientInput rtmpStart */
+        rtmpStart?: (CloudLark.IRtmp_Start|null);
+
+        /** ClientInput rtmpStop */
+        rtmpStop?: (CloudLark.IRtmp_Stop|null);
     }
 
     /** Represents a ClientInput. */
@@ -7149,8 +7601,14 @@ export namespace CloudLark {
         /** ClientInput aiVoiceText. */
         public aiVoiceText?: (CloudLark.IAiVoiceText|null);
 
+        /** ClientInput rtmpStart. */
+        public rtmpStart?: (CloudLark.IRtmp_Start|null);
+
+        /** ClientInput rtmpStop. */
+        public rtmpStop?: (CloudLark.IRtmp_Stop|null);
+
         /** ClientInput input. */
-        public input?: ("mouseMove"|"mouseDown"|"mouseUp"|"mouseWheel"|"keyDown"|"keyUp"|"clientEnter"|"clientLeave"|"dispatchController"|"requesController"|"textInput"|"gamepadInputJoystickStates"|"gamepadInputButtonDown"|"gamepadInputButtonUp"|"gamepadInputTriger"|"clientDcMsg"|"touchMove"|"touchDown"|"touchUp"|"aiVoicestreamStart"|"aiVoicestreamSlice"|"aiVoicestreamStop"|"aiVoicestreamReset"|"aiVoiceText");
+        public input?: ("mouseMove"|"mouseDown"|"mouseUp"|"mouseWheel"|"keyDown"|"keyUp"|"clientEnter"|"clientLeave"|"dispatchController"|"requesController"|"textInput"|"gamepadInputJoystickStates"|"gamepadInputButtonDown"|"gamepadInputButtonUp"|"gamepadInputTriger"|"clientDcMsg"|"touchMove"|"touchDown"|"touchUp"|"aiVoicestreamStart"|"aiVoicestreamSlice"|"aiVoicestreamStop"|"aiVoicestreamReset"|"aiVoiceText"|"rtmpStart"|"rtmpStop");
 
         /**
          * Creates a new ClientInput instance using the specified properties.
@@ -7261,6 +7719,12 @@ export namespace CloudLark {
 
         /** AppNotification aiVoiceErr */
         aiVoiceErr?: (CloudLark.IAivoiceError|null);
+
+        /** AppNotification rtmpState */
+        rtmpState?: (CloudLark.IRtmp_State|null);
+
+        /** AppNotification rtmpError */
+        rtmpError?: (CloudLark.IRtmp_Error|null);
     }
 
     /** Represents an AppNotification. */
@@ -7308,8 +7772,14 @@ export namespace CloudLark {
         /** AppNotification aiVoiceErr. */
         public aiVoiceErr?: (CloudLark.IAivoiceError|null);
 
+        /** AppNotification rtmpState. */
+        public rtmpState?: (CloudLark.IRtmp_State|null);
+
+        /** AppNotification rtmpError. */
+        public rtmpError?: (CloudLark.IRtmp_Error|null);
+
         /** AppNotification notify. */
-        public notify?: ("resize"|"mousemode"|"updatePlayers"|"requestInput"|"gamepadOutput"|"datachannelState"|"appDcMsg"|"cursorStyle"|"aiVoiceRealtimeParseresult"|"aiVoiceResult"|"aiVoiceServiceStatus"|"aiVoiceErr");
+        public notify?: ("resize"|"mousemode"|"updatePlayers"|"requestInput"|"gamepadOutput"|"datachannelState"|"appDcMsg"|"cursorStyle"|"aiVoiceRealtimeParseresult"|"aiVoiceResult"|"aiVoiceServiceStatus"|"aiVoiceErr"|"rtmpState"|"rtmpError");
 
         /**
          * Creates a new AppNotification instance using the specified properties.

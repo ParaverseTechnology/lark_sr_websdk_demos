@@ -43,7 +43,9 @@ export declare enum APP_EVENT_TYPE {
     AI_VOICE_STATUS = 18,
     AI_VOICE_ASR_RESULT = 19,
     AI_VOICE_DM_RESULT = 20,
-    AI_VOICE_ERROR = 21
+    AI_VOICE_ERROR = 21,
+    RTMP_STREAM_STATE = 22,
+    RTMP_STREAM_ERROR = 23
 }
 export interface AppEvent extends LocalEvent<APP_EVENT_TYPE> {
     data?: any;
@@ -114,6 +116,8 @@ export default class Application extends EventBase<APP_EVENT_TYPE, AppEvent> {
     private onAudioRemoteStream;
     private onRtcError;
     private onRtcInfo;
+    private onRtmpStreamingState;
+    private onRtmpStreamingError;
     private onIceStateChange;
     retryPeerconnection(): void;
     setAudioEnable(enable: boolean): void | undefined;
@@ -151,6 +155,8 @@ export default class Application extends EventBase<APP_EVENT_TYPE, AppEvent> {
     addMediaTrack(track: MediaStreamTrack, ...streams: MediaStream[]): boolean | undefined;
     removeMediaTrack(track: RTCRtpSender): boolean | undefined;
     requestUserMediaPermission(constraints?: MediaStreamConstraints): Promise<MediaStream> | undefined;
+    StartCloudLiveStreaming(params: Msg.CloudLark.IRtmp_Start): Promise<void> | undefined;
+    StopLiveStreaming(): void | undefined;
     private onPeerConnectionDisconnect;
     private onBadNetwork;
     private onPixelStreamingPlayerList;

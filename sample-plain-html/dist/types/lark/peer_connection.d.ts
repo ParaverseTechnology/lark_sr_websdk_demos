@@ -30,7 +30,9 @@ export declare enum WEBRTC_EVENT_TYPE {
     AI_VOICE_ASR_RESULT = 19,
     AI_VOICE_DM_RESULT = 20,
     AI_VOICE_ERROR = 21,
-    INFO = 22
+    RTMP_STREAM_STATE = 22,
+    RTMP_STREAM_ERROR = 23,
+    INFO = 24
 }
 export interface GoogleBitRate {
     start: number;
@@ -157,6 +159,8 @@ export default class PeerConnection extends EventBase<WEBRTC_EVENT_TYPE, WebRTCE
     sendBuffer(buffer: ArrayBuffer): void;
     sendToAppTextMsg(msg: string): void;
     sendToAppBinaryMsg(binary: Uint8Array): void;
+    StartCloudLiveStreaming(params: Input.CloudLark.IRtmp_Start): Promise<void>;
+    StopLiveStreaming(): void;
     changeOperater(uid: number): void;
     inputText(txt: string): void;
     private getStats;

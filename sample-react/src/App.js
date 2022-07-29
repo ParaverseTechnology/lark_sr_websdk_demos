@@ -16,14 +16,14 @@ export default class App extends React.Component {
         // 如：http://222.128.6.137:8181/
         serverAddress: "http://222.128.6.137:8181/",
         // 视频缩放模式，默认保留宽高比，不会拉伸并完整显示在容器中
-        scaleMode: "contain",
+        // scaleMode: "contain",
         // 0 -》 用户手动触发, 1 -》 首次点击进入触发, 2 -》 每次点击触发
-        fullScreenMode: 0,
-        mobileFullScreenMode: 1,
+        // fullScreenMode: 0,
+        // mobileFullScreenMode: 1,
         // 测试载入背景图
-        loadingBgUrl: "https://home-obs.pingxingyun.com/homePage_4_0/bg.jpg",
+        // loadingBgUrl: "https://home-obs.pingxingyun.com/homePage_4_0/bg.jpg",
         // show log
-        logLevel: 'warn',
+        // logLevel: 'warn',
     });
     
     // 初始化您的授权ID

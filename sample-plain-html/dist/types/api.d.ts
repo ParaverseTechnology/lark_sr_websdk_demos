@@ -38,6 +38,7 @@ export interface GetTaskResult {
     audioInputAutoStart: number;
     videoInput: number;
     videoInputAutoStart: number;
+    liveStreaming: number;
 }
 export interface StartAppInfo {
     appliId: string;
@@ -83,6 +84,9 @@ export default class API {
     private static PocHostApplGetUrl;
     private static TaskInfoClientStartedPath;
     private static PortMappingListPath;
+    private static GetTouchCtrMappingPath;
+    private static GetAppliListPath;
+    private static RegionListPath;
     static HostAppliGetUrl(params: {
         appliId: string;
         playerMode?: number;
@@ -120,5 +124,8 @@ export default class API {
     static ClientInfo(config: ILarkSRConfig, params: AppliParams): void;
     static TaskInfoClientStarted(config: ILarkSRConfig, params: AppliParams): void;
     static PortMappingList(config: ILarkSRConfig): Promise<unknown>;
+    static GetTouchCtrMapping(server: string, appliId?: string): Promise<unknown>;
+    static GetAppliList(server: string, params: any): Promise<unknown>;
+    static RegionList(server: string, params: any): Promise<unknown>;
     static joinParam(params: any): string;
 }

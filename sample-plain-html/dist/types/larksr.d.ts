@@ -180,7 +180,22 @@ declare enum LarkSRClientEvent {
     /**
      * 对话出错详细信息
      */
-    AI_VOICE_ERROR = "aivoiceerror"
+    AI_VOICE_ERROR = "aivoiceerror",
+    /**
+     * 服务端 3.2.7.0 添加
+     *
+     */
+    TOUCH_CTR_MAPPING = "touchctrmapping",
+    /**
+     * 服务端 3.2.7.0 添加
+     * rtmp 直播推流状态
+     */
+    RTMP_STREAM_STATE = "rtmpstreamstate",
+    /**
+     * 服务端 3.2.7.0 添加
+     * rtmp 直播推流出错
+     */
+    RTMP_STREAM_ERROR = "rtmpstreamerror"
 }
 /**
  * LarkSR 发出的事件
@@ -903,6 +918,41 @@ declare class LarkSR extends EventBase<LarkSRClientEvent, LarkSREvent> {
     addMediaTrack(track: MediaStreamTrack, ...streams: MediaStream[]): boolean | undefined;
     removeMediaTrack(track: RTCRtpSender): boolean | undefined;
     requestUserMediaPermission(constraints?: MediaStreamConstraints): Promise<MediaStream> | undefined;
+    /**
+     * 启动云端推流功能
+     * @param params {
+     *  // rtmp push url 必须填
+     *  path: "",
+     *  //rtmp push key
+     *  key: "",
+     *  // 推流的宽
+     *  width: 1280,
+     *  // 推流的高
+     *  height: 720,
+     *  framerate: 30,
+     *  // kbps
+     *  bitrate: 1024 * 2,
+     *  // 是否支持断线重连
+     *  reconnect: true,
+     *  //最大重连次数
+     *  reconnectRetries: 3,
+     *  //是否串流麦克风(语音输入支持的情况)
+     *  voice: audioInput,
+     * }
+     * @returns Promise
+     */
+    StartCloudLiveStreaming(params: CloudLark.IRtmp_Start): Promise<void> | undefined;
+    /**
+     * 关闭云端推流功能
+     * @returns
+     */
+    StopLiveStreaming(): void | undefined;
+    /**
+     * 获取当前服务器应用手柄配置
+     * @param appliId 应用id，传空为当前应用
+     * @returns
+     */
+    getTouchCtrMapping(appliId?: string): Promise<unknown>;
     $emit(type: LarkEventType, data?: any, message?: string): void;
     $emitError(message?: string, code?: number): void;
     $emitInfo(message?: string, code?: number): void;

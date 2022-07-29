@@ -107,6 +107,16 @@ declare const enum LarkSRClientEvent {
      */
     CAPTURE_FRAME = "captureframe",
     /**
+     * 服务端 3.2.7.0 添加
+     * rtmp 直播推流状态
+     */
+    RTMP_STREAM_STATE = "rtmpstreamstate",
+    /**
+     * 服务端 3.2.7.0 添加
+     * rtmp 直播推流出错
+     */
+    RTMP_STREAM_ERROR = "rtmpstreamerror"
+    /**
      * 数据通道打开 .
      */
     DATACHANNEL_OPEN = "datachannelopen",
@@ -134,6 +144,6 @@ declare const enum LarkSRClientEvent {
     /**
      * 一般信息提示
      */
-    INFO = "info"
+    INFO = "info",
 }
 ```

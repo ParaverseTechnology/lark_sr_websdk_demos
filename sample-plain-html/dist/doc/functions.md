@@ -389,6 +389,57 @@ larksr 配置项自动打开视频输入配置,在`new LarkSR({ ... 此处省略
 videoInputAutoStart?: boolean;
 ```
 
+## 云端直播推流功能
+
+> 服务端 3.2.7.0 添加， 要注意使用云端直播推流功能要在后台应用管理中开启该功能
+
+```javascript
+/**
+* 启动云端推流功能
+* @param params {
+*  // rtmp push url 必须填
+*  path: "",
+*  //rtmp push key
+*  key: "",
+*  // 推流的宽
+*  width: 1280,
+*  // 推流的高
+*  height: 720,
+*  framerate: 30,
+*  // kbps
+*  bitrate: 1024 * 2,
+*  // 是否支持断线重连
+*  reconnect: true,
+*  //最大重连次数
+*  reconnectRetries: 3,
+*  //是否串流麦克风(语音输入支持的情况)
+*  voice: audioInput,
+* }
+* @returns Promise
+*/
+StartCloudLiveStreaming(params: CloudLark.IRtmp_Start): Promise<void> | undefined;
+/**
+* 关闭云端推流功能
+* @returns
+*/
+StopLiveStreaming(): void | undefined;
+```
+
+云端直播的相关状态参考 `RTMP_STREAM_STATE` 和 `RTMP_STREAM_ERROR` 两个事件
+
+```javascript
+/**
+* 服务端 3.2.7.0 添加
+* rtmp 直播推流状态
+*/
+RTMP_STREAM_STATE = "rtmpstreamstate",
+/**
+* 服务端 3.2.7.0 添加
+* rtmp 直播推流出错
+*/
+RTMP_STREAM_ERROR = "rtmpstreamerror"
+```
+
 ## 其他
 
 ```typescript
