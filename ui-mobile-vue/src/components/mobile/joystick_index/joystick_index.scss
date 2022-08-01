@@ -1,0 +1,47 @@
+@import "~@/assets/styles/mobile_base.scss";
+
+.joyindex-container {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+}
+
+.keys {
+    background-color: $color-bg-trans80-blue;
+    width: auto;
+    height: auto;
+    line-height: 1;
+    padding: px2rem(10) px2rem(20);
+    font-size: px2rem(12);
+    white-space: nowrap;
+    .tip {
+        white-space: nowrap;
+        background-color: $color-bg-trans80-blue;
+        width: auto;
+        height: auto;
+        line-height: 1;
+        padding: px2rem(10) px2rem(20);
+        font-size: px2rem(12);
+    }
+}
+
+.keys.keys-size-1 {
+    font-size: px2rem(12);
+    .tip {
+        font-size: px2rem(12);
+    }
+}
+
+.keys.keys-size-2 {
+    font-size: px2rem(20);
+    .tip {
+        font-size: px2rem(20);
+    }
+}
+
+.keys.keys-size-3 {
+    font-size: px2rem(28);
+    .tip {
+        font-size: px2rem(28);
+    }
+}

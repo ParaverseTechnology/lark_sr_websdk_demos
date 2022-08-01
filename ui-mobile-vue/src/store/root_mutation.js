@@ -37,6 +37,9 @@ export const RootMutation/*: MutationTree<RootState>*/ = {
     resetScaleMode(state) {
         state.scaleMode = state.larksr.params.scaleMode;
     },
+    setSyncClipboardParseEvent(state, syncClipboardParseEvent) {
+        state.syncClipboardParseEvent = syncClipboardParseEvent;
+    },
 }
 
 export default RootMutation;

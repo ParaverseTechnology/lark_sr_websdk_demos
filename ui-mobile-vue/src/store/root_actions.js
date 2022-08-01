@@ -101,6 +101,23 @@ export const RootActions/*: ActionTree<RootState, RootState>*/ = {
         }
         dispatch('resize');
     },
+    flipMouseWheel({commit, state, dispatch}, flip/*: boolean*/) {
+        const { larksr } = state;
+        if (larksr) {
+            const direction = larksr.params.mouseZoomDirection === 0 ? 1 : 0;
+            larksr.mouseZoomDirection = flip ? direction : larksr.params.mouseZoomDirection;
+            // Log.info('flipMouseWheel', larksr.mouseZoomDirection, direction, flip);
+        }
+    },
+    toggleSyncClipboardParseEvent({commit, state, dispatch}) {
+         commit('setSyncClipboardParseEvent', !state.syncClipboardParseEvent);
+    },
+    toggleInitCursorMode({commit, state, dispatch}) {
+        const  { larksr } = state;
+        if (larksr) {
+            larksr.initCursorMode = !larksr.initCursorMode;
+        }
+    },
 };
 
 export default RootActions;

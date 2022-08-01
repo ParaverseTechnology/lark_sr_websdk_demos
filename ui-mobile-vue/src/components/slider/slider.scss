@@ -1,0 +1,78 @@
+.slider-wraper {
+    // width: 100%;
+    // height: 38px;
+    padding: 16px 36px 16px 0;
+    .slider {
+        width: 100%;
+        height: 6px;
+        background-color: #E4E7ED;
+        border-radius: 3px;
+        position: relative;
+        cursor: pointer;
+        vertical-align: middle;
+        .slider-bar {
+            left: 0%;
+            height: 6px;
+            background-color: rgba(18, 37, 95, 1);
+            border-top-left-radius: 3px;
+            border-bottom-left-radius: 3px;
+            position: absolute;
+        }
+        .slider-button-wraper {
+            height: 36px;
+            width: 36px;
+            position: absolute;
+            z-index: 1001;
+            top: -15px;
+            transform: translateX(-50%);
+            background-color: transparent;
+            text-align: center;
+            user-select: none;
+            line-height: normal;
+            .slider-button {
+                width: 16px;
+                height: 16px;
+                border: solid 2px rgba(18, 37, 95, 1);
+                background-color: #fff;
+                border-radius: 50%;
+                transition: .2s;
+                user-select: none;
+                vertical-align: middle;
+                display: inline-block;
+            }
+            .slider-button:hover {
+                cursor: grab;
+                transform: scale(1.2);
+            }
+        }
+        .slider-button-wraper::after {
+            display: inline-block;
+            content: "";
+            height: 100%;
+            vertical-align: middle;
+        }
+        .slider-button-tooltip {
+            position: absolute;
+            width: 36px;
+            background-color: rgba(18, 37, 95, 1);
+            top: -12px;
+            height: 18px;
+            line-height: 18px;
+            font-size: 12px;
+            color:#fff;
+            border-radius: 2px;
+            transition: all ease .5s;
+            opacity: 1;
+        }
+        .slider-button-tooltip.hide {
+            opacity: 0;
+        }
+    }
+    .slider::before,.slider::after {
+        display: table;
+        content: "";
+    }
+    .slider::after {
+        clear: both;
+    }
+}

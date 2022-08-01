@@ -7,10 +7,15 @@ $color-active: #fff;
 .menu {
     position: fixed;
     width: px2rem(520);
-    z-index: 1029;
+    z-index: 1028;
     background-color: $color-bg-trans40-blue;
     top: 0;
     transition: all .5s ease-in-out;
+    text-align: left;
+    overflow-y: auto;
+    overflow-x: auto;
+    touch-action: auto;
+    -webkit-overflow-scrolling: touch;
     .header {
         height: px2rem(135);
         line-height: 1;
@@ -19,8 +24,10 @@ $color-active: #fff;
         color: $color-light-blue;
         font-size: px2rem(24);
         font-weight: 600;
+        touch-action: auto;
         p {
             margin-bottom: px2rem(5);
+            touch-action: auto;
         }
         .version {
             font-size: px2rem(16);
@@ -37,6 +44,7 @@ $color-active: #fff;
     }
     .body {
         padding: px2rem(40) 0 0 px2rem(80);
+        touch-action: auto;
     }
     .body .item {
         color: $color-light-blue;
@@ -46,21 +54,27 @@ $color-active: #fff;
         font-weight: 600;
         padding: 0 0 px2rem(15) px2rem(160);
         border-bottom: 1px solid #fff;
+        touch-action: auto;
         .item-left {
             float: left;
             margin-left: px2rem(-160);
             display: block;
+            touch-action: auto;
         }
         .item-right {
             min-height: px2rem(26);
+            touch-action: auto;
             p {
+                touch-action: auto;
                 cursor: pointer;
                 margin-bottom: 0;
             }
             span {
+                touch-action: auto;
                 cursor: pointer;
             }
             span+span {
+                touch-action: auto;
                 margin-left: 20px;
             }
         }

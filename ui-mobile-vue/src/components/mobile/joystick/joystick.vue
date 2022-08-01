@@ -3,6 +3,7 @@
     <!-- left joystick -->
     <JoyButton
       class="joystick left"
+      :style="{'background-image': 'url('+joystickUrl+')'}"
       v-on:start="onJoyStickStart"
       v-on:move="onJoyStickMove"
       v-on:end="onJoyStickEnd"
@@ -24,6 +25,9 @@ import Unit from "../../../utils/unit";
 import store from "../../../store/index";
 
 export default {
+  // subType  1 wasd  2 updownleftright 3 joystick
+  // position css top and left from parent container.
+  props: ["subType", "position"],
   components: {
     JoyButton,
   },
@@ -50,10 +54,22 @@ export default {
       //
       leftJoyStickKeys: [],
       joystickCenterUrl: "",
-      joystickUrl: "",
     };
   },
   computed: {
+    joystickUrl() {
+      // subType  1 wasd  2 updownleftright 3 joystick
+      switch(this.subType) {
+          case 1:
+              return require('@/assets/img/mobile/AWSD.png');
+          case 2:
+              return require('@/assets/img/mobile/joy_stick_bottom.png');
+          case 3:
+              return require('@/assets/img/mobile/joy_left_bottom.png');
+          default:
+              return require('@/assets/img/mobile/joy_left_bottom.png');
+      }
+    },
     // right joystick pixel size
     rightJoystickSize() {
       const { mobilePixelUnit } = this;
@@ -62,57 +78,24 @@ export default {
         height: Unit.getMobliePixelWidth(255, mobilePixelUnit),
       };
     },
-    // right joystick pixel
-    rightJoystickPosition() {
-      const { mobilePixelUnit } = this;
-      const { viewPort, screenOrientation } = this;
-      if (screenOrientation === "landscape") {
-        return {
-          top:
-            viewPort.width -
-            Unit.getMobliePixelWidth(255 + 48, mobilePixelUnit),
-          left: Unit.getMobliePixelWidth(255 + 48, mobilePixelUnit),
-        };
-      } else {
-        return {
-          left:
-            viewPort.width -
-            Unit.getMobliePixelWidth(255 + 48, mobilePixelUnit),
-          top:
-            viewPort.height -
-            Unit.getMobliePixelWidth(255 + 48, mobilePixelUnit),
-        };
-      }
-    },
     leftJoystickPosition() {
-      const { mobilePixelUnit } = this;
-      const { viewPort, screenOrientation } = this;
-      if (screenOrientation === "landscape") {
-        return {
-          top: Unit.getMobliePixelWidth(48, mobilePixelUnit),
-          left: Unit.getMobliePixelWidth(255 + 48, mobilePixelUnit),
-        };
-      } else {
-        return {
-          left: Unit.getMobliePixelWidth(48, mobilePixelUnit),
-          top:
-            viewPort.height -
-            Unit.getMobliePixelWidth(255 + 48, mobilePixelUnit),
-        };
-      }
-    },
-    leftKeyCenterClass() {
-      switch (this.leftKey) {
-        case "KeyW":
-          return "center top";
-        case "KeyA":
-          return "center left";
-        case "KeyS":
-          return "center bottom";
-        case "KeyD":
-          return "center right";
-      }
-      return "center";
+        const { position, screenOrientation, viewPort } = this;
+        // const RADIUS = this.joystickElement.width / 2;
+        if (position) {
+            if (screenOrientation == 'landscape') {
+                return {
+                    top: position.left,
+                    left: viewPort.height - position.top,
+                }
+            } else {
+                return position;
+            }
+        } else {
+            return {
+                top: 0,
+                left: 0,
+            }
+        }
     },
     joysickCenterStyle() {
       return {
@@ -175,6 +158,9 @@ export default {
       }
     },
     onJoyStickEnd(eventKey, e) {
+      if(this.subType && this.subType == 3) {
+          this.larksr?.joystick(0, 0, 0, 0, 0);
+      }
       this.joysickTouchesPosition = {
         x: this.joystickElement.width / 2,
         y: this.joystickElement.height / 2,
@@ -194,35 +180,78 @@ export default {
       if (this.vector.r < RADIUS / 4) {
         return;
       }
+      // subType  1 wasd  2 updownleftright 3 joystick
+      if(this.subType && this.subType == 3) {
+          ///Log.info("virtual joystick type", this.subType, this.joysickTouchesPosition);
+          let relCenterPositionX = this.joysickTouchesPosition.x / RADIUS - 1;
+          let relCenterPositionY = -(this.joysickTouchesPosition.y / RADIUS - 1);
+          // 0.96 = 1
+          const offset = 0.05; 
+          if (relCenterPositionX > (1 - offset)) {
+              relCenterPositionX = 1;
+          }
+          if (relCenterPositionX < (-1 + offset)) {
+              relCenterPositionX = -1;
+          }
+          if(relCenterPositionY > (1 - offset)) {
+              relCenterPositionY = 1;
+          }
+          if (relCenterPositionY < (-1 + offset)) {
+              relCenterPositionY = -1;
+          }
+          this.larksr?.joystick(0, relCenterPositionX * 32767, relCenterPositionY * 32767, 0, 0);
+          // Log.info("virtual joystick type", relCenterPositionX, relCenterPositionY, relCenterPositionX * 32767, relCenterPositionY * 32767);
+          return;
+      }
       // 象限区域
       const areia = this.getAreia(this.vector);
       // 角度区域
       const deg = this.getDegAreia(this.vector);
-      if (deg == 1 && (areia == 1 || areia == 4)) {
-        // console.log("d");
-        this.leftJoysStickKeyChannge(["KeyD"]);
+      if (deg == 1 && (areia == 1 || areia == 4))  {
+          // Log.info("d");
+          this.leftJoysStickKeyChannge([this.getSubKeyType("KeyD")]);
       } else if (deg == 2 && areia == 1) {
-        // console.log("d + w");
-        this.leftJoysStickKeyChannge(["KeyD", "KeyW"]);
+          // Log.info("d + w");
+          this.leftJoysStickKeyChannge([this.getSubKeyType("KeyD"), this.getSubKeyType("KeyW")]);
       } else if (deg == 3 && (areia == 1 || areia == 2)) {
-        // console.log("w");
-        this.leftJoysStickKeyChannge(["KeyW"]);
+          // Log.info("w");
+          this.leftJoysStickKeyChannge([this.getSubKeyType("KeyW")]);
       } else if (deg == 2 && areia == 2) {
-        // console.log("w + a");
-        this.leftJoysStickKeyChannge(["KeyW", "KeyA"]);
+          // Log.info("w + a");
+          this.leftJoysStickKeyChannge([this.getSubKeyType("KeyW"), this.getSubKeyType("KeyA")]);
       } else if (deg == 1 && (areia == 2 || areia == 3)) {
-        // console.log("a");
-        this.leftJoysStickKeyChannge(["KeyA"]);
+          // Log.info("a");
+          this.leftJoysStickKeyChannge([this.getSubKeyType("KeyA")]);
       } else if (deg == 2 && areia == 3) {
-        // console.log("a + s");
-        this.leftJoysStickKeyChannge(["KeyA", "KeyS"]);
+          // Log.info("a + s");
+          this.leftJoysStickKeyChannge([this.getSubKeyType("KeyA"), this.getSubKeyType("KeyS")]);
       } else if (deg == 3 && (areia == 3 || areia == 4)) {
-        // console.log("s");
-        this.leftJoysStickKeyChannge(["KeyS"]);
+          // Log.info("s");
+          this.leftJoysStickKeyChannge([this.getSubKeyType("KeyS")]);
       } else if (deg == 2 && areia == 4) {
-        // console.log("s + d");
-        this.leftJoysStickKeyChannge(["KeyS", "KeyD"]);
+          // Log.info("s + d");
+          this.leftJoysStickKeyChannge([this.getSubKeyType("KeyS"), this.getSubKeyType("KeyD")]);
       }
+    },
+    getSubKeyType(key) {
+        // Log.info("getSubKeyType ", key, this.subType);
+        // subType  1 wasd  2 updownleftright 3 joystick
+        if(this.subType && this.subType == 2) {
+            switch (key) {
+                case "KeyW":
+                    return "ArrowUp";                    
+                case "KeyA":
+                    return "ArrowLeft";
+                case "KeyS":
+                    return "ArrowDown";
+                case "KeyD":
+                    return "ArrowRight";
+                default:
+                    return key;
+            }
+        } else {
+            return key;
+        }
     },
     leftJoysStickKeyChannge(newKeys) {
       let oldKeys = this.leftJoyStickKeys;

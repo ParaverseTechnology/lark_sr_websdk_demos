@@ -1,5 +1,7 @@
 @import "~@/assets/styles/mobile_base.scss";
 
+$joystick-radius : 200;
+
 .joy-container {
     position: absolute;
 }
@@ -9,7 +11,10 @@
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
-        
+    // for test
+    // background-color: burlywood;
+    border-radius: 50%;
+
     .btn {
         pointer-events: none;
         position: absolute;
@@ -59,6 +64,9 @@
         margin-left: px2rem(-74 / 2);
         margin-top: px2rem(-74 / 2);
         pointer-events: none;
+        // for test
+        // background-color: aqua;
+        border-radius: 50%;
     }
     .center.left  {
         top: px2rem(132);
@@ -71,7 +79,7 @@
     .center.top {
         top: px2rem(40);
         left: px2rem(129);
-    }    
+    }
     .center.bottom {
         top: px2rem(212);
         left: px2rem(129);
@@ -79,17 +87,17 @@
 }
 .joystick.left {
     background-image: url("~@/assets/img/mobile/joy_left_bottom.png");
-    left: px2rem(48);
-    bottom: px2rem(48);
-    width: px2rem(255);
-    height: px2rem(255);
+    // left: px2rem(48);
+    // bottom: px2rem(48);
+    width: px2rem($joystick-radius);
+    height: px2rem($joystick-radius);
 }
 .joystick.right {
     background-image: url("~@/assets/img/mobile/joy_stick_bottom.png");
     right: px2rem(48);
     bottom: px2rem(48);
-    width: px2rem(255);
-    height: px2rem(255);
+    width: px2rem($joystick-radius);
+    height: px2rem($joystick-radius);
 }
 
 .joystick.keyboard-left {

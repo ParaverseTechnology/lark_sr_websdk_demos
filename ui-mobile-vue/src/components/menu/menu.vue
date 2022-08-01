@@ -6,21 +6,63 @@
             <p class="version">{{versionStr}}</p>
         </div>
         <div class="body">
+            <div class="item" v-on:click="toggleState">
+                <div class="item-left">连接状态</div>
+                <div class="item-right">
+                    <p>网络时延: {{states.currentRoundTripTime}} ms</p>
+                    <p>码率: {{states.bitrate}} Mbps</p>
+                    <p>丢包率: {{states.packetsLostPerc}}</p>
+                </div>
+            </div>
+            <!-- mobile -->
+            <div v-if="isMobile" class="item item-mousewheel">
+                <div class="item-left">放大手势与滚轮映射</div>
+                <div class="item-right">
+                    <span v-on:click="setToflipMouseWheel" :class='flipMouseWheelClass' >
+                        上滾
+                    </span>
+                    <span v-on:click="defaultMouseWheel" :class='defaultMouseWheelClass'>
+                        下滾
+                    </span>
+                </div>
+            </div>
+            <div v-if="!isMobile" class="item">
+                <div class="item-left">鼠标模式</div>
+                <div class="item-right">
+                    <span v-on:click="toggleInitCursorMode">
+                        {{cursorMode}}
+                    </span>
+                </div>
+            </div>
             <div v-if="!isIOS" class="item">
                 <div class="item-left">网页全屏</div>
                 <div class="item-right">
-                    <span v-on:click="launchFullScreen" :class='fullScreenClass' >
+                    <span v-on:click="onFullScreen" :class='fullScreenClass' >
                         全屏
                     </span>
-                    <span v-on:click="exitFullscreen" :class='exitFullScreenClass'>
+                    <span v-on:click="onFullScreen" :class='exitFullScreenClass'>
                         普通
                     </span>
                 </div>
             </div>
-            <div class="item" v-on:click="toggleState">
-                <div class="item-left">连接状态</div>
+            <div v-if="isInteractiveMode" class="item">
+                <div class="item-left">玩家列表</div>
                 <div class="item-right">
-                    <p>RTT: {{states.currentRoundTripTime}} ms</p>
+                    <span v-on:click="togglePlayerList">
+                        {{playerModeButtonText}}
+                    </span>
+                </div>
+            </div>
+            <div class="item">
+                <div class="item-left">音量</div>
+                <div class="item-right">
+                    <Slider v-on:change="onVolmueChange" />
+                </div>
+            </div>
+            <div class="item">
+                <div class="item-left">剪贴板</div>
+                <div class="item-right">
+                    <span v-on:click="toggleSyncClipboardParseEvent">{{syncClipboardParseEventText}}</span>
                 </div>
             </div>
         </div>
@@ -34,10 +76,12 @@ import {
     mapActions,
 }                          from 'vuex';
 import Capabilities from '../../utils/capabilities';
+import Slider       from '../slider/slider';
 
 export default {
     components: {
         // Btn,
+        Slider,
     },
     data() {
         return {
@@ -76,6 +120,10 @@ export default {
         exitFullScreenClass() {
             return this.isFullScreen ? '' : 'active';
         },
+        cursorMode() {
+            return this.initCursorMode ? this.ui.mosueModeLock : this.ui.mouseModeAuto;
+        },
+        cursorModeInfo() { return !this.initCursorMode ? this.ui.mosueModeLock : this.ui.mouseModeAuto },
         ...mapState({
             larksr: state => state.larksr,
             defaultScaleModeClass() {
@@ -93,24 +141,27 @@ export default {
             hidePlayerListClass() {
                 return this.playerMode.showPlayerList ? '' : 'active';
             },
+            menu: state => state.menu,
             states: (state) => {
                 const { aggregatedStats, } = state;
                 let rtt = (aggregatedStats.currentRoundTripTime * 1000).toFixed(2);
                 return {
                     hasPacketsLost: aggregatedStats.packetsLost != 0,
                     packetsLost: aggregatedStats.packetsLost.toFixed(2),
-                    packetsLostPerc: aggregatedStats.packetsLostPerc.toFixed(3) + "%",
+                    packetsLostPerc: aggregatedStats.packetsLostPerc.toFixed(2) + "%",
                     hasBitrate: aggregatedStats.bitrate != 0,
                     bitrate: (aggregatedStats.bitrate / 1000).toFixed(2),
                     hasCurrentRoundTripTime: aggregatedStats.currentRoundTripTime != 0,
                     currentRoundTripTime: rtt,
                 };
             },
+            showVoiceChat: state => state.showVoiceChat,
             ui: state => state.ui,
-            joystickAllKeys: state => state.joystickAllKeys,
-            flipMouseWheel: state => state.flipMouseWheel,
+            container: state => state.container,
             playerMode: state => state.playerMode,
-            menu: state => state.menu,
+            syncClipboardParseEventText: state => state.syncClipboardParseEvent ? "同步本地剪贴板" : "不同步本地剪贴板",
+            isMobile: state => state.isMobile,
+            joystickAllKeys: state => state.joystickAllKeys,
         }),
         ...mapGetters({
             viewPort: 'viewPort',
@@ -118,6 +169,7 @@ export default {
             isChangedScaledMode: 'isChangedScaledMode',
             viewPortStyle: 'viewPortStyle',
             isInteractiveMode: 'playerMode/isInteractiveMode',
+            initCursorMode: "initCursorMode",
         }),
     },
     methods: {
@@ -151,6 +203,20 @@ export default {
             console.log('launchFullScreen');
             fullScreen.launchFullScreen();
         },
+        togglePlayerList() {
+            this.setShowPlayerList(!this.playerMode.showPlayerList);
+        },
+        onVolmueChange(value) {
+            if (this.larksr) {
+                this.larksr.videoElement.volume = value / 100;
+            }
+        },
+        setToflipMouseWheel() {
+            this.setFlipMouseWheel(true);
+        },
+        defaultMouseWheel() {
+            this.setFlipMouseWheel(false);
+        },
         showPlayerList() {
             this.setShowPlayerList(true);
         },
@@ -160,17 +226,21 @@ export default {
         ...mapMutations({
             'setInputMethodEnable': 'setInputMethodEnable',
             'setShowPlayerList': 'playerMode/setShowPlayerList',
+            'setSyncClipboardParseEvent': "setSyncClipboardParseEvent",
         }),
         ...mapActions({
             resize: 'resize',
+            setScaleToDefault: 'setScaleToDefault',
+            setScaleToFitScreen: 'setScaleToFitScreen',
+            setScaleToFillStretch: 'setScaleToFillStretch',
+            toggleScaleToFitScreen: 'toggleScaleToFitScreen',
+            toggleScaleToFillStretch: 'toggleScaleToFillStretch',
             toggleState: 'stateModal/toggleState',
-            toggleVMouseMode: 'toggleVMouseMode',
-            toggleVKeyboard: 'toggleVKeyboard',
-            toggleModalSetup: 'toggleModalSetup',
-            showModalAlert: 'modalAlert/showModalAlert',
+            toggleInitCursorMode: 'toggleInitCursorMode',
             toggleMenu: 'toggleMenu',
-            toggleJoyStick: 'toggleJoyStick',
-        }),
+            setFlipMouseWheel: 'flipMouseWheel',
+            toggleSyncClipboardParseEvent: "toggleSyncClipboardParseEvent",
+        })
     }
 }
 </script>

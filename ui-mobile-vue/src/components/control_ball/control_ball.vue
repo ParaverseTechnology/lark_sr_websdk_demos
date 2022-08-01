@@ -8,6 +8,7 @@
     >
         <MicInput v-if="popToggled" />
         <VideoInput v-if="popToggled" />
+        <LiveStreaming v-if="popToggled" />
         <div
             v-if="popToggled" class="pop pop-toggle"
         >
@@ -39,11 +40,13 @@ import Unit                         from '../../utils/unit'
 import store                        from '../../store';
 import MicInput                     from '../mic_input/mic_input.vue';
 import VideoInput                   from '../video_input/video_input.vue';
+import LiveStreaming                from '../live_streaming/live_streaming.vue';
 
 export default {
     components: {
         MicInput,
         VideoInput,
+        LiveStreaming,
     },
     data() {
         return {

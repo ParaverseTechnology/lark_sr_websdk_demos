@@ -5,6 +5,8 @@
     >
         <MicInput />
         <VideoInput />
+        <LiveStreaming />
+        
         <!-- popup menu -->
         <div v-if="!vmouseMode"
             class="pop pop-toggle"
@@ -30,7 +32,7 @@
             </div>
         </div>
         <!-- joystick -->
-        <Joyskick v-if="joystick" />
+        <JoyskickIndex v-if="joystick" />
         
         <Keyboard v-if="vkeyboard" />
         <VCursor v-if="enableVmouse" :useVMouse="vmouseMode" v-on:exit="toggleVMouseMode" />
@@ -43,20 +45,22 @@ import {
     mapMutations,
     mapActions,
 }                          from 'vuex';
-import Joyskick            from '../joystick/joystick';
+import JoyskickIndex       from '../joystick_index/joystick_index';
 import Keyboard            from '../keyboard/keyboard';
 import VCursor             from '../v_cursor/v_cursor';
 import Unit                from '../../../utils/unit';
 import MicInput            from '../../mic_input/mic_input.vue';
 import VideoInput          from '../../video_input/video_input.vue';
+import LiveStreaming       from '../../live_streaming/live_streaming.vue';
 
 export default {
     components: {
-        Joyskick,
+        JoyskickIndex,
         Keyboard,
         VCursor,
         MicInput,
         VideoInput,
+        LiveStreaming,
     },
     data() {
         return {

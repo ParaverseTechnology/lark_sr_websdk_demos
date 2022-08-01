@@ -1,0 +1,143 @@
+@import "~@/assets/styles/mobile_base.scss";
+
+.live {
+    top: px2rem(-93);
+    position: absolute;
+
+    .setting {
+        position: fixed;
+        top: 0;
+        left: 0;
+        z-index: 1200;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        pointer-events: none;
+        .content {
+            padding: 10px;
+            overflow: auto;
+            background-color: #fff;
+            min-width: 300px;
+            pointer-events: all;
+            border-radius: 5px;
+            margin-bottom: 50px;
+            position: relative;
+            .closeBtn {
+                cursor: pointer;
+                width: 25px;
+                position: absolute;
+                right: 15px;
+                img {
+                    width: 100%;
+                    height: auto;
+                }
+            }
+            .title {
+                font-size: 16px;
+            }
+            .item {
+                display: flex;
+                flex-direction: row;
+                justify-content: flex-start;
+                align-items: center;
+                padding: 10px;
+                border-bottom: 1px solid #f0f0f0;
+                font-size: 14px;
+                label {
+                    width: 90px;
+                    text-align: left;
+                }
+                input, select {
+                    display: block;
+                    box-sizing: border-box;
+                    width: 100%;
+                    min-width: 0;
+                    margin: 0;
+                    padding: 0;
+                    color: #333;
+                    line-height: inherit;
+                    text-align: left;
+                    background-color: transparent;
+                    border: 0;
+                    resize: none;
+                    user-select: auto;
+                    outline: 0;
+                }
+            }
+            .submit {
+                margin-top: 10px;
+                button {
+                    position: relative;
+                    display: inline-block;
+                    box-sizing: border-box;
+                    height: 44px;
+                    margin: 0;
+                    padding: 0;
+                    font-size: 14px;
+                    line-height: 1.2;
+                    text-align: center;
+                    border-radius: 2px;
+                    cursor: pointer;
+                    transition: opacity .2s;
+                    -webkit-appearance: none;
+                    padding: 0 30px;
+                    color: #fff;
+                    background-color: #1989fa;
+                    border: 1px solid #1989fa;
+                }
+            }
+            .status {
+                text-align: left;
+                padding: 0 10px;
+                font-size: 14px;
+            }
+        }
+    }
+
+    .icon {
+        // margin: auto;
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center;
+        background-image: url("~@/assets/img/mobile/icon_bg.png");
+        width: px2rem(70);
+        height: px2rem(70);
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    
+    .icon img {
+        width: px2rem(50);
+        height: px2rem(50);
+    }
+}
+
+.live.live-mobile {
+    top: px2rem(20);
+    left: px2rem(200);
+    .setting {
+        .content {
+            margin: 0;
+        }
+    }
+}
+
+.live.live-slot-3 {
+    top: px2rem(-273);
+}
+
+.live.live-slot-2 {
+    top: px2rem(-183);
+}
+
+.live.live-mobile.live-slot-2 {
+    left: px2rem(350);
+    top: px2rem(20);
+}
+
+.live.live-mobile.live-slot-3 {
+    left: px2rem(400);
+    top: px2rem(20);
+}

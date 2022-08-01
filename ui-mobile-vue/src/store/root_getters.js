@@ -18,6 +18,33 @@ export const RootGetters/*: GetterTree<RootState, RootState>*/ = {
             scaleY: 1
         };
     },
+    isChangedScaledMode({larksr}) {
+        if (!larksr) {
+            return false;
+        }
+        return larksr.screenState.scaleMode != larksr.params.scaleMode;
+    },
+    isFullScreen({ larksr }) {
+        return larksr ? larksr.fullScreen.isFullScreen : false;
+    },
+    fullScreenBgStyle({ container, isFullScreen }) {
+        if (isFullScreen) {
+            ///TODO select pref margin border.
+            if (container.marginTop > 0 && container.marginTop < 5) {
+                return {
+                    'background-color': '#000',
+                };
+            } else {
+                return {
+                    'background-color': '#fff',
+                };
+            }	
+        } else {
+            return {
+                'background-color': '#fff',
+            };
+        }
+    },
     screenOrientation({ larksr }) {
         return larksr ? larksr.screenState.screenOrientation : 'portrait';
     },
@@ -27,12 +54,21 @@ export const RootGetters/*: GetterTree<RootState, RootState>*/ = {
     viewPortStyle({ larksr }) {
         return larksr ? larksr.screenState.viewPortStyle : "";
     },
-    isFullScreen({ larksr }) {
-        return larksr ? larksr.fullScreen.isFullScreen : false;
+    isLockMouse({ larksr }) {
+        return larksr ? larksr.lockPointer.isLockPointer : false;
     },
-    isChangedScaledMode({scaleMode, larksr}) {
-        return scaleMode !== larksr.params.scaleMode;
+    mobilePixelUnit({ larksr }) {
+        return larksr ? larksr.screenState.viewPort.width / 100 : 1920 / 100;
     },
+    rttLimit({ larksr }) {
+        return larksr ? larksr.params.rttLimit : 30;
+    },
+    isFlipMouseWheel({ larksr }) {
+        return larksr ? larksr.mouseZoomDirection === 0 : false;
+    },
+    initCursorMode({ larksr }) {
+        return larksr ? larksr.initCursorMode : false;
+    }
 }
 
 export default RootGetters;
