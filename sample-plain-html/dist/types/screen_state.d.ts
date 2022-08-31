@@ -104,12 +104,14 @@ export default class ScreenState extends EventBase<SCREEN_EVENT_TYPE, ScreenEven
     private _rootElement;
     private mobileForceLandScape;
     private bgColor;
-    get handelRootElementSize(): boolean;
-    private _handelRootElementSize;
+    get handleRootElementSize(): boolean;
+    private _handleRootElementSize;
+    get onlyHandleRootElementTransform(): boolean;
+    private _onlyHandleRootElementTransform;
     private larksr;
     get baseElementScale(): number;
     private _baseElementScale;
-    constructor(rootElement: HTMLElement, params: IAppliParams, larksr: LarkSR, handelRootElementSize?: boolean);
+    constructor(rootElement: HTMLElement, params: IAppliParams, larksr: LarkSR, handleRootElementSize?: boolean, onlyHandleRootElementTransform?: boolean);
     reset(params: IAppliParams): void;
     setMobileForceLandScape(force: boolean): void;
     resize(baseElementScale?: number): void;

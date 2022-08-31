@@ -40,7 +40,18 @@ interface ILarkSRConfig {
      * 注意，当关闭时不会自动填充根元素，如果根元素高度为 0 将显示不出来。
      * 注意，当关闭时 mobileForceLandscape 将失去作用。
      */
+    handleRootElementSize?: boolean;
+    /**
+     * 同 handleRootElementSize
+     */
     handelRootElementSize?: boolean;
+    /**
+     * 是否只设置根的组件的旋转。只当 handleRootElementSize 为 true 时有效。设置根组件的旋转用于 mobileForceLandscape 模式。
+     * 默认为false，此时 SDK 会设置根组件的宽高,margin 0,padding 0
+     * 为true并且handleRootElementSize也为true时，只设置根组件的旋转属性，用于强制横屏模式以及强制横屏竖屏的切换。
+     * 要注意onlyHandleRootElementTransform开启成功时，要保证根节点的元素大小并且当根节点变化时应调用 resize 方法通知更新根节点的大小。
+     */
+    onlyHandleRootElementTransform?: boolean;
     /**
      * 是否在sdk内部监听鼠标键盘等输入事件
      * 如果关闭需要手动发送输入事件
@@ -52,7 +63,7 @@ interface ILarkSRConfig {
      * 当视频播自动放失败时是否尝试静音播放,静音播放时将抛出事件
      * 静音播放当用户操作屏幕时将尝试播放声音
      */
-    mutePlayWhenFiled?: boolean;
+    mutePlayWhenFailed?: boolean;
     /**
      * 可选项，是否是 vr 监控类型。
      */

@@ -298,7 +298,7 @@ larksr.on('aivoicedmresult', (e) => {
 客户端打开后云端应用可直接通过读取声卡上的麦克风接收到音频。
 
 > 该功能匹配的服务端版本最低为 V3.2.51
-> 使用该功能要注意在后台开启智能语音功能
+> 使用该功能要注意在后台开启语音输入功能
 > 注意要在连接成功之后打开媒体设备。即 `mediaPlayed` 之后调用才有效
 
 ```typescript
@@ -446,9 +446,11 @@ RTMP_STREAM_ERROR = "rtmpstreamerror"
 /**
  * 采集一帧图像
  * @params data: any 抛出采集事件时抛出的附加data，比如采集的时间戳
+ * @params option:  { width: number, height: number } 截图的宽高，如果未设置则使用云端应用窗口的宽高
  * @return { data: any, base64: base64string } 返回传入的 data 和采集的 base64 字符串
  */
-captrueFrame(data: any)
+captrueFrame(data: any, option?: { width: number; height: number;})
+
 /**
  * 设置是否强制横屏显示内容.
  * handelRootElementSize 必须设置为 true 才有作用。

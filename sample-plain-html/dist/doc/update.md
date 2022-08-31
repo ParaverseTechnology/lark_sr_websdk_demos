@@ -249,3 +249,18 @@ larksr.op.gestureHandler.tapLimitTimeout = 100;
 6. 添加 `RTMP_STREAM_ERROR = "rtmpstreamerror"` 事件，返回云端直播推流错误
 7. 添加 `larksr.StartCloudLiveStreaming(params)` 接口，启动云端直播推流功能
 8. 添加 `larksr.StopLiveStreaming()` 接口，关闭云端直播推流功能.
+
+## V3.2.326
+
+1. 截图接口 `captrueFrame(data: any, option?: { width: number; height: number;})` 添加 option 参数，可以设置截图的宽高
+2. 添加 onlyHandleRootElementTransform 参数 `new LarkSR({ ... 此处省略其他配置 ... onlyHandleRootElementTransform: 0})`
+
+```javascript
+/**
+* 是否只设置根的组件的旋转。只当 handleRootElementSize 为 true 时有效。设置根组件的旋转用于 mobileForceLandscape 模式。
+* 默认为false，此时 SDK 会设置根组件的宽高,margin 0,padding 0
+* 为true并且handleRootElementSize也为true时，只设置根组件的旋转属性，用于强制横屏模式以及强制横屏竖屏的切换。
+* 要注意onlyHandleRootElementTransform开启成功时，要保证根节点的元素大小并且当根节点变化时应调用 resize 方法通知更新根节点的大小。
+*/
+onlyHandleRootElementTransform?: boolean;
+```

@@ -7434,7 +7434,8 @@ export namespace CloudLark {
             CONNECTE_FAILED = 3,
             INVALID_STREAM = 4,
             DISCONNECTED = 5,
-            UNSUPPORTED = 6
+            UNSUPPORTED = 6,
+            REPEATED = 7
         }
     }
 
