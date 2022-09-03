@@ -542,6 +542,12 @@ declare class LarkSR extends EventBase<LarkSRClientEvent, LarkSREvent> {
      */
     constructor(config: ILarkSRConfig);
     /**
+     * 单独设置服务器地址，作用同 config 中的 serverAddress 字段
+     * 在进入应用之前都可以更新。
+     * @param serverAddress 服务器地址，如 http://192.168.0.55:8181/
+     */
+    updateServerAddress(serverAddress: string): void;
+    /**
      * 单独设置sdk授权码，目前总会返回成功 promise，具体验证失败将在 connectWithPxyHost 或 connect 返回
      * @param id sdk id 初始化sdkid
      * @returns

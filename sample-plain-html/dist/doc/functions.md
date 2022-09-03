@@ -6,6 +6,12 @@ LarkSR 对象成员方法主要分为以下三类
 
 ```typescript
 /**
+* 单独设置服务器地址，作用同 config 中的 serverAddress 字段
+* 在进入应用之前都可以更新。
+* @param serverAddress 服务器地址，如 http://192.168.0.55:8181/
+*/
+updateServerAddress(serverAddress: string): void;
+/**
  *
  * @param id sdk id 初始化sdkid
  * @returns
