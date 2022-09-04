@@ -264,16 +264,3 @@ larksr.op.gestureHandler.tapLimitTimeout = 100;
 */
 onlyHandleRootElementTransform?: boolean;
 ```
-
-## V3.2.327
-
-1. 添加方法 `larksr.updateServerAddress(serverAddress: string)`,可在 `new LarkSR()` 之后再更新服务器地址。用于需要异步设服务器地址的情况。
-
-```javascript
-/**
-* 单独设置服务器地址，作用同 config 中的 serverAddress 字段
-* 在进入应用之前都可以更新。
-* @param serverAddress 服务器地址，如 http://192.168.0.55:8181/
-*/
-updateServerAddress(serverAddress: string): void;
-```

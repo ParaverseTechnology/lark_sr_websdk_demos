@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="format-detection" content="telephone=no, email=no" />
+    <meta name="screen-orientation" content="portrait">
+    <meta name="x5-orientation" content="portrait">
+    <meta name="full-screen" content="yes">
+    <meta name="x5-fullscreen" content="true">
+    <meta name="browsermode" content="application">
+    <meta name="x5-page-mode" content="app">
+    <meta name="msapplication-tap-highlight" content="no">
+    <meta name="HandheldFriendly" content="true">
+    <meta name="MobileOptimized" content="320">
+    <meta name="360-fullscreen" content="true" />
+
+    <meta name="theme-color" content="#000000" />
+    <meta name="renderer" content="webkit" />
+    <!--[if IE]>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <![endif]-->
+    <!-- 视图窗口，移动端特属的标签。 -->
+    <meta name="viewport"
+        content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no" />
+    <meta name="description" content="lark3.0" />
+    <title>平行云</title>
+    <link href="./css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .container {
+            padding-top: 50px;
+        }
+        #iframe {
+            width: -webkit-fill-available;
+            /* min-height: -webkit-fill-available; */
+            border: 1px solid lightgreen;
+            height: 500px;
+        }
+        .func-row {
+            margin-bottom: 5px;
+        }
+        .func-row button {
+            margin-right: 5px;
+        }
+        #container {
+            min-height: 500px;
+            position: relative;
+        }
+    </style>
+    <script src="./js/jquery.min.js"></script>
+    <script src="./dist/larksr-web-sdk.min.js"></script>
+    <script>
+        var client;
+        $(document).ready(function () {
+            client = new larksr_websdk.LarkSR({
+                    // 设置挂载显示的元素
+                    // 注意*不要*设置为 document.documentElement
+                    rootElement: document.getElementById('container'),
+                    // 服务器地址,实际使用中填写您的服务器地址
+                    // 如：http://222.128.6.137:8181/
+                    serverAddress: "http://222.128.6.137:8181/",
+                    // 授权码
+                    // authCode: '您的 SDK 授权码 联系 business@pingxingyun.com 获取',
+                    // 视频缩放模式，默认保留宽高比，不会拉伸并完整显示在容器中
+                    scaleMode: 'contain',
+                    // 0 -》 用户手动触发, 1 -》 首次点击进入触发, 2 -》 每次点击触发
+                    fullScreenMode: 0,
+                    // 测试载入背景图
+                    // loadingBgUrl: 'https://home-obs.pingxingyun.com/homePage_4_0/bg.jpg',
+                    /**
+                     * 可选项，是否同步传入根的组件的大小样式。
+                     * 默认开启，将跟组件大小设置为浏览器视口大小
+                     * 如果关闭，内部组件将按照传入的根元素大小去显示
+                     * 注意，当关闭时不会自动填充根元素，如果根元素高度为 0 将显示不出来。
+                     * 注意，当关闭时 mobileForceLandscape 将失去作用。
+                     */
+                    handelRootElementSize: false,
+                    logLevel: 'info',
+            });
+
+            client.initSDKAuthCode('您的 SDK ID 联系 business@pingxingyun.com 获取')
+            .then(function() {
+                // 开始连接
+                client.connect({
+                    // 要使用的云端资源的应用 ID，从后云雀后台接口获取
+                    // 参考查询应用一栏文档
+                    // https://www.pingxingyun.com/online/api3_2.html?id=476
+                    // 如 222.128.6.137:8181 系统下的 879408743551336448 应用
+                    appliId: "879414254636105728",
+                    // playerMode: 2,
+                    // userType: 1,
+                    // taskId: "",
+                    // nickname: "Test",
+                })
+                .catch(function(e) {
+                    console.error('enter appli falied', e);
+                    alert(JSON.stringify(e));
+                });
+            })
+            .catch(function(e) {
+                console.error('auth falied', e);
+                alert(JSON.stringify(e));
+            });
+
+            
+            // 监听连接成功事件
+            client.on('connect', function(e) { 
+                console.log("LarkSRClientEvent CONNECT", e); 
+            });                    
+            client.on('gotremotesteam', function(e) { 
+                console.log("LarkSRClientEvent gotremotesteam", e); 
+            });                 
+            client.on('meidaloaded', function(e) { 
+                console.log("LarkSRClientEvent meidaloaded", e); 
+            });                    
+            client.on('mediaplaysuccess', function(e) { 
+                console.log("LarkSRClientEvent mediaplaysuccess", e); 
+            });                    
+            client.on('mediaplayfailed', function(e) { 
+                console.log("LarkSRClientEvent mediaplayfailed", e); 
+            });                    
+            client.on('meidaplaymute', function(e) { 
+                console.log("LarkSRClientEvent meidaplaymute", e); 
+            });
+            client.on('error', function(e) {
+                console.error("LarkSRClientEvent error", e); 
+                alert(JSON.stringify(e.message));
+            });                   
+            client.on('info', function(e) {
+                console.log("LarkSRClientEvent info", e); 
+            });
+        });
+    </script>
+</head>
+
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h1>Lark SDK EMBED Demo</h1>
+                    </div>
+                    <div class="panel-body">
+                        <div>
+                            <h1>Container</h1>
+                        </div>
+                        <div id="container" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
