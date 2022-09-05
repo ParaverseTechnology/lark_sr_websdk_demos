@@ -378,6 +378,19 @@ interface ILarkSRConfig {
      * 如果配置将覆盖后台设置的 preferPublicIp 参数
      */
     preferPublicIp?: string;
+    /**
+     * 是否自动播放。默认开启。
+     * 如果关闭，连接成功之后会有提示UI，用户手动触发。
+     * 开启自动播放时也不能保证所有浏览器自动播放成功，当播放失败或者浏览器不支持自动播放时，
+     * 也会显示播放按钮，用户点击播放按钮手动播放。
+     */
+    autoPlay?: boolean;
+    /**
+     * 在播放失败或者手动播放模式下是否显示播放的按钮。
+     * 默认开启。要注意，如果关闭情况下要添加好提示或UI，引导用户点击播放。
+     * UI中要让用户触发 larksr.videoComponent.playVideo();
+     */
+    showPlayButton?: boolean;
 }
 declare class LarkSR extends EventBase<LarkSRClientEvent, LarkSREvent> {
     /**

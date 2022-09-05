@@ -37,7 +37,11 @@
         $(document).ready(function () {
             // console
             // var vConsole = new window.VConsole();
-            function connect(serverAddress, sdkid, appliId) {
+            function connect(serverAddress, sdkid, appliId, config) {
+                if (client) {
+                    client.destroy();
+                }
+
                 client = new larksr_websdk.LarkSR({
                     // 设置挂载显示的元素
                     // 注意*不要*设置为 document.documentElement
@@ -54,6 +58,8 @@
                     // fullScreenMode: 0,
                     // 测试载入背景图
                     // loadingBgUrl: 'https://home-obs.pingxingyun.com/homePage_4_0/bg.jpg',
+                    autoPlay: config.autoPlay,
+                    showPlayButton: config.showPlayButton,
                 });
 
                 client.initSDKAuthCode(sdkid)
@@ -201,7 +207,7 @@
                     alert("请填写应用ID")
                     return;
                 }
-                connect(serverAddress, sdkid, appliId);
+                connect(serverAddress, sdkid, appliId, {});
             })
             $("#button-close").on("click", function(e) {
                 console.log('on handler close', e);
@@ -215,15 +221,33 @@
                 var port = urlParams.get('serverPort');
                 var sdkId = urlParams.get('sdkId');
                 var appliId = urlParams.get('appliId');
-                console.log("load urlparrams", ip, port, sdkId, appliId);
+                var autoPlay = urlParams.get('autoPlay');
+                var showPlayButton = urlParams.get('showPlayButton');
+
+                console.log("load urlparrams", ip, port, sdkId, appliId, autoPlay, showPlayButton);
+
+                var serverAddress = "";
+                var config = {};
+
+                if (autoPlay != null && autoPlay != undefined) {
+                    config.autoPlay = autoPlay === "true" ? true : false;
+                }
+                if (showPlayButton != null && showPlayButton != undefined) {
+                    config.showPlayButton = showPlayButton === "true" ? true : false;
+                }
+
                 if (ip && port) {
-                    $("#input-server-address").val("http://" + ip + ":" + port);
+                    serverAddress = (window.location.protocol.indexOf("https") > -1 ? "https" : "http") + "://"  + ip + ":" + port;
+                    $("#input-server-address").val(serverAddress);
                 }
                 if (sdkId) {
                     $("#input-sdk-id").val(sdkId);
                 }
                 if (appliId) {
                     $("#input-appli-id").val(appliId);
+                }
+                if (ip && port && sdkId && appliId) {
+                    connect(serverAddress, sdkId, appliId, config);
                 }
             })();            
         });
