@@ -247,7 +247,10 @@
                     $("#input-appli-id").val(appliId);
                 }
                 if (ip && port && sdkId && appliId) {
-                    connect(serverAddress, sdkId, appliId, config);
+                    // 模拟异步创建
+                    window.setTimeout(function() {
+                        connect(serverAddress, sdkId, appliId, config);
+                    }, 1000);
                 }
             })();            
         });
