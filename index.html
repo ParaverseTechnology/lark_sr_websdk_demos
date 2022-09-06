@@ -36,7 +36,8 @@
         var client;
         $(document).ready(function () {
             // console
-            // var vConsole = new window.VConsole();
+            var vConsole = new window.VConsole();
+            
             function connect(serverAddress, sdkid, appliId, config) {
                 if (client) {
                     client.destroy();
