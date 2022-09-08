@@ -57,6 +57,10 @@ declare enum LarkSRClientEvent {
      */
     TASK_CREATE_FAILED = "taskcreatefailed",
     /**
+     * 渲染资源不足
+     */
+    RESOURCE_NOT_ENOUGH = "resourcenotenough",
+    /**
      * 连接渲染服务器成功 .
      */
     CONNECT = "connect",
@@ -391,6 +395,11 @@ interface ILarkSRConfig {
      * UI中要让用户触发 larksr.videoComponent.playVideo();
      */
     showPlayButton?: boolean;
+    /**
+     * 语言设置,目前只支持种英文两种
+     * zh-CN 中文 en 英文
+     */
+    language?: string;
 }
 declare class LarkSR extends EventBase<LarkSRClientEvent, LarkSREvent> {
     /**
