@@ -277,3 +277,121 @@ onlyHandleRootElementTransform?: boolean;
 */
 updateServerAddress(serverAddress: string): void;
 ```
+
+## V3.2.329
+
+1. 添加自动播放参数参数 `new LarkSR({ ... 此处省略其他配置 ... autoPlay: true, showPlayButton: true})`
+
+SDK 内部添加播放按钮 UI，当自动播放失败或者手动播放模式时会显示出来，用户点击之后才会播放。
+
+自动播放模式下会尽可能直接播放不用手动点，包括可能静音播放。
+
+```javascript
+/**
+* 是否自动播放。默认开启。
+* 如果关闭，连接成功之后会有提示UI，用户手动触发。
+* 开启自动播放时也不能保证所有浏览器自动播放成功，当播放失败或者浏览器不支持自动播放时，
+* 也会显示播放按钮，用户点击播放按钮手动播放。
+*/
+autoPlay?: boolean;
+/**
+* 在播放失败或者手动播放模式下是否显示播放的按钮。
+* 默认开启。要注意，如果关闭情况下要添加好提示或UI，引导用户点击播放。
+* UI中要让用户触发 larksr.videoComponent.playVideo();
+*/
+showPlayButton?: boolean;
+```
+
+2. 添加语言配置参数 `new LarkSR({ ... 此处省略其他配置 ... language: true})`
+
+```javascript
+/**
+* 语言设置,目前只支持种英文两种
+* zh-CN 中文 en 英文
+*/
+language?: string;
+```
+
+3. 添加渲染资源不足事件，在 `larksr.connect` 方法和 `resourcenotenough` 事件时抛出。可以根据服务端返回的 code 码判断具体情况，提示用户或进行后续处理。
+
+`connect` 方法返回的 Promise:
+
+```javascript
+/**
+ * 连接云端渲染资源
+ * @params appID 云端资源的 ID
+ * @returns Promise 调用接口并校验授权通过返回成功并自动开始连接
+ * Promise 返回的错误对象：
+ * {
+        // type 0 渲染资源不足导致的错误，1 其他错误, 可用 type == 0 判断是否是渲染资源不足类型的错误
+        type: 0,
+
+        // 渲染资源不足时的事件类型，其他情况可能不返回，比如网络错误
+        eventType?：LarkSRClientEvent.RESOURCE_NOT_ENOUGH,
+
+        // 服务端返回的错误码，服务端请求正确返回时存在。需要注意渲染资源不足类型的错误码。
+        // 可用 type == 0 判断是否是渲染资源不足类型的错误,再用 code 进行细节处理，或者只用 type == 0 进行处理。
+        // 813=当前应用的运行数量已达到最大值：{0},请稍后再试
+        // 814=同一appKey下的应用运行数量达到最大值：{0}，请稍后再试
+        // 815=应用运行数量已达到最大授权并发数量，请稍后再试
+        // 816=VR应用运行数量已达到最大授权并发数量，请稍后再试
+        // 817=渲染资源不足，请稍后再试
+        // 820=暂无活跃的GPU节点
+        // 821=节点资源使用率已达到设置的阈值
+        // 823=单节点运行应用数量已达到单节点最大授权并发数量，请稍后再试
+        code?: 817,
+
+        // 错误信息
+        message:? "",
+    }
+*
+*/
+connect(params: {
+    appliId: string;
+    playerMode?: number;
+    userType?: number;
+    roomCode?: string;
+    taskId?: string;
+    clientMac?: string;
+    groupId?: string;
+    regionId?: string;
+    targetServerIp?: string;
+    appKey?: string;
+    timestamp?: string;
+    signature?: string;
+}): Promise<void>;
+```
+ 
+或者单独监听 `resourcenotenough`:
+
+```javascript
+/**
+ * 渲染资源不足
+    * {
+    // 服务端返回的错误码，服务端请求正确返回时存在。需要注意渲染资源不足类型的错误码。
+    // 可用 type == 0 判断是否是渲染资源不足类型的错误,再用 code 进行细节处理，或者只用 type == 0 进行处理。
+    // 813=当前应用的运行数量已达到最大值：{0},请稍后再试
+    // 814=同一appKey下的应用运行数量达到最大值：{0}，请稍后再试
+    // 815=应用运行数量已达到最大授权并发数量，请稍后再试
+    // 816=VR应用运行数量已达到最大授权并发数量，请稍后再试
+    // 817=渲染资源不足，请稍后再试
+    // 820=暂无活跃的GPU节点
+    // 821=节点资源使用率已达到设置的阈值
+    // 823=单节点运行应用数量已达到单节点最大授权并发数量，请稍后再试
+    code?: 817,
+
+    // 错误信息
+    message:? "",
+}
+* 
+*/
+RESOURCE_NOT_ENOUGH = 'resourcenotenough',
+```
+
+```javascript
+// 此处省略 larksr 创建过程
+// 监听连接成功事件
+larksr.on('resourcenotenough', function(e) { 
+    console.log("LarkSRClientEvent RESOURCE_NOT_ENOUGH", e); 
+});
+```

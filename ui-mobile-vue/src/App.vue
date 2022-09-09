@@ -208,14 +208,15 @@ export default {
       console.log("LarkSRClientEvent mediaplaysuccess", e);
     });
 
-    larksr.on("mediaplayfailed", (e) => {
-      console.log("LarkSRClientEvent mediaplayfailed", e);
-      this.alert({des: "开始"})
-      .then(() => {
-          larksr.videoComponent.sountPlayout();
-          larksr.videoComponent.playVideo();
-      });
-    });
+    // 3.2.329 使用 larksdk 中的播放按钮
+    // larksr.on("mediaplayfailed", (e) => {
+    //   console.log("LarkSRClientEvent mediaplayfailed", e);
+    //   this.alert({des: "开始"})
+    //   .then(() => {
+    //       larksr.videoComponent.sountPlayout();
+    //       larksr.videoComponent.playVideo();
+    //   });
+    // });
 
     larksr.on("meidaplaymute", (e) => {
       console.log("LarkSRClientEvent meidaplaymute", e);

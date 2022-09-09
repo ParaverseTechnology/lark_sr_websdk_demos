@@ -18,10 +18,49 @@ updateServerAddress(serverAddress: string): void;
  */
 initSDKAuthCode(id: string): Promise<void>;
 /**
+ * 使用平行云托管平台时，使用 connectWithPxyHost 连接云端应用
+ * 托管平台 https://www.pingxingyun.com/console/#/
+ * @param params 同 connect 方法
+ * @return 同 connect 方法
+ */
+connectWithPxyHost(params: {
+    appliId: string;
+    playerMode?: number;
+    userType?: number;
+    roomCode?: string;
+    taskId?: string;
+    regionId?: string;
+    groupId?: string;
+}): Promise<void>;
+/**
  * 连接云端渲染资源
  * @params appID 云端资源的 ID
  * @returns Promise 调用接口并校验授权通过返回成功并自动开始连接
- */
+ * Promise 返回的错误对象：
+ * {
+        // type 0 渲染资源不足导致的错误，1 其他错误, 可用 type == 0 判断是否是渲染资源不足类型的错误
+        type: 0,
+
+        // 渲染资源不足时的事件类型，其他情况可能不返回，比如网络错误
+        eventType?：LarkSRClientEvent.RESOURCE_NOT_ENOUGH,
+
+        // 服务端返回的错误码，服务端请求正确返回时存在。需要注意渲染资源不足类型的错误码。
+        // 可用 type == 0 判断是否是渲染资源不足类型的错误,再用 code 进行细节处理，或者只用 type == 0 进行处理。
+        // 813=当前应用的运行数量已达到最大值：{0},请稍后再试
+        // 814=同一appKey下的应用运行数量达到最大值：{0}，请稍后再试
+        // 815=应用运行数量已达到最大授权并发数量，请稍后再试
+        // 816=VR应用运行数量已达到最大授权并发数量，请稍后再试
+        // 817=渲染资源不足，请稍后再试
+        // 820=暂无活跃的GPU节点
+        // 821=节点资源使用率已达到设置的阈值
+        // 823=单节点运行应用数量已达到单节点最大授权并发数量，请稍后再试
+        code?: 817,
+
+        // 错误信息
+        message:? "",
+    }
+    *
+    */
 connect(params: {
     appliId: string;
     playerMode?: number;
@@ -35,7 +74,7 @@ connect(params: {
     appKey?: string;
     timestamp?: string;
     signature?: string;
-}): Promise<void>;
+} | any): Promise<void>;
 /**
  * 重新开始云渲染流程
  */
