@@ -107,13 +107,6 @@ SDK 加载成功之后，非模块模式下，SDK 挂载为全局对象 larksr_w
 4. `ui-mobile-vue` 带基本 UI 的 Demo, 包括手机端的菜单，摇杆，虚拟鼠标，虚拟键盘等。
 5. [智能语音交互相关 Demo 在这个仓库](https://github.com/pingxingyun/vh-webclient)
 
-
 ### 文档
 
-[使用 LarkSR 对象](./sample-plain-html/dist/doc/index.md)
-
-[配置参数](./sample-plain-html/dist/doc/config.md)
-
-[方法](./sample-plain-html/dist/doc/functions.md)
-
-[抛出事件](./sample-plain-html/dist/doc/events.md)
+[LarkSR WebClient 接入 SDK](https://pingxingyun.github.io/webclient_sdk/)
