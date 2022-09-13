@@ -24,12 +24,32 @@ declare const enum LarkSRClientEvent {
     /**
      * TASK 创建成功，返回 Task 相关信息
      */
-    TASK_CREATE_SUCCESS = 'taskcreatesuccess',
-
+    TASK_CREATE_SUCCESS = "taskcreatesuccess",
     /**
      * TASK 创建失败
      */
-    TASK_CREATE_FAILED = 'taskcreatefailed',
+    TASK_CREATE_FAILED = "taskcreatefailed",
+    /**
+     * 渲染资源不足
+      * {
+            // 服务端返回的错误码，服务端请求正确返回时存在。需要注意渲染资源不足类型的错误码。
+            // 可用 type == 0 判断是否是渲染资源不足类型的错误,再用 code 进行细节处理，或者只用 type == 0 进行处理。
+            // 813=当前应用的运行数量已达到最大值：{0},请稍后再试
+            // 814=同一appKey下的应用运行数量达到最大值：{0}，请稍后再试
+            // 815=应用运行数量已达到最大授权并发数量，请稍后再试
+            // 816=VR应用运行数量已达到最大授权并发数量，请稍后再试
+            // 817=渲染资源不足，请稍后再试
+            // 820=暂无活跃的GPU节点
+            // 821=节点资源使用率已达到设置的阈值
+            // 823=单节点运行应用数量已达到单节点最大授权并发数量，请稍后再试
+            code?: 817,
+
+            // 错误信息
+            message:? "",
+        }
+     *
+     */
+    RESOURCE_NOT_ENOUGH = "resourcenotenough",
     /**
      * 连接渲染服务器成功 .
      */
@@ -53,7 +73,11 @@ declare const enum LarkSRClientEvent {
     /**
      * 获取到远端视频流 .
      */
-    GOT_REMOTE_STREAM = "gotremotesteam",
+    GOT_REMOTE_STREAM = "gotremotestream",
+    /**
+     * 获取到远端音频流 .
+     */
+    GOT_REMOTE_AUDIO_STREAM = "gotremoteaudiostream",
     /**
      * 视频加载成功，等待播放 .
      */
@@ -107,16 +131,6 @@ declare const enum LarkSRClientEvent {
      */
     CAPTURE_FRAME = "captureframe",
     /**
-     * 服务端 3.2.7.0 添加
-     * rtmp 直播推流状态
-     */
-    RTMP_STREAM_STATE = "rtmpstreamstate",
-    /**
-     * 服务端 3.2.7.0 添加
-     * rtmp 直播推流出错
-     */
-    RTMP_STREAM_ERROR = "rtmpstreamerror"
-    /**
      * 数据通道打开 .
      */
     DATACHANNEL_OPEN = "datachannelopen",
@@ -145,5 +159,36 @@ declare const enum LarkSRClientEvent {
      * 一般信息提示
      */
     INFO = "info",
+    /**
+     * 语音对话的状态
+     */
+    AI_VOICE_STATUS = "aivoicestatus",
+    /**
+     * 语音识别转文字的结果
+     */
+    AI_VOICE_ASR_RESULT = "aivoiceasrresult",
+    /**
+     * 对话返回的结果
+     */
+    AI_VOICE_DM_RESULT = "aivoicedmresult",
+    /**
+     * 对话出错详细信息
+     */
+    AI_VOICE_ERROR = "aivoiceerror",
+    /**
+     * 服务端 3.2.7.0 添加
+     *
+     */
+    TOUCH_CTR_MAPPING = "touchctrmapping",
+    /**
+     * 服务端 3.2.7.0 添加
+     * rtmp 直播推流状态
+     */
+    RTMP_STREAM_STATE = "rtmpstreamstate",
+    /**
+     * 服务端 3.2.7.0 添加
+     * rtmp 直播推流出错
+     */
+    RTMP_STREAM_ERROR = "rtmpstreamerror"
 }
 ```
