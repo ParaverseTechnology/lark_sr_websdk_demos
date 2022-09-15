@@ -214,6 +214,21 @@
                 console.log('on handler close', e);
                 close();
             });
+            $("#button-start-listening").on("click", function() {
+                if (!client) {
+                    console.warn('client not ready');
+                    return;
+                }
+                client.op.startListening();
+            });
+            $("#button-stop-listening").on("click", function() {
+                if (!client) {
+                    console.warn('client not ready');
+                    return;
+                }
+                client.op.stopListenling();
+            });
+
 
             // setup with url
             (function() {
@@ -290,6 +305,10 @@
                 <button id="button-connect">连接</button>
                 <button id="button-close">关闭</button>
                 <p id="state"></p>
+            </div>
+            <div class="block">
+                <button id="button-start-listening">startListening</button>
+                <button id="button-stop-listening">stopListenling</button>
             </div>
         </div>
     </div>
