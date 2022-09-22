@@ -1,0 +1,12 @@
+@import "../../../assets/styles/mobile_base.scss";
+
+.key {
+    // border-radius: 50%;
+    min-width: px2rem(75);
+    min-height: px2rem(75);
+    touch-action: none;
+}
+
+// .key.keyPress {
+    // background-color: $color-bg-trans20-light-blue;
+// }
