@@ -10,6 +10,7 @@
   "dependencies": {
     "core-js": "^3.6.5",
     "larksr_websdk": "^3.2.329",
+    "pxy_webcommonui": "^0.1.2",
     "vue": "^2.6.11"
   },
   "devDependencies": {

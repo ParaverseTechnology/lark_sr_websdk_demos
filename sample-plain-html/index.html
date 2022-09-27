@@ -29,6 +29,10 @@
     <title>平行云</title>
     <link href="./css/bootstrap.min.css" rel="stylesheet">
     <script src="./js/jquery.min.js"></script>
+    <!-- 可选组件库 -->
+    <!-- @see https://github.com/pingxingyun/pxy_webcommonui -->
+    <script src="./js/pxy_webcommonui.min.js"></script>
+    <!-- larksr web sdk -->
     <script src="./dist/larksr-web-sdk.min.js"></script>
     <script src="https://unpkg.com/vconsole@latest/dist/vconsole.min.js" crossorigin="anonymous"></script>
     <script>
@@ -182,6 +186,70 @@
                 console.log('on handler touchend', e);
                 $("#handler").removeClass('handler-touchstart');
             })
+
+            // 可选组件库
+            // @see https://github.com/pingxingyun/pxy_webcommonui
+            // sample for pxy commonui 
+            // create joystick
+            var joystick = new pxy_webcommonui.Joystick({
+                // 必填项，挂载的根元素
+                rootElement: document.getElementById('joystick-container'),
+
+                // 可选项，larksr 对象，由 larksr websdk 创建出来
+                // 传入后自动发送对应的按键给云端。如果不传入，应手动处理事件，如 joystickstart joystickmove joystickend
+                // npm https://www.npmjs.com/package/larksr_websdk
+                // doc https://github.com/pingxingyun/lark_sr_websdk_demos
+                // demos https://pingxingyun.github.io/webclient_sdk/
+                larksr: client,
+
+                //  可选项 subType  1 wasd  2 updownleftright 3 joystick 0 none
+                // 发送给云端的按键类型
+                // 类型 1 对应键盘 WASD 按键
+                // 类型 2 对应键盘上下左右箭头
+                // 类型 3 对应物理摇杆
+                // 类型 0 不发送事件
+                // 默认为 1
+                subType: 1,
+
+                // 可选项,摇杆的位置。
+                // 注意，如果不传入应调整父组件的位置
+                position: {
+                    top: 150,
+                    left: 100,
+                },
+
+                // 可选项，摇杆的大小
+                // 注意，如果不传入，应设置父组件的大小。不传入时摇杆与父组件大小相同
+                size: {
+                    width: 150,
+                    height: 150,
+                },
+
+                // 可选项，摇杆中间按钮的大小
+                // 注意，如果不传入，默认中间的按钮为总摇杆的 25%
+                centerSize: {
+                    width: 60,
+                    height: 60,
+                },
+
+                // 可选项，额外的摇杆样式，会附加到其他样式后面，可覆盖默认样式
+                extralJoystickStyle: '',
+
+                // 可选项，额外的摇杆中间按钮样式，会附加到其他样式后面，可覆盖默认样式
+                extralCenterStyle: '',
+
+                // 可选项，摇杆的背景图片。最终设置为样式 background-image
+                joystickBackgroundUrl: "./img/joy_stick_bottom.png",
+
+                // 可选项，摇杆中间按钮的背景图片，最终设置为样式 background-image
+                centerBackgroundUrl: "./img/joy_stick_top.png",
+
+                // 可选项，触发事件的时间间隔
+                repeatTimeout: 10,
+            });
+
+            // destroy joystick
+            // joystick.destroy();
         });
     </script>
     <style>
@@ -194,18 +262,12 @@
             height: 100%;
             pointer-events: none;
         }
-        .ui .handler {
-            width: 100px;
-            height: 100px;
-            border-radius: 50%;
-            background-color:green;
+        .ui #joystick-container {
             position: absolute;
-            bottom: 20px;
-            left: 20px;
+            top: 0;
+            left: 0;
             pointer-events: all;
-        }
-        .ui .handler.handler-touchstart {
-            background-color:red;
+            z-index: 2000;
         }
     </style>
 </head>
@@ -214,7 +276,8 @@
     <div id="container">
         <!-- 演示 UI 层 -->
         <div class="ui">
-            <div class="handler" id="handler"></div>
+            <div id="joystick-container">
+            </div>
         </div>
     </div>
 </body>

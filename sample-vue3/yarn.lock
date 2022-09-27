@@ -3831,6 +3831,11 @@ inherits@2.0.3:
   resolved "https://registry.yarnpkg.com/inherits/-/inherits-2.0.3.tgz#633c2c83e3da42a502f52466022480f4208261de"
   integrity sha1-Yzwsg+PaQqUC9SRmAiSA9CCCYd4=
 
+ios-inner-height@^1.1.1:
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/ios-inner-height/-/ios-inner-height-1.1.1.tgz#987c62350a04586b4025a21fa0e8bef054b7b64e"
+  integrity sha512-1/eCW+slv9Zm83Ugsq34dOU3QDzf/mcQQnOH0W8fLgvNKWYH3Kn8lod83K6JHDNWRgZCRJ1swFNiQrZqiJOiwA==
+
 ipaddr.js@1.9.1:
   version "1.9.1"
   resolved "https://registry.yarnpkg.com/ipaddr.js/-/ipaddr.js-1.9.1.tgz#bff38543eeb8984825079ff3a2a8e6cbd46781b3"
@@ -4069,15 +4074,16 @@ klona@^2.0.5:
   resolved "https://registry.yarnpkg.com/klona/-/klona-2.0.5.tgz#d166574d90076395d9963aa7a928fabb8d76afbc"
   integrity sha512-pJiBpiXMbt7dkzXe8Ghj/u4FfXOOa98fPW+bihOJ4SjnoijweJrNThJfd3ifXpXhREjpoF2mZVH1GfS9LV3kHQ==
 
-larksr_websdk@^3.2.312:
-  version "3.2.312"
-  resolved "https://registry.yarnpkg.com/larksr_websdk/-/larksr_websdk-3.2.312.tgz#cefe8e81f2166bc1496b92ab0560f009a9bb7959"
-  integrity sha512-PWb7rB7qdSUi7f7rLVU+YAZMsO9pUYE6O/IQYyWB5obZZEzQ/FHfUFZpqbZLakUwz6VqDkphMNKnBseGJDEzcg==
+larksr_websdk@^3.2.329:
+  version "3.2.329"
+  resolved "https://registry.yarnpkg.com/larksr_websdk/-/larksr_websdk-3.2.329.tgz#2917211fa90aca149ecb215d4acccfc997f1ae35"
+  integrity sha512-kml1SrazWbvnaeCYOtrXkPtSNaLAdhkdLGdfQcYuSzyq+ALteUL4dr8fLjP6GA/CCPYumnFStOHVYTAnO+IvWw==
   dependencies:
     axios "^0.24.0"
     bowser "^2.11.0"
     core-js "^3.18.1"
     crypto-js "^4.1.1"
+    ios-inner-height "^1.1.1"
     protobufjs "^6.11.2"
     webrtc-adapter "^8.1.0"
     weixin-js-sdk "^1.6.0"
@@ -5114,6 +5120,13 @@ punycode@^2.1.0:
   version "2.1.1"
   resolved "https://registry.yarnpkg.com/punycode/-/punycode-2.1.1.tgz#b58b010ac40c22c5657616c8d2c2c02c7bf479ec"
   integrity sha512-XRsRjdf+j5ml+y/6GKHPZbrF/8p2Yga0JPtdqTIY2Xe5ohJPD9saDJJLPvp9+NSBprVvevdXZybnj2cv8OEd0A==
+
+pxy_webcommonui@^0.1.2:
+  version "0.1.2"
+  resolved "https://registry.yarnpkg.com/pxy_webcommonui/-/pxy_webcommonui-0.1.2.tgz#0a727cb073bf4cd1d4badfed0e1722d974bb2db8"
+  integrity sha512-Q+ceQ66yVLZnlAoY6GMmaMRhyAcuEXVjvkSoXL5FzZ2dn0o70vurgDM5Ct1rYxZxEAVGNv61MYZvZv7kBhDucg==
+  dependencies:
+    core-js "^3.18.1"
 
 qs@6.10.3:
   version "6.10.3"
