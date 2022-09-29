@@ -11,6 +11,10 @@ export interface IAppliParams {
      */
     appPort: string;
     /**
+     * 渲染服务器 ssl 端口号
+     */
+    renderSSLServerPort: string;
+    /**
      * appli type
      */
     appliType: number;
@@ -211,6 +215,7 @@ export declare enum AppliType {
 export declare class AppliParams implements IAppliParams {
     appServer: string;
     appPort: string;
+    renderSSLServerPort: string;
     appliType: AppliType;
     wsProxy: boolean;
     preferPubOutIp: string;

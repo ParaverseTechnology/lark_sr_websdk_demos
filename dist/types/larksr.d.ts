@@ -58,6 +58,23 @@ declare enum LarkSRClientEvent {
     TASK_CREATE_FAILED = "taskcreatefailed",
     /**
      * 渲染资源不足
+      * {
+            // 服务端返回的错误码，服务端请求正确返回时存在。需要注意渲染资源不足类型的错误码。
+            // 可用 type == 0 判断是否是渲染资源不足类型的错误,再用 code 进行细节处理，或者只用 type == 0 进行处理。
+            // 813=当前应用的运行数量已达到最大值：{0},请稍后再试
+            // 814=同一appKey下的应用运行数量达到最大值：{0}，请稍后再试
+            // 815=应用运行数量已达到最大授权并发数量，请稍后再试
+            // 816=VR应用运行数量已达到最大授权并发数量，请稍后再试
+            // 817=渲染资源不足，请稍后再试
+            // 820=暂无活跃的GPU节点
+            // 821=节点资源使用率已达到设置的阈值
+            // 823=单节点运行应用数量已达到单节点最大授权并发数量，请稍后再试
+            code?: 817,
+
+            // 错误信息
+            message:? "",
+        }
+     *
      */
     RESOURCE_NOT_ENOUGH = "resourcenotenough",
     /**
@@ -163,6 +180,30 @@ declare enum LarkSRClientEvent {
     LarkEvent = "larkevent",
     /**
      * 发生错误时抛出
+     * type:     error
+     * message: 错误消息
+     * code:    可能的错误码如下, 错误码的具体定义 @see [./event_codes]
+     *          // 连接服务器的websocket代理关闭
+     *          LK_RENDER_SERVER_CLOSE                    : 102
+     *          // 连接代理服务器的websocket关闭
+     *          LK_PROXY_SERVER_CLOSE                     : 202
+     *          // 检测版本失败，服务器和客户端的版本匹配。目前只有3.1和3.2大版本不匹配情况
+     *          LK_VERSION_CHECK_FAILED                   : 301
+     *          // 服务器返回创建Task失败
+     *          TASK_NOTFOUND-TASK_NO_GPU_RESOURCE        : 401-404
+     *          // 服务端启动流媒体失败
+     *          LK_START_STREAM_PROCESS_START-FAILED-LK_START_STREAM_ENCODER_ERROR : 501-504
+     *          // RTC 连接关闭
+     *          LK_RTC_EVENT_PEERCONNECTION_CLOSED        : 601
+     *          // RTC 连接出错
+     *          LK_RTC_EVENT_PEERCONNECTION_ERROR         : 602
+     *          // RTC 创建出错，一般为 浏览器不支持 webrtc
+     *          LK_RTC_EVENT_PEERCONNECTION_CREATE_FAILED : 603
+     *          // 服务器主动要求客户端退出
+     *          LK_NOTIFY_CLIENT_LOGOUT_PLAYER_LOGOUT     : 800
+     *          // 一人操作多人看房主退出
+     *          LK_NOTIFY_CLIENT_LOGOUT_TASKOWNER_LOGOUT  : 801
+     *
      */
     ERROR = "error",
     /**
@@ -311,7 +352,11 @@ interface ILarkSRConfig {
     preferDecoder?: 'auto' | 'vp8' | 'vp9' | 'h264' | 'h265' | 'hevc' | 'av1x';
     /**
      * 可选项，视频在容器中的缩放模式
-     *
+     * ScaleMode: 'contain' | 'fill_clip' | 'fill_stretch'
+     * contain: 以应用原始尺寸的缩放
+     * fill_clip: 裁剪模式，完全填充屏幕但保留宽高比
+     * fill_stretch: 拉伸模式，完全填充屏幕但不保留宽高比
+     * 对应后台应用管理->应用编辑->通用高级设置->窗口初始显示方式,该配置优先级高于后台配置
      */
     scaleMode?: ScaleMode;
     /**
@@ -319,21 +364,27 @@ interface ILarkSRConfig {
      *  0 -》 用户手动触发
      *  1 -》 首次点击进入触发
      *  2 -》 每次点击触发
+     * 对应后台应用管理->应用编辑->通用高级设置->全屏模式,该配置优先级高于后台配置
      */
     fullScreenMode?: number;
     /**
      * 可选项，手机端的全屏模式，值同  fullScreenMode
+     * 对应后台应用管理->应用编辑->移动端高级设置->全屏模式,该配置优先级高于后台配置
      */
     mobileFullScreenMode?: number;
     /**
      * 可选项，手机端是否强制横屏
+     * 对应后台应用管理->应用编辑->移动端高级设置->手机端时是否强制横屏,该配置优先级高于后台配置
      */
     mobileForceLandscape?: boolean;
     /**
+     * 可选项
      * 初始化鼠标模式, true 锁定，false 非锁定
+     * 对应后台应用管理->应用编辑->通用高级设置->初始化鼠标模式,该配置优先级高于后台配置
      */
     initCursorMode?: boolean;
     /**
+     * 可选项
      * 渲染服务器外网端口映射
      * 格式为  key=[渲染服务器IP:PORT] value=[外网IP:PORT]
      * {
@@ -347,24 +398,28 @@ interface ILarkSRConfig {
      */
     publicPortMapping?: PublicPortMapping;
     /**
+     * 可选项
      * 是否提示输入文字 APP_REQUEST_INPUT
      * 当服务端检测到输入法事件后会抛出事件，可在 web 层添加输入框，配合 inputText 发送文字到云端
      * 默认打开，当手动关闭时将不会抛出 APP_REQUEST_INPUT 事件
      */
     textInputEventPrompt?: boolean;
     /**
+     * 可选项
      * 当启用音频输入功能，是否自动连入音频设备。
      * 默认关闭。
      * 需要注意默认打开的是系统中默认的音频设备。
      */
     audioInputAutoStart?: boolean;
     /**
+     * 可选项
      * 当启用视频输入功能，是否自动连入视频设备。
      * 默认关闭。
      * 需要注意默认打开的是系统中默认的视频设备。
      */
     videoInputAutoStart?: boolean;
     /**
+     * 可选项
      * mouseZoomDirection
      * 用于移动端捏合缩放操作与应用鼠标缩放的对应关系
      * 1:鼠标滚轮向上为放大，
@@ -372,17 +427,20 @@ interface ILarkSRConfig {
      */
     mouseZoomDirection?: number;
     /**
-     * 触摸指令模式，对应后台应用管理->应用编辑->移动端高级设置->触摸指令模式 优先级高于后台配置
+     * 可选项
      * 触摸指令，移动端的触摸指令对应为云端的触屏还是鼠标
      * 'touchScreen' | 'mouse'
+     * 触摸指令模式，对应后台应用管理->应用编辑->移动端高级设置->触摸指令模式 优先级高于后台配置
      */
     touchOperateMode?: 'touchScreen' | 'mouse';
     /**
+     * 可选项
      * 优先使用渲染服务器点对点连接外网ip
      * 如果配置将覆盖后台设置的 preferPublicIp 参数
      */
     preferPublicIp?: string;
     /**
+     * 可选项
      * 是否自动播放。默认开启。
      * 如果关闭，连接成功之后会有提示UI，用户手动触发。
      * 开启自动播放时也不能保证所有浏览器自动播放成功，当播放失败或者浏览器不支持自动播放时，
@@ -390,13 +448,15 @@ interface ILarkSRConfig {
      */
     autoPlay?: boolean;
     /**
+     * 可选项
      * 在播放失败或者手动播放模式下是否显示播放的按钮。
      * 默认开启。要注意，如果关闭情况下要添加好提示或UI，引导用户点击播放。
      * UI中要让用户触发 larksr.videoComponent.playVideo();
      */
     showPlayButton?: boolean;
     /**
-     * 语言设置,目前只支持种英文两种
+     * 可选项
+     * 语言设置,目前只支持种英文两种,默认中文
      * zh-CN 中文 en 英文
      */
     language?: string;
@@ -575,6 +635,12 @@ declare class LarkSR extends EventBase<LarkSRClientEvent, LarkSREvent> {
      * @returns
      */
     initSDKAuthCode(id: string): Promise<void>;
+    /**
+     * 使用平行云托管平台时，使用 connectWithPxyHost 连接云端应用
+     * 托管平台 https://www.pingxingyun.com/console/#/
+     * @param params 同 connect 方法
+     * @return 同 connect 方法
+     */
     connectWithPxyHost(params: {
         appliId: string;
         playerMode?: number;
@@ -588,6 +654,30 @@ declare class LarkSR extends EventBase<LarkSRClientEvent, LarkSREvent> {
      * 连接云端渲染资源
      * @params appID 云端资源的 ID
      * @returns Promise 调用接口并校验授权通过返回成功并自动开始连接
+     * Promise 返回的错误对象：
+     * {
+            // type 0 渲染资源不足导致的错误，1 其他错误, 可用 type == 0 判断是否是渲染资源不足类型的错误
+            type: 0,
+
+            // 渲染资源不足时的事件类型，其他情况可能不返回，比如网络错误
+            eventType?：LarkSRClientEvent.RESOURCE_NOT_ENOUGH,
+
+            // 服务端返回的错误码，服务端请求正确返回时存在。需要注意渲染资源不足类型的错误码。
+            // 可用 type == 0 判断是否是渲染资源不足类型的错误,再用 code 进行细节处理，或者只用 type == 0 进行处理。
+            // 813=当前应用的运行数量已达到最大值：{0},请稍后再试
+            // 814=同一appKey下的应用运行数量达到最大值：{0}，请稍后再试
+            // 815=应用运行数量已达到最大授权并发数量，请稍后再试
+            // 816=VR应用运行数量已达到最大授权并发数量，请稍后再试
+            // 817=渲染资源不足，请稍后再试
+            // 820=暂无活跃的GPU节点
+            // 821=节点资源使用率已达到设置的阈值
+            // 823=单节点运行应用数量已达到单节点最大授权并发数量，请稍后再试
+            code?: 817,
+
+            // 错误信息
+            message:? "",
+       }
+     *
      */
     connect(params: {
         appliId: string;

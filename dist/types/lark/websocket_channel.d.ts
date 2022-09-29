@@ -14,6 +14,7 @@ export interface WebscocketConfig {
     serverAddress: string;
     ip: string;
     port: string;
+    renderSSLServerPort?: string;
     path?: string;
 }
 export default class WebsocketChannel extends EventBase<CHANNEL_EVENT_TYPE, ChannelEvent> {

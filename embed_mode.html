@@ -126,7 +126,7 @@
             });
             client.on('error', function(e) {
                 console.error("LarkSRClientEvent error", e); 
-                alert(JSON.stringify(e.message));
+                alert(JSON.stringify(e));
             });                   
             client.on('info', function(e) {
                 console.log("LarkSRClientEvent info", e); 
