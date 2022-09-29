@@ -1,1 +1,0 @@
-file:///D:/work/client/larksr_websdk_demos/index.html?serverIp=192.168.0.55&serverPort=8181&sdkId=28c2eb1d50e14105b005940dc80588d1&appliId=1024322483106349056
