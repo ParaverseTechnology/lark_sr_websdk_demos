@@ -106,9 +106,10 @@ declare enum LarkSRClientEvent {
      */
     GOT_REMOTE_AUDIO_STREAM = "gotremoteaudiostream",
     /**
-     * 视频加载成功，等待播放 .
+     * 视频加载成功
      */
     MEDIA_LOADED = "meidaloaded",
+    MEDIA_LOADED2 = "medialoaded",
     /**
      * 视频自动播放成功 .
      */
