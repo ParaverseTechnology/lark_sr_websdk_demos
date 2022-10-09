@@ -13,7 +13,7 @@ export declare enum APP_STATE {
     LOGIN_SUCCESS = 3,
     RTC_CONNECTED = 4,
     MEDIA_LOADED = 5,
-    MEDIA_PLAED = 6,
+    MEDIA_PLAYED = 6,
     RTC_RETRY = 7,
     APP_RETRY = 8,
     BEFORE_DESTORY = 9,
@@ -56,6 +56,7 @@ export default class Application extends EventBase<APP_EVENT_TYPE, AppEvent> {
     private websocketProxy;
     private testPixelStreaming;
     private peerConnection;
+    get peerConnectionCreated(): boolean;
     get state(): APP_STATE;
     set state(state: APP_STATE);
     private _state;

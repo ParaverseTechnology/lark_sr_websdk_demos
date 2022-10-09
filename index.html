@@ -32,8 +32,8 @@
     <script src="./js/jquery.min.js"></script>
     <!-- 可选组件库 -->
     <!-- @see https://github.com/pingxingyun/pxy_webcommonui -->
-    <script src="./js/pxy_webcommonui.min.js?v=331"></script>
-    <script src="./dist/larksr-web-sdk.min.js?v=331"></script>
+    <script src="./js/pxy_webcommonui.min.js?v=33120221009"></script>
+    <script src="./dist/larksr-web-sdk.min.js?v=33120221009"></script>
     <script src="https://unpkg.com/vconsole@latest/dist/vconsole.min.js" crossorigin="anonymous"></script>
     <script>
         var client;
@@ -161,6 +161,9 @@
                 });
                 client.on('datachanneltext', function (e) {
                     console.log("LarkSRClientEvent DATACHANNEL_TEXT", e);
+                });
+                client.on('appclose', function(e) {
+                    alert("云端应用退出");
                 });
 
                 // 音频设备相关
@@ -384,7 +387,7 @@
         <!-- 演示 UI 层 -->
         <div class="ui">
             <div class="block">
-                <p>LarkSR WebSDK TestV3.2.331</p>
+                <p>LarkSR WebSDK TestV3.2.331-20221009</p>
             </div>
             <div class="block">
                 <input placeholder="服务器地址,如 http://192.168.0.55:8181" id="input-server-address" type="text" />
