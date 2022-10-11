@@ -49,6 +49,7 @@ export interface StartAppInfo {
     wsProxy: string;
     preferPublicIp: string;
     renderServerPort: number;
+    renderSSLServerPort: number;
     initCursorMode: number;
     rttLimit: string;
     touchOperateMode: string;

@@ -14,6 +14,17 @@ larksr.on('connect', function(e) {
 });
 ```
 
+或者使用导出枚举值
+
+```javascript
+larksr.on(LarkSRClientEvent.TASK_CREATE_SUCCESS, (e) => { 
+    console.log("LarkSRClientEvent TASK_CREATE_SUCCESS", e); 
+});
+```
+
+其中 `LarkEvent = 'larkevent'`, `ERROR = 'error'`, `INFO = 'info'` 这三个事件中附加 code 字段，code 字段附加事件码：[event_codes](./event_codes.md)
+[event_codes](./event_codes.md) 中的事件 code 值，在 LarkEvent 事件中都会抛出。
+
 ## 完整事件定义
 
 ```javascript

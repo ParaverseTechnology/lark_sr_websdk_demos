@@ -158,6 +158,20 @@ export enum APP_STATE {
 }
 ```
 
+可通过事件 `APPSTATE_CHANGE = 'appstatechange'` 监听 APP_STATE 的变化
+
+```javascript
+// create code
+...
+
+// 监听连接成功事件
+larksr.on('appstatechange', function(e) { 
+    console.log("appstatechange", e); 
+});
+```
+
+## 云端画面是否准备好
+
 ```javascript
 // 云端画面是否准备好，准备好后才可以发送输入事件
 larksr.remoteScreenReady

@@ -77,6 +77,7 @@ client.connect({
 ### [参数配置](./config.md)
 ### [LarkSR 对象方法](./functions.md)
 ### [LarkSR 事件](./events.md)
+### [LarkSR 事件码](./event_codes.md)
 ### [LarkSR 对象成员](./member_variables.md)
 ### [SDK ID 加密](./sdkid_encryption.md)
 ### [SDK 更新](./update.md)

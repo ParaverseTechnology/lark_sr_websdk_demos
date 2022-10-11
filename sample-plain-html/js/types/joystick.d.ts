@@ -90,6 +90,68 @@ declare enum KJoystickSubTypes {
     GAMEPAD = 3
 }
 declare class Joystick {
+    /**
+     * larksr 对象，由 larksr websdk 创建出来
+     * 传入后自动发送对应的按键给云端。如果不传入，应手动处理事件，如 joystickstart joystickmove joystickend
+     * larksr npm https://www.npmjs.com/package/larksr_websdk
+     * larksr doc https://github.com/pingxingyun/lark_sr_websdk_demos
+     * larksr demos https://pingxingyun.github.io/webclient_sdk/
+     */
+    set larksr(larksr: any);
+    /**
+     * subType  1 wasd  2 updownleftright 3 gamepad 0 none
+     * 发送给云端的按键类型
+     * 类型 1 对应键盘 WASD 按键
+     * 类型 2 对应键盘上下左右箭头
+     * 类型 3 对应物理摇杆
+     * 类型 0 不发送事件
+     * 默认为 1
+     */
+    set subType(subType: KJoystickSubTypes);
+    /**
+     * 摇杆的位置。
+     * 注意，如果不传入应调整父组件的位置
+     */
+    set position(position: {
+        top: number;
+        left: number;
+    });
+    /**
+     * 摇杆的大小
+     * 注意，如果不传入，应设置父组件的大小。不传入时摇杆与父组件大小相同
+     */
+    set size(size: {
+        width: number;
+        height: number;
+    });
+    /**
+     * 摇杆中间按钮的大小
+     * 注意，如果不传入，默认中间的按钮为总摇杆的 25%
+     */
+    set centerSize(centerSize: {
+        width: number;
+        height: number;
+    });
+    /**
+     * 额外的摇杆样式，会附加到其他样式后面，可覆盖默认样式
+     */
+    set extralJoystickStyle(extralJoystickStyle: string);
+    /**
+     * 额外的摇杆中间按钮样式，会附加到其他样式后面，可覆盖默认样式
+     */
+    set extralCenterStyle(extralCenterStyle: string);
+    /**
+     * 摇杆的背景图片。最终设置为样式 background-image
+     */
+    set joystickBackgroundUrl(joystickBackgroundUrl: string);
+    /**
+     * 摇杆中间按钮的背景图片，最终设置为样式 background-image
+     */
+    set centerBackgroundUrl(centerBackgroundUrl: string);
+    /**
+     * 触发事件的时间间隔
+     */
+    set repeatTimeout(repeatTimeout: number);
     private joystick;
     private config;
     /**
@@ -103,6 +165,19 @@ declare class Joystick {
      * @param callback
      */
     on(type: KJoystickEvents, callback: (e: any) => void): void;
+    /**
+     * 显示摇杆
+     */
+    show(): void;
+    /**
+     * 隐藏摇杆
+     */
+    hide(): void;
+    /**
+     * 刷新组件大小,当通过样式或其他方式影响到正摇杆大小的情况下
+     * 通知组件内部重新计算大小
+     */
+    resize(): void;
     /**
      * 主动销毁
      */

@@ -252,24 +252,24 @@ export default {
     // this.confirm({des:"22"});
     console.log("ref", this.$refs["appContainer"]);
 
-    let resizeTimeput = null;
+    let resizeTimeout = null;
     window.addEventListener("resize", () => {
-        if (resizeTimeput) {
-            window.clearTimeout(resizeTimeput);
+        if (resizeTimeout) {
+            window.clearTimeout(resizeTimeout);
         }
-        resizeTimeput = window.setTimeout(() => {
+        resizeTimeout = window.setTimeout(() => {
             this.resize();
-            resizeTimeput = null;
-        }, 100);
+            resizeTimeout = null;
+        }, 200);
     });
     window.addEventListener("orientationchange", () => {
-        if (resizeTimeput) {
-            window.clearTimeout(resizeTimeput);
+        if (resizeTimeout) {
+            window.clearTimeout(resizeTimeout);
         }
-        resizeTimeput = window.setTimeout(() => {
+        resizeTimeout = window.setTimeout(() => {
             this.resize();
-            resizeTimeput = null;
-        }, 100);
+            resizeTimeout = null;
+        }, 200);
     });
     this.resize();
   },

@@ -56,4 +56,5 @@ export default class UI extends LocalizationBase {
     get APP_RETRY(): string;
     get APP_RETRY_CONFIRM(): string;
     get START(): string;
+    get PLAY_FAILED(): string;
 }
