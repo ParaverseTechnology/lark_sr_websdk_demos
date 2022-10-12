@@ -5121,10 +5121,10 @@ punycode@^2.1.0:
   resolved "https://registry.yarnpkg.com/punycode/-/punycode-2.1.1.tgz#b58b010ac40c22c5657616c8d2c2c02c7bf479ec"
   integrity sha512-XRsRjdf+j5ml+y/6GKHPZbrF/8p2Yga0JPtdqTIY2Xe5ohJPD9saDJJLPvp9+NSBprVvevdXZybnj2cv8OEd0A==
 
-pxy_webcommonui@^0.1.5:
-  version "0.1.5"
-  resolved "https://registry.yarnpkg.com/pxy_webcommonui/-/pxy_webcommonui-0.1.5.tgz#8a0aefce701258b0db361b7a8a73817b8cd72e13"
-  integrity sha512-XU70t9a/SAcr1isdfTlua13/CoE/vWHhC0RYpiE0dNzSMQcdTtUGCgpWez9FFKUf/0cKGW2Totg9OeggLfSvvQ==
+pxy_webcommonui@^0.1.6:
+  version "0.1.6"
+  resolved "https://registry.yarnpkg.com/pxy_webcommonui/-/pxy_webcommonui-0.1.6.tgz#f7c4a80ae009898d0640e754088e8f7c91a02e5f"
+  integrity sha512-PnGdkgg3fyvya5zRxfk8QpTJnE9bodk01CyFJF7qskY6wsa/9hDhrp51F3k6aBzfnakpvlCgH2Gv82XEaie2fQ==
   dependencies:
     core-js "^3.18.1"
 

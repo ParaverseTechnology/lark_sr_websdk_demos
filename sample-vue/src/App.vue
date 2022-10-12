@@ -167,7 +167,7 @@ export default {
         centerBackgroundUrl: JoystickTopImage,
 
         // 可选项，触发事件的时间间隔
-        repeatTimeout: 10,
+        // repeatTimeout: 33,
       });
 
       // this.joystick.on(KJoystickEvents.EVENTS_JOYSTICK_START, function(e) {
