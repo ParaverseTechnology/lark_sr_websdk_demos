@@ -4,7 +4,7 @@
     position: fixed;
     top: 0;
     left: 50%;
-    margin-left: px2rem(-526 / 2);
+    margin-left: px2rem(calc(-526 / 2));
     z-index: $z-index-modal;
     text-align: center;
     overflow: hidden;

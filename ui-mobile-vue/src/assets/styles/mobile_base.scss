@@ -19,5 +19,5 @@ $z-index-modal: 1200;
 
 $ue-width: 1340; /* ue图的宽度 */
 @function px2rem($px) {
-  @return #{$px/$ue-width*100}rem;
+  @return #{calc($px/$ue-width*100)}rem;
 }

@@ -6,7 +6,7 @@
     position: fixed;
     bottom: 0;
     left: 50%;
-    margin-left: px2rem(-971 / 2);
+    margin-left: px2rem(calc(-971 / 2));
     z-index: $z-index-index + 3;
     background-color: $color-bg-trans40-blue;
     border-top: px2rem(2) solid $color-border-trans40-light-blue;

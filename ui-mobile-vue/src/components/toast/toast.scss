@@ -4,7 +4,7 @@
     position: fixed;
     bottom: px2rem(75);
     left: 50%;
-    margin-left: px2rem(-526 / 2);
+    margin-left: px2rem(calc(-526 / 2));
     z-index: 1029;
     text-align: center;
     overflow: hidden;

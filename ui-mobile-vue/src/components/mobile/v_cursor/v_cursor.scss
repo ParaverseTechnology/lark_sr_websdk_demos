@@ -65,15 +65,15 @@ $iconRadius: 60 * $scale;
     }
     .icon.icon-mouse-left {
         top: px2rem(60 + 40);
-        left: px2rem(($popRadius - $iconRadius) / 2 - 50 - 30);
+        left: px2rem(calc(($popRadius - $iconRadius) / 2) - 50 - 30);
     }
     .icon.icon-mouse-mid {
         top: px2rem(60 + 40);
-        left: px2rem(($popRadius - $iconRadius) / 2);
+        left: px2rem(calc(($popRadius - $iconRadius) / 2));
     }
     .icon.icon-mouse-right {
         top: px2rem(60 + 40);
-        left: px2rem(($popRadius - $iconRadius) / 2 + 50 + 30);
+        left: px2rem(calc(($popRadius - $iconRadius) / 2) + 50 + 30);
     }
     .icon.active {
         border: px2rem(2) solid lightgreen;
@@ -100,7 +100,7 @@ $iconRadius: 60 * $scale;
     }
     .icon.icon-handle {
         top: px2rem(132 * $scale);
-        left: px2rem(($popRadius - $iconRadius) / 2);
+        left: px2rem(calc(($popRadius - $iconRadius) / 2));
         background-image: url("~@/assets/img/mobile/icon_handle.png");
     }
 }

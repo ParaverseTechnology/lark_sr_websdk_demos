@@ -34,42 +34,42 @@
         }
         .icon.icon-mouse {
             top: px2rem(10);
-            left: px2rem(-108 + 93 / 2);
+            left: px2rem(-108 + calc(93 / 2));
             background-image: url("~@/assets/img/mobile/icon_mouse_bg.png");
         }
         .icon.icon-keyboard {
             top: px2rem(92);
-            left: px2rem(-71 + 93 / 2);
+            left: px2rem(-71 + calc(93 / 2));
             background-image: url("~@/assets/img/mobile/icon_keyboard_bg.png");
         }
         .icon.icon-handle {
             top: px2rem(132);
-            left: px2rem(9 + 93 / 2);
+            left: px2rem(9 + calc(93 / 2));
             background-image: url("~@/assets/img/mobile/icon_handle.png");
         }
         .icon.icon-scale {
             top: px2rem(-93);
-            left: px2rem(93 / 2 - 70 / 2);
+            left: px2rem(calc(93 / 2) - calc(70 / 2));
             background-image: url("~@/assets/img/mobile/icon_bg.png");
         }
         .icon.icon-fullscreen {
             top: px2rem(-70);
-            left: px2rem(93 / 2 - 70 - 50);
+            left: px2rem(calc(93 / 2) - 70 - 50);
             background-image: url("~@/assets/img/mobile/icon_bg.png");
         }
         .icon.icon-esc {
-            top: px2rem(92 / 2 - 70 / 2);
-            left: px2rem(93 / 2 - 70 - 70);
+            top: px2rem(calc(92 / 2) - calc(70 / 2));
+            left: px2rem(calc(93 / 2) - 70 - 70);
             background-image: url("~@/assets/img/mobile/icon_bg.png");
         }
         .icon.icon-menu {
             top: px2rem(93);
-            left: px2rem(93 / 2 - 70 - 50);
+            left: px2rem(calc(93 / 2) - 70 - 50);
             background-image: url("~@/assets/img/mobile/icon_menu_bg.png");
         }
         .icon.icon-exit {
             top: px2rem(93 + 20);
-            left: px2rem(93 / 2 - 70 / 2);
+            left: px2rem(calc(93 / 2) - calc(70 / 2));
             background-image: url("~@/assets/img/mobile/icon_exit_bg.png");
         }
         .pop-content {
