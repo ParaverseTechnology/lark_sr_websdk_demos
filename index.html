@@ -140,8 +140,10 @@
                 });
                 client.on('mediaplaysuccess', function (e) {
                     console.log("LarkSRClientEvent mediaplaysuccess", e);
-                    $("#joystick-container").show();
-                    joystick.resize();
+                    if (pxy_webcommonui.Capabilities.isMobile) {
+                        $("#joystick-container").show();
+                        joystick.resize();
+                    }
                 });
                 client.on('mediaplayfailed', function (e) {
                     console.log("LarkSRClientEvent mediaplayfailed", e);
@@ -164,6 +166,31 @@
                 });
                 client.on('appclose', function(e) {
                     alert("云端应用退出");
+                });
+
+                // test video event
+                client.videoElement.addEventListener('emptied', function(e) {
+                    alert("	The media has become empty; for example, this event is sent if the media has already been loaded (or partially loaded), and the load() method is called to reload it.");
+                });
+
+                client.videoElement.addEventListener('ended', function(e) {
+                    alert("	Playback has stopped because the end of the media was reached.");
+                });
+
+                client.videoElement.addEventListener('pause', function(e) {
+                    alert("	Playback has been paused.");
+                });
+
+                client.videoElement.addEventListener('stalled', function(e) {
+                    alert("	The user agent is trying to fetch media data, but data is unexpectedly not forthcoming.");
+                });
+
+                client.videoElement.addEventListener('suspend', function(e) {
+                    alert("	Media data loading has been suspended.");
+                });
+
+                client.videoElement.addEventListener('waiting', function(e) {
+                    alert("	Playback has stopped because of a temporary lack of data.");
                 });
 
                 // 音频设备相关
