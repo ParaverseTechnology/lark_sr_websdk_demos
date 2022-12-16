@@ -627,6 +627,8 @@
                 var appliId = urlParams.get('appliId');
                 var autoPlay = urlParams.get('autoPlay');
                 var showPlayButton = urlParams.get('showPlayButton');
+                var showPlayButton = urlParams.get('showPlayButton');
+                var useSeparateMediaSharePeer = urlParams.get('useSeparateMediaSharePeer');
 
                 console.log("load urlparrams", ip, port, sdkId, appliId, autoPlay, showPlayButton);
 
@@ -638,6 +640,9 @@
                 }
                 if (showPlayButton != null && showPlayButton != undefined) {
                     config.showPlayButton = showPlayButton === "true" ? true : false;
+                }
+                if (useSeparateMediaSharePeer != null && useSeparateMediaSharePeer != undefined) {
+                    config.useSeparateMediaSharePeer = useSeparateMediaSharePeer === 'true' ? true : false;
                 }
 
                 if (ip && port) {
