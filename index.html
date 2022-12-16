@@ -40,7 +40,7 @@
         var useSelectedDeviceWhenDataChannelOpen = false;
         // 测试重制媒体通道
         var resetMediaChannel = true;
-        
+
         var client;
         var joystick;
 
@@ -412,10 +412,10 @@
                             const device = await getConnectedDevice($("#video-input-device").val());
                             console.log("video-input-device change", device);
                             if (device.length > 0) {
-                                console.log("width:" + device[0].getCapabilities().width.max +
-                                    " height" + device[0].getCapabilities().height.max);
-                                $("#video-width").val(device[0].getCapabilities().width.max);
-                                $("#video-height").val(device[0].getCapabilities().height.max);
+                                console.log("width:" + device[0].getCapabilities().width?.max +
+                                    " height" + device[0].getCapabilities().height?.max);
+                                $("#video-width").val(device[0].getCapabilities().width?.max);
+                                $("#video-height").val(device[0].getCapabilities().height?.max);
                             }
                         })
                         .catch((e) => {
@@ -611,11 +611,11 @@
             $("#input-datachannel").on("focus", function () {
                 console.log("focus");
                 client.op.setKeyboardEnable(false);
-            })
+            });
             $("#input-datachannel").on("blur", function () {
                 console.log("blur");
                 client.op.setKeyboardEnable(true);
-            })
+            });
 
 
             // setup with url
@@ -699,7 +699,7 @@
         <!-- 演示 UI 层 -->
         <div class="ui">
             <div class="block">
-                <p>LarkSR WebSDK TestV3.2.331-20221010</p>
+                <p>LarkSR WebSDK TestV3.2.334-20221216</p>
             </div>
             <div class="block">
                 <input placeholder="服务器地址,如 http://192.168.0.55:8181" id="input-server-address" type="text" />
