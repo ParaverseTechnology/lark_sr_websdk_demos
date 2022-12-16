@@ -69,9 +69,8 @@
                     // fullScreenMode: 0,
                     // 测试载入背景图
                     // loadingBgUrl: 'https://home-obs.pingxingyun.com/homePage_4_0/bg.jpg',
-                    autoPlay: config.autoPlay,
-                    showPlayButton: config.showPlayButton,
                     mobileForceLandscape: true,
+                    ...config,
                 });
 
                 client.initSDKAuthCode(sdkid)
