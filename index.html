@@ -36,6 +36,11 @@
     <script src="./dist/larksr-web-sdk.min.js?v=33120221010"></script>
     <script src="https://unpkg.com/vconsole@latest/dist/vconsole.min.js" crossorigin="anonymous"></script>
     <script>
+        // 是否在数据通道打开时启用已选择的设备
+        var useSelectedDeviceWhenDataChannelOpen = false;
+        // 测试重制媒体通道
+        var resetMediaChannel = true;
+        
         var client;
         var joystick;
 
@@ -340,6 +345,278 @@
                 client.op.stopListenling();
             });
 
+            // media devices...
+            async function getConnectedAudioinputDevices() {
+                const res = await getConnectedDevices("audioinput");
+                return res;
+            }
+            async function getConnectedAudioOutputDevices() {
+                const res = await getConnectedDevices("audiooutput");
+                return res;
+            }
+            async function getConnectedVideoinputDevices() {
+                const res = await getConnectedDevices("videoinput");
+                return res;
+            }
+            async function getConnectedDevices(type /* audioinput audiooutput videoinput*/ ) {
+                const devices = await navigator.mediaDevices.enumerateDevices();
+                return devices.filter(device => device.kind === type)
+            }
+            async function getConnectedDevice(id) {
+                const devices = await navigator.mediaDevices.enumerateDevices();
+                return devices.filter(device => device.deviceId === id)
+            }
+
+            navigator.mediaDevices.getUserMedia({
+                    video: true,
+                    audio: true
+                })
+                .then(function () {
+                    getConnectedAudioinputDevices()
+                        .then(function (res) {
+                            console.log("getConnectedAudioinputDevices", res);
+                            res.forEach(function (device) {
+                                var deviceOption =
+                                    `<option value="${device.deviceId}">${device.label}</option>`;
+                                console.log('add audio intput device option', deviceOption);
+                                $("#audio-input-device").append(deviceOption);
+                            });
+                        })
+                        .catch((e) => {
+                            console.error(e);
+                        });
+
+                    getConnectedAudioOutputDevices()
+                        .then(function (res) {
+                            console.log("getConnectedAudioOutputDevices", res)
+                            res.forEach(function (device) {
+                                var deviceOption =
+                                    `<option value="${device.deviceId}">${device.label}</option>`;
+                                console.log('add audio intput device option', deviceOption);
+                                $("#audio-output-device").append(deviceOption);
+                            });
+                        })
+                        .catch((e) => {
+                            console.error(e);
+                        });
+
+                    getConnectedVideoinputDevices()
+                        .then(async function (res) {
+                            console.log("getConnectedVideoinputDevices", res);
+                            res.forEach(function (device) {
+                                var deviceOption =
+                                    `<option value="${device.deviceId}">${device.label}</option>`;
+                                console.log('add video intput device option', deviceOption);
+                                $("#video-input-device").append(deviceOption);
+                            });
+                            const device = await getConnectedDevice($("#video-input-device").val());
+                            console.log("video-input-device change", device);
+                            if (device.length > 0) {
+                                console.log("width:" + device[0].getCapabilities().width.max +
+                                    " height" + device[0].getCapabilities().height.max);
+                                $("#video-width").val(device[0].getCapabilities().width.max);
+                                $("#video-height").val(device[0].getCapabilities().height.max);
+                            }
+                        })
+                        .catch((e) => {
+                            console.error(e);
+                        });
+                })
+
+            $("#video-input-device").on("change", async function (e) {
+                const device = await getConnectedDevice($("#video-input-device").val());
+                console.log("video-input-device change", device);
+                if (device.length > 0) {
+                    console.log("width:" + device[0].getCapabilities().width.max + " height" +
+                        device[0].getCapabilities().height.max);
+                    $("#video-width").val(device[0].getCapabilities().width.max);
+                    $("#video-height").val(device[0].getCapabilities().height.max);
+                }
+            });
+
+            // handle media
+            $("#open-audio").on("click", function (e) {
+                console.log("open-audio");
+                client.openAudio();
+            });
+            $("#close-audio").on("click", function (e) {
+                console.log("close-audio");
+                client.closeAudio();
+            });
+            $("#open-video").on("click", function (e) {
+                console.log("open-video");
+                client.openVideo();
+            });
+            $("#close-video").on("click", function (e) {
+                console.log("close-video");
+                client.closeVideo();
+            });
+            $("#open-share").on("click", function (e) {
+                console.log("open-share");
+                client.openShareMediaDevice();
+            });
+            $("#close-share").on("click", function (e) {
+                console.log("close-share");
+                client.closeShare();
+            });
+            $("#close-closeMediaChannel").on("click", function (e) {
+                console.log("closeMediaChannel");
+                client.closeMediaChannel();
+            });
+
+            $("#open-audio-input-device").on("click", function (e) {
+                console.log('open-audio-input-device', $("#audio-input-device").val());
+                client.openAudioDevice($("#audio-input-device").val(), 'audioinput')
+                    .then(function (res) {
+                    })
+                    .catch(function (e) {
+                        console.log('open audio input device failed', e);
+                    });
+            });
+            $("#open-audio-output-device").on("click", function (e) {
+                console.log('open-audio-output-device', $("#audio-output-device").val());
+                client.openAudioDevice($("#audio-output-device").val(), 'audiooutput');
+            });
+            $("#close-audio-input-device").on("click", function (e) {
+                client.closeAudio();
+            });
+
+            $("#stop-audio-input-device").on("click", function (e) {
+                client.stopLocalAudio();
+            });
+            $("#pause-audio-input-device").on("click", function (e) {
+                client.pauseAudioSending();
+            });
+            $("#resume-audio-input-device").on("click", function (e) {
+                client.resumeAudioSending();
+            });
+
+            $("#enum-audio-input-device").on("click", function (e) {
+                navigator.mediaDevices.enumerateDevices()
+                    .then(function (res) {
+                        $("#audio-input-device").find('option').remove().end();
+                        res.forEach(function (des) {
+                            // console.log(des)
+                            if (!des.getCapabilities || des.kind !== "audioinput")
+                                return;
+                            console.log("device " + des.label + " caps " + JSON.stringify(
+                                des.getCapabilities()))
+
+                            
+                            var deviceOption =
+                                `<option value="${des.deviceId}">${des.label}</option>`;
+                            console.log('add audio intput device option', deviceOption);
+                            $("#audio-input-device").append(deviceOption);
+                        })
+                    })
+            });
+
+
+            $("#open-video-input-device").on("click", function (e) {
+                var width = parseInt($("#video-width").val());
+                var height = parseInt($("#video-height").val());
+                width = isNaN(width) || width === null ? 1280 : width;
+                height = isNaN(height) || height == null ? 720 : height;
+
+                console.log('open-video-input-device', $("#video-input-device").val(), width, height);
+
+                if (resetMediaChannel) {
+                    // 重制媒体通道
+                    client.openUserMeida({
+                            audio: false,
+                            video: {
+                                deviceId: $("#video-input-device").val(),
+                                width,
+                                height,
+                            }
+                        }, false)
+                        .then(function (res) {
+                        })
+                        .catch(function (e) {
+                            console.error('open video input device failed', e);
+                        });
+                } else {
+                    client.openVideo(false, $("#video-input-device").val(), width, height)
+                        .then(function (res) {
+                        })
+                        .catch(function (e) {
+                            console.error('open video input device failed', e);
+                        });
+                }
+            });
+            $("#close-video-input-device").on("click", function (e) {
+                client.closeVideo();
+            });
+
+            $("#stop-video-input-device").on("click", function (e) {
+                client.stopLocalVideo();
+            });
+            $("#pause-video-input-device").on("click", function (e) {
+                client.pauseVideoSending();
+            });
+            $("#resume-video-input-device").on("click", function (e) {
+                client.resumeVideoSending();
+            });
+
+            $("#enum-video-input-device").on("click", function (e) {
+                navigator.mediaDevices.enumerateDevices()
+                    .then(function (res) {
+                        $("#video-input-device").find("optioni").remove().end();
+                        res.forEach(function (des) {
+                            // console.log(des)
+                            if (!des.getCapabilities || des.kind !== "videoinput")
+                                return;
+                            console.log("device " + des.label + " caps " + JSON.stringify(
+                                des.getCapabilities()))
+
+                            var deviceOption =
+                                `<option value="${des.deviceId}">${des.label}</option>`;
+                            console.log('add video intput device option', deviceOption);
+                            $("#video-input-device").append(deviceOption);
+                        })
+                    });
+            });
+
+            $("#only-open-video-input-device").on("click", function (e) {
+                var width = parseInt($("#video-width").val());
+                var height = parseInt($("#video-height").val());
+                width = isNaN(width) || width === null ? 1280 : width;
+                height = isNaN(height) || height == null ? 720 : height;
+
+                console.log('only-open-video-input-device', $("#video-input-device").val(), width,
+                    height);
+
+                navigator.mediaDevices.getUserMedia({
+                        audio: false,
+                        video: {
+                            deviceId: $("#video-input-device").val(),
+                            width,
+                            height,
+                        }
+                    })
+                    .then(function (res) {
+                        console.warn("测试getUserMedia成功", res);
+                    })
+                    .catch(function (e) {
+                        console.warn("测试getUserMedia失败", e);
+                    })
+            });
+
+
+            $("#button-datachannel").on("click", function (e) {
+                var text = $("#input-datachannel").val();
+                console.log("input-datachannel ", text);
+                client.sendTextToDataChannel(text);
+            });
+            $("#input-datachannel").on("focus", function () {
+                console.log("focus");
+                client.op.setKeyboardEnable(false);
+            })
+            $("#input-datachannel").on("blur", function () {
+                console.log("blur");
+                client.op.setKeyboardEnable(true);
+            })
+
 
             // setup with url
             (function () {
@@ -435,6 +712,34 @@
             <div class="block">
                 <button id="button-start-listening">startListening</button>
                 <button id="button-stop-listening">stopListenling</button>
+            </div>
+            <div class="block">
+                <select name="音频输入设备" id="audio-input-device">
+                </select>
+                <button id="open-audio-input-device">打开音频输入设备</button>
+                <button id="close-audio-input-device">关闭音频输入设备</button>
+                <button id="enum-audio-input-device">枚举音频设备信息</button>
+                <button id="stop-audio-input-device">停止音频</button>
+                <button id="pause-audio-input-device">暂停音频</button>
+                <button id="resume-audio-input-device">恢复音频</button>
+            </div>
+            <div class="block">
+                <select id="video-input-device">
+                </select>
+                <button id="open-video-input-device">打开视频输入设备</button>
+                <button id="close-video-input-device">关闭视频输入设备</button>
+                <button id="enum-video-input-device">枚举视频设备信息</button>
+                <button id="stop-video-input-device">停止视频</button>
+                <button id="pause-video-input-device">暂停视频</button>
+                <button id="resume-video-input-device">恢复视频</button>
+                <input placeholder="width" id="video-width" type="text" value="1280" />
+                <input placeholder="height" id="video-height" type="text" value="720" />
+                <button id="only-open-video-input-device">仅测试打开</button>
+            </div>
+            <div class="block">
+                <input placeholder="发送给云端数据通道" id="input-datachannel" type="text" />
+                <button id="button-datachannel">发送</button>
+                <p id="text-from-datachannel"></p>
             </div>
             <div id="joystick-container">
             </div>

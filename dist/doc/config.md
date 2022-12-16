@@ -208,5 +208,10 @@ interface ILarkSRConfig {
      * zh-CN 中文 en 英文
      */
     language?: string;
+    /**
+     * 点对点连接成功，但未接收到视频流或未播放成功超时时间。自动播放模式下超时会弹出提示按钮。
+     * 默认 20S
+     */
+    playTimeout?: number;
 }
 ```

@@ -1,6 +1,7 @@
 import { EventBase, LocalEvent } from '../event/event_base';
 import * as Input from '../protobuf/cloudlark';
 import { LarkSR } from '../larksr';
+import { MediaShareInterface, RTCMediaTrackBinding } from './media_share_interface';
 export declare enum IceState {
     DISCONNECT = 1,
     BAD = 2,
@@ -80,12 +81,7 @@ export interface AggregatedStats {
     currentRoundTripTime: number;
     packetsLostPerc: number;
 }
-export interface RTCMediaTrackBinding {
-    deviceId: string;
-    track: MediaStreamTrack;
-    sender: RTCRtpSender | undefined;
-}
-export default class PeerConnection extends EventBase<WEBRTC_EVENT_TYPE, WebRTCEvent> {
+export default class PeerConnection extends EventBase<WEBRTC_EVENT_TYPE, WebRTCEvent> implements MediaShareInterface {
     private config;
     private pc;
     private dataChannel;
@@ -103,9 +99,9 @@ export default class PeerConnection extends EventBase<WEBRTC_EVENT_TYPE, WebRTCE
     get audioTrack(): MediaStreamTrack | undefined;
     get videoDeviceId(): string | undefined;
     get videoTrack(): MediaStreamTrack | undefined;
-    private localAudioTrackBinding;
-    private localVideoTrackBinding;
-    private localShareTrackBinding;
+    private audioBinding;
+    private videoBinding;
+    private readonly sendStream;
     private sdpCreateSuccess;
     constructor(larksr: LarkSR, config: WebRTCConfig);
     create(streams?: MediaStream | undefined | null): Promise<void>;
@@ -114,19 +110,29 @@ export default class PeerConnection extends EventBase<WEBRTC_EVENT_TYPE, WebRTCE
     setAudioEnable(enable: boolean): void;
     setVideoEnable(enable: boolean): void;
     setShareEnable(enable: boolean): void;
-    closeAudio(): boolean;
-    closeVideo(): boolean;
-    closeShare(): boolean;
+    stopLocalAudio(): void;
+    stopLocalVideo(): void;
+    stopLocalShare(): void;
+    pauseAudioSending(): false | undefined;
+    resumeAudioSending(): false | undefined;
+    pauseVideoSending(): false | undefined;
+    resumeVideoSending(): false | undefined;
+    closeAudio(): false | undefined;
+    closeVideo(): false | undefined;
+    closeShare(): false | undefined;
     private stopLocalTrackBing;
     openAudio(deviceId?: string): Promise<{
         streams: MediaStream;
         rtcRtpSenders: RTCMediaTrackBinding[];
     }>;
-    openVideo(audio?: boolean, cameraId?: string): Promise<{
+    openVideo(audio?: boolean, cameraId?: string, width?: number, height?: number): Promise<{
         streams: MediaStream;
         rtcRtpSenders: RTCMediaTrackBinding[];
     }>;
-    openDefaultMedia(video?: boolean, audio?: boolean): Promise<void>;
+    openDefaultMedia(video?: boolean, audio?: boolean): Promise<{
+        streams: MediaStream;
+        rtcRtpSenders: RTCMediaTrackBinding[];
+    }>;
     openShareMediaDevice(): Promise<void>;
     getConnectedAudioinputDevices(): Promise<MediaDeviceInfo[]>;
     getConnectedAudioOutputDevices(): Promise<MediaDeviceInfo[]>;
@@ -136,14 +142,15 @@ export default class PeerConnection extends EventBase<WEBRTC_EVENT_TYPE, WebRTCE
         streams: MediaStream;
         rtcRtpSenders: RTCMediaTrackBinding[];
     }>;
-    openCamera(cameraId: string, minWidth?: number, minHeight?: number): Promise<{
+    openCamera(cameraId: string, width?: number, height?: number, audio?: boolean): Promise<{
         streams: MediaStream;
         rtcRtpSenders: RTCMediaTrackBinding[];
     }>;
-    openUserMeida(constraints?: MediaStreamConstraints): Promise<{
+    openUserMeida(constraints?: MediaStreamConstraints, reset?: boolean): Promise<{
         streams: MediaStream;
         rtcRtpSenders: RTCMediaTrackBinding[];
     }>;
+    private resumeOrCreateBinding;
     addMediaTrack(track: MediaStreamTrack, ...streams: MediaStream[]): boolean;
     removeMediaTrack(track: RTCRtpSender): boolean;
     requestUserMediaPermission(constraints?: MediaStreamConstraints): Promise<MediaStream>;

@@ -3014,6 +3014,12 @@ export namespace CloudLark {
 
         /** ToServerMessage dispatchController */
         dispatchController?: (CloudLark.ILarkXRDispatchController|null);
+
+        /** ToServerMessage clientMediaOfferanswer */
+        clientMediaOfferanswer?: (CloudLark.IWebrtcOfferAnswer|null);
+
+        /** ToServerMessage clientMediaIcecandidate */
+        clientMediaIcecandidate?: (CloudLark.IWebrtcIceCandidate|null);
     }
 
     /** Represents a ToServerMessage. */
@@ -3061,8 +3067,14 @@ export namespace CloudLark {
         /** ToServerMessage dispatchController. */
         public dispatchController?: (CloudLark.ILarkXRDispatchController|null);
 
+        /** ToServerMessage clientMediaOfferanswer. */
+        public clientMediaOfferanswer?: (CloudLark.IWebrtcOfferAnswer|null);
+
+        /** ToServerMessage clientMediaIcecandidate. */
+        public clientMediaIcecandidate?: (CloudLark.IWebrtcIceCandidate|null);
+
         /** ToServerMessage msg. */
-        public msg?: ("versionCheckRequest"|"taskRequest"|"startStreamRequest"|"webrtcOfferAnswer"|"webrtcIcecandidate"|"processControl"|"startVrsteamRequest"|"vrMonitorRequest"|"startNewVrstreamRequest"|"datachannelData"|"dispatchController");
+        public msg?: ("versionCheckRequest"|"taskRequest"|"startStreamRequest"|"webrtcOfferAnswer"|"webrtcIcecandidate"|"processControl"|"startVrsteamRequest"|"vrMonitorRequest"|"startNewVrstreamRequest"|"datachannelData"|"dispatchController"|"clientMediaOfferanswer"|"clientMediaIcecandidate");
 
         /**
          * Creates a new ToServerMessage instance using the specified properties.
@@ -3179,6 +3191,15 @@ export namespace CloudLark {
 
         /** ToClientMessage updatePlayers */
         updatePlayers?: (CloudLark.ILarkXRUpdatePlayersDesc|null);
+
+        /** ToClientMessage clientMediaOfferanswer */
+        clientMediaOfferanswer?: (CloudLark.IWebrtcOfferAnswer|null);
+
+        /** ToClientMessage clientMediaIcecandidate */
+        clientMediaIcecandidate?: (CloudLark.IWebrtcIceCandidate|null);
+
+        /** ToClientMessage clientWebrtcError */
+        clientWebrtcError?: (CloudLark.IWebrtcError|null);
     }
 
     /** Represents a ToClientMessage. */
@@ -3232,8 +3253,17 @@ export namespace CloudLark {
         /** ToClientMessage updatePlayers. */
         public updatePlayers?: (CloudLark.ILarkXRUpdatePlayersDesc|null);
 
+        /** ToClientMessage clientMediaOfferanswer. */
+        public clientMediaOfferanswer?: (CloudLark.IWebrtcOfferAnswer|null);
+
+        /** ToClientMessage clientMediaIcecandidate. */
+        public clientMediaIcecandidate?: (CloudLark.IWebrtcIceCandidate|null);
+
+        /** ToClientMessage clientWebrtcError. */
+        public clientWebrtcError?: (CloudLark.IWebrtcError|null);
+
         /** ToClientMessage msg. */
-        public msg?: ("versionCheckResponse"|"taskResponse"|"startStreamResponse"|"webrtcOfferAnswer"|"webrtcIcecandidate"|"webrtcError"|"processNotifi"|"logout"|"startVrstreamResponse"|"vrMonitorResponse"|"datachannelState"|"datachannelData"|"updatePlayers");
+        public msg?: ("versionCheckResponse"|"taskResponse"|"startStreamResponse"|"webrtcOfferAnswer"|"webrtcIcecandidate"|"webrtcError"|"processNotifi"|"logout"|"startVrstreamResponse"|"vrMonitorResponse"|"datachannelState"|"datachannelData"|"updatePlayers"|"clientMediaOfferanswer"|"clientMediaIcecandidate"|"clientWebrtcError");
 
         /**
          * Creates a new ToClientMessage instance using the specified properties.

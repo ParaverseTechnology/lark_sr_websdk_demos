@@ -466,6 +466,10 @@ interface ILarkSRConfig {
      * 默认 20S
      */
     playTimeout?: number;
+    /**
+     * 是否使用新版摄像头/麦克风协议
+     */
+    useSeparateMediaSharePeer?: boolean;
 }
 declare class LarkSR extends EventBase<LarkSRClientEvent, LarkSREvent> {
     /**
@@ -611,19 +615,19 @@ declare class LarkSR extends EventBase<LarkSRClientEvent, LarkSREvent> {
     /**
      * 当前打开的音频设备 ID，如果打开时没指定为空
      */
-    get audioDeviceId(): string | undefined;
+    get audioDeviceId(): string | null | undefined;
     /**
      * 当前打开音频的track对象，未打开状态为空
      */
-    get audioTrack(): MediaStreamTrack | undefined;
+    get audioTrack(): MediaStreamTrack | null | undefined;
     /**
      * 当前打开视频设备 ID，如果打开时没指定特设备id为空
      */
-    get videoDeviceId(): string | undefined;
+    get videoDeviceId(): string | null | undefined;
     /**
      * 当前打开视频track对象，未打开状态为空
      */
-    get videoTrack(): MediaStreamTrack | undefined;
+    get videoTrack(): MediaStreamTrack | null | undefined;
     /**
      * LarkSR 客户端。所有操作和事件通过该类传递
      * @param config 本地配置，优先级最高
@@ -992,40 +996,42 @@ declare class LarkSR extends EventBase<LarkSRClientEvent, LarkSREvent> {
      * @param enable 是否启用
      * @returns
      */
-    setAudioEnable(enable: boolean): void | undefined;
+    setAudioEnable(enable: boolean): any;
     /**
      * 设置当前已开启的视频track是否启用状态
      * @param enable 是否启用
      * @returns
      */
-    setVideoEnable(enable: boolean): void | undefined;
-    setShareEnable(enable: boolean): void | undefined;
+    setVideoEnable(enable: boolean): any;
+    setShareEnable(enable: boolean): any;
+    stopLocalAudio(): any;
+    stopLocalVideo(): any;
+    stopLocalShare(): any;
+    pauseAudioSending(): any;
+    resumeAudioSending(): any;
+    pauseVideoSending(): any;
+    resumeVideoSending(): any;
     /**
      * 关闭当前的音频设备
      * @returns
      */
-    closeAudio(): boolean | undefined;
-    closeVideo(): boolean | undefined;
-    closeShare(): boolean | undefined;
+    closeAudio(): any;
+    closeVideo(): any;
+    closeShare(): any;
+    closeMediaChannel(): void;
     /**
      * 打开一个音频设备，要注意浏览器限制在 https 或者 localhost 下才能打开音频
      * @param deviceId 音频设备id，如果不传将打开默认设备。@see getConnectedAudioinputDevices
      * @returns Promise
      */
-    openAudio(deviceId?: string): Promise<{
-        streams: MediaStream;
-        rtcRtpSenders: import("./lark/peer_connection").RTCMediaTrackBinding[];
-    } | undefined>;
+    openAudio(deviceId?: string): Promise<any>;
     /**
      * 打开一个视频设备，要注意浏览器限制在 https 或者 localhost 下才能打开视频
      * @param audio boolean 是否同时开启音频
      * @param cameraId 视频设备id，如果不传将打开默认设备。@see getConnectedVideoinputDevices
      * @returns Promise
      */
-    openVideo(audio?: boolean, cameraId?: string): Promise<{
-        streams: MediaStream;
-        rtcRtpSenders: import("./lark/peer_connection").RTCMediaTrackBinding[];
-    } | undefined>;
+    openVideo(audio?: boolean, cameraId?: string, width?: number, height?: number): Promise<any>;
     /**
      * 打开默认媒体设备，要注意浏览器限制在 https 或者 localhost 下
      * 如果需要指定特殊的媒体设备请单独使用 @see openAudio @see openVideo
@@ -1033,35 +1039,27 @@ declare class LarkSR extends EventBase<LarkSRClientEvent, LarkSREvent> {
      * @param audio 是否包含音频
      * @returns Promise
      */
-    openDefaultMedia(video?: boolean, audio?: boolean): Promise<void | undefined>;
-    openShareMediaDevice(): Promise<void | undefined>;
+    openDefaultMedia(video?: boolean, audio?: boolean): Promise<any>;
+    openShareMediaDevice(): Promise<any>;
     /**
      * 返回已连接的音频设备列表，设备列表中的设备的 deviceId 可用来打开某个音频设备
      * @returns Promise<MediaDeviceInfo[]>
      */
-    getConnectedAudioinputDevices(): Promise<MediaDeviceInfo[] | undefined>;
-    getConnectedAudioOutputDevices(): Promise<MediaDeviceInfo[] | undefined>;
+    getConnectedAudioinputDevices(): Promise<any>;
+    getConnectedAudioOutputDevices(): Promise<any>;
     /**
      * 返回已连接的视频设备
      * @returns Promise<MediaDeviceInfo[]>
      */
-    getConnectedVideoinputDevices(): Promise<MediaDeviceInfo[] | undefined>;
-    getConnectedDevices(type: MediaDeviceKind): Promise<MediaDeviceInfo[] | undefined>;
-    openAudioDevice(deviceId: string, kind?: "audioinput" | "audiooutput"): Promise<{
-        streams: MediaStream;
-        rtcRtpSenders: import("./lark/peer_connection").RTCMediaTrackBinding[];
-    } | undefined>;
-    openCamera(cameraId: string, minWidth?: number, minHeight?: number): Promise<{
-        streams: MediaStream;
-        rtcRtpSenders: import("./lark/peer_connection").RTCMediaTrackBinding[];
-    } | undefined>;
-    openUserMeida(constraints?: MediaStreamConstraints): Promise<{
-        streams: MediaStream;
-        rtcRtpSenders: import("./lark/peer_connection").RTCMediaTrackBinding[];
-    } | undefined>;
+    getConnectedVideoinputDevices(): Promise<any>;
+    getConnectedDevices(type: MediaDeviceKind): Promise<any>;
+    openAudioDevice(deviceId: string, kind?: "audioinput" | "audiooutput"): Promise<any>;
+    openCamera(cameraId: string, minWidth?: number, minHeight?: number): Promise<any>;
+    openUserMedia(constraints?: MediaStreamConstraints, reset?: boolean): Promise<any>;
+    openUserMeida(constraints?: MediaStreamConstraints, reset?: boolean): Promise<any>;
     addMediaTrack(track: MediaStreamTrack, ...streams: MediaStream[]): boolean | undefined;
-    removeMediaTrack(track: RTCRtpSender): boolean | undefined;
-    requestUserMediaPermission(constraints?: MediaStreamConstraints): Promise<MediaStream> | undefined;
+    removeMediaTrack(track: RTCRtpSender): any;
+    requestUserMediaPermission(constraints?: MediaStreamConstraints): any;
     /**
      * 启动云端推流功能
      * @param params {
