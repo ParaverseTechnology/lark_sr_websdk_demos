@@ -208,6 +208,14 @@ larksr.screenState.isLocalRenderMouse;
 larksr.screenState.isLockMosue;
 ```
 
+监听 screenState 的状态改变，事件码为 `0`。当 SDK 内部或者外部触发了 `screenState.resize()` 之后调用。
+
+```javascript
+larksr.screenState.on(0, () => {
+    console.log("screen state resize", larksr.screenState.screenOrientation);
+});
+```
+
 ## 操作类实例
 
 ```javascript

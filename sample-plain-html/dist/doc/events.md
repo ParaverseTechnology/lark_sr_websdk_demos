@@ -164,6 +164,30 @@ declare const enum LarkSRClientEvent {
     LarkEvent = "larkevent",
     /**
      * 发生错误时抛出
+     * type:     error
+     * message: 错误消息
+     * code:    可能的错误码如下, 错误码的具体定义 @see [./event_codes]
+     *          // 连接服务器的websocket代理关闭
+     *          LK_RENDER_SERVER_CLOSE                    : 102
+     *          // 连接代理服务器的websocket关闭
+     *          LK_PROXY_SERVER_CLOSE                     : 202
+     *          // 检测版本失败，服务器和客户端的版本匹配。目前只有3.1和3.2大版本不匹配情况
+     *          LK_VERSION_CHECK_FAILED                   : 301
+     *          // 服务器返回创建Task失败
+     *          TASK_NOTFOUND-TASK_NO_GPU_RESOURCE        : 401-404
+     *          // 服务端启动流媒体失败
+     *          LK_START_STREAM_PROCESS_START-FAILED-LK_START_STREAM_ENCODER_ERROR : 501-504
+     *          // RTC 连接关闭
+     *          LK_RTC_EVENT_PEERCONNECTION_CLOSED        : 601
+     *          // RTC 连接出错
+     *          LK_RTC_EVENT_PEERCONNECTION_ERROR         : 602
+     *          // RTC 创建出错，一般为 浏览器不支持 webrtc
+     *          LK_RTC_EVENT_PEERCONNECTION_CREATE_FAILED : 603
+     *          // 服务器主动要求客户端退出
+     *          LK_NOTIFY_CLIENT_LOGOUT_PLAYER_LOGOUT     : 800
+     *          // 一人操作多人看房主退出
+     *          LK_NOTIFY_CLIENT_LOGOUT_TASKOWNER_LOGOUT  : 801
+     *
      */
     ERROR = "error",
     /**

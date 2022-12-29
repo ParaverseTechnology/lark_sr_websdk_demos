@@ -200,6 +200,7 @@ export interface IAppliParams {
     videoInput: boolean;
     videoInputAutoStart: boolean;
     liveStreaming: boolean;
+    useSeparateMediaSharePeer: boolean;
 }
 export declare enum AppliType {
     DESKTOP = 1,
@@ -266,6 +267,7 @@ export declare class AppliParams implements IAppliParams {
     videoInput: boolean;
     videoInputAutoStart: boolean;
     liveStreaming: boolean;
+    useSeparateMediaSharePeer: boolean;
     static copyAndCreate(params?: IAppliParams): AppliParams;
     static setUpWithSDKConfig(params: IAppliParams, config: ILarkSRConfig): AppliParams;
 }

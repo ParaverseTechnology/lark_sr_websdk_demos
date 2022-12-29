@@ -466,6 +466,11 @@ interface ILarkSRConfig {
      * 默认 20S
      */
     playTimeout?: number;
+    /**
+     * 是否使用新版摄像头/麦克风协议
+     * 单独上传流程要求渲染服务器版本大于3290）
+     */
+    useSeparateMediaSharePeer?: boolean;
 }
 declare class LarkSR extends EventBase<LarkSRClientEvent, LarkSREvent> {
     /**
@@ -611,19 +616,19 @@ declare class LarkSR extends EventBase<LarkSRClientEvent, LarkSREvent> {
     /**
      * 当前打开的音频设备 ID，如果打开时没指定为空
      */
-    get audioDeviceId(): string | undefined;
+    get audioDeviceId(): string | null | undefined;
     /**
      * 当前打开音频的track对象，未打开状态为空
      */
-    get audioTrack(): MediaStreamTrack | undefined;
+    get audioTrack(): MediaStreamTrack | null | undefined;
     /**
      * 当前打开视频设备 ID，如果打开时没指定特设备id为空
      */
-    get videoDeviceId(): string | undefined;
+    get videoDeviceId(): string | null | undefined;
     /**
      * 当前打开视频track对象，未打开状态为空
      */
-    get videoTrack(): MediaStreamTrack | undefined;
+    get videoTrack(): MediaStreamTrack | null | undefined;
     /**
      * LarkSR 客户端。所有操作和事件通过该类传递
      * @param config 本地配置，优先级最高
@@ -992,40 +997,82 @@ declare class LarkSR extends EventBase<LarkSRClientEvent, LarkSREvent> {
      * @param enable 是否启用
      * @returns
      */
-    setAudioEnable(enable: boolean): void | undefined;
+    setAudioEnable(enable: boolean): any;
     /**
      * 设置当前已开启的视频track是否启用状态
      * @param enable 是否启用
      * @returns
      */
-    setVideoEnable(enable: boolean): void | undefined;
-    setShareEnable(enable: boolean): void | undefined;
+    setVideoEnable(enable: boolean): any;
+    setShareEnable(enable: boolean): any;
+    /**
+     * 停止本地音频轨道
+     * @returns
+     */
+    stopLocalAudio(): any;
+    /**
+     * 停止本地已打开的视频轨道
+     * @returns
+     */
+    stopLocalVideo(): any;
+    /**
+     * 停止本地共享轨道
+     * @returns
+     */
+    stopLocalShare(): any;
+    /**
+     * 暂停发送音频
+     * @returns
+     */
+    pauseAudioSending(): any;
+    /**
+     * 恢复发送音频
+     * @returns
+     */
+    resumeAudioSending(): any;
+    /**
+     * 暂停发送视频
+     * @returns
+     */
+    pauseVideoSending(): any;
+    /**
+     * 恢复发送视频
+     * @returns
+     */
+    resumeVideoSending(): any;
     /**
      * 关闭当前的音频设备
      * @returns
      */
-    closeAudio(): boolean | undefined;
-    closeVideo(): boolean | undefined;
-    closeShare(): boolean | undefined;
+    closeAudio(): any;
+    /**
+     * 关闭当前已打开的视频设备
+     * @returns
+     */
+    closeVideo(): any;
+    /**
+     * 关闭当前已打开的共享设备如共享的标签页等
+     * @returns
+     */
+    closeShare(): any;
+    /**
+     * 关闭整个媒体上传连接。再次使用时重新打开。
+     * @returns
+     */
+    closeMediaChannel(): void;
     /**
      * 打开一个音频设备，要注意浏览器限制在 https 或者 localhost 下才能打开音频
      * @param deviceId 音频设备id，如果不传将打开默认设备。@see getConnectedAudioinputDevices
      * @returns Promise
      */
-    openAudio(deviceId?: string): Promise<{
-        streams: MediaStream;
-        rtcRtpSenders: import("./lark/peer_connection").RTCMediaTrackBinding[];
-    } | undefined>;
+    openAudio(deviceId?: string): Promise<any>;
     /**
      * 打开一个视频设备，要注意浏览器限制在 https 或者 localhost 下才能打开视频
      * @param audio boolean 是否同时开启音频
      * @param cameraId 视频设备id，如果不传将打开默认设备。@see getConnectedVideoinputDevices
      * @returns Promise
      */
-    openVideo(audio?: boolean, cameraId?: string): Promise<{
-        streams: MediaStream;
-        rtcRtpSenders: import("./lark/peer_connection").RTCMediaTrackBinding[];
-    } | undefined>;
+    openVideo(audio?: boolean, cameraId?: string, width?: number, height?: number): Promise<any>;
     /**
      * 打开默认媒体设备，要注意浏览器限制在 https 或者 localhost 下
      * 如果需要指定特殊的媒体设备请单独使用 @see openAudio @see openVideo
@@ -1033,35 +1080,74 @@ declare class LarkSR extends EventBase<LarkSRClientEvent, LarkSREvent> {
      * @param audio 是否包含音频
      * @returns Promise
      */
-    openDefaultMedia(video?: boolean, audio?: boolean): Promise<void | undefined>;
-    openShareMediaDevice(): Promise<void | undefined>;
+    openDefaultMedia(video?: boolean, audio?: boolean): Promise<any>;
+    /**
+     * 打开共享设备，浏览器可共享窗口，标签页等
+     * @returns Promise
+     */
+    openShareMediaDevice(): Promise<any>;
     /**
      * 返回已连接的音频设备列表，设备列表中的设备的 deviceId 可用来打开某个音频设备
      * @returns Promise<MediaDeviceInfo[]>
      */
-    getConnectedAudioinputDevices(): Promise<MediaDeviceInfo[] | undefined>;
-    getConnectedAudioOutputDevices(): Promise<MediaDeviceInfo[] | undefined>;
+    getConnectedAudioinputDevices(): Promise<any>;
+    getConnectedAudioOutputDevices(): Promise<any>;
     /**
      * 返回已连接的视频设备
      * @returns Promise<MediaDeviceInfo[]>
      */
-    getConnectedVideoinputDevices(): Promise<MediaDeviceInfo[] | undefined>;
-    getConnectedDevices(type: MediaDeviceKind): Promise<MediaDeviceInfo[] | undefined>;
-    openAudioDevice(deviceId: string, kind?: "audioinput" | "audiooutput"): Promise<{
-        streams: MediaStream;
-        rtcRtpSenders: import("./lark/peer_connection").RTCMediaTrackBinding[];
-    } | undefined>;
-    openCamera(cameraId: string, minWidth?: number, minHeight?: number): Promise<{
-        streams: MediaStream;
-        rtcRtpSenders: import("./lark/peer_connection").RTCMediaTrackBinding[];
-    } | undefined>;
-    openUserMeida(constraints?: MediaStreamConstraints): Promise<{
-        streams: MediaStream;
-        rtcRtpSenders: import("./lark/peer_connection").RTCMediaTrackBinding[];
-    } | undefined>;
+    getConnectedVideoinputDevices(): Promise<any>;
+    /**
+     * 获取所有连接的摄像头麦克风设备信息
+     * @param type *"audioinput" | "audiooutput" | "videoinput"*
+     * @returns Promise<MediaDeviceInfo[]>
+     */
+    getConnectedDevices(type: MediaDeviceKind): Promise<any>;
+    /**
+     * 打开麦克风设备
+     * @param deviceId 麦克风设备 ID， @see getConnectedAudioOutputDevices
+     * @param kind “audioinput”
+     * @returns @see this.openUserMedia
+     */
+    openAudioDevice(deviceId: string, kind?: "audioinput" | "audiooutput"): Promise<any>;
+    /**
+     * 打开摄像头设备
+     * @param cameraId 摄像头设备ID，@see getConnectedVideoinputDevices
+     * @param minWidth 限制打开设备的宽
+     * @param minHeight 限制打开设备的高
+     * @returns @see openUserMedia
+     */
+    openCamera(cameraId: string, minWidth?: number, minHeight?: number): Promise<any>;
+    /**
+     * 请求浏览器打开媒体并且打开上传到服务器通道。
+     * 要注意的是在服务器连接成功之后请求打开
+     * @param constraints 参考 navigator.mediaDevices.getUserMedia(constraints)
+     * @param reset 是否重制媒体通道。true 的情况下重制整个 peerconnection
+     * @returns 打开的通道的绑定信息。管理媒体通道如关闭暂停或恢复使用。
+     */
+    openUserMedia(constraints?: MediaStreamConstraints, reset?: boolean): Promise<any>;
+    openUserMeida(constraints?: MediaStreamConstraints, reset?: boolean): Promise<any>;
+    /**
+     * 添加媒体轨道
+     * 一般情况下使用 @see openUserMedia
+     * @param track
+     * @param streams
+     * @returns
+     */
     addMediaTrack(track: MediaStreamTrack, ...streams: MediaStream[]): boolean | undefined;
-    removeMediaTrack(track: RTCRtpSender): boolean | undefined;
-    requestUserMediaPermission(constraints?: MediaStreamConstraints): Promise<MediaStream> | undefined;
+    /**
+     * 移除某个媒体轨道。一般为  openUserMedia 打开的通道。
+     * 一般使用 @see closeVideo closeAudio 或 @see pauseAudioSending pauseVideoSending
+     * @param track @see openUserMedia 返回值
+     * @returns
+     */
+    removeMediaTrack(track: RTCRtpSender): any;
+    /**
+     * 请求媒体设备权限，相当于 navigator.mediaDevices.getUserMedia(constraints)
+     * @param constraints
+     * @returns
+     */
+    requestUserMediaPermission(constraints?: MediaStreamConstraints): any;
     /**
      * 启动云端推流功能
      * @param params {
