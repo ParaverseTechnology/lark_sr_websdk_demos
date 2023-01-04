@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="format-detection" content="telephone=no, email=no" />
+    <meta name="screen-orientation" content="portrait">
+    <meta name="x5-orientation" content="portrait">
+    <meta name="full-screen" content="yes">
+    <meta name="x5-fullscreen" content="true">
+    <meta name="browsermode" content="application">
+    <meta name="x5-page-mode" content="app">
+    <meta name="msapplication-tap-highlight" content="no">
+    <meta name="HandheldFriendly" content="true">
+    <meta name="MobileOptimized" content="320">
+    <meta name="360-fullscreen" content="true" />
+
+    <meta name="theme-color" content="#000000" />
+    <meta name="renderer" content="webkit" />
+    <!--[if IE]>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <![endif]-->
+    <!-- 视图窗口，移动端特属的标签。 -->
+    <meta name="viewport"
+        content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no" />
+    <meta name="description" content="lark3.0" />
+    <title>平行云</title>
+    <link href="./css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .container {
+            padding-top: 50px;
+        }
+
+        #iframe {
+            width: -webkit-fill-available;
+            /* min-height: -webkit-fill-available; */
+            border: 1px solid lightgreen;
+            height: 500px;
+        }
+
+        .func-row {
+            margin-bottom: 5px;
+        }
+
+        .func-row button {
+            margin-right: 5px;
+        }
+
+        .cloud-client {
+            min-height: 300px;
+            position: relative;
+        }
+
+    </style>
+    <script src="./js/jquery.min.js"></script>
+    <script src="./dist/larksr-web-sdk.min.js"></script>
+    <script>
+        var client1;
+        var client2;
+        var client3;
+        var client4;
+        var client5;
+        var client6;
+        var globalConfig = {
+            serverAddress: "",
+            ip: "",
+            port: "",
+            sdkId: "",
+            appliId: "",
+            appliId1: "",
+            appliId2: "",
+            appliId3: "",
+            appliId4: "",
+            appliId5: "",
+            appliId6: "",
+        };
+
+        function createLarkSRClient(config, appliId) {
+            if (!config.serverAddress) {
+                alert("请填写服务器地址");
+                return null;
+            }
+            if (!config.authCode) {
+                alert("请填写SDK");
+                return null;
+            }
+            if (!appliId) {
+                alert("请填写appliId");
+                return null;
+            }
+
+            var client = new larksr_websdk.LarkSR(config);
+
+            // 开始连接
+            client.connect({
+                    // 要使用的云端资源的应用 ID，从后云雀后台接口获取
+                    // 参考查询应用一栏文档
+                    // https://www.pingxingyun.com/online/api3_2.html?id=476
+                    // 如 222.128.6.137:8181 系统下的 879408743551336448 应用
+                    appliId: appliId,
+                    // playerMode: 2,
+                    // userType: 1,
+                    // taskId: "",
+                    // nickname: "Test",
+                })
+                .catch(function (e) {
+                    console.error('enter appli falied', e);
+                    alert(JSON.stringify(e));
+                });
+
+            // 监听连接成功事件P
+            client.on('error', function (e) {
+                console.error("LarkSRClientEvent error", e);
+                alert(JSON.stringify(e));
+            });
+            client.on('info', function (e) {
+                console.log("LarkSRClientEvent info", e);
+            });
+            return client;
+        }
+
+        $(document).ready(function () {
+            $("#connect1").on("click", function () {
+                console.log("connect1");
+
+                updateConfig();
+
+                client1 = createLarkSRClient({
+                    rootElement: document.getElementById('container1'),
+                    serverAddress: globalConfig.serverAddress,
+                    authCode: globalConfig.sdkId,
+                    // 视频缩放模式，默认保留宽高比，不会拉伸并完整显示在容器中
+                    scaleMode: 'contain',
+                    // 0 -》 用户手动触发, 1 -》 首次点击进入触发, 2 -》 每次点击触发
+                    fullScreenMode: 0,
+                    /**
+                     * 可选项，是否同步传入根的组件的大小样式。
+                     * 默认开启，将跟组件大小设置为浏览器视口大小
+                     * 如果关闭，内部组件将按照传入的根元素大小去显示
+                     * 注意，当关闭时不会自动填充根元素，如果根元素高度为 0 将显示不出来。
+                     * 注意，当关闭时 mobileForceLandscape 将失去作用。
+                     */
+                     handelRootElementSize: false,
+                }, globalConfig.appliId1 ? globalConfig.appliId1 : globalConfig.appliId);
+            });
+            $("#close1").on("click", function () {
+                console.log("close1");
+                if (client1) {
+                    client1.close();
+                    client1.destroy();
+                    client1 = null;
+                }
+            });
+
+            $("#connect2").on("click", function () {
+                console.log("connect2");
+
+                updateConfig();
+
+                client2 = createLarkSRClient({
+                    rootElement: document.getElementById('container2'),
+                    serverAddress: globalConfig.serverAddress,
+                    authCode: globalConfig.sdkId,
+                    // 视频缩放模式，默认保留宽高比，不会拉伸并完整显示在容器中
+                    scaleMode: 'contain',
+                    // 0 -》 用户手动触发, 1 -》 首次点击进入触发, 2 -》 每次点击触发
+                    fullScreenMode: 0,
+                    /**
+                     * 可选项，是否同步传入根的组件的大小样式。
+                     * 默认开启，将跟组件大小设置为浏览器视口大小
+                     * 如果关闭，内部组件将按照传入的根元素大小去显示
+                     * 注意，当关闭时不会自动填充根元素，如果根元素高度为 0 将显示不出来。
+                     * 注意，当关闭时 mobileForceLandscape 将失去作用。
+                     */
+                     handelRootElementSize: false,
+                }, globalConfig.appliId2 ? globalConfig.appliId2 : globalConfig.appliId);
+            });
+            $("#close2").on("click", function () {
+                console.log("close2");
+                if (client2) {
+                    client2.close();
+                    client2.destroy();
+                    client2 = null;
+                }
+            });
+
+            $("#connect3").on("click", function () {
+                console.log("connect3");
+                
+                updateConfig();
+
+                client3 = createLarkSRClient({
+                    rootElement: document.getElementById('container3'),
+                    serverAddress: globalConfig.serverAddress,
+                    authCode: globalConfig.sdkId,
+                    // 拉伸
+                    scaleMode: 'fill_stretch',
+                    // 0 -》 用户手动触发, 1 -》 首次点击进入触发, 2 -》 每次点击触发
+                    fullScreenMode: 0,
+                    /**
+                     * 可选项，是否同步传入根的组件的大小样式。
+                     * 默认开启，将跟组件大小设置为浏览器视口大小
+                     * 如果关闭，内部组件将按照传入的根元素大小去显示
+                     * 注意，当关闭时不会自动填充根元素，如果根元素高度为 0 将显示不出来。
+                     * 注意，当关闭时 mobileForceLandscape 将失去作用。
+                     */
+                     handelRootElementSize: false,
+                }, globalConfig.appliId3 ? globalConfig.appliId3 : globalConfig.appliId);
+            });
+            $("#close3").on("click", function () {
+                console.log("close3");
+                if (client3) {
+                    client3.close();
+                    client3.destroy();
+                    client3 = null;
+                }
+            });
+
+            $("#connect4").on("click", function () {
+                console.log("connect4");
+                
+                updateConfig();
+
+                client4 = createLarkSRClient({
+                    rootElement: document.getElementById('container4'),
+                    serverAddress: globalConfig.serverAddress,
+                    authCode: globalConfig.sdkId,
+                    // 拉伸
+                    scaleMode: 'fill_stretch',
+                    // 0 -》 用户手动触发, 1 -》 首次点击进入触发, 2 -》 每次点击触发
+                    fullScreenMode: 0,
+                    /**
+                     * 可选项，是否同步传入根的组件的大小样式。
+                     * 默认开启，将跟组件大小设置为浏览器视口大小
+                     * 如果关闭，内部组件将按照传入的根元素大小去显示
+                     * 注意，当关闭时不会自动填充根元素，如果根元素高度为 0 将显示不出来。
+                     * 注意，当关闭时 mobileForceLandscape 将失去作用。
+                     */
+                     handelRootElementSize: false,
+                }, globalConfig.appliId4 ? globalConfig.appliId4 : globalConfig.appliId);
+            });
+            $("#close4").on("click", function () {
+                console.log("close4");
+                if (client4) {
+                    client4.close();
+                    client4.destroy();
+                    client4 = null;
+                }
+            });
+
+            $("#connect5").on("click", function () {
+                console.log("connect5");
+
+                updateConfig();
+
+                client5 = createLarkSRClient({
+                    rootElement: document.getElementById('container5'),
+                    serverAddress: globalConfig.serverAddress,
+                    authCode: globalConfig.sdkId,
+                    // 视频缩放模式，默认保留宽高比，不会拉伸并完整显示在容器中
+                    scaleMode: 'contain',
+                    // 0 -》 用户手动触发, 1 -》 首次点击进入触发, 2 -》 每次点击触发
+                    fullScreenMode: 0,
+                    /**
+                     * 可选项，是否同步传入根的组件的大小样式。
+                     * 默认开启，将跟组件大小设置为浏览器视口大小
+                     * 如果关闭，内部组件将按照传入的根元素大小去显示
+                     * 注意，当关闭时不会自动填充根元素，如果根元素高度为 0 将显示不出来。
+                     * 注意，当关闭时 mobileForceLandscape 将失去作用。
+                     */
+                     handelRootElementSize: false,
+                }, globalConfig.appliId5 ? globalConfig.appliId5 : globalConfig.appliId);
+            });
+            $("#close5").on("click", function () {
+                console.log("close5");
+                if (client5) {
+                    client5.close();
+                    client5.destroy();
+                    client5 = null;
+                }
+            });
+
+            $("#connect6").on("click", function () {
+                console.log("connect6");
+
+                updateConfig();
+
+                client6 = createLarkSRClient({
+                    rootElement: document.getElementById('container6'),
+                    serverAddress: globalConfig.serverAddress,
+                    authCode: globalConfig.sdkId,
+                    // 视频缩放模式，默认保留宽高比，不会拉伸并完整显示在容器中
+                    scaleMode: 'contain',
+                    // 0 -》 用户手动触发, 1 -》 首次点击进入触发, 2 -》 每次点击触发
+                    fullScreenMode: 0,
+                    /**
+                     * 可选项，是否同步传入根的组件的大小样式。
+                     * 默认开启，将跟组件大小设置为浏览器视口大小
+                     * 如果关闭，内部组件将按照传入的根元素大小去显示
+                     * 注意，当关闭时不会自动填充根元素，如果根元素高度为 0 将显示不出来。
+                     * 注意，当关闭时 mobileForceLandscape 将失去作用。
+                     */
+                     handelRootElementSize: false,
+                }, globalConfig.appliId6 ? globalConfig.appliId6 : globalConfig.appliId);
+            });
+            $("#close6").on("click", function () {
+                console.log("close6");
+                if (client6) {
+                    client6.close();
+                    client6.destroy();
+                    client6 = null;
+                }
+            });
+
+
+            function updateConfig() {
+                globalConfig.serverAddress = $("#input-server-address").val();
+                globalConfig.sdkId = $("#input-sdk-id").val();
+                globalConfig.appliId = $("#input-appli-id").val();
+                globalConfig.appliId1 = $("#input-appli-id-1").val();
+                globalConfig.appliId2 = $("#input-appli-id-2").val();
+                globalConfig.appliId3 = $("#input-appli-id-3").val();
+                globalConfig.appliId4 = $("#input-appli-id-4").val();
+                globalConfig.appliId5 = $("#input-appli-id-5").val();
+                globalConfig.appliId6 = $("#input-appli-id-6").val();
+                console.log("update globalCofnig ", globalConfig);
+            }
+
+
+            $("#update-config").on("click", updateConfig);
+
+            // setup with url
+            (function () {
+                var urlParams = new URLSearchParams(window.location.search);
+                var ip = urlParams.get('serverIp');
+                var port = urlParams.get('serverPort');
+                var sdkId = urlParams.get('sdkId');
+                var appliId = urlParams.get('appliId');
+
+                var appliId1 = urlParams.get('appliId1');
+                var appliId2 = urlParams.get('appliId2');
+                var appliId3 = urlParams.get('appliId3');
+                var appliId4 = urlParams.get('appliId4');
+                var appliId5 = urlParams.get('appliId5');
+                var appliId6 = urlParams.get('appliId6');
+
+                var autoPlay = urlParams.get('autoPlay');
+                var showPlayButton = urlParams.get('showPlayButton');
+                var showPlayButton = urlParams.get('showPlayButton');
+                var useSeparateMediaSharePeer = urlParams.get('useSeparateMediaSharePeer');
+
+                console.log("load urlparrams", ip, port, sdkId, appliId, autoPlay, showPlayButton);
+
+                var serverAddress = "";
+                var config = {};
+
+                if (autoPlay != null && autoPlay != undefined) {
+                    config.autoPlay = autoPlay === "true" ? true : false;
+                }
+                if (showPlayButton != null && showPlayButton != undefined) {
+                    config.showPlayButton = showPlayButton === "true" ? true : false;
+                }
+                if (useSeparateMediaSharePeer != null && useSeparateMediaSharePeer != undefined) {
+                    config.useSeparateMediaSharePeer = useSeparateMediaSharePeer === 'true' ? true : false;
+                }
+
+                if (ip && port) {
+                    serverAddress = (window.location.protocol.indexOf("https") > -1 ? "https" : "http") +
+                        "://" + ip + ":" + port;
+                    $("#input-server-address").val(serverAddress);
+                }
+                if (sdkId) {
+                    $("#input-sdk-id").val(sdkId);
+                }
+                if (appliId) {
+                    $("#input-appli-id").val(appliId);
+                }
+                if (appliId1) {
+                    $("#input-appli-id-1").val(appliId1);
+                }
+                if (appliId2) {
+                    $("#input-appli-id-2").val(appliId2);
+                }
+                if (appliId3) {
+                    $("#input-appli-id-3").val(appliId3);
+                }
+                if (appliId4) {
+                    $("#input-appli-id-4").val(appliId4);
+                }
+                if (appliId5) {
+                    $("#input-appli-id-5").val(appliId5);
+                }
+                if (appliId6) {
+                    $("#input-appli-id-6").val(appliId6);
+                }
+
+                globalConfig.serverAddress = serverAddress;
+                globalConfig.ip = ip;
+                globalConfig.port = port;
+                globalConfig.sdkId = sdkId;
+                globalConfig.appliId = appliId;
+                globalConfig.appliId1 = appliId1;
+                globalConfig.appliId2 = appliId2;
+                globalConfig.appliId3 = appliId3;
+                globalConfig.appliId4 = appliId4;
+                globalConfig.appliId5 = appliId5;
+                globalConfig.appliId6 = appliId6;
+                console.log("update globalCofnig from url", globalConfig);
+            })();
+        });
+    </script>
+</head>
+
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <input placeholder="服务器地址,如 http://192.168.0.55:8181" id="input-server-address" type="text" />
+                        <input placeholder="SDK授权码" id="input-sdk-id" type="text" />
+                        <input placeholder="应用ID" id="input-appli-id" type="text" />
+                        <button id="update-config">更新</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h1>Lark SDK MULTIVIEW Demo 横排显示</h1>
+                    </div>
+                    <div class="panel-body">
+                        <div>
+                            <span>容器1</span>
+                            <button id="connect1">连接</button>
+                            <button id="close1">关闭</button>
+                            <input placeholder="应用ID-1" id="input-appli-id-1" type="text" />
+                        </div>
+                        <div>
+                            <span>容器2</span>
+                            <button id="connect2">连接</button>
+                            <button id="close2">关闭</button>
+                            <input placeholder="应用ID-2" id="input-appli-id-2" type="text" />
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 cloud-client" id="container1">
+                                1
+                            </div>
+                            <div class="col-md-6 cloud-client" id="container2">
+                                2
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h1>Lark SDK MULTIVIEW Demo 横排填充显示</h1>
+                    </div>
+                    <div class="panel-body">
+                        <div>
+                            <span>容器3</span>
+                            <button id="connect3">连接</button>
+                            <button id="close3">关闭</button>
+                            <input placeholder="应用ID-3" id="input-appli-id-3" type="text" />
+                        </div>
+                        <div>
+                            <span>容器4</span>
+                            <button id="connect4">连接</button>
+                            <button id="close4">关闭</button>
+                            <input placeholder="应用ID-4" id="input-appli-id-4" type="text" />
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 cloud-client" id="container3">
+                                3
+                            </div>
+                            <div class="col-md-6 cloud-client" id="container4">
+                                4
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h1>Lark SDK MULTIVIEW Demo 竖排显示</h1>
+                    </div>
+                    <div class="panel-body">
+                        <div>
+                            <h1>容器5</h1>
+                            <button id="connect5">连接</button>
+                            <button id="close5">关闭</button>
+                            <input placeholder="应用ID-5" id="input-appli-id-5" type="text" />
+                            <div class="cloud-client" id="container5" />
+                        </div>
+                        <div>
+                            <h1>容器6</h1>
+                            <button id="connect6">连接</button>
+                            <button id="close6">关闭</button>
+                            <input placeholder="应用ID-6" id="input-appli-id-6" type="text" />
+                            <div class="cloud-client" id="container6" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
