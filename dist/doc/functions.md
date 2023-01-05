@@ -359,6 +359,16 @@ openAudio(deviceId?: string);
  */
 closeAudio(): boolean | undefined;
 /**
+ * 暂停发送音频
+ * @returns
+ */
+pauseAudioSending(): any;
+/**
+ * 恢复发送音频
+ * @returns
+ */
+resumeAudioSending(): any;
+/**
  * 返回已连接的音频设备列表，设备列表中的设备的 deviceId 可用来打开某个音频设备
  * @returns
  */
@@ -369,6 +379,15 @@ getConnectedAudioinputDevices(): Promise<MediaDeviceInfo[] | undefined>;
  * @returns
  */
 setAudioEnable(enable: boolean): void | undefined;
+
+/**
+ * 请求浏览器打开媒体并且打开上传到服务器通道。
+ * 要注意的是在服务器连接成功之后请求打开
+ * @param constraints 参考 navigator.mediaDevices.getUserMedia(constraints)
+ * @param reset 是否重制媒体通道。true 的情况下重制整个 peerconnection
+ * @returns 打开的通道的绑定信息。管理媒体通道如关闭暂停或恢复使用。
+ */
+openUserMedia(constraints?: MediaStreamConstraints, reset?: boolean): Promise<any>;
 ```
 
 larksr 配置项自动打开麦克风配置,在`new LarkSR({ ... 此处省略其他配置 ... audioInputAutoStart: true})` 时传入，
@@ -397,9 +416,19 @@ audioInputAutoStart?: boolean;
  * 打开一个视频设备，要注意浏览器限制在 https 或者 localhost 下才能打开视频
  * @param audio boolean 是否同时开启音频
  * @param cameraId 视频设备id，如果不传将打开默认设备。@see getConnectedVideoinputDevices
+ * @param width 限制打开设备的宽
+ * @param height 限制打开设备的高
  * @returns Promise
  */
-openVideo(audio?: boolean, cameraId?: string);
+openVideo(audio?: boolean, cameraId?: string, width?: number, height?: number): Promise<any>;
+/**
+ * 打开摄像头设备
+ * @param cameraId 摄像头设备ID，@see getConnectedVideoinputDevices
+ * @param minWidth 限制打开设备的宽
+ * @param minHeight 限制打开设备的高
+ * @returns @see openUserMedia
+ */
+openCamera(cameraId: string, minWidth?: number, minHeight?: number): Promise<any>;
 /**
  * 打开默认媒体设备，要注意浏览器限制在 https 或者 localhost 下
  * 如果需要指定特殊的媒体设备请单独使用 @see openAudio @see openVideo
@@ -419,6 +448,36 @@ getConnectedVideoinputDevices();
  * @returns void
  */
 setVideoEnable(enable: boolean);
+
+/**
+ * 暂停发送视频
+ * @returns
+ */
+pauseVideoSending(): any;
+/**
+ * 恢复发送视频
+ * @returns
+ */
+resumeVideoSending(): any;
+
+/**
+ * 关闭当前已打开的视频设备
+ * @returns
+ */
+closeVideo(): any;
+/**
+ * 关闭当前已打开的共享设备如共享的标签页等
+ * @returns
+ */
+closeShare(): any;
+/**
+ * 请求浏览器打开媒体并且打开上传到服务器通道。
+ * 要注意的是在服务器连接成功之后请求打开
+ * @param constraints 参考 navigator.mediaDevices.getUserMedia(constraints)
+ * @param reset 是否重制媒体通道。true 的情况下重制整个 peerconnection
+ * @returns 打开的通道的绑定信息。管理媒体通道如关闭暂停或恢复使用。
+ */
+openUserMedia(constraints?: MediaStreamConstraints, reset?: boolean): Promise<any>;
 ```
 
 larksr 配置项自动打开视频输入配置,在`new LarkSR({ ... 此处省略其他配置 ... videoInputAutoStart: true})` 时传入

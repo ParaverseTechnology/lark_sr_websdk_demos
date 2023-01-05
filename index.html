@@ -168,32 +168,34 @@
                 client.on('datachanneltext', function (e) {
                     console.log("LarkSRClientEvent DATACHANNEL_TEXT", e);
                 });
-                client.on('appclose', function(e) {
+                client.on('appclose', function (e) {
                     alert("云端应用退出");
                 });
 
                 // test video event
-                client.videoElement.addEventListener('emptied', function(e) {
-                    alert("	The media has become empty; for example, this event is sent if the media has already been loaded (or partially loaded), and the load() method is called to reload it.");
+                client.videoElement.addEventListener('emptied', function (e) {
+                    alert(
+                        "	The media has become empty; for example, this event is sent if the media has already been loaded (or partially loaded), and the load() method is called to reload it.");
                 });
 
-                client.videoElement.addEventListener('ended', function(e) {
+                client.videoElement.addEventListener('ended', function (e) {
                     alert("	Playback has stopped because the end of the media was reached.");
                 });
 
-                client.videoElement.addEventListener('pause', function(e) {
+                client.videoElement.addEventListener('pause', function (e) {
                     alert("	Playback has been paused.");
                 });
 
-                client.videoElement.addEventListener('stalled', function(e) {
-                    alert("	The user agent is trying to fetch media data, but data is unexpectedly not forthcoming.");
+                client.videoElement.addEventListener('stalled', function (e) {
+                    alert(
+                        "	The user agent is trying to fetch media data, but data is unexpectedly not forthcoming.");
                 });
 
-                client.videoElement.addEventListener('suspend', function(e) {
+                client.videoElement.addEventListener('suspend', function (e) {
                     alert("	Media data loading has been suspended.");
                 });
 
-                client.videoElement.addEventListener('waiting', function(e) {
+                client.videoElement.addEventListener('waiting', function (e) {
                     alert("	Playback has stopped because of a temporary lack of data.");
                 });
 
@@ -201,8 +203,8 @@
                 // client.videoElement.paused
                 // client.videoElement.played
                 // window.addEventListener('blur', this.onWindowBlur);
-		        // window.addEventListener('visibilitychange', this.onWindowVisibilityChange);
-		        // window.addEventListener('focus', this.onWindowFocus);
+                // window.addEventListener('visibilitychange', this.onWindowVisibilityChange);
+                // window.addEventListener('focus', this.onWindowFocus);
                 // 
 
                 // 音频设备相关
@@ -466,8 +468,7 @@
             $("#open-audio-input-device").on("click", function (e) {
                 console.log('open-audio-input-device', $("#audio-input-device").val());
                 client.openAudioDevice($("#audio-input-device").val(), 'audioinput')
-                    .then(function (res) {
-                    })
+                    .then(function (res) {})
                     .catch(function (e) {
                         console.log('open audio input device failed', e);
                     });
@@ -501,7 +502,7 @@
                             console.log("device " + des.label + " caps " + JSON.stringify(
                                 des.getCapabilities()))
 
-                            
+
                             var deviceOption =
                                 `<option value="${des.deviceId}">${des.label}</option>`;
                             console.log('add audio intput device option', deviceOption);
@@ -529,15 +530,13 @@
                                 height,
                             }
                         }, false)
-                        .then(function (res) {
-                        })
+                        .then(function (res) {})
                         .catch(function (e) {
                             console.error('open video input device failed', e);
                         });
                 } else {
                     client.openVideo(false, $("#video-input-device").val(), width, height)
-                        .then(function (res) {
-                        })
+                        .then(function (res) {})
                         .catch(function (e) {
                             console.error('open video input device failed', e);
                         });
@@ -664,6 +663,48 @@
             })();
 
             $("#joystick-container").hide();
+
+            var showBlock = true;
+            $("#toggle-ui").on("click", function () {
+                console.log("toggle-ui", showBlock);
+                if (showBlock) {
+                    $(".test-functions").hide();
+                    showBlock = false;
+                } else {
+                    $(".test-functions").show();
+                    showBlock = true;
+                }
+            });
+
+            $("#canvas-render").on("click", function() {
+                if (client) {
+                    client.enableCanvasRender = true;
+                }
+            });
+
+            $("#video-render").on("click", function() {
+                if (client) {
+                    client.enableCanvasRender = false;
+                }
+            });
+
+            $("#button-scalemode-fill").on("click", function() {
+                if (client) {
+                    client.scaleMode = "fill_stretch";
+                }
+            });
+
+            $("#button-scalemode-cover").on("click", function() {
+                if (client) {
+                    client.scaleMode = "fill_clip";
+                }
+            });
+
+            $("#button-scalemode-contain").on("click", function() {
+                if (client) {
+                    client.scaleMode = "contain";
+                }
+            });
         });
     </script>
     <style>
@@ -703,7 +744,7 @@
         <!-- 演示 UI 层 -->
         <div class="ui">
             <div class="block">
-                <p>LarkSR WebSDK TestV3.2.334-20221216</p>
+                <p>LarkSR WebSDK TestV3.2.335-20230105</p>
             </div>
             <div class="block">
                 <input placeholder="服务器地址,如 http://192.168.0.55:8181" id="input-server-address" type="text" />
@@ -711,13 +752,25 @@
                 <input placeholder="应用ID" id="input-appli-id" type="text" />
                 <button id="button-connect">连接</button>
                 <button id="button-close">关闭</button>
+                <button id="toggle-ui">
+                    hide/show ui
+                </button>
+                <button id="canvas-render">
+                    canvas
+                </button>
+                <button id="video-render">
+                    video
+                </button>
                 <p id="state"></p>
             </div>
-            <div class="block">
+            <div class="block test-functions">
                 <button id="button-start-listening">startListening</button>
                 <button id="button-stop-listening">stopListenling</button>
+                <button id="button-scalemode-fill">拉伸</button>
+                <button id="button-scalemode-cover">裁剪</button>
+                <button id="button-scalemode-contain">原始</button>
             </div>
-            <div class="block">
+            <div class="block test-functions">
                 <select name="音频输入设备" id="audio-input-device">
                 </select>
                 <button id="open-audio-input-device">打开音频输入设备</button>
@@ -727,7 +780,7 @@
                 <button id="pause-audio-input-device">暂停音频</button>
                 <button id="resume-audio-input-device">恢复音频</button>
             </div>
-            <div class="block">
+            <div class="block test-functions">
                 <select id="video-input-device">
                 </select>
                 <button id="open-video-input-device">打开视频输入设备</button>
@@ -740,7 +793,7 @@
                 <input placeholder="height" id="video-height" type="text" value="720" />
                 <button id="only-open-video-input-device">仅测试打开</button>
             </div>
-            <div class="block">
+            <div class="block test-functions">
                 <input placeholder="发送给云端数据通道" id="input-datachannel" type="text" />
                 <button id="button-datachannel">发送</button>
                 <p id="text-from-datachannel"></p>

@@ -468,6 +468,7 @@ interface ILarkSRConfig {
     playTimeout?: number;
     /**
      * 是否使用新版摄像头/麦克风协议
+     * 单独上传流程要求渲染服务器版本大于3290）
      */
     useSeparateMediaSharePeer?: boolean;
 }
@@ -567,6 +568,16 @@ declare class LarkSR extends EventBase<LarkSRClientEvent, LarkSREvent> {
      */
     set isEnableTouchPonit(enable: boolean);
     set isEnableTouchPoint(enable: boolean);
+    /**
+     * 设置是否使用canvas渲染画面。
+     * iOS/Mac下默认开启.在 iOS/Mac下关闭canvas渲染可能导致样式问题异常显示。
+     */
+    set enableCanvasRender(enable: boolean);
+    /**
+     * 获取是否使用canvas渲染画面。
+     * iOS/Mac下默认开启.在 iOS/Mac下关闭canvas渲染可能导致样式问题异常显示。
+     */
+    get enableCanvasRender(): boolean;
     /**
      * 虚拟鼠标的当前位置,相对于整体容器
      */
@@ -1004,20 +1015,60 @@ declare class LarkSR extends EventBase<LarkSRClientEvent, LarkSREvent> {
      */
     setVideoEnable(enable: boolean): any;
     setShareEnable(enable: boolean): any;
+    /**
+     * 停止本地音频轨道
+     * @returns
+     */
     stopLocalAudio(): any;
+    /**
+     * 停止本地已打开的视频轨道
+     * @returns
+     */
     stopLocalVideo(): any;
+    /**
+     * 停止本地共享轨道
+     * @returns
+     */
     stopLocalShare(): any;
+    /**
+     * 暂停发送音频
+     * @returns
+     */
     pauseAudioSending(): any;
+    /**
+     * 恢复发送音频
+     * @returns
+     */
     resumeAudioSending(): any;
+    /**
+     * 暂停发送视频
+     * @returns
+     */
     pauseVideoSending(): any;
+    /**
+     * 恢复发送视频
+     * @returns
+     */
     resumeVideoSending(): any;
     /**
      * 关闭当前的音频设备
      * @returns
      */
     closeAudio(): any;
+    /**
+     * 关闭当前已打开的视频设备
+     * @returns
+     */
     closeVideo(): any;
+    /**
+     * 关闭当前已打开的共享设备如共享的标签页等
+     * @returns
+     */
     closeShare(): any;
+    /**
+     * 关闭整个媒体上传连接。再次使用时重新打开。
+     * @returns
+     */
     closeMediaChannel(): void;
     /**
      * 打开一个音频设备，要注意浏览器限制在 https 或者 localhost 下才能打开音频
@@ -1040,6 +1091,10 @@ declare class LarkSR extends EventBase<LarkSRClientEvent, LarkSREvent> {
      * @returns Promise
      */
     openDefaultMedia(video?: boolean, audio?: boolean): Promise<any>;
+    /**
+     * 打开共享设备，浏览器可共享窗口，标签页等
+     * @returns Promise
+     */
     openShareMediaDevice(): Promise<any>;
     /**
      * 返回已连接的音频设备列表，设备列表中的设备的 deviceId 可用来打开某个音频设备
@@ -1052,13 +1107,56 @@ declare class LarkSR extends EventBase<LarkSRClientEvent, LarkSREvent> {
      * @returns Promise<MediaDeviceInfo[]>
      */
     getConnectedVideoinputDevices(): Promise<any>;
+    /**
+     * 获取所有连接的摄像头麦克风设备信息
+     * @param type *"audioinput" | "audiooutput" | "videoinput"*
+     * @returns Promise<MediaDeviceInfo[]>
+     */
     getConnectedDevices(type: MediaDeviceKind): Promise<any>;
+    /**
+     * 打开麦克风设备
+     * @param deviceId 麦克风设备 ID， @see getConnectedAudioOutputDevices
+     * @param kind “audioinput”
+     * @returns @see this.openUserMedia
+     */
     openAudioDevice(deviceId: string, kind?: "audioinput" | "audiooutput"): Promise<any>;
+    /**
+     * 打开摄像头设备
+     * @param cameraId 摄像头设备ID，@see getConnectedVideoinputDevices
+     * @param minWidth 限制打开设备的宽
+     * @param minHeight 限制打开设备的高
+     * @returns @see openUserMedia
+     */
     openCamera(cameraId: string, minWidth?: number, minHeight?: number): Promise<any>;
+    /**
+     * 请求浏览器打开媒体并且打开上传到服务器通道。
+     * 要注意的是在服务器连接成功之后请求打开
+     * @param constraints 参考 navigator.mediaDevices.getUserMedia(constraints)
+     * @param reset 是否重制媒体通道。true 的情况下重制整个 peerconnection
+     * @returns 打开的通道的绑定信息。管理媒体通道如关闭暂停或恢复使用。
+     */
     openUserMedia(constraints?: MediaStreamConstraints, reset?: boolean): Promise<any>;
     openUserMeida(constraints?: MediaStreamConstraints, reset?: boolean): Promise<any>;
+    /**
+     * 添加媒体轨道
+     * 一般情况下使用 @see openUserMedia
+     * @param track
+     * @param streams
+     * @returns
+     */
     addMediaTrack(track: MediaStreamTrack, ...streams: MediaStream[]): boolean | undefined;
+    /**
+     * 移除某个媒体轨道。一般为  openUserMedia 打开的通道。
+     * 一般使用 @see closeVideo closeAudio 或 @see pauseAudioSending pauseVideoSending
+     * @param track @see openUserMedia 返回值
+     * @returns
+     */
     removeMediaTrack(track: RTCRtpSender): any;
+    /**
+     * 请求媒体设备权限，相当于 navigator.mediaDevices.getUserMedia(constraints)
+     * @param constraints
+     * @returns
+     */
     requestUserMediaPermission(constraints?: MediaStreamConstraints): any;
     /**
      * 启动云端推流功能

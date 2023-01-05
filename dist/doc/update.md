@@ -431,3 +431,12 @@ larksr.on('resourcenotenough', function(e) {
  */
 ERROR              = 'error',
 ```
+
+## V3.2.334
+
+优化打开媒体通道实现流程，优化重复打开媒体设备或切换媒体设备效果。添加单独媒体上传通道（单独上传流程要求渲染服务器版本大于3290）。
+
+1. 添加配置项， useSeparateMediaSharePeer，配置是否使用单独的媒体上传通道（摄像头麦克风上传）。默认开启，如果需要使用旧版本服务端应关闭该项。 `new LarkSR({ ... 此处省略其他配置 ... useSeparateMediaSharePeer: true })`
+2. 添加 `pauseVideoSending/resumeVideoSending`,`pauseAudioSending/resumeAudioSending` 暂停和恢复摄像头或者麦克风上传。
+3. 添加 `closeMediaChannel` 关闭单独的媒体上传通道。仅当 useSeparateMediaSharePeer 为 true 时有效。
+4. `openVideo` 接口添加 `openVideo(audio?: boolean, cameraId?: string, width?: number, height?: number)`  宽高参数，限定打开摄像头设备的宽高

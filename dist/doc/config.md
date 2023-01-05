@@ -213,5 +213,10 @@ interface ILarkSRConfig {
      * 默认 20S
      */
     playTimeout?: number;
+    /**
+     * 是否使用新版摄像头/麦克风协议
+     * 单独上传流程要求渲染服务器版本大于3290）
+     */
+    useSeparateMediaSharePeer?: boolean;
 }
 ```
