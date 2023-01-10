@@ -145,8 +145,8 @@
                 client.on('mediaplaysuccess', function (e) {
                     console.log("LarkSRClientEvent mediaplaysuccess", e);
                     if (pxy_webcommonui.Capabilities.isMobile) {
-                        $("#joystick-container").show();
-                        joystick.resize();
+                        // $("#joystick-container").show();
+                        // joystick.resize();
                     }
                 });
                 client.on('mediaplayfailed', function (e) {
