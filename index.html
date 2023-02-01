@@ -627,6 +627,7 @@
                 var showPlayButton = urlParams.get('showPlayButton');
                 var showPlayButton = urlParams.get('showPlayButton');
                 var useSeparateMediaSharePeer = urlParams.get('useSeparateMediaSharePeer');
+                var language = urlParams.get('language');
 
                 console.log("load urlparrams", ip, port, sdkId, appliId, autoPlay, showPlayButton);
 
@@ -641,6 +642,9 @@
                 }
                 if (useSeparateMediaSharePeer != null && useSeparateMediaSharePeer != undefined) {
                     config.useSeparateMediaSharePeer = useSeparateMediaSharePeer === 'true' ? true : false;
+                }
+                if (language != null && language != undefined) {
+                    config.language = language;
                 }
 
                 if (ip && port) {

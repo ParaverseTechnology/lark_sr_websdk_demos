@@ -640,6 +640,14 @@ declare class LarkSR extends EventBase<LarkSRClientEvent, LarkSREvent> {
      */
     get videoTrack(): MediaStreamTrack | null | undefined;
     /**
+     * 音频通道是否暂停
+     */
+    get audioPaused(): boolean | undefined;
+    /**
+     * 视频通道是否暂停
+     */
+    get videoPaused(): boolean | undefined;
+    /**
      * LarkSR 客户端。所有操作和事件通过该类传递
      * @param config 本地配置，优先级最高
      */

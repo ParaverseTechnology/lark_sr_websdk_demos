@@ -20,6 +20,8 @@ export default class PeerConnectionMediaShare extends EventBase<WEBRTC_MEDIA_SHA
     get audioTrack(): MediaStreamTrack | undefined;
     get videoDeviceId(): string | undefined;
     get videoTrack(): MediaStreamTrack | undefined;
+    get audioPaused(): boolean;
+    get videoPaused(): boolean;
     private larksr;
     private offerOptions;
     private pcConfig;

@@ -14,6 +14,8 @@ export interface MediaShareInterface {
     audioTrack: MediaStreamTrack | undefined | null;
     videoDeviceId: string | undefined | null;
     videoTrack: MediaStreamTrack | undefined | null;
+    audioPaused: boolean;
+    videoPaused: boolean;
     setAudioEnable(enable: boolean): any;
     setVideoEnable(enable: boolean): any;
     setShareEnable(enable: boolean): any;
