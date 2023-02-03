@@ -64,6 +64,8 @@ export default class Application extends EventBase<APP_EVENT_TYPE, AppEvent> {
     get audioTrack(): MediaStreamTrack | null | undefined;
     get videoDeviceId(): string | null | undefined;
     get videoTrack(): MediaStreamTrack | null | undefined;
+    get audioPaused(): boolean | undefined;
+    get videoPaused(): boolean | undefined;
     private get sharePeerConnection();
     private retryTime;
     private larksr;

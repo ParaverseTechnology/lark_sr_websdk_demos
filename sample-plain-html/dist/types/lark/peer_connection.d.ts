@@ -99,6 +99,8 @@ export default class PeerConnection extends EventBase<WEBRTC_EVENT_TYPE, WebRTCE
     get audioTrack(): MediaStreamTrack | undefined;
     get videoDeviceId(): string | undefined;
     get videoTrack(): MediaStreamTrack | undefined;
+    get audioPaused(): boolean;
+    get videoPaused(): boolean;
     private audioBinding;
     private videoBinding;
     private readonly sendStream;

@@ -569,6 +569,16 @@ declare class LarkSR extends EventBase<LarkSRClientEvent, LarkSREvent> {
     set isEnableTouchPonit(enable: boolean);
     set isEnableTouchPoint(enable: boolean);
     /**
+     * 设置是否使用canvas渲染画面。
+     * iOS/Mac下默认开启.在 iOS/Mac下关闭canvas渲染可能导致样式问题异常显示。
+     */
+    set enableCanvasRender(enable: boolean);
+    /**
+     * 获取是否使用canvas渲染画面。
+     * iOS/Mac下默认开启.在 iOS/Mac下关闭canvas渲染可能导致样式问题异常显示。
+     */
+    get enableCanvasRender(): boolean;
+    /**
      * 虚拟鼠标的当前位置,相对于整体容器
      */
     get virtualCursorPosition(): {
@@ -629,6 +639,14 @@ declare class LarkSR extends EventBase<LarkSRClientEvent, LarkSREvent> {
      * 当前打开视频track对象，未打开状态为空
      */
     get videoTrack(): MediaStreamTrack | null | undefined;
+    /**
+     * 音频通道是否暂停
+     */
+    get audioPaused(): boolean | undefined;
+    /**
+     * 视频通道是否暂停
+     */
+    get videoPaused(): boolean | undefined;
     /**
      * LarkSR 客户端。所有操作和事件通过该类传递
      * @param config 本地配置，优先级最高

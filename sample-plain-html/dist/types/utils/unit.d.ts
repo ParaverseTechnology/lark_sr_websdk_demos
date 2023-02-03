@@ -139,4 +139,10 @@ export default class Unit {
      */
     static getMobliePixelWidth(px: number, mobilePixelUnit: number): number;
     static IsIframe(): boolean;
+    /**
+     * 向上为整数并且 向上计算为偶数
+     * @param n
+     * @returns
+     */
+    static evenNumber(n: number): number;
 }

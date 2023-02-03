@@ -403,6 +403,23 @@ larksr 配置项自动打开麦克风配置,在`new LarkSR({ ... 此处省略其
 audioInputAutoStart?: boolean;
 ```
 
+获取当前打开音频设备的状态, 如 `larksr.audioPaused`
+
+```javascript
+/**
+ * 当前打开的音频设备 ID，如果打开时没指定为空
+ */
+get audioDeviceId(): string | null | undefined;
+/**
+ * 当前打开音频的track对象，未打开状态为空
+ */
+get audioTrack(): MediaStreamTrack | null | undefined;
+/**
+ * 音频通道是否暂停
+ */
+get audioPaused(): boolean | undefined;
+```
+
 ## 视频输入接口
 
 客户端打开后云端应用可直接通过读取服务端的摄像头读取视频数据。
@@ -491,6 +508,23 @@ larksr 配置项自动打开视频输入配置,在`new LarkSR({ ... 此处省略
  * 需要注意默认打开的是系统中默认的视频设备。
  */
 videoInputAutoStart?: boolean;
+```
+
+获取当前打开视频设备的状态,如 `larksr.videoPaused`
+
+```javascript
+/**
+ * 当前打开视频设备 ID，如果打开时没指定特设备id为空
+ */
+get videoDeviceId(): string | null | undefined;
+/**
+ * 当前打开视频track对象，未打开状态为空
+ */
+get videoTrack(): MediaStreamTrack | null | undefined;
+/**
+ * 视频通道是否暂停
+ */
+get videoPaused(): boolean | undefined;
 ```
 
 ## 云端直播推流功能
