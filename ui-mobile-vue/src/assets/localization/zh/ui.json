@@ -6,6 +6,7 @@
         "mosueModeLock": "全局锁定",
         "scale":"铺满",
         "scaleToNormal": "还原",
+        "scaleAuto": "适应",
         "lock": "全局锁定",
         "fullScreen": "全屏",
         "exit": "退出",
@@ -25,10 +26,71 @@
         "requireNickName": "请输入昵称加入观看模式",
         "requireInputChinese": "是否需要输入中文？",
         "buttonSubmit": "确定",
-        "buttonCancle": "取消",
+        "buttonCancel": "取消",
         "buttonInput": "输入",
         "buttonBack": "返回",
-        "buttonClose": "关闭"
+        "buttonClose": "关闭",
+        "chat": "聊天",
+        "net": "网络",
+        "inputText": "中文",
+
+        "liveSetup": "推流设置",
+        "liveUrl": "推流地址",
+        "liveKey": "密钥",
+        "liveBitrate": "码率",
+        "liveFPS": "帧率",
+        "liveRes": "分辨率",
+        "liveSubmit": "确定",
+
+        "menu": "功能菜单",
+        "menuClose": "关闭",
+        "state": "连接状态",
+        "rtt": "网络时延",
+        "bitrate": "码率",
+        "packetsLostPerc": "丢包率",
+        "aiVoice": "智能语音",
+        "aiVoiceOpen": "开启",
+        "aiVoiceClose": "关闭",
+        "joystickButtons": "摇杆快捷键",
+        "joystickButtonsAll": "全部",
+        "joystickButtonsDefault": "默认",
+        "zoomOutGesture": "放大手势与滚轮映射",
+        "zoomOutGestureUp": "上滾",
+        "zoomOutGestureDown": "下滾",
+        "cursorMode": "鼠标模式",
+        "menuFullScreen": "网页全屏",
+        "menuFullScreenOn": "全屏",
+        "menuFullScreenOff": "普通",
+        "menuPlayerlist": "玩家列表",
+        "menuPlayerlistShow": "显示",
+        "menuPlayerlistHide": "隐藏",
+        "volume": "音量",
+        "menuInput": "输入中文",
+        "menuInputOpen": "打开输入框",
+        "cipboardParse": "剪贴板",
+        "cipboardParseOn": "同步本地剪贴板",
+        "cipboardParseOff": "不同步本地剪贴板",
+
+        "playerNumber": "序号",
+        "playerNickname": "昵称",
+        "playerRole": "角色",
+        "playerAuthority": "权限",
+        "playerShare": "分享",
+        "playerOwner": "管理员",
+        "playerCopy": "复制口令",
+
+        "statusRes": "视频分辨率",
+        "statusFps": "视频帧率",
+        "statusBiterate": "码率",
+        "statusRtt": "网络时延",
+        "statusPackgeLost": "丢包率",
+
+        "audioDevice": "音频输入设备",
+
+        "videoDevice": "视频输入设备",
+
+        "inputbuttonText": "输入中文",
+        "inputbuttonVKeyboard": "打开键盘"
     },
     "notice": {
         "browserVersion": "检测到您当前浏览器内核版本较低，建议升级。是否继续使用？",
@@ -57,6 +119,19 @@
         "RTC_RETRY": "检测到点对点连接断开，正在重新连接",
 
         "APP_RETRY_CONFIRM": "检测到云端应用退出，是否关闭？选择确定退出当前页面，选择取消重新启动。",
-        "APP_RETRY": "云端应用退出，重新启动中"
+        "APP_RETRY": "云端应用退出，重新启动中",
+
+        "playerNotOwner": "您不是管理员无法分配操作权",
+        "playerAlready": "该用户已经拥有操作权",
+        "playerChanging": "正在切换操作权",
+        "playerCopyShareUrl": "分享链接已拷贝到剪贴板",
+        "playerCopyShareUrlFailed": "分享链接拷贝失败，请手动拷贝",
+        "playerCopyRoomCodeSuccess": "口令已拷贝到剪贴板",
+        "playerCopyRoomCodeFailed": "口令拷贝失败，请手动拷贝",
+
+        "audioUseHttps": "请通过 HTTPS 连接访问音频功能",
+        "videoUseHttps": "请请通过 HTTPS 连接访问视频功能",
+
+        "enableAudio": "点击屏幕中心打开音频"
     }
 }

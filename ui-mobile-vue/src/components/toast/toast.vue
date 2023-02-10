@@ -1,39 +1,45 @@
 <template>
     <div v-if="toast.show" class="toast" :style="toastPosition">
-        <span>{{toast.text}}</span>
+        <span class="toastText" :style="toastText">{{toast.text}}</span>
     </div>
 </template>
 <script>
 import { 
     mapState, 
 }                 from 'vuex'
-import { ToastPosition } from '@/store/modules/toast'
+import { 
+    ToastPosition 
+}                 from '@/store/modules/toast'
 
 export default {
-    components: {
-    },
-    data() {
-        return {
-            show: false
-        }
-    },
+    name: 'Toast',
     computed: {
-        toastPosition() {
-            const position = this.toast.position;
-            let top = "";
-            // if (position) {
-            //     if (position === ToastPosition.UP) {
-            //         top = '3%';
-            //     } else if (position === ToastPosition.DOWN) {
-            //         top = '85%';
-            //     }
-            // }
-            top = '80%';
+        toastText() {
             if (this.toast.level == 3) {
                 return {
                     // 'border': '1px solid #F76260',
                     'background-color': 'rgba(18, 37, 95, 1.0)',
                     color: 'white',
+                }
+            } else {
+                return {};
+            }
+        },
+        toastPosition() {
+            const position = this.toast.position;
+            let top = "";
+            if (position) {
+                if (position === ToastPosition.UP) {
+                    top = '3%';
+                } else if (position === ToastPosition.DOWN) {
+                    top = '85%';
+                }
+            }
+            if (this.toast.level == 3) {
+                return {
+                    // 'border': '1px solid #F76260',
+                    // 'background-color': 'rgba(18, 37, 95, 1.0)',
+                    // color: 'white',
                     top,
                 }
             } else {
@@ -45,11 +51,9 @@ export default {
         ...mapState({
             'toast': state => { return state.toast.toast; }
         })
-    },
-    methods: {
     }
 }
 </script>
 <style lang="scss" scoped>
-@import 'toast.scss';
+@import "toast.scss";
 </style>

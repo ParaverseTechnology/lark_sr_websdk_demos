@@ -8,7 +8,7 @@
             <img src="@/assets/img/1_setup.png" />
         </div>
         <div v-if="setupPanel" class="setup">
-            <select v-model="selecteDevice" name="音频输入设备">
+            <select v-model="selecteDevice" :name="ui.audioDevice">
                 <option v-for="(device, key) in devices" v-bind:value="device.deviceId" v-bind:key="key">
                     {{ device.label }}
                 </option>
@@ -48,12 +48,15 @@ export default {
         audioTrack() {
             return this.larksr?.audioTrack;
         },
+        audioPaused() {
+            return this.larksr?.audioPaused;
+        },
         audioTrackEnable: {
             get: function() {
                 if (this.manuSetAudioTrackEnable) {
                     return this.audioTrackEnableManu;
                 } else {
-                    return this.audioTrack?.enabled;
+                    return !this.audioPaused;
                 }
             },
             set: function(enable) {
@@ -76,14 +79,12 @@ export default {
             this.larksr.openAudio(this.selecteDevice)
             .then((res) => {
                 Log.info("open audio success", res, this.audioTrack, this.selecteDevice);
-                this.audioTrackEnable = this.audioTrack.enabled;
+                this.audioTrackEnable = !this.audioPaused;
             })
             .catch((e) => {
                 Log.warn("open audio failed.", e);
-                if (Capabilities.os === 'iOS' && Capabilities.isWeChat) {
-                    this.toast({ text: "iOS 微信浏览器不支持打开麦克风，请使用Safari访问音频功能", position: 1, level: 3 });
-                } else if (window.location.href.indexOf("https") == -1) {
-                    this.toast({ text: "请通过 HTTPS 连接访问音频功能", position: 1, level: 3 });
+                if (window.location.href.indexOf("https") == -1) {
+                    this.toast({ text: this.ui.audioUseHttps, position: 1, level: 3 });
                 } else {
                     this.toast({ text: JSON.stringify(e), position: 1, level: 3 });
                 }
@@ -94,10 +95,9 @@ export default {
             if (this.setupPanel) {
                 this.openAudio();
                 this.setupPanel = !this.setupPanel;
-            } if (this.audioTrack) {
-                this.audioTrack.enabled = !this.audioTrack.enabled;
-                Log.info("toggle mic ", this.audioTrackEnable, this.audioTrack);
-                this.audioTrackEnable = this.audioTrack.enabled;
+            } if (!this.audioPaused) {
+                this.larksr?.pauseAudioSending();
+                this.audioTrackEnable = !this.audioPaused;
                 this.$forceUpdate();
             } else {
                 this.openAudio();

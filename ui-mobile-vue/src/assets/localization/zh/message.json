@@ -95,6 +95,7 @@
 
         "LK_NOTIFY_CLIENT_LOGOUT_TASKOWNER_LOGOUT": "演示模式已结束",
 
-        "LK_APP_PROCESS_NOTIFI_APP_QUIT": "云端应用断开，重新启动中"
+        "LK_APP_PROCESS_NOTIFI_APP_QUIT": "云端应用断开，重新启动中",
+        "LK_APP_PROCESS_NOTIFI_APP_QUIT_2": "云端应用退出，请重新进入该应用"
     }
 }

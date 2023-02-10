@@ -1,10 +1,10 @@
 <template>
     <div :class="stateClass" v-on:click="closeState">
-        <p>视频分辨率: {{states.frameWidth}}x{{states.frameHeight}}</p>
-        <p>视频帧率: {{states.framerate}}</p>
-        <p>码率: {{states.bitrate}} Mbps</p>
-        <p>网络时延: {{states.currentRoundTripTime}} ms</p>
-        <p>丢包率: {{states.packetsLostPerc}} %</p>
+        <p>{{ ui.statusRes }}: {{states.frameWidth}}x{{states.frameHeight}}</p>
+        <p>{{ ui.statusFps }}: {{states.framerate}}</p>
+        <p>{{ ui.statusBiterate }}: {{states.bitrate}} Mbps</p>
+        <p>{{ ui.statusRtt }}: {{states.currentRoundTripTime}} ms</p>
+        <p>{{ ui.statusPackgeLost }}: {{states.packetsLostPerc}} %</p>
     </div>
 </template>
 <script>
@@ -25,6 +25,7 @@ export default {
             return this.stateModal.show ? "stateBox enable" : "stateBox disable";
         },
         ...mapState({
+            ui: state => state.ui,
             test: state => state.test,
             stateModal: state => state.stateModal.stateModal,
             // formate states

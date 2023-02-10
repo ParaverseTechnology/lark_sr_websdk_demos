@@ -8,7 +8,7 @@
             <img src="@/assets/img/1_setup.png" />
         </div>
         <div v-if="setupPanel" class="setup">
-            <select v-model="selecteDevice" name="视频输入设备">
+            <select v-model="selecteDevice" :name="ui.videoDevice">
                 <option v-for="(device, key) in devices" v-bind:value="device.deviceId" v-bind:key="key">
                     {{ device.label }}
                 </option>
@@ -56,12 +56,15 @@ export default {
         videoTrack() {
             return this.larksr?.videoTrack;
         },
+        videoPaused() {
+            return this.larksr?.videoPaused;
+        },
         videoTrackEnable: {
             get: function () {
                 if (this.manuSetVideoTrackEnable) {
                     return this.videoTrackEnableManu;
                 } else {
-                    return this.videoTrack?.enabled;
+                    return !this.videoPaused;
                 }
             },
             set: function(enable) {
@@ -80,18 +83,28 @@ export default {
             Log.info('video track enable', e);
         },
         openVideo() {
-            Log.info('openVideo with device ', this.selecteDevice);
-            this.larksr.openVideo(false, this.selecteDevice)
+            const device = this.devices?.filter(device => device.deviceId === this.selecteDevice)[0];
+            let width = 0;
+            let height = 0;
+
+            if (device && device.getCapabilities().width && device.getCapabilities().width.max) {
+                width = device.getCapabilities().width.max;
+            }
+            if (device && device.getCapabilities().height && device.getCapabilities().height.max) {
+                height = device.getCapabilities().height.max;
+            }
+            
+            Log.info('openVideo with device ', this.selecteDevice, device, this.devices, width, height);
+
+            this.larksr.openVideo(false, this.selecteDevice, width, height)
             .then((res) => {
                 Log.info("open video success", res, this.videoTrack, this.selecteDevice);
-                this.videoTrackEnable = this.videoTrack.enabled;
+                this.videoTrackEnable = !this.videoPaused;
             })
             .catch((e) => {
                 Log.warn("open video failed.", e);
-                if (Capabilities.os === 'iOS' && Capabilities.isWeChat) {
-                    this.toast({ text: "iOS 微信浏览器不支持打开摄像头，请使用Safari访问音频功能", position: 1, level: 3 });
-                } else if (window.location.href.indexOf("https") == -1) {
-                    this.toast({ text: "请通过 HTTPS 连接访问音频功能", position: 1, level: 3 });
+                if (window.location.href.indexOf("https") == -1) {
+                    this.toast({ text: this.ui.videoUseHttps, position: 1, level: 3 });
                 } else {
                     this.toast({ text: JSON.stringify(e), position: 1, level: 3 });
                 }
@@ -102,9 +115,9 @@ export default {
             if (this.setupPanel) {
                 this.openVideo();
                 this.setupPanel = !this.setupPanel;
-            } if (this.videoTrack) {
-                this.videoTrack.enabled = !this.videoTrack.enabled;
-                this.videoTrackEnable = this.videoTrack.enabled;
+            } if (!this.videoPaused) {
+                this.larksr?.pauseVideoSending();
+                this.videoTrackEnable = !this.videoPaused;
             } else {
                 this.openVideo();
             }

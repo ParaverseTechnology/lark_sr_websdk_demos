@@ -17,14 +17,14 @@
         <div v-else class="pop">
             <div class="pop-icon" v-on:click="togglePop"></div>
             <div :class="popContentRotatedClass" v-on:click="togglePop">
-                <div v-if="isChangedScaledMode" class="icon icon-scale" v-on:click="toggleScaleToFillStretch">适应</div>
+                <div v-if="isChangedScaledMode" class="icon icon-scale" v-on:click="toggleScaleToFillStretch">{{ ui.scaleAuto }}</div>
                 <div v-else class="icon icon-scale" v-on:click="toggleScaleToFillStretch">{{ui.scale}}</div>
 
                 <div v-if="!isFullScreen" class="icon icon-fullscreen" v-on:click="onFullScreen">{{ui.fullScreen}}</div>
                 <div v-else class="icon icon-fullscreen" v-on:click="onFullScreen">{{ui.scaleToNormal}}</div>
 
                 <div class="icon icon-menu" v-on:click="toggleMenu"></div>
-                <div class="icon icon-esc" v-on:click="toggleState">网络</div>
+                <div class="icon icon-esc" v-on:click="toggleState">{{ ui.net }}</div>
                 <div class="icon icon-exit" v-on:click="onQuit"></div>
             </div>
         </div>

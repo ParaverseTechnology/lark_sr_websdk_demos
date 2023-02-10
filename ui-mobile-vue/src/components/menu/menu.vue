@@ -1,33 +1,33 @@
 <template>
     <div :class="menuClass" :style="containerStyle">
         <div class="header">
-            <p>功能菜单</p>
-            <div class="btn-close" v-on:click="close">关闭</div>
+            <p>{{ ui.menu }}</p>
+            <div class="btn-close" v-on:click="toggleMenu">{{ ui.menuClose }}</div>
             <p class="version">{{versionStr}}</p>
         </div>
         <div class="body">
             <div class="item" v-on:click="toggleState">
-                <div class="item-left">连接状态</div>
+                <div class="item-left">{{ ui.state }}</div>
                 <div class="item-right">
-                    <p>网络时延: {{states.currentRoundTripTime}} ms</p>
-                    <p>码率: {{states.bitrate}} Mbps</p>
-                    <p>丢包率: {{states.packetsLostPerc}}</p>
+                    <p>{{ ui.rtt }}: {{states.currentRoundTripTime}} ms</p>
+                    <p>{{ ui.bitrate }}: {{states.bitrate}} Mbps</p>
+                    <p>{{ ui.packetsLostPerc }}: {{states.packetsLostPerc}}</p>
                 </div>
             </div>
             <!-- mobile -->
             <div v-if="isMobile" class="item item-mousewheel">
-                <div class="item-left">放大手势与滚轮映射</div>
+                <div class="item-left">{{ ui.zoomOutGesture }}</div>
                 <div class="item-right">
                     <span v-on:click="setToflipMouseWheel" :class='flipMouseWheelClass' >
-                        上滾
+                        {{ ui.zoomOutGestureUp }}
                     </span>
                     <span v-on:click="defaultMouseWheel" :class='defaultMouseWheelClass'>
-                        下滾
+                        {{ ui.zoomOutGestureDown }}
                     </span>
                 </div>
             </div>
             <div v-if="!isMobile" class="item">
-                <div class="item-left">鼠标模式</div>
+                <div class="item-left">{{ ui.cursorMode }}</div>
                 <div class="item-right">
                     <span v-on:click="toggleInitCursorMode">
                         {{cursorMode}}
@@ -35,18 +35,18 @@
                 </div>
             </div>
             <div v-if="!isIOS" class="item">
-                <div class="item-left">网页全屏</div>
+                <div class="item-left">{{ ui.menuFullScreen }}</div>
                 <div class="item-right">
                     <span v-on:click="onFullScreen" :class='fullScreenClass' >
-                        全屏
+                        {{ ui.menuFullScreenOn }}
                     </span>
                     <span v-on:click="onFullScreen" :class='exitFullScreenClass'>
-                        普通
+                        {{ ui.menuFullScreenOff }}
                     </span>
                 </div>
             </div>
             <div v-if="isInteractiveMode" class="item">
-                <div class="item-left">玩家列表</div>
+                <div class="item-left">{{ ui.menuPlayerlist }}</div>
                 <div class="item-right">
                     <span v-on:click="togglePlayerList">
                         {{playerModeButtonText}}
@@ -54,13 +54,13 @@
                 </div>
             </div>
             <div class="item">
-                <div class="item-left">音量</div>
+                <div class="item-left">{{ ui.volume }}</div>
                 <div class="item-right">
                     <Slider v-on:change="onVolmueChange" />
                 </div>
             </div>
             <div class="item">
-                <div class="item-left">剪贴板</div>
+                <div class="item-left">{{ ui.cipboardParse }}</div>
                 <div class="item-right">
                     <span v-on:click="toggleSyncClipboardParseEvent">{{syncClipboardParseEventText}}</span>
                 </div>
@@ -222,6 +222,9 @@ export default {
         },
         hidePlayerList() {
             this.setShowPlayerList(false);
+        },
+        showInput() {
+            this.setInputMethodEnable(true);
         },
         ...mapMutations({
             'setInputMethodEnable': 'setInputMethodEnable',
