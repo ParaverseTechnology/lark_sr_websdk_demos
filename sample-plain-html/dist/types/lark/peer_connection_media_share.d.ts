@@ -1,6 +1,7 @@
 import { EventBase, LocalEvent } from '../event/event_base';
 import { LarkSR } from '../larksr';
 import { MediaShareInterface, RTCMediaTrackBinding } from './media_share_interface';
+import { CloudLark } from '@/protobuf/cloudlark';
 export declare enum WEBRTC_MEDIA_SHARE_EVENT_TYPE {
     RTC_SDP = 0,
     RTC_ICECANDIDATE = 1,
@@ -24,13 +25,15 @@ export default class PeerConnectionMediaShare extends EventBase<WEBRTC_MEDIA_SHA
     get videoPaused(): boolean;
     private larksr;
     private offerOptions;
-    private pcConfig;
+    private _pcConfig;
+    set pcConfig(config: CloudLark.IRTCConfiguration | null | undefined);
+    get pcConfig(): CloudLark.IRTCConfiguration | null | undefined;
     private pc;
     private audioBinding;
     private videoBinding;
     private readonly sendStream;
     constructor(larksr: LarkSR);
-    create(): Promise<void>;
+    create(config?: CloudLark.IRTCConfiguration | null | undefined): Promise<void>;
     createOffer(): void;
     close(): void;
     setAudioEnable(enable: boolean): void;

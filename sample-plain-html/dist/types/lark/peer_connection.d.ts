@@ -2,6 +2,7 @@ import { EventBase, LocalEvent } from '../event/event_base';
 import * as Input from '../protobuf/cloudlark';
 import { LarkSR } from '../larksr';
 import { MediaShareInterface, RTCMediaTrackBinding } from './media_share_interface';
+import { CloudLark } from '@/protobuf/cloudlark';
 export declare enum IceState {
     DISCONNECT = 1,
     BAD = 2,
@@ -106,7 +107,7 @@ export default class PeerConnection extends EventBase<WEBRTC_EVENT_TYPE, WebRTCE
     private readonly sendStream;
     private sdpCreateSuccess;
     constructor(larksr: LarkSR, config: WebRTCConfig);
-    create(streams?: MediaStream | undefined | null): Promise<void>;
+    create(streams?: MediaStream | undefined | null, config?: CloudLark.IRTCConfiguration | null | undefined): Promise<void>;
     createOffer(): void;
     close(): void;
     setAudioEnable(enable: boolean): void;

@@ -1399,11 +1399,212 @@ export namespace CloudLark {
         public toJSON(): { [k: string]: any };
     }
 
+    /** Properties of an IceServer. */
+    interface IIceServer {
+
+        /** IceServer uri */
+        uri?: (string|null);
+
+        /** IceServer username */
+        username?: (string|null);
+
+        /** IceServer password */
+        password?: (string|null);
+    }
+
+    /** Represents an IceServer. */
+    class IceServer implements IIceServer {
+
+        /**
+         * Constructs a new IceServer.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: CloudLark.IIceServer);
+
+        /** IceServer uri. */
+        public uri: string;
+
+        /** IceServer username. */
+        public username: string;
+
+        /** IceServer password. */
+        public password: string;
+
+        /**
+         * Creates a new IceServer instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns IceServer instance
+         */
+        public static create(properties?: CloudLark.IIceServer): CloudLark.IceServer;
+
+        /**
+         * Encodes the specified IceServer message. Does not implicitly {@link CloudLark.IceServer.verify|verify} messages.
+         * @param message IceServer message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: CloudLark.IIceServer, writer?: $protobuf.Writer): $protobuf.Writer;
+
+        /**
+         * Encodes the specified IceServer message, length delimited. Does not implicitly {@link CloudLark.IceServer.verify|verify} messages.
+         * @param message IceServer message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: CloudLark.IIceServer, writer?: $protobuf.Writer): $protobuf.Writer;
+
+        /**
+         * Decodes an IceServer message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns IceServer
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): CloudLark.IceServer;
+
+        /**
+         * Decodes an IceServer message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns IceServer
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): CloudLark.IceServer;
+
+        /**
+         * Verifies an IceServer message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates an IceServer message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns IceServer
+         */
+        public static fromObject(object: { [k: string]: any }): CloudLark.IceServer;
+
+        /**
+         * Creates a plain object from an IceServer message. Also converts values to other types if specified.
+         * @param message IceServer
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: CloudLark.IceServer, options?: $protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this IceServer to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of a RTCConfiguration. */
+    interface IRTCConfiguration {
+
+        /** RTCConfiguration servers */
+        servers?: (CloudLark.IIceServer[]|null);
+
+        /** RTCConfiguration type */
+        type?: (number|null);
+    }
+
+    /** Represents a RTCConfiguration. */
+    class RTCConfiguration implements IRTCConfiguration {
+
+        /**
+         * Constructs a new RTCConfiguration.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: CloudLark.IRTCConfiguration);
+
+        /** RTCConfiguration servers. */
+        public servers: CloudLark.IIceServer[];
+
+        /** RTCConfiguration type. */
+        public type: number;
+
+        /**
+         * Creates a new RTCConfiguration instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns RTCConfiguration instance
+         */
+        public static create(properties?: CloudLark.IRTCConfiguration): CloudLark.RTCConfiguration;
+
+        /**
+         * Encodes the specified RTCConfiguration message. Does not implicitly {@link CloudLark.RTCConfiguration.verify|verify} messages.
+         * @param message RTCConfiguration message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: CloudLark.IRTCConfiguration, writer?: $protobuf.Writer): $protobuf.Writer;
+
+        /**
+         * Encodes the specified RTCConfiguration message, length delimited. Does not implicitly {@link CloudLark.RTCConfiguration.verify|verify} messages.
+         * @param message RTCConfiguration message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: CloudLark.IRTCConfiguration, writer?: $protobuf.Writer): $protobuf.Writer;
+
+        /**
+         * Decodes a RTCConfiguration message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns RTCConfiguration
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): CloudLark.RTCConfiguration;
+
+        /**
+         * Decodes a RTCConfiguration message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns RTCConfiguration
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): CloudLark.RTCConfiguration;
+
+        /**
+         * Verifies a RTCConfiguration message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a RTCConfiguration message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns RTCConfiguration
+         */
+        public static fromObject(object: { [k: string]: any }): CloudLark.RTCConfiguration;
+
+        /**
+         * Creates a plain object from a RTCConfiguration message. Also converts values to other types if specified.
+         * @param message RTCConfiguration
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: CloudLark.RTCConfiguration, options?: $protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this RTCConfiguration to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
     /** Properties of a StartStreamResponse. */
     interface IStartStreamResponse {
 
         /** StartStreamResponse response */
         response?: (CloudLark.StartStreamResponse.Response|null);
+
+        /** StartStreamResponse configuration */
+        configuration?: (CloudLark.IRTCConfiguration|null);
     }
 
     /** Represents a StartStreamResponse. */
@@ -1417,6 +1618,9 @@ export namespace CloudLark {
 
         /** StartStreamResponse response. */
         public response: CloudLark.StartStreamResponse.Response;
+
+        /** StartStreamResponse configuration. */
+        public configuration?: (CloudLark.IRTCConfiguration|null);
 
         /**
          * Creates a new StartStreamResponse instance using the specified properties.
@@ -1716,6 +1920,9 @@ export namespace CloudLark {
 
         /** WebrtcIceCandidate candidate */
         candidate?: (string|null);
+
+        /** WebrtcIceCandidate username */
+        username?: (string|null);
     }
 
     /** Represents a WebrtcIceCandidate. */
@@ -1735,6 +1942,9 @@ export namespace CloudLark {
 
         /** WebrtcIceCandidate candidate. */
         public candidate: string;
+
+        /** WebrtcIceCandidate username. */
+        public username: string;
 
         /**
          * Creates a new WebrtcIceCandidate instance using the specified properties.

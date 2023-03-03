@@ -440,3 +440,8 @@ ERROR              = 'error',
 2. 添加 `pauseVideoSending/resumeVideoSending`,`pauseAudioSending/resumeAudioSending` 暂停和恢复摄像头或者麦克风上传。
 3. 添加 `closeMediaChannel` 关闭单独的媒体上传通道。仅当 useSeparateMediaSharePeer 为 true 时有效。
 4. `openVideo` 接口添加 `openVideo(audio?: boolean, cameraId?: string, width?: number, height?: number)`  宽高参数，限定打开摄像头设备的宽高
+
+## V3.2.337
+
+1. 配合服务端升级协议.
+2. 修复其他问题.
