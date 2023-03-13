@@ -32,8 +32,8 @@
     <script src="./js/jquery.min.js"></script>
     <!-- 可选组件库 -->
     <!-- @see https://github.com/pingxingyun/pxy_webcommonui -->
-    <script src="./js/pxy_webcommonui.min.js?v=33120221010"></script>
-    <script src="./dist/larksr-web-sdk.min.js?v=33120221010"></script>
+    <script src="./js/pxy_webcommonui.min.js?v=33120230313"></script>
+    <script src="./dist/larksr-web-sdk.min.js?v=33120230313"></script>
     <script src="https://unpkg.com/vconsole@latest/dist/vconsole.min.js" crossorigin="anonymous"></script>
     <script>
         // 是否在数据通道打开时启用已选择的设备
@@ -174,29 +174,29 @@
 
                 // test video event
                 client.videoElement.addEventListener('emptied', function (e) {
-                    alert(
-                        "	The media has become empty; for example, this event is sent if the media has already been loaded (or partially loaded), and the load() method is called to reload it.");
+                    //alert(
+                    //    "	The media has become empty; for example, this event is sent if the media has already been loaded (or partially loaded), and the load() method is called to reload it.");
                 });
 
                 client.videoElement.addEventListener('ended', function (e) {
-                    alert("	Playback has stopped because the end of the media was reached.");
+                   // alert("	Playback has stopped because the end of the media was reached.");
                 });
 
                 client.videoElement.addEventListener('pause', function (e) {
-                    alert("	Playback has been paused.");
+                    //alert("	Playback has been paused.");
                 });
 
                 client.videoElement.addEventListener('stalled', function (e) {
-                    alert(
-                        "	The user agent is trying to fetch media data, but data is unexpectedly not forthcoming.");
+                   // alert(
+                    //    "	The user agent is trying to fetch media data, but data is unexpectedly not forthcoming.");
                 });
 
                 client.videoElement.addEventListener('suspend', function (e) {
-                    alert("	Media data loading has been suspended.");
+                    //alert("	Media data loading has been suspended.");
                 });
 
                 client.videoElement.addEventListener('waiting', function (e) {
-                    alert("	Playback has stopped because of a temporary lack of data.");
+                   // alert("	Playback has stopped because of a temporary lack of data.");
                 });
 
                 // 

@@ -72,6 +72,7 @@ export default class Application extends EventBase<APP_EVENT_TYPE, AppEvent> {
     get voiceId(): number;
     get recodeState(): RECORDER_STATE;
     private recoder;
+    private rtcConfig;
     constructor(larksr: LarkSR);
     init(): void;
     initSharePc(): void;
