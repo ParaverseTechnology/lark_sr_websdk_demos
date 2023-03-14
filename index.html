@@ -36,6 +36,11 @@
     <script src="./dist/larksr-web-sdk.min.js?v=33120230313"></script>
     <script src="https://unpkg.com/vconsole@latest/dist/vconsole.min.js" crossorigin="anonymous"></script>
     <script>
+        // debug 
+        window.onerror = function(e) {
+            alert(JSON.stringify(e));
+        }
+
         // 是否在数据通道打开时启用已选择的设备
         var useSelectedDeviceWhenDataChannelOpen = false;
         // 测试重制媒体通道
