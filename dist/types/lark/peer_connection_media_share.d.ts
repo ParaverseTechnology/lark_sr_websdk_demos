@@ -33,6 +33,7 @@ export default class PeerConnectionMediaShare extends EventBase<WEBRTC_MEDIA_SHA
     private videoBinding;
     private sdpCreateSuccess;
     private readonly sendStream;
+    private canvasRender;
     constructor(larksr: LarkSR);
     create(config?: CloudLark.IRTCConfiguration | null | undefined): Promise<void>;
     createOffer(): void;

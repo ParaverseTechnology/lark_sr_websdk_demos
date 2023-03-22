@@ -106,6 +106,7 @@ export default class PeerConnection extends EventBase<WEBRTC_EVENT_TYPE, WebRTCE
     private videoBinding;
     private readonly sendStream;
     private sdpCreateSuccess;
+    private canvasRender;
     constructor(larksr: LarkSR, config: WebRTCConfig);
     create(streams?: MediaStream | undefined | null, config?: CloudLark.IRTCConfiguration | null | undefined): Promise<void>;
     createOffer(): void;
