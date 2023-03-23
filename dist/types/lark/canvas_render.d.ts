@@ -10,11 +10,17 @@ export default class CanvasRender {
     private drawFrames;
     private stream;
     private screenState;
+    private hasDeviceOrientationEvent;
+    private alpha;
+    private beta;
+    private gamma;
+    private currentRotateClock;
     constructor(screenState: ScreenState);
     init(stream: MediaStream): Promise<HTMLCanvasElement>;
     draw(): void;
     stopDrawing(): void;
     clear(): void;
-    setRotate(): void;
+    setRotate(clock: boolean): void;
     clearRotate(): void;
+    setupRotateWithDeivce(): void;
 }
