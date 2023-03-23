@@ -11,7 +11,7 @@ export default class CanvasRender {
     private stream;
     private screenState;
     constructor(screenState: ScreenState);
-    init(stream: MediaStream, rotate: boolean): Promise<HTMLCanvasElement>;
+    init(stream: MediaStream): Promise<HTMLCanvasElement>;
     draw(): void;
     stopDrawing(): void;
     clear(): void;
