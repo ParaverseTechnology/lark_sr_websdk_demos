@@ -56,7 +56,7 @@ export default class PeerConnectionMediaShare extends EventBase<WEBRTC_MEDIA_SHA
         streams: MediaStream;
         rtcRtpSenders: RTCMediaTrackBinding[];
     }>;
-    openVideo(audio?: boolean, cameraId?: string, width?: number, height?: number): Promise<{
+    openVideo(audio?: boolean, cameraId?: string, width?: number, height?: number, front?: boolean): Promise<{
         streams: MediaStream;
         rtcRtpSenders: RTCMediaTrackBinding[];
     }>;
@@ -73,7 +73,7 @@ export default class PeerConnectionMediaShare extends EventBase<WEBRTC_MEDIA_SHA
         streams: MediaStream;
         rtcRtpSenders: RTCMediaTrackBinding[];
     }>;
-    openCamera(cameraId: string, width?: number, height?: number, audio?: boolean): Promise<{
+    openCamera(cameraId: string, width?: number, height?: number, audio?: boolean, front?: boolean): Promise<{
         streams: MediaStream;
         rtcRtpSenders: RTCMediaTrackBinding[];
     }>;

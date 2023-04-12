@@ -1090,7 +1090,7 @@ declare class LarkSR extends EventBase<LarkSRClientEvent, LarkSREvent> {
      * @param cameraId 视频设备id，如果不传将打开默认设备。@see getConnectedVideoinputDevices
      * @returns Promise
      */
-    openVideo(audio?: boolean, cameraId?: string, width?: number, height?: number): Promise<any>;
+    openVideo(audio?: boolean, cameraId?: string, width?: number, height?: number, front?: boolean): Promise<any>;
     /**
      * 打开默认媒体设备，要注意浏览器限制在 https 或者 localhost 下
      * 如果需要指定特殊的媒体设备请单独使用 @see openAudio @see openVideo
@@ -1135,7 +1135,7 @@ declare class LarkSR extends EventBase<LarkSRClientEvent, LarkSREvent> {
      * @param minHeight 限制打开设备的高
      * @returns @see openUserMedia
      */
-    openCamera(cameraId: string, minWidth?: number, minHeight?: number): Promise<any>;
+    openCamera(cameraId: string, minWidth?: number, minHeight?: number, audio?: boolean, front?: boolean): Promise<any>;
     /**
      * 请求浏览器打开媒体并且打开上传到服务器通道。
      * 要注意的是在服务器连接成功之后请求打开
@@ -1209,6 +1209,7 @@ declare class LarkSR extends EventBase<LarkSRClientEvent, LarkSREvent> {
     private taskProcess;
     private startProcess;
     private onAppStateChange;
+    private onRTCRetrySuccess;
     private onGotRemoteStream;
     private onGotRemoteAudioStream;
     private onCursorStyle;

@@ -32,8 +32,8 @@
     <script src="./js/jquery.min.js"></script>
     <!-- 可选组件库 -->
     <!-- @see https://github.com/pingxingyun/pxy_webcommonui -->
-    <script src="./js/pxy_webcommonui.min.js?v=331202303234"></script>
-    <script src="./dist/larksr-web-sdk.min.js?v=33120230234"></script>
+    <script src="./js/pxy_webcommonui.min.js?v=331202304121"></script>
+    <script src="./dist/larksr-web-sdk.min.js?v=331202304121"></script>
     <script src="https://unpkg.com/vconsole@latest/dist/vconsole.min.js" crossorigin="anonymous"></script>
     <script>
         // debug 
@@ -547,6 +547,39 @@
                         });
                 }
             });
+
+            $("#open-video-input-device-front").on("click", function (e) {
+                var width = parseInt($("#video-width").val());
+                var height = parseInt($("#video-height").val());
+                width = isNaN(width) || width === null ? 1280 : width;
+                height = isNaN(height) || height == null ? 720 : height;
+
+                console.log('open-video-input-device', $("#video-input-device").val(), width, height);
+
+
+                client.openVideo(false, "", width, height, true)
+                    .then(function (res) {})
+                    .catch(function (e) {
+                        console.error('open video input device failed', e);
+                    });
+            });
+
+            $("#open-video-input-device-back").on("click", function (e) {
+                var width = parseInt($("#video-width").val());
+                var height = parseInt($("#video-height").val());
+                width = isNaN(width) || width === null ? 1280 : width;
+                height = isNaN(height) || height == null ? 720 : height;
+
+                console.log('open-video-input-device', $("#video-input-device").val(), width, height);
+
+
+                client.openVideo(false, "", width, height, false)
+                    .then(function (res) {})
+                    .catch(function (e) {
+                        console.error('open video input device failed', e);
+                    });
+            });
+
             $("#close-video-input-device").on("click", function (e) {
                 client.closeVideo();
             });
@@ -604,7 +637,6 @@
                         console.warn("测试getUserMedia失败", e);
                     })
             });
-
 
             $("#button-datachannel").on("click", function (e) {
                 var text = $("#input-datachannel").val();
@@ -753,7 +785,7 @@
         <!-- 演示 UI 层 -->
         <div class="ui">
             <div class="block">
-                <p>LarkSR WebSDK TestV3.2.338-331202303234</p>
+                <p>LarkSR WebSDK TestV3.2.338-331202304121</p>
             </div>
             <div class="block">
                 <input placeholder="服务器地址,如 http://192.168.0.55:8181" id="input-server-address" type="text" />
@@ -793,6 +825,8 @@
                 <select id="video-input-device">
                 </select>
                 <button id="open-video-input-device">打开视频输入设备</button>
+                <button id="open-video-input-device-front">打开视频输入设备(前)</button>
+                <button id="open-video-input-device-back">打开视频输入设备(后)</button>
                 <button id="close-video-input-device">关闭视频输入设备</button>
                 <button id="enum-video-input-device">枚举视频设备信息</button>
                 <button id="stop-video-input-device">停止视频</button>

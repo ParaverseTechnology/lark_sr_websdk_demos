@@ -14,6 +14,7 @@ export default class CanvasRender {
     private alpha;
     private beta;
     private gamma;
+    private isFront;
     private currentRotateClock;
     constructor(screenState: ScreenState);
     init(stream: MediaStream): Promise<HTMLCanvasElement>;
@@ -23,4 +24,5 @@ export default class CanvasRender {
     setRotate(clock: boolean): void;
     clearRotate(): void;
     setupRotateWithDeivce(): void;
+    private checkFront;
 }
