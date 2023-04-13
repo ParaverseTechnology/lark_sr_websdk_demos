@@ -32,8 +32,8 @@
     <script src="./js/jquery.min.js"></script>
     <!-- 可选组件库 -->
     <!-- @see https://github.com/pingxingyun/pxy_webcommonui -->
-    <script src="./js/pxy_webcommonui.min.js?v=331202304132"></script>
-    <script src="./dist/larksr-web-sdk.min.js?v=331202304132"></script>
+    <script src="./js/pxy_webcommonui.min.js?v=331202304133"></script>
+    <script src="./dist/larksr-web-sdk.min.js?v=331202304133"></script>
     <script src="https://unpkg.com/vconsole@latest/dist/vconsole.min.js" crossorigin="anonymous"></script>
     <script>
         // debug 
@@ -746,6 +746,18 @@
                     client.scaleMode = "contain";
                 }
             });
+
+            $("#full-screen").on("click", function() {
+                if (client) {
+                    client.fullScreen.launchFullScreen();
+                }
+            });
+
+            $("#exit-full-screen").on("click", function() {
+                if (client) {
+                    client.fullScreen.exitFullscreen();
+                }
+            });
         });
     </script>
     <style>
@@ -785,7 +797,7 @@
         <!-- 演示 UI 层 -->
         <div class="ui">
             <div class="block">
-                <p>LarkSR WebSDK TestV3.2.338-331202304132</p>
+                <p>LarkSR WebSDK TestV3.2.338-331202304133</p>
             </div>
             <div class="block">
                 <input placeholder="服务器地址,如 http://192.168.0.55:8181" id="input-server-address" type="text" />
@@ -801,6 +813,12 @@
                 </button>
                 <button id="video-render">
                     video
+                </button>
+                <button id="full-screen">
+                    全屏
+                </button>
+                <button id="exit-full-screen">
+                    退出全屏
                 </button>
                 <p id="state"></p>
             </div>
