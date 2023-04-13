@@ -111,6 +111,8 @@ export default class ScreenState extends EventBase<SCREEN_EVENT_TYPE, ScreenEven
     private larksr;
     get baseElementScale(): number;
     private _baseElementScale;
+    get wechatFullScreen(): boolean;
+    private _wechatFullScreen;
     constructor(rootElement: HTMLElement, params: IAppliParams, larksr: LarkSR, handleRootElementSize?: boolean, onlyHandleRootElementTransform?: boolean);
     reset(params: IAppliParams): void;
     setMobileForceLandScape(force: boolean): void;
