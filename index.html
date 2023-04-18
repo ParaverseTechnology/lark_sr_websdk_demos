@@ -177,7 +177,7 @@
                     alert("云端应用退出");
                 });
 
-                client.on(LarkSRClientEvent.PEERSTATUS_REPORT, (e) => {
+                client.on("peerstatusreport", (e) => {
                     console.log('视频宽=', e.data.frameWidth, ";视频高=", e.data.frameHeight);
                 });
 
