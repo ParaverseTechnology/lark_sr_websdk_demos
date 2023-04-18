@@ -44,7 +44,8 @@ export declare enum APP_EVENT_TYPE {
     AI_VOICE_DM_RESULT = 20,
     AI_VOICE_ERROR = 21,
     RTMP_STREAM_STATE = 22,
-    RTMP_STREAM_ERROR = 23
+    RTMP_STREAM_ERROR = 23,
+    RTC_RETRY_SUCCESS = 24
 }
 export interface AppEvent extends LocalEvent<APP_EVENT_TYPE> {
     data?: any;
@@ -66,6 +67,7 @@ export default class Application extends EventBase<APP_EVENT_TYPE, AppEvent> {
     get videoTrack(): MediaStreamTrack | null | undefined;
     get audioPaused(): boolean | undefined;
     get videoPaused(): boolean | undefined;
+    get serverFeatures(): Msg.CloudLark.INotifyFeatures | null | undefined;
     private get sharePeerConnection();
     private retryTime;
     private larksr;
@@ -146,7 +148,7 @@ export default class Application extends EventBase<APP_EVENT_TYPE, AppEvent> {
     closeVideo(): any;
     closeShare(): any;
     openAudio(deviceId?: string): Promise<any>;
-    openVideo(audio?: boolean, cameraId?: string, width?: number, height?: number): Promise<any>;
+    openVideo(audio?: boolean, cameraId?: string, width?: number, height?: number, front?: boolean): Promise<any>;
     openDefaultMedia(video?: boolean, audio?: boolean): Promise<any>;
     openShareMediaDevice(): Promise<any>;
     getConnectedAudioinputDevices(): Promise<any>;
@@ -154,7 +156,7 @@ export default class Application extends EventBase<APP_EVENT_TYPE, AppEvent> {
     getConnectedVideoinputDevices(): Promise<any>;
     getConnectedDevices(type: MediaDeviceKind): Promise<any>;
     openAudioDevice(deviceId: string, kind?: "audioinput" | "audiooutput"): Promise<any>;
-    openCamera(cameraId: string, minWidth?: number, minHeight?: number): Promise<any>;
+    openCamera(cameraId: string, minWidth?: number, minHeight?: number, audio?: boolean, front?: boolean): Promise<any>;
     openUserMeida(constraints?: MediaStreamConstraints, reset?: boolean): Promise<any>;
     addMediaTrack(track: MediaStreamTrack, ...streams: MediaStream[]): boolean | undefined;
     removeMediaTrack(track: RTCRtpSender): any;

@@ -7922,6 +7922,126 @@ export namespace CloudLark {
         public toJSON(): { [k: string]: any };
     }
 
+    /** Properties of a NotifyFeatures. */
+    interface INotifyFeatures {
+
+        /** NotifyFeatures gamePad */
+        gamePad?: (boolean|null);
+
+        /** NotifyFeatures aivoice */
+        aivoice?: (boolean|null);
+
+        /** NotifyFeatures vcam */
+        vcam?: (boolean|null);
+
+        /** NotifyFeatures rtmp */
+        rtmp?: (boolean|null);
+
+        /** NotifyFeatures audioInput */
+        audioInput?: (boolean|null);
+
+        /** NotifyFeatures offScreen */
+        offScreen?: (boolean|null);
+    }
+
+    /** Represents a NotifyFeatures. */
+    class NotifyFeatures implements INotifyFeatures {
+
+        /**
+         * Constructs a new NotifyFeatures.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: CloudLark.INotifyFeatures);
+
+        /** NotifyFeatures gamePad. */
+        public gamePad: boolean;
+
+        /** NotifyFeatures aivoice. */
+        public aivoice: boolean;
+
+        /** NotifyFeatures vcam. */
+        public vcam: boolean;
+
+        /** NotifyFeatures rtmp. */
+        public rtmp: boolean;
+
+        /** NotifyFeatures audioInput. */
+        public audioInput: boolean;
+
+        /** NotifyFeatures offScreen. */
+        public offScreen: boolean;
+
+        /**
+         * Creates a new NotifyFeatures instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns NotifyFeatures instance
+         */
+        public static create(properties?: CloudLark.INotifyFeatures): CloudLark.NotifyFeatures;
+
+        /**
+         * Encodes the specified NotifyFeatures message. Does not implicitly {@link CloudLark.NotifyFeatures.verify|verify} messages.
+         * @param message NotifyFeatures message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: CloudLark.INotifyFeatures, writer?: $protobuf.Writer): $protobuf.Writer;
+
+        /**
+         * Encodes the specified NotifyFeatures message, length delimited. Does not implicitly {@link CloudLark.NotifyFeatures.verify|verify} messages.
+         * @param message NotifyFeatures message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: CloudLark.INotifyFeatures, writer?: $protobuf.Writer): $protobuf.Writer;
+
+        /**
+         * Decodes a NotifyFeatures message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns NotifyFeatures
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): CloudLark.NotifyFeatures;
+
+        /**
+         * Decodes a NotifyFeatures message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns NotifyFeatures
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): CloudLark.NotifyFeatures;
+
+        /**
+         * Verifies a NotifyFeatures message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a NotifyFeatures message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns NotifyFeatures
+         */
+        public static fromObject(object: { [k: string]: any }): CloudLark.NotifyFeatures;
+
+        /**
+         * Creates a plain object from a NotifyFeatures message. Also converts values to other types if specified.
+         * @param message NotifyFeatures
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: CloudLark.NotifyFeatures, options?: $protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this NotifyFeatures to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
     /** Properties of an AppNotification. */
     interface IAppNotification {
 
@@ -7966,6 +8086,9 @@ export namespace CloudLark {
 
         /** AppNotification rtmpError */
         rtmpError?: (CloudLark.IRtmp_Error|null);
+
+        /** AppNotification notifyFeatures */
+        notifyFeatures?: (CloudLark.INotifyFeatures|null);
     }
 
     /** Represents an AppNotification. */
@@ -8019,8 +8142,11 @@ export namespace CloudLark {
         /** AppNotification rtmpError. */
         public rtmpError?: (CloudLark.IRtmp_Error|null);
 
+        /** AppNotification notifyFeatures. */
+        public notifyFeatures?: (CloudLark.INotifyFeatures|null);
+
         /** AppNotification notify. */
-        public notify?: ("resize"|"mousemode"|"updatePlayers"|"requestInput"|"gamepadOutput"|"datachannelState"|"appDcMsg"|"cursorStyle"|"aiVoiceRealtimeParseresult"|"aiVoiceResult"|"aiVoiceServiceStatus"|"aiVoiceErr"|"rtmpState"|"rtmpError");
+        public notify?: ("resize"|"mousemode"|"updatePlayers"|"requestInput"|"gamepadOutput"|"datachannelState"|"appDcMsg"|"cursorStyle"|"aiVoiceRealtimeParseresult"|"aiVoiceResult"|"aiVoiceServiceStatus"|"aiVoiceErr"|"rtmpState"|"rtmpError"|"notifyFeatures");
 
         /**
          * Creates a new AppNotification instance using the specified properties.
