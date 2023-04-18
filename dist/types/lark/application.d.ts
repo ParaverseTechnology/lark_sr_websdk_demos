@@ -67,6 +67,7 @@ export default class Application extends EventBase<APP_EVENT_TYPE, AppEvent> {
     get videoTrack(): MediaStreamTrack | null | undefined;
     get audioPaused(): boolean | undefined;
     get videoPaused(): boolean | undefined;
+    get serverFeatures(): Msg.CloudLark.INotifyFeatures | null | undefined;
     private get sharePeerConnection();
     private retryTime;
     private larksr;

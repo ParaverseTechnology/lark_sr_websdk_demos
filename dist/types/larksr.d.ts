@@ -648,6 +648,10 @@ declare class LarkSR extends EventBase<LarkSRClientEvent, LarkSREvent> {
      */
     get videoPaused(): boolean | undefined;
     /**
+     * 服务器支持的功能列表
+     */
+    get serverFeatures(): CloudLark.INotifyFeatures | null | undefined;
+    /**
      * LarkSR 客户端。所有操作和事件通过该类传递
      * @param config 本地配置，优先级最高
      */

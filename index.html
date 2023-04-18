@@ -32,8 +32,8 @@
     <script src="./js/jquery.min.js"></script>
     <!-- 可选组件库 -->
     <!-- @see https://github.com/pingxingyun/pxy_webcommonui -->
-    <script src="./js/pxy_webcommonui.min.js?v=331202304176"></script>
-    <script src="./dist/larksr-web-sdk.min.js?v=331202304176"></script>
+    <script src="./js/pxy_webcommonui.min.js?v=331202304181"></script>
+    <script src="./dist/larksr-web-sdk.min.js?v=331202304181"></script>
     <script src="https://unpkg.com/vconsole@latest/dist/vconsole.min.js" crossorigin="anonymous"></script>
     <script>
         // debug 
@@ -175,6 +175,10 @@
                 });
                 client.on('appclose', function (e) {
                     alert("云端应用退出");
+                });
+
+                client.on(LarkSRClientEvent.PEERSTATUS_REPORT, (e) => {
+                    console.log('视频宽=', e.data.frameWidth, ";视频高=", e.data.frameHeight);
                 });
 
                 // test video event
@@ -797,7 +801,7 @@
         <!-- 演示 UI 层 -->
         <div class="ui">
             <div class="block">
-                <p>LarkSR WebSDK TestV3.2.341-331202304176</p>
+                <p>LarkSR WebSDK TestV3.2.341-331202304181</p>
             </div>
             <div class="block">
                 <input placeholder="服务器地址,如 http://192.168.0.55:8181" id="input-server-address" type="text" />
