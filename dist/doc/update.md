@@ -445,3 +445,10 @@ ERROR              = 'error',
 
 1. 配合服务端升级协议.
 2. 修复其他问题.
+
+## V3.3.342
+
+1. 配合服务端升级，添加 `larksr.serverFeatures` 返回服务端支持特性
+2. 移动端打开摄像头会根据屏幕旋转旋转摄像头画面方向
+3. `openVideo` 接口可以传参数指定是否是前置摄像头 `openVideo(audio: boolean = false, cameraId: string = '', width: number = 0, height: number = 0, front?: boolean)`
+4. 获取后台应用参数 `larksr.params.mobileKeyboardType`
