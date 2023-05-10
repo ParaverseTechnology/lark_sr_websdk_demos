@@ -4,6 +4,8 @@
       <!-- PxyCommonUI 组件容器 -->
       <div ref="uiContainerRef" style="position:absolute;z-index: 1000;">
       </div>
+      <!-- 键盘组件容器 -->
+      <div ref="uiKeyboardRef" style=" position: absolute;zIndex: 2000; bottom: 0; width: '100%';"></div>
   </div>
 </template>
 
@@ -13,6 +15,7 @@ import PxyCommonUI from 'pxy_webcommonui';
 const { 
   Joystick, 
   Capabilities,
+  Keyboard,
   // KJoystickEvents,
   // KJoystickSubTypes
 } = PxyCommonUI;
@@ -27,6 +30,7 @@ export default {
       larksr: null,
       joystick: null,
       appContainer: null,
+      keyboard: null
     };
   },
   mounted() {
@@ -34,7 +38,8 @@ export default {
         rootElement: this.$refs["appContainer"],
         // 服务器地址,实际使用中填写您的服务器地址
         // 如：http://222.128.6.137:8181/
-        serverAddress: "http://222.128.6.137:8181/",
+        // serverAddress: "http://222.128.6.137:8181/",
+        serverAddress: "http://192.168.0.55:8181/"
         // 视频缩放模式，默认保留宽高比，不会拉伸并完整显示在容器中
         // scaleMode: "contain",
         // 0 -》 用户手动触发, 1 -》 首次点击进入触发, 2 -》 每次点击触发
@@ -53,7 +58,8 @@ export default {
       // start connect;
       larksr.connect({
         // people beijig 879414254636105728
-        appliId: "879414254636105728",
+        // appliId: "879414254636105728",
+        appliId: "925773094113509376",
         // playerMode: 2,
         // userType: Unit.queryString("userType") as any,
         // taskId: Unit.queryString("taskid") as any,
@@ -104,6 +110,29 @@ export default {
     });                   
     larksr.on('info', (e) => {
         console.log("LarkSRClientEvent info", e); 
+    });
+    larksr.on('apprequestinput', (e) => {
+      console.log("apprequestinput", e);
+      if (e.data === true) {
+        if(Capabilities.isMobile) {
+          this.keyboard.show();
+        }
+      } else {
+        if(Capabilities.isMobile) {
+          this.keyboard.hide();
+        }
+        if (this.mobileScreenLandscapState) {
+          this.larksr?.screenState.setMobileForceLandScape(true);
+          this.mobileScreenLandscapState = false;
+        }
+      }
+    });
+
+    larksr.on('resourcenotenough', (e) => {
+        console.log("LarkSRClientEvent resourcenotenough", e); 
+        if(e.type === 0) {
+          alert("当前系统繁忙，请稍后再试！");
+        }
     });
 
     this.larksr = larksr;
@@ -183,6 +212,17 @@ export default {
       // destroy joystick
       // this.joystick.destroy();
       this.joystick.hide();
+
+      this.keyboard = new Keyboard({
+        // 必填项，挂载的根元素
+        rootElement: this.$refs["uiKeyboardRef"], 
+        larksr: this.larksr,
+        language: 'zh'// en-英文   zh-中文
+      })
+      this.keyboard.on('keyboardVal', (e)=>{
+        console.log('keyboardVal',e.detail)
+      })
+      this.keyboard.hide();
     }
   },
 };

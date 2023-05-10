@@ -1,5 +1,7 @@
 <template>
   <div id="app" ref="appContainer" @contextmenu.prevent  @mouseup="onMutePlay" @touchend="onMutePlay">
+    <input v-if="isMobile" class="virtualInput" @keyup="inputKeyUp" ref="input" type="text" v-model="inputValue">
+    <div @click="virtualInputFocus" style="width: 100%;height:100%;z-index:2100;position:absolute;" v-if="showVirtualDiv"></div>
     <!-- 手机端 UI -->
     <MobileIndex v-if="cloudReady && isMobile"></MobileIndex>
     <!-- 通用 UI -->
@@ -20,7 +22,7 @@
     <!-- 网络状态 -->
     <States />
     <!-- 输入框，用于云端输入 -->
-    <Input v-if="cloudReady" />
+    <Input v-if="cloudReady && !isMobile" />
   </div>
 </template>
 
@@ -29,6 +31,7 @@ import { LarkSR } from "larksr_websdk";
 import MobileIndex from "./components/mobile/index";
 import { mapState, mapGetters, mapMutations, mapActions } from "vuex";
 import Unit from './utils/unit';
+import Capabilities from './utils/capabilities'
 import Alert               from './components/alert/alert';
 import Notify              from './components/notify/notify';
 import Toast               from './components/toast/toast';
@@ -58,7 +61,31 @@ export default {
       appContainer: null,
       cloudReady: false,
       mutePlay: false,
+      inputValue: '',//隐藏的input，移动端调起系统键盘使用
+      defaultPhoneHeight : null, //屏幕默认高度
+      nowPhoneHeight: null,//屏幕现在的高度
+      showVirtualDiv: false,
+      isIOS: Capabilities.os === 'iOS'
     };
+  },
+  watch: {
+    nowPhoneHeight: function() {
+      if(this.isMobile) {
+        if(this.defaultPhoneHeight != this.nowPhoneHeight){
+        console.log('手机键盘被唤起')
+        }else{  
+          console.log('手机键盘关闭')
+          this.$refs.input.blur();
+          this.hideVirtualDiv();
+        }
+      }
+    },
+    inputValue: function(val) {
+      if(val) {
+        this.larksr.inputText(val);
+        this.inputValue = '';
+      }
+    }
   },
   computed: {
     ...mapState({
@@ -76,6 +103,26 @@ export default {
       this.larksr.videoComponent.playVideo();
       this.mutePlay = false;
     },
+    inputKeyUp(e) {
+      if(e.keyCode === 13) {
+        this.larksr.inputText(this.inputValue);
+        this.inputValue = '';
+        this.$refs.input.blur();
+        this.hideVirtualDiv();
+      }else if(e.keyCode === 8) {
+        this.larksr.keyDown('Backspace', false);
+        setTimeout(() => {
+          this.larksr.keyUp('Backspace');
+        },50)
+      }
+    },
+    virtualInputFocus() {
+      this.$refs.input.focus();
+    },
+    hideVirtualDiv() {
+      if(this.showVirtualDiv) this.showVirtualDiv = false;
+      if (this.larksr)this.larksr.op.setKeyboardEnable(true);
+    },
     ...mapMutations({
         setLarksr: "setLarksr",
         setAggregatedStats: "setAggregatedStats",
@@ -90,14 +137,21 @@ export default {
     }),
   },
   mounted() {
+    this.defaultPhoneHeight = window.innerHeight;
+    window.onresize=()=>{
+      this.nowPhoneHeight = window.innerHeight
+    };
+    if(this.isIOS) {
+      document.addEventListener('focusout', () => { this.hideVirtualDiv() });
+    }
     // 直接调用进入应用接口创建实例，自动配置连接云端资源
     const larksr = new LarkSR({
         // doc https://pingxingyun.github.io/webclient_sdk/config.html
         rootElement: this.$refs["appContainer"],
         // 服务器地址,实际使用中填写您的服务器地址
         // 如：http://222.128.6.137:8181/
-        serverAddress: "http://222.128.6.137:8181/",
-        // serverAddress: "http://192.168.0.55:8181/",
+        // serverAddress: "http://222.128.6.137:8181/",
+        serverAddress: "http://192.168.0.55:8181/",
         // 视频缩放模式，默认保留宽高比，不会拉伸并完整显示在容器中
         // scaleMode: "contain",
         // 0 -》 用户手动触发, 1 -》 首次点击进入触发, 2 -》 每次点击触发
@@ -135,7 +189,7 @@ export default {
         // 参考查询应用一栏文档
         // https://www.pingxingyun.com/online/api3_2.html?id=476
         // 如 222.128.6.137:8181 系统下的 879414254636105728 应用
-        appliId: "879414254636105728",
+        appliId: "925773094113509376",
         // 其他可选参数如下
         // 互动模式
         //启动模式：0：普通模式, 1：互动模式（一人操作多人观看），2: 多人协同（键盘鼠标放开，需要应用配合）
@@ -242,6 +296,38 @@ export default {
         this.toast({text: e.message});
     });
     console.log("load appli success", larksr);
+    
+    larksr.on('resourcenotenough', (e) => {
+        console.log("LarkSRClientEvent resourcenotenough", e); 
+        if(e.type === 0) {
+          alert("当前系统繁忙，请稍后再试！");
+        }
+    });
+
+    // 云端Input输入事件
+    larksr.on('apprequestinput', (e) => {
+      console.log('apprequestinput', e)
+      if(e.data === true) {
+        if(this.isMobile) {
+          //打开系统键盘
+          if(e.data === true) {
+            if(this.isIOS){
+              this.showVirtualDiv = true;
+              if (this.larksr)this.larksr.op.setKeyboardEnable(false);
+            } else {
+              this.$refs.input.focus();
+              this.setInputMethodEnable(true);
+            }
+          }
+        } else{
+          //PC 端云端输入
+          this.setInputMethodEnable(e.data);
+        }
+      } else {
+        this.setInputMethodEnable(false);
+        this.hideVirtualDiv();
+      }
+    })
 
     // reset states.
     this.setLarksr(larksr);
@@ -276,8 +362,25 @@ export default {
   beforeUnmount() {
     // 主动关闭
     this.larksr?.close();
+    if(this.isIOS) {
+      document.removeEventListener('focusout', () => { this.hideVirtualDiv() });
+    }
   },
 };
 </script>
 
-<style></style>
+<style>
+.virtualInput {
+  position:absolute;
+  z-index: 1000;
+  border: none;
+  background: transparent;
+  color: transparent;
+}
+.virtualInput:focus {
+ border: none;
+ outline: none;
+ color: transparent;
+ caret-color: transparent;
+}
+</style>

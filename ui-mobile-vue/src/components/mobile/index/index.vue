@@ -46,7 +46,7 @@ import {
     mapActions,
 }                          from 'vuex';
 import JoyskickIndex       from '../joystick_index/joystick_index';
-import Keyboard            from '../keyboard/keyboard';
+import Keyboard            from '../keyboard/keyboardComponent.vue';
 import VCursor             from '../v_cursor/v_cursor';
 import Unit                from '../../../utils/unit';
 import MicInput            from '../../mic_input/mic_input.vue';

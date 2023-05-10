@@ -6,7 +6,8 @@ import JoystickTopImage from './assets/img/mobile/joy_stick_top.png';
 
 const { 
   Joystick,
-  Capabilities 
+  Capabilities,
+  Keyboard,
 } = PxyWebCommonUI;
 
 export default class App extends React.Component {
@@ -14,6 +15,7 @@ export default class App extends React.Component {
   larksr;
   // joystick container
   uiContainerRef;
+  uiKeyboardRef;
   // : InstanceType<typeof Joystick>
   joystick;  
   
@@ -24,6 +26,7 @@ export default class App extends React.Component {
     }
     this.myRef = React.createRef();
     this.uiContainerRef = React.createRef();
+    this.uiKeyboardRef = React.createRef();
   }
   componentDidMount() {
 
@@ -51,7 +54,7 @@ export default class App extends React.Component {
       // start connect;
       larksr.connect({
         // people beijig 879414254636105728
-        appliId: "912998081102872576",
+        appliId: "925773094113509376",
         // playerMode: 2,
         // userType: Unit.queryString("userType") as any,
         // taskId: Unit.queryString("taskid") as any,
@@ -107,7 +110,28 @@ export default class App extends React.Component {
     larksr.on('info', (e) => {
         console.log("LarkSRClientEvent info", e); 
     });
-
+    larksr.on('apprequestinput', (e) => {
+      console.log("apprequestinput", e);
+      if (e.data === true) {
+        if(Capabilities.isMobile) {
+          this.keyboard.show();
+        }
+      } else {
+        if(Capabilities.isMobile) {
+          this.keyboard.hide();
+        }
+        if (this.mobileScreenLandscapState) {
+          this.larksr?.screenState.setMobileForceLandScape(true);
+          this.mobileScreenLandscapState = false;
+        }
+      }
+    });
+    larksr.on('resourcenotenough', (e) => {
+      console.log("LarkSRClientEvent resourcenotenough", e); 
+      if(e.type === 0) {
+        alert("当前系统繁忙，请稍后再试！");
+      }
+    });
     this.larksr = larksr;
 
     console.log('ref', this.myRef.current);
@@ -185,6 +209,16 @@ export default class App extends React.Component {
 
       // destroy joystick
       // this.joystick.destroy();
+      this.keyboard = new Keyboard({
+        // 必填项，挂载的根元素
+        rootElement: this.uiKeyboardRef.current, 
+        larksr: this.larksr,
+        language: 'en'
+      })
+      this.keyboard.on('keyboardVal', (e)=>{
+        console.log('e',e.detail)
+      })
+      this.keyboard.hide();
     }
   }
 
@@ -220,6 +254,12 @@ export default class App extends React.Component {
               // backgroundSize: 'cover',
             }}>
           </div>
+          <div ref={this.uiKeyboardRef} style={{
+            position: 'absolute', 
+            zIndex: 2000, 
+            bottom: 0,
+            width: '100%',
+          }}></div>
       </div>
     );
   }
