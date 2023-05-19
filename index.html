@@ -747,8 +747,13 @@
                 var showPlayButton = urlParams.get('showPlayButton');
                 var useSeparateMediaSharePeer = urlParams.get('useSeparateMediaSharePeer');
                 var language = urlParams.get('language');
+                var enableCanvasRender = urlParams.get('enableCanvasRender');
+                var frameRate = urlParams.get('frameRate');
+                var codeRate = urlParams.get('codeRate');
+                var audioCodeRate = urlParams.get('audioCodeRate');
 
-                console.log("load urlparrams", ip, port, sdkId, appliId, autoPlay, showPlayButton);
+                console.log("load urlparrams", ip, port, sdkId, appliId, autoPlay, showPlayButton,
+                    enableCanvasRender, frameRate, codeRate, audioCodeRate);
 
                 var serverAddress = "";
                 var config = {};
@@ -764,6 +769,18 @@
                 }
                 if (language != null && language != undefined) {
                     config.language = language;
+                }
+                if (enableCanvasRender != null && enableCanvasRender != undefined) {
+                    config.enableCanvasRender = enableCanvasRender === 'true' ? true : false;
+                }
+                if (frameRate != null && frameRate != undefined) {
+                    config.frameRate = parseInt(frameRate);
+                }
+                if (codeRate != null && codeRate != undefined) {
+                    config.codeRate = parseInt(codeRate);
+                }
+                if (audioCodeRate != null && audioCodeRate != undefined) {
+                    config.audioCodeRate = parseInt(audioCodeRate);
                 }
 
                 if (ip && port) {
