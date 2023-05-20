@@ -146,6 +146,10 @@
                 });
                 client.on('meidaloaded', function (e) {
                     console.log("LarkSRClientEvent meidaloaded", e);
+                    client.videoElement.addEventListener('pause', function (e) {
+                        alert("	Playback has been paused.");
+                        client.videoElement.play();
+                    });
                 });
                 client.on('mediaplaysuccess', function (e) {
                     console.log("LarkSRClientEvent mediaplaysuccess", e);
