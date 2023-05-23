@@ -2,45 +2,19 @@ import { EventBase, LocalEvent } from '../event/event_base';
 import { LarkSR } from '../larksr';
 import { MediaShareInterface, RTCMediaTrackBinding } from './media_share_interface';
 import { CloudLark } from '@/protobuf/cloudlark';
-import CanvasRender from './canvas_render';
 export declare enum WEBRTC_MEDIA_SHARE_EVENT_TYPE {
-    RTC_SDP = "rtc_sdp",
-    RTC_ICECANDIDATE = "rtc_icecandidate",
-    ICE_STATE_CHANGE = "rtc_state_change",
-    ERROR = "rtc_error",
-    INFO = "rtc_info"
+    RTC_SDP = 0,
+    RTC_ICECANDIDATE = 1,
+    ICE_STATE_CHANGE = 2,
+    ERROR = 3,
+    INFO = 4
 }
 export interface WebRTCMediaShareEvent extends LocalEvent<WEBRTC_MEDIA_SHARE_EVENT_TYPE> {
     data?: any;
-    id: number;
 }
 export interface WebRTCConfig {
     serverIP: string;
     preferPubOutIp: string;
-}
-export interface AggregatedSendStats {
-    timestamp: number;
-    bytesSent: number;
-    framesEncoded: number;
-    packetsLost: number;
-    bytesSentStart: number;
-    framesEncodedStart: number;
-    timestampStart: number;
-    bitrate: number;
-    lowBitrate: number;
-    highBitrate: number;
-    avgBitrate: number;
-    framerate: number;
-    lowFramerate: number;
-    highFramerate: number;
-    avgframerate: number;
-    framesSent: number;
-    frameHeight: number;
-    frameWidth: number;
-    frameHeightStart: number;
-    frameWidthStart: number;
-    currentRoundTripTime: number;
-    packetsLostPerc: number;
 }
 export default class PeerConnectionMediaShare extends EventBase<WEBRTC_MEDIA_SHARE_EVENT_TYPE, WebRTCMediaShareEvent> implements MediaShareInterface {
     get audioDeviceId(): string | undefined;
@@ -59,40 +33,11 @@ export default class PeerConnectionMediaShare extends EventBase<WEBRTC_MEDIA_SHA
     private videoBinding;
     private sdpCreateSuccess;
     private readonly sendStream;
-    get canvasRender(): CanvasRender;
-    private _canvasRender;
-    private netTestTimeout;
-    get aggregatedStats(): AggregatedSendStats | null;
-    private set aggregatedStats(value);
-    private _aggregatedStats;
-    private lastThrowBadNetork;
-    private lastPacktetsLost;
-    private lastPacktetsReceived;
-    set preferVideoCode(code: 'auto' | 'vp8' | 'vp9' | 'h264' | 'h265' | 'hevc' | 'av1x');
-    get preferVideoCode(): 'auto' | 'vp8' | 'vp9' | 'h264' | 'h265' | 'hevc' | 'av1x';
-    private _preferDecoder;
-    set codeRate(codeRate: {
-        start: number;
-        min: number;
-        max: number;
-    });
-    get codeRate(): {
-        start: number;
-        min: number;
-        max: number;
-    };
-    private _codeRate;
-    get id(): number;
-    private _id;
-    set forceRenderToCanvas(force: boolean);
-    get forceRenderToCanvas(): boolean;
-    private _forceRenderToCanvas;
-    constructor(larksr: LarkSR, id: number);
+    private canvasRender;
+    constructor(larksr: LarkSR);
     create(config?: CloudLark.IRTCConfiguration | null | undefined): Promise<void>;
     createOffer(): void;
     close(): void;
-    getStats(): Promise<AggregatedSendStats>;
-    getStateChrome(): Promise<AggregatedSendStats>;
     setAudioEnable(enable: boolean): void;
     setVideoEnable(enable: boolean): void;
     setShareEnable(enable: boolean): void;

@@ -10,8 +10,8 @@ export default class Message {
     static startMonitorStreamReqeuest(request: Msg.CloudLark.IVrMonitorRequest): Msg.CloudLark.ToServerMessage;
     static rtcOfferMsg(type: string, sdp: string): Msg.CloudLark.ToServerMessage;
     static iceMsg(sdpmid: string, sdpMlineindex: number, candidate: string, username: string | null | undefined): Msg.CloudLark.ToServerMessage;
-    static mediaShareRtcOfferMsg(type: string, sdp: string, index: number): Msg.CloudLark.ToServerMessage;
-    static mediaShareIceMsg(sdpmid: string, sdpMlineindex: number, candidate: string, index: number): Msg.CloudLark.ToServerMessage;
+    static mediaShareRtcOfferMsg(type: string, sdp: string): Msg.CloudLark.ToServerMessage;
+    static mediaShareIceMsg(sdpmid: string, sdpMlineindex: number, candidate: string): Msg.CloudLark.ToServerMessage;
     static restartApp(): Msg.CloudLark.ToServerMessage;
     static getTaskResponseMsg(ressponse: Msg.CloudLark.TaskResponse.Response): string;
     static getStartStreamResponseMsg(ressponse: Msg.CloudLark.StartStreamResponse.Response): string;

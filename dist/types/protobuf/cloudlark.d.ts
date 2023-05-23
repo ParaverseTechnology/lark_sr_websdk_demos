@@ -1821,9 +1821,6 @@ export namespace CloudLark {
 
         /** WebrtcOfferAnswer sdp */
         sdp?: (string|null);
-
-        /** WebrtcOfferAnswer index */
-        index?: (number|null);
     }
 
     /** Represents a WebrtcOfferAnswer. */
@@ -1840,9 +1837,6 @@ export namespace CloudLark {
 
         /** WebrtcOfferAnswer sdp. */
         public sdp: string;
-
-        /** WebrtcOfferAnswer index. */
-        public index: number;
 
         /**
          * Creates a new WebrtcOfferAnswer instance using the specified properties.
@@ -1929,9 +1923,6 @@ export namespace CloudLark {
 
         /** WebrtcIceCandidate username */
         username?: (string|null);
-
-        /** WebrtcIceCandidate index */
-        index?: (number|null);
     }
 
     /** Represents a WebrtcIceCandidate. */
@@ -1954,9 +1945,6 @@ export namespace CloudLark {
 
         /** WebrtcIceCandidate username. */
         public username: string;
-
-        /** WebrtcIceCandidate index. */
-        public index: number;
 
         /**
          * Creates a new WebrtcIceCandidate instance using the specified properties.

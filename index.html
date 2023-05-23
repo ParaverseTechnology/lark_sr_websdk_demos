@@ -32,8 +32,8 @@
     <script src="./js/jquery.min.js"></script>
     <!-- 可选组件库 -->
     <!-- @see https://github.com/pingxingyun/pxy_webcommonui -->
-    <script src="./js/pxy_webcommonui.min.js?v=331202305203"></script>
-    <script src="./dist/larksr-web-sdk.min.js?v=331202305203"></script>
+    <script src="./js/pxy_webcommonui.min.js?v=331202305231"></script>
+    <script src="./dist/larksr-web-sdk.min.js?v=331202305231"></script>
     <script src="https://unpkg.com/vconsole@latest/dist/vconsole.min.js" crossorigin="anonymous"></script>
     <script>
         // debug 
@@ -146,10 +146,6 @@
                 });
                 client.on('meidaloaded', function (e) {
                     console.log("LarkSRClientEvent meidaloaded", e);
-                    client.videoElement.addEventListener('pause', function (e) {
-                        alert("	Playback has been paused.");
-                        client.videoElement.play();
-                    });
                 });
                 client.on('mediaplaysuccess', function (e) {
                     console.log("LarkSRClientEvent mediaplaysuccess", e);
@@ -381,9 +377,7 @@
                 return devices.filter(device => device.deviceId === id)
             }
 
-            var testGetUserMedia = false;
-            if (testGetUserMedia) {
-                navigator.mediaDevices.getUserMedia({
+            navigator.mediaDevices.getUserMedia({
                     video: true,
                     audio: true
                 })
@@ -437,8 +431,7 @@
                         .catch((e) => {
                             console.error(e);
                         });
-                });
-            }
+                })
 
             $("#video-input-device").on("change", async function (e) {
                 const device = await getConnectedDevice($("#video-input-device").val());
@@ -451,129 +444,60 @@
                 }
             });
 
-            // ...
-            // 主动关闭并清理资源
-            // client.close();
-
-            // ui handler
-            // handle conenct
-            // 媒体通道设置相关接口
-            function updateChannelState() {
-                $("#media-channel-video-code").text("编码设置：" + client.getMediaSharePeerConnection(currentMediaChannel).preferVideoCode);
-                $("#media-channel-code-rate").text("码率设置：" + JSON.stringify(client.getMediaSharePeerConnection(currentMediaChannel).codeRate));
-                $("#media-channel-canvas").text("画布：" + client.getMediaSharePeerConnection(currentMediaChannel).forceRenderToCanvas);
-            }
-
-            // handle channel
-            $("#media-channels").on("change", function(e) {
-                console.log("select media channel", $("#media-channels").val()); 
-                currentMediaChannel = parseInt($("#media-channels").val());
-
-                updateChannelState();
-            });
-
-            $("#media-states").on("click", function() {
-                client.getMediaSharePeerConnection(currentMediaChannel).getStats()
-                .then((res) => {
-                    console.log("state: ", res);
-                })
-                .catch((e) => {
-                    console.log("get state failed", e);
-                })
-            });
-
-            $("#media-code-vp8").on("click", function() {
-                client.getMediaSharePeerConnection(currentMediaChannel).preferVideoCode = 'vp8';
-                updateChannelState();
-            })
-
-            $("#media-code-h264").on("click", function() {
-                client.getMediaSharePeerConnection(currentMediaChannel).preferVideoCode = 'h264';
-                updateChannelState();
-            })            
-            
-            $("#media-force-canvas").on("click", function() {
-                client.getMediaSharePeerConnection(currentMediaChannel).forceRenderToCanvas = true;
-                updateChannelState();
-            })               
-            
-            $("#media-no-canvas").on("click", function() {
-                client.getMediaSharePeerConnection(currentMediaChannel).forceRenderToCanvas = false;
-                client.getMediaSharePeerConnection(currentMediaChannel).canvasRender.clearRotate();
-                updateChannelState();
-            })            
-            
-            $("#media-canvas-rotate-clock").on("click", function() {
-                client.getMediaSharePeerConnection(currentMediaChannel).canvasRender.setRotate(true);
-            })
-
-            $("#media-canvas-rotate-antclock").on("click", function() {
-                client.getMediaSharePeerConnection(currentMediaChannel).canvasRender.setRotate(false);
-            })
-
-
             // handle media
-            $("#open-audio").on("click", function(e) {
+            $("#open-audio").on("click", function (e) {
                 console.log("open-audio");
-                client.getMediaSharePeerConnection(currentMediaChannel).openAudio();
+                client.openAudio();
             });
             $("#close-audio").on("click", function (e) {
                 console.log("close-audio");
-                client.getMediaSharePeerConnection(currentMediaChannel).closeAudio();
+                client.closeAudio();
             });
             $("#open-video").on("click", function (e) {
                 console.log("open-video");
-                client.getMediaSharePeerConnection(currentMediaChannel).openVideo();
+                client.openVideo();
             });
             $("#close-video").on("click", function (e) {
                 console.log("close-video");
-                client.getMediaSharePeerConnection(currentMediaChannel).closeVideo();
+                client.closeVideo();
             });
             $("#open-share").on("click", function (e) {
                 console.log("open-share");
-                client.getMediaSharePeerConnection(currentMediaChannel).openShareMediaDevice();
+                client.openShareMediaDevice();
             });
             $("#close-share").on("click", function (e) {
                 console.log("close-share");
-                client.getMediaSharePeerConnection(currentMediaChannel).closeShare();
+                client.closeShare();
             });
             $("#close-closeMediaChannel").on("click", function (e) {
                 console.log("closeMediaChannel");
-                client.getMediaSharePeerConnection(currentMediaChannel).closeMediaChannel();
+                client.closeMediaChannel();
             });
 
-            var audioInputBind;
             $("#open-audio-input-device").on("click", function (e) {
                 console.log('open-audio-input-device', $("#audio-input-device").val());
-                client.getMediaSharePeerConnection(currentMediaChannel).openAudioDevice($("#audio-input-device").val(), 'audioinput')
-                    .then(function (res) {
-                        audioInputBind = res;
-                    })
+                client.openAudioDevice($("#audio-input-device").val(), 'audioinput')
+                    .then(function (res) {})
                     .catch(function (e) {
                         console.log('open audio input device failed', e);
                     });
             });
             $("#open-audio-output-device").on("click", function (e) {
                 console.log('open-audio-output-device', $("#audio-output-device").val());
-                client.getMediaSharePeerConnection(currentMediaChannel).openAudioDevice($("#audio-output-device").val(), 'audiooutput');
+                client.openAudioDevice($("#audio-output-device").val(), 'audiooutput');
             });
             $("#close-audio-input-device").on("click", function (e) {
-                client.getMediaSharePeerConnection(currentMediaChannel).closeAudio();
-                // if (audioInputBind) {
-                //     console.log('close-audio-input-device', audioInputBind);
-                //     client.removeMediaTrack(audioInputBind.rtcRtpSenders[0].sender);
-                //     audioInputBind = null;
-                // }
+                client.closeAudio();
             });
 
             $("#stop-audio-input-device").on("click", function (e) {
-                client.getMediaSharePeerConnection(currentMediaChannel).stopLocalAudio();
+                client.stopLocalAudio();
             });
             $("#pause-audio-input-device").on("click", function (e) {
-                client.getMediaSharePeerConnection(currentMediaChannel).pauseAudioSending();
+                client.pauseAudioSending();
             });
             $("#resume-audio-input-device").on("click", function (e) {
-                client.getMediaSharePeerConnection(currentMediaChannel).resumeAudioSending();
+                client.resumeAudioSending();
             });
 
             $("#enum-audio-input-device").on("click", function (e) {
@@ -607,7 +531,7 @@
 
                 if (resetMediaChannel) {
                     // 重制媒体通道
-                    client.getMediaSharePeerConnection(currentMediaChannel).openUserMeida({
+                    client.openUserMeida({
                             audio: false,
                             video: {
                                 deviceId: $("#video-input-device").val(),
@@ -620,9 +544,8 @@
                             console.error('open video input device failed', e);
                         });
                 } else {
-                    client.getMediaSharePeerConnection(currentMediaChannel).openVideo(false, $("#video-input-device").val(), width, height)
-                        .then(function (res) {
-                        })
+                    client.openVideo(false, $("#video-input-device").val(), width, height)
+                        .then(function (res) {})
                         .catch(function (e) {
                             console.error('open video input device failed', e);
                         });
@@ -638,7 +561,7 @@
                 console.log('open-video-input-device-front', $("#video-input-device").val(), width, height);
 
 
-                client.getMediaSharePeerConnection(currentMediaChannel).openVideo(false, "", width, height, true)
+                client.openVideo(false, "", width, height, true)
                     .then(function (res) {})
                     .catch(function (e) {
                         console.error('open video input device failed', e);
@@ -654,33 +577,25 @@
                 console.log('open-video-input-device-back', $("#video-input-device").val(), width, height);
 
 
-                client.getMediaSharePeerConnection(currentMediaChannel).openVideo(false, "", width, height, false)
+                client.openVideo(false, "", width, height, false)
                     .then(function (res) {})
                     .catch(function (e) {
                         console.error('open video input device failed', e);
                     });
             });
-            $("#close-video-input-device").on("click", function (e) {
-                // 方法1. 设置视频上传 track 为关闭状态
-                // client.setVideoEnable(false);
-                // 方法2. 关闭视频上传通道
-                client.getMediaSharePeerConnection(currentMediaChannel).closeVideo();
 
-                // if (videoInputBind) {
-                //     console.log('close-video-input-device', videoInputBind);
-                //     client.removeMediaTrack(videoInputBind.rtcRtpSenders[0].sender);
-                //     videoInputBind = null;
-                // }
+            $("#close-video-input-device").on("click", function (e) {
+                client.closeVideo();
             });
 
             $("#stop-video-input-device").on("click", function (e) {
-                client.getMediaSharePeerConnection(currentMediaChannel).stopLocalVideo();
+                client.stopLocalVideo();
             });
             $("#pause-video-input-device").on("click", function (e) {
-                client.getMediaSharePeerConnection(currentMediaChannel).pauseVideoSending();
+                client.pauseVideoSending();
             });
             $("#resume-video-input-device").on("click", function (e) {
-                client.getMediaSharePeerConnection(currentMediaChannel).resumeVideoSending();
+                client.resumeVideoSending();
             });
 
             $("#enum-video-input-device").on("click", function (e) {
@@ -754,13 +669,8 @@
                 var showPlayButton = urlParams.get('showPlayButton');
                 var useSeparateMediaSharePeer = urlParams.get('useSeparateMediaSharePeer');
                 var language = urlParams.get('language');
-                var enableCanvasRender = urlParams.get('enableCanvasRender');
-                var frameRate = urlParams.get('frameRate');
-                var codeRate = urlParams.get('codeRate');
-                var audioCodeRate = urlParams.get('audioCodeRate');
 
-                console.log("load urlparrams", ip, port, sdkId, appliId, autoPlay, showPlayButton,
-                    enableCanvasRender, frameRate, codeRate, audioCodeRate);
+                console.log("load urlparrams", ip, port, sdkId, appliId, autoPlay, showPlayButton);
 
                 var serverAddress = "";
                 var config = {};
@@ -776,18 +686,6 @@
                 }
                 if (language != null && language != undefined) {
                     config.language = language;
-                }
-                if (enableCanvasRender != null && enableCanvasRender != undefined) {
-                    config.enableCanvasRender = enableCanvasRender === 'true' ? true : false;
-                }
-                if (frameRate != null && frameRate != undefined) {
-                    config.frameRate = parseInt(frameRate);
-                }
-                if (codeRate != null && codeRate != undefined) {
-                    config.codeRate = parseInt(codeRate);
-                }
-                if (audioCodeRate != null && audioCodeRate != undefined) {
-                    config.audioCodeRate = parseInt(audioCodeRate);
                 }
 
                 if (ip && port) {
@@ -875,11 +773,7 @@
             pointer-events: none;
         }
 
-        .ui .handler.handler-touchstart {
-            background-color: red;
-        }
-
-        .ui button, .ui input {
+        .ui button {
             pointer-events: all;
         }
 
@@ -887,7 +781,8 @@
             padding: 10px;
         }
 
-        .ui select {
+        .ui select,
+        .ui input {
             pointer-events: all;
         }
 
@@ -898,12 +793,6 @@
             pointer-events: all;
             z-index: 2000;
         }
-
-        .ui .lable {
-            background-color: #303030;
-            color: azure;
-            text-align: center;
-        }
     </style>
 </head>
 
@@ -912,7 +801,7 @@
         <!-- 演示 UI 层 -->
         <div class="ui">
             <div class="block">
-                <p>LarkSR WebSDK TestV3.2.341-331202305203</p>
+                <p>LarkSR WebSDK TestV3.2.342-331202305231</p>
             </div>
             <div class="block">
                 <input placeholder="服务器地址,如 http://192.168.0.55:8181" id="input-server-address" type="text" />
@@ -945,26 +834,6 @@
                 <button id="button-scalemode-contain">原始</button>
             </div>
             <div class="block test-functions">
-                <select id="media-channels">
-                    <option value="0">媒体通道 0</option>
-                    <option value="1">媒体通道 1</option>
-                    <option value="2">媒体通道 2</option>
-                    <option value="3">媒体通道 3</option>
-                    <option value="4">媒体通道 4</option>
-                    <option value="5">媒体通道 5</option>
-                </select>
-                <span class="lable" id="media-channel-video-code">编码设置：</span>
-                <span class="lable" id="media-channel-code-rate">码率设置：</span>
-                <span class="lable" id="media-channel-canvas">画布：</span>
-                <button id="media-states">获取状态</button>
-                <button id="media-code-vp8">VP8</button>
-                <button id="media-code-h264">H264</button>
-                <button id="media-force-canvas">使用画布</button>
-                <button id="media-no-canvas">不使用画布</button>
-                <button id="media-canvas-rotate-clock">顺时针</button>
-                <button id="media-canvas-rotate-antclock">逆时针</button>
-            </div>
-            <div class="block test-functions">
                 <select name="音频输入设备" id="audio-input-device">
                 </select>
                 <button id="open-audio-input-device">打开音频输入设备</button>
@@ -994,20 +863,8 @@
                 <button id="button-datachannel">发送</button>
                 <p id="text-from-datachannel"></p>
             </div>
-            <div class="block test-functions">
-                <input placeholder="rtmp-path" id="rtmp-path" type="text" />
-                <input placeholder="rtmp-key" id="rtmp-key" type="text" />
-                <button id="button-rtmp-start">启动rtmp</button>
-                <button id="button-rtmp-stop">关闭rtmp</button>
-                <p id="rtmp-state"></p>
-            </div>
-            
-            <div id="player-container" class="block test-functions">
-            </div>
-
             <div id="joystick-container">
             </div>
-
         </div>
     </div>
 </body>

@@ -8,7 +8,6 @@ export interface RTCShareMediaTrackBinding {
     track: MediaStreamTrack;
     transceiver: RTCRtpTransceiver | undefined;
     paused: boolean;
-    peerid: number;
 }
 export interface MediaShareInterface {
     audioDeviceId: string | undefined | null;
