@@ -39,6 +39,7 @@ export interface GetTaskResult {
     videoInput: number;
     videoInputAutoStart: number;
     liveStreaming: number;
+    mobileKeyboardType?: number;
 }
 export interface StartAppInfo {
     appliId: string;

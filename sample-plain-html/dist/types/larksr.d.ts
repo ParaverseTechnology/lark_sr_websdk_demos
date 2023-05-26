@@ -471,6 +471,10 @@ interface ILarkSRConfig {
      * 单独上传流程要求渲染服务器版本大于3290）
      */
     useSeparateMediaSharePeer?: boolean;
+    /**
+     * 是否启用 canvas 渲染. 默认关闭
+     */
+    enableCanvasRender?: boolean;
 }
 declare class LarkSR extends EventBase<LarkSRClientEvent, LarkSREvent> {
     /**

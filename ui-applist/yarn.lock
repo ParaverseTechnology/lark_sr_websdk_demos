@@ -4021,10 +4021,10 @@ klona@^2.0.4, klona@^2.0.5:
   resolved "https://registry.yarnpkg.com/klona/-/klona-2.0.5.tgz#d166574d90076395d9963aa7a928fabb8d76afbc"
   integrity sha512-pJiBpiXMbt7dkzXe8Ghj/u4FfXOOa98fPW+bihOJ4SjnoijweJrNThJfd3ifXpXhREjpoF2mZVH1GfS9LV3kHQ==
 
-larksr_websdk@^3.2.329:
-  version "3.2.329"
-  resolved "https://registry.yarnpkg.com/larksr_websdk/-/larksr_websdk-3.2.329.tgz#2917211fa90aca149ecb215d4acccfc997f1ae35"
-  integrity sha512-kml1SrazWbvnaeCYOtrXkPtSNaLAdhkdLGdfQcYuSzyq+ALteUL4dr8fLjP6GA/CCPYumnFStOHVYTAnO+IvWw==
+larksr_websdk@^3.2.343:
+  version "3.2.343"
+  resolved "https://registry.yarnpkg.com/larksr_websdk/-/larksr_websdk-3.2.343.tgz#e5c5d9826b305379fcc3673c3528b3f32c1355ee"
+  integrity sha512-0HnqQhWDkqDILFYVhIsh2QIhGOFaMJrZ4O7CsrOQu2icRhdlfSDlhn5UcA9hNGc0c5eBVACqPoorXMcw0MxiuQ==
   dependencies:
     axios "^0.24.0"
     bowser "^2.11.0"

@@ -218,5 +218,11 @@ interface ILarkSRConfig {
      * 单独上传流程要求渲染服务器版本大于3290）
      */
     useSeparateMediaSharePeer?: boolean;
+    /**
+     * 是否启用 canvas 渲染. 默认关闭
+     * 要注意移动端开启 canvas 会消耗额外性能。
+     * 已知问题: iOS 在关闭 canvas 模式下，忽略狂高比的拉伸模式无效。
+    */
+    enableCanvasRender?: boolean;
 }
 ```
