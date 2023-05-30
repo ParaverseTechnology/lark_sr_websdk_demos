@@ -1,7 +1,6 @@
 <template>
-  <div id="app" ref="appContainer" @contextmenu.prevent  @mouseup="onMutePlay" @touchend="onMutePlay">
-    <input v-if="isMobile" class="virtualInput" @keyup="inputKeyUp" ref="input" type="text" v-model="inputValue">
-    <div @click="virtualInputFocus" style="width: 100%;height:100%;z-index:2100;position:absolute;" v-if="showVirtualDiv"></div>
+  <div id="app" ref="appContainer" @contextmenu.prevent  @mouseup="appContainerTouch" @touchend="appContainerTouch">
+    <input v-if="isMobile" class="virtualInput" ref="input" type="text" v-model="inputValue">
     <!-- 手机端 UI -->
     <MobileIndex v-if="cloudReady && isMobile"></MobileIndex>
     <!-- 通用 UI -->
@@ -62,24 +61,11 @@ export default {
       cloudReady: false,
       mutePlay: false,
       inputValue: '',//隐藏的input，移动端调起系统键盘使用
-      defaultPhoneHeight : null, //屏幕默认高度
-      nowPhoneHeight: null,//屏幕现在的高度
-      showVirtualDiv: false,
-      isIOS: Capabilities.os === 'iOS'
+      isIOS: Capabilities.os === 'iOS',
+      inputFocusFlag: false, //云端输入事件input聚焦状态
     };
   },
   watch: {
-    nowPhoneHeight: function() {
-      if(this.isMobile) {
-        if(this.defaultPhoneHeight != this.nowPhoneHeight){
-        console.log('手机键盘被唤起')
-        }else{  
-          console.log('手机键盘关闭')
-          this.$refs.input.blur();
-          this.hideVirtualDiv();
-        }
-      }
-    },
     inputValue: function(val) {
       if(val) {
         this.larksr.inputText(val);
@@ -95,6 +81,12 @@ export default {
     }),
   },
   methods: {
+   appContainerTouch() {
+      this.onMutePlay();
+      if(this.isMobile && this.inputFocusFlag){
+        this.$refs.input.focus();
+      }
+    },
     onMutePlay() {
       if (!this.mutePlay) {
         return;
@@ -103,25 +95,19 @@ export default {
       this.larksr.videoComponent.playVideo();
       this.mutePlay = false;
     },
-    inputKeyUp(e) {
-      if(e.keyCode === 13) {
-        this.larksr.inputText(this.inputValue);
-        this.inputValue = '';
-        this.$refs.input.blur();
-        this.hideVirtualDiv();
-      }else if(e.keyCode === 8) {
-        this.larksr.keyDown('Backspace', false);
-        setTimeout(() => {
-          this.larksr.keyUp('Backspace');
-        },50)
+    sysKeybaordEnterOrBackspace(e) {
+      if(this.isMobile && this.inputFocusFlag) {
+        if(e.key === 'Enter') {
+          this.larksr.inputText(this.inputValue);
+          this.inputValue = '';
+          this.$refs.input.blur();
+        }else if(e.key === 'Backspace') {
+          this.larksr.keyDown('Backspace', false);
+          setTimeout(() => {
+            this.larksr.keyUp('Backspace');
+          },50)
+        }
       }
-    },
-    virtualInputFocus() {
-      this.$refs.input.focus();
-    },
-    hideVirtualDiv() {
-      if(this.showVirtualDiv) this.showVirtualDiv = false;
-      if (this.larksr)this.larksr.op.setKeyboardEnable(true);
     },
     ...mapMutations({
         setLarksr: "setLarksr",
@@ -137,12 +123,10 @@ export default {
     }),
   },
   mounted() {
-    this.defaultPhoneHeight = window.innerHeight;
-    window.onresize=()=>{
-      this.nowPhoneHeight = window.innerHeight
-    };
-    if(this.isIOS) {
-      document.addEventListener('focusout', () => { this.hideVirtualDiv() });
+    if(this.isMobile) {
+      this.$refs.input.addEventListener('keyup',(e) => {
+        this.sysKeybaordEnterOrBackspace(e);
+      })
     }
     // 直接调用进入应用接口创建实例，自动配置连接云端资源
     const larksr = new LarkSR({
@@ -308,24 +292,20 @@ export default {
     larksr.on('apprequestinput', (e) => {
       console.log('apprequestinput', e)
       if(e.data === true) {
+        this.inputFocusFlag = true;
         if(this.isMobile) {
           //打开系统键盘
           if(e.data === true) {
-            if(this.isIOS){
-              this.showVirtualDiv = true;
-              if (this.larksr)this.larksr.op.setKeyboardEnable(false);
-            } else {
-              this.$refs.input.focus();
-              this.setInputMethodEnable(true);
-            }
+            this.$refs.input.focus();
+            if (this.larksr)this.larksr.op.setKeyboardEnable(false);
           }
-        } else{
-          //PC 端云端输入
-          this.setInputMethodEnable(e.data);
-        }
+        } 
       } else {
-        this.setInputMethodEnable(false);
-        this.hideVirtualDiv();
+        this.inputFocusFlag = false;
+        if(this.isMobile) {
+          this.$refs.input.blur();
+          if (this.larksr)this.larksr.op.setKeyboardEnable(true);
+        }
       }
     })
 
@@ -362,17 +342,21 @@ export default {
   beforeUnmount() {
     // 主动关闭
     this.larksr?.close();
-    if(this.isIOS) {
-      document.removeEventListener('focusout', () => { this.hideVirtualDiv() });
-    }
   },
+  beforeDestroy() {
+    if(this.isMobile) {
+      this.$refs.input.removeEventListener('keyup',(e) => {
+        this.sysKeybaordEnterOrBackspace(e);
+      })
+    }
+  }
 };
 </script>
 
 <style>
 .virtualInput {
   position:absolute;
-  z-index: 1000;
+  z-index: -1;
   border: none;
   background: transparent;
   color: transparent;
