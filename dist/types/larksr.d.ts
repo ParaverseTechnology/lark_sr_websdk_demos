@@ -652,6 +652,13 @@ declare class LarkSR extends EventBase<LarkSRClientEvent, LarkSREvent> {
      */
     get videoPaused(): boolean | undefined;
     /**
+     * 获取媒体通道，后续可以调用媒体通道的相关接口，如打开摄像头等
+     * 原有 larksr 对象中的媒体通道相当于序号 0
+     * @param index 媒体上传通道序号 0 - 5
+     * @returns
+     */
+    getMediaSharePeerConnection(index: number): import("./lark/peer_connection_media_share").default;
+    /**
      * 服务器支持的功能列表
      */
     get serverFeatures(): CloudLark.INotifyFeatures | null | undefined;
