@@ -32,8 +32,8 @@
     <script src="./js/jquery.min.js"></script>
     <!-- 可选组件库 -->
     <!-- @see https://github.com/pingxingyun/pxy_webcommonui -->
-    <script src="./js/pxy_webcommonui.min.js?v=331202305301"></script>
-    <script src="./dist/larksr-web-sdk.min.js?v=331202305301"></script>
+    <script src="./js/pxy_webcommonui.min.js?v=331202305312"></script>
+    <script src="./dist/larksr-web-sdk.min.js?v=331202305312"></script>
     <script src="https://unpkg.com/vconsole@latest/dist/vconsole.min.js" crossorigin="anonymous"></script>
     <script>
         // debug 
@@ -45,7 +45,8 @@
         var useSelectedDeviceWhenDataChannelOpen = false;
         // 测试重制媒体通道
         var resetMediaChannel = true;
-
+        // 当前选择的媒体通道
+        var currentMediaChannel = 0;
         var client;
         var joystick;
 
