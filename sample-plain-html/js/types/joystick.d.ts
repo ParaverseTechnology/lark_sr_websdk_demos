@@ -65,6 +65,14 @@ export interface IJoystickConfig {
      * 可选项，触发事件的时间间隔
      */
     repeatTimeout?: number;
+    /**
+     * 是否阻止事件冒泡，默认为 true，摇杆组件触发时会阻止事件冒泡。
+     */
+    stopPropagation?: boolean;
+    /**
+     * 是否阻止默认事件，默认为 true
+     */
+    preventDefault?: boolean;
 }
 /**
  * 手动监听事件
