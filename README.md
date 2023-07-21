@@ -1,80 +1,84 @@
-# LarkSR WebClient 接入 SDK
+# LarkSR WebClient SDK
 
-SDK 适用于自定义 LarkSR 云渲 Web 客户端或者自定义 VR 监控画面客户端的二次开发，自定义 UI 和操作逻辑等。有较高的灵活性。
+---
 
-对于不需要二次开发，或者简单修改，可以参照使用 iframe 的接入方式，将标准 Web 客户端网页嵌入到系统中去。
+[English](./README.md) [中文](./README.zh_CN.md)
 
-参考连接：
+---
 
-[平行云产品介绍](https://www.pingxingyun.com/index.html)
+Develop webclient for LarkSR cloudrending or LarkSR VR monitor client. Free design UI and define operate.
 
-[LarkSR 系统部署和文档](https://www.pingxingyun.com/devCenter.html)
+For most common scene LarkSR default webclient, which is also developer with SDK same UI [ui-mobile-vue](./ui-mobile-vue/), access cloudrending 3D app without develop.
 
-[即刻体验](https://www.pingxingyun.com/experience/experience.html)
+Links：
 
-SDK 功能包括:
+[Paraverse](https://www.paraverse.cc/)
 
-* 处理后台请求和接口
-* 云渲染视频拉取显示
-* 输入方式包括鼠标，键盘，手柄，触摸, 并提供输入接口和控制内部输入方式开启接口
-* 显示和缩放模式，默认以浏览器视口为容器大小, 视频窗口保留宽高比并且不会拉伸完全显示。并可配置
-* 处理全屏模式，并可配置
-* 自动处理横屏模式，手机端强制横屏模式，并可配置
+[LarkSR Doc](https://www.pingxingyun.com/devCenter.html)
 
-### 注意
+[Experience](https://www.paraverse.cc/)
 
-> V3.2.30 开始仅支持服务端 [V3.2.3.1](https://www.pingxingyun.com/devCenter.html) 以上版本。
-> [老版本 SDK Demo 下载](https://github.com/pingxingyun/lark_sr_websdk_demos/releases/tag/V3.2.10)
-> V3.2.314 版本对应服务器版本和数据通道版本为 3.2.5.1 及以上
+SDK include:
 
-## 快速接入
+* LarkSR restful request.
+* CloudRending Video.
+* Handle input, keyboard, gamepad, touchscreen.
+* Scale mode.
+* Fullscreen mode.
+* Landscap mode.
 
-### 安装
+### Notice
 
-1. npm 方式
+> SDK V3.2.30 only support server version above [V3.2.3.1](https://www.pingxingyun.com/devCenter.html)
+> [Old verion SDK Demo](https://github.com/pingxingyun/lark_sr_websdk_demos/releases/tag/V3.2.10)
+> V3.2.314 server and datachannel above 3.2.5.1
+
+## Quick Start
+
+### install
+
+1. npm
 
 ```cmd
 npm i larksr_websdk
 ```
 
-2. 直接引入
+2. plain html
 
 ```html
 <script src="larksr-web-sdk.min.js"></script>
 ```
 
-### 使用
+### Use
 
-使用前应准备好
+Before start:
 
-1. Lark 服务器前台可访问的地址, 如：http://222.128.6.137:8181/
-2. SDK 授权码，联系 business@pingxingyun.com 获取,注意是 SDK 本身的授权码，不是服务器上的授权
-3. 系统中获取的应用 ID,如 http://222.128.6.137:8181/ 系统下的 879408743551336448
+1. Lark SR server address, exp：http://222.128.6.137:8181/
+2. SDK auth code，connect business@pingxingyun.com or register https://www.pingxingyun.com/console/#/
+3. App id from Lark SR admin server applist.
 
 ```javascript
 var client = new LarkSR({ 
-    // 设置挂载显示的元素
-    // 注意*不要*设置为 document.documentElement
+    // root html element
+    // WARNING not document.documentElement
     rootElement: document.getElementById('container'),
-    // 服务器地址,实际使用中填写您的服务器地址
-    // 如：http://222.128.6.137:8181/
-    serverAddress: "Lark 服务器前台地址",
-    // SDK ID 也可在 initSDKAuthCode 设置
-    // authCode: '您的 SDK ID',
-    // 测试载入背景图
+    // Sever address
+    serverAddress: "Lark Sever address",
+    // SDK ID or set by call initSDKAuthCode
+    // authCode: 'your SDK ID',
+    // test backgroud url
     // loadingBgUrl: 'https://home-obs.pingxingyun.com/homePage_4_0/bg.jpg',
 });
 
-// 授权码,验证成功之后才能调用 connect
-client.initSDKAuthCode('您的 SDK ID')
+// must set sdk auth code.
+client.initSDKAuthCode('Your SDK ID')
 .then(() => {
     // start connect;
     client.connect({
-        // 要使用的云端资源的应用 ID，从后云雀后台接口获取
-        // 参考查询应用一栏文档
+        // LarkSR cloud appid from LarkSR admin server.
+        // doc
         // https://www.pingxingyun.com/online/api3_2.html?id=476
-        // 如 222.128.6.137:8181 系统下的 879408743551336448 应用
-        appliId: "应用ID"
+        appliId: "appid from LarkSR admin"
     })
     .then(() => {
         console.log('enter success');
@@ -87,26 +91,29 @@ client.initSDKAuthCode('您的 SDK ID')
     console.error(e);
 });
 // ...
-// 主动关闭并清理资源
+// close connection.
 // client.close();
+// release DOM element.
+// client.destroy();
 ```
 
-SDK 加载成功之后，非模块模式下，SDK 挂载为全局对象 larksr_websdk。
+Import websdk with plain html SDK under global object larksr_websdk.
 
-连接云端资源，管理生命周期和事件等主要在 LarkSR 对象下。
+Connect cloud resource and all event access with new LarkSR object.
 
-> 默认情况下自动连接云端资源，将容器设置为浏览器视口高度，并配置网页 100% 宽高显示。SDK 内部自动处理按键输入输出。
+> SDK default config html 100% height 100% width viewport. Auto handle input.
 
-> SDK 只包含 loading，内部不包含其他 UI。主要目的时二次开发云渲染客户端自定义 UI 使用。
+> SDK mainly contain loading page and cloud video page no other ui.
 
-## 参考 DEMO 和文档
+## DEMO List
 
-1. `sample-plain-html` 直接引用
-2. `sample-react` 在 react 中使用
-3. `sample-vue` 在 vue 中使用
-4. `ui-mobile-vue` 带基本 UI 的 Demo, 包括手机端的菜单，摇杆，虚拟鼠标，虚拟键盘等。
-5. [智能语音交互相关 Demo 在这个仓库](https://github.com/pingxingyun/vh-webclient)
+1. [sample-plain-html](./sample-plain-html/)
+1. [sample-react](./sample-react/)
+1. [sample-vue](./sample-vue/)
+1. [sample-vue3](./sample-vue3/)
+1. [ui-mobile-vue](./ui-mobile-vue/) default webclient ui.
+1. [AI Voice to cloud demo](https://github.com/pingxingyun/vh-webclient)
 
-### 文档
+### Doc
 
-[LarkSR WebClient 接入 SDK](https://pingxingyun.github.io/webclient_sdk/)
+[LarkSR WebClient SDK](https://pingxingyun.github.io/webclient_sdk/)
