@@ -30,6 +30,7 @@ export interface IAppliParams {
      * taskid
      */
     taskid: string;
+    taskId: string;
     /**
      * 当前应用名称
      */
@@ -176,7 +177,7 @@ export interface IAppliParams {
     /**
      * 优先使用的解码器
      */
-    preferDecoder: 'auto' | 'vp8' | 'vp9' | 'h264' | 'h265' | 'hevc' | 'av1x';
+    preferDecoder: 'auto' | 'vp8' | 'vp9' | 'h264' | 'h265' | 'hevc' | 'av1' | 'av1x';
     /**
      * 触摸操作对应的操作方式，触摸屏还是鼠标
      */
@@ -222,6 +223,7 @@ export declare class AppliParams implements IAppliParams {
     wsProxy: boolean;
     preferPubOutIp: string;
     taskid: string;
+    get taskId(): string;
     appliName: string;
     width: number;
     height: number;
@@ -253,7 +255,7 @@ export declare class AppliParams implements IAppliParams {
     mobileVirtualJoystick: boolean;
     mouseZoomDirection: number;
     showPlayerList: boolean;
-    preferDecoder: 'auto' | 'vp8' | 'vp9' | 'h264' | 'h265' | 'hevc' | 'av1x';
+    preferDecoder: 'auto' | 'vp8' | 'vp9' | 'h264' | 'h265' | 'hevc' | 'av1' | 'av1x';
     touchOperateMode: 'touchScreen' | 'mouse';
     appliId: string;
     syncLocalToCloudClipboard: boolean;

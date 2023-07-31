@@ -81,6 +81,9 @@ export interface AggregatedStats {
     frameWidthStart: number;
     currentRoundTripTime: number;
     packetsLostPerc: number;
+    avgDecodeDelay: number;
+    avgProcessDelay: number;
+    serverStatics: Input.CloudLark.IServerStatics | null;
 }
 export default class PeerConnection extends EventBase<WEBRTC_EVENT_TYPE, WebRTCEvent> implements MediaShareInterface {
     private config;
@@ -109,6 +112,8 @@ export default class PeerConnection extends EventBase<WEBRTC_EVENT_TYPE, WebRTCE
     private canvasRender;
     get serverFeatures(): CloudLark.INotifyFeatures | null;
     private _serverFeatures;
+    get serverStatics(): CloudLark.IServerStatics | null;
+    private _serverStatics;
     constructor(larksr: LarkSR, config: WebRTCConfig);
     create(streams?: MediaStream | undefined | null, config?: CloudLark.IRTCConfiguration | null | undefined): Promise<void>;
     createOffer(): void;

@@ -78,6 +78,13 @@ export interface StartAppInfo {
     appKey?: string;
     groupId?: string;
 }
+declare type HostAppliGetUrlReturnParams = {
+    appliId: string;
+    appKey: string;
+    timestamp: string;
+    signature: string;
+    groupId?: string;
+};
 export default class API {
     static CheckUTLockInfoPath: string;
     static GetTaskPATH: string;
@@ -98,12 +105,7 @@ export default class API {
     }): Promise<{
         host: string;
         origin: string;
-        params: {
-            appliId: string;
-            appKey: string;
-            timestamp: string;
-            signature: string;
-        };
+        params: HostAppliGetUrlReturnParams;
     }>;
     static GetStartInfo(serverAddress: string, params: {
         sdkId: string;
@@ -131,3 +133,4 @@ export default class API {
     static RegionList(server: string, params: any): Promise<unknown>;
     static joinParam(params: any): string;
 }
+export {};

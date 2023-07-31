@@ -5,6 +5,7 @@ import WebsocketProxy from './websocket_proxy';
 import { LarkSR } from '../larksr';
 import PixelStreamingWebsocketChannel from './test_pixel_streaming';
 import { RECORDER_STATE } from './recoder';
+import PeerConnectionMediaShare from './peer_connection_media_share';
 export declare enum APP_STATE {
     BEFORE_CREATE = 0,
     INITED = 1,
@@ -52,10 +53,12 @@ export interface AppEvent extends LocalEvent<APP_EVENT_TYPE> {
     state: APP_STATE;
 }
 export default class Application extends EventBase<APP_EVENT_TYPE, AppEvent> {
+    MAX_MEDIA_SHARE_PEERCONNECTION: number;
     private websocketChannel;
     private websocketProxy;
     private testPixelStreaming;
     private peerConnection;
+    getMediaSharePeerConnection(index: number): PeerConnectionMediaShare;
     private mediaSharePeerConnectionImp;
     get peerConnectionCreated(): boolean;
     get state(): APP_STATE;
@@ -68,6 +71,7 @@ export default class Application extends EventBase<APP_EVENT_TYPE, AppEvent> {
     get audioPaused(): boolean | undefined;
     get videoPaused(): boolean | undefined;
     get serverFeatures(): Msg.CloudLark.INotifyFeatures | null | undefined;
+    get serverStatics(): Msg.CloudLark.IServerStatics | null | undefined;
     private get sharePeerConnection();
     private retryTime;
     private larksr;
@@ -87,6 +91,7 @@ export default class Application extends EventBase<APP_EVENT_TYPE, AppEvent> {
     inputText(text: string): void;
     sendTextToDataChannel(text: string): void;
     sendBinaryToDataChannel(binary: Uint8Array): void;
+    sendVideoBitrateKbps(bitrateKbps: number): void;
     aiDmTextInput(text: string): number;
     startAiDmVoiceInput(): Promise<number>;
     stopAiDmVoiceInput(): number;

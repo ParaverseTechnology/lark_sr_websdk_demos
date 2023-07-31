@@ -51,7 +51,13 @@ npm i larksr_websdk
 
 ### Use
 
-Before start:
+Import websdk with plain html SDK under global object larksr_websdk.
+
+Connect cloud resource and all event access with new LarkSR object.
+
+> SDK default config html 100% height 100% width viewport. Auto handle input.
+
+> SDK mainly contain loading page and cloud video page no other ui.efore start:
 
 1. Lark SR server address, exp：http://222.128.6.137:8181/
 2. SDK auth code，connect business@pingxingyun.com or register https://www.pingxingyun.com/console/#/
@@ -69,8 +75,11 @@ var client = new LarkSR({
     // test backgroud url
     // loadingBgUrl: 'https://home-obs.pingxingyun.com/homePage_4_0/bg.jpg',
 });
+```
 
-// must set sdk auth code.
+Set sdk auth code.
+
+```javascript
 client.initSDKAuthCode('Your SDK ID')
 .then(() => {
     // start connect;
@@ -97,14 +106,6 @@ client.initSDKAuthCode('Your SDK ID')
 // client.destroy();
 ```
 
-Import websdk with plain html SDK under global object larksr_websdk.
-
-Connect cloud resource and all event access with new LarkSR object.
-
-> SDK default config html 100% height 100% width viewport. Auto handle input.
-
-> SDK mainly contain loading page and cloud video page no other ui.
-
 ## DEMO List
 
 1. [sample-plain-html](./sample-plain-html/)
@@ -116,4 +117,4 @@ Connect cloud resource and all event access with new LarkSR object.
 
 ### Doc
 
-[LarkSR WebClient SDK](https://pingxingyun.github.io/webclient_sdk/)
+[LarkSR WebClient SDK](https://pingxingyun.github.io/en/webclient_sdk/)

@@ -475,6 +475,11 @@ interface ILarkSRConfig {
      * 是否启用 canvas 渲染. 默认关闭
      */
     enableCanvasRender?: boolean;
+    /**
+     * 可选项
+     * loading页载入Logo版本
+     */
+    loadingLogoVersion?: string;
 }
 declare class LarkSR extends EventBase<LarkSRClientEvent, LarkSREvent> {
     /**
@@ -652,9 +657,22 @@ declare class LarkSR extends EventBase<LarkSRClientEvent, LarkSREvent> {
      */
     get videoPaused(): boolean | undefined;
     /**
+     * 获取媒体通道，后续可以调用媒体通道的相关接口，如打开摄像头等
+     * 原有 larksr 对象中的媒体通道相当于序号 0
+     * @param index 媒体上传通道序号 0 - 5
+     * @returns
+     */
+    getMediaSharePeerConnection(index: number): import("./lark/peer_connection_media_share").default;
+    /**
      * 服务器支持的功能列表
      */
     get serverFeatures(): CloudLark.INotifyFeatures | null | undefined;
+    get serverStatics(): CloudLark.IServerStatics | null | undefined;
+    /**
+     * 动态设置码率 单位 kbps
+     * @param bitrateKbps
+     */
+    setVideoBitrateKbps(bitrateKbps: number): void;
     /**
      * LarkSR 客户端。所有操作和事件通过该类传递
      * @param config 本地配置，优先级最高

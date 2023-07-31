@@ -1821,6 +1821,9 @@ export namespace CloudLark {
 
         /** WebrtcOfferAnswer sdp */
         sdp?: (string|null);
+
+        /** WebrtcOfferAnswer index */
+        index?: (number|null);
     }
 
     /** Represents a WebrtcOfferAnswer. */
@@ -1837,6 +1840,9 @@ export namespace CloudLark {
 
         /** WebrtcOfferAnswer sdp. */
         public sdp: string;
+
+        /** WebrtcOfferAnswer index. */
+        public index: number;
 
         /**
          * Creates a new WebrtcOfferAnswer instance using the specified properties.
@@ -1923,6 +1929,9 @@ export namespace CloudLark {
 
         /** WebrtcIceCandidate username */
         username?: (string|null);
+
+        /** WebrtcIceCandidate index */
+        index?: (number|null);
     }
 
     /** Represents a WebrtcIceCandidate. */
@@ -1945,6 +1954,9 @@ export namespace CloudLark {
 
         /** WebrtcIceCandidate username. */
         public username: string;
+
+        /** WebrtcIceCandidate index. */
+        public index: number;
 
         /**
          * Creates a new WebrtcIceCandidate instance using the specified properties.
@@ -7679,6 +7691,333 @@ export namespace CloudLark {
         }
     }
 
+    /** Properties of a VideoReconfigure. */
+    interface IVideoReconfigure {
+
+        /** VideoReconfigure bitrate */
+        bitrate?: (number|null);
+    }
+
+    /** Represents a VideoReconfigure. */
+    class VideoReconfigure implements IVideoReconfigure {
+
+        /**
+         * Constructs a new VideoReconfigure.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: CloudLark.IVideoReconfigure);
+
+        /** VideoReconfigure bitrate. */
+        public bitrate?: (number|null);
+
+        /** VideoReconfigure video. */
+        public video?: "bitrate";
+
+        /**
+         * Creates a new VideoReconfigure instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns VideoReconfigure instance
+         */
+        public static create(properties?: CloudLark.IVideoReconfigure): CloudLark.VideoReconfigure;
+
+        /**
+         * Encodes the specified VideoReconfigure message. Does not implicitly {@link CloudLark.VideoReconfigure.verify|verify} messages.
+         * @param message VideoReconfigure message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: CloudLark.IVideoReconfigure, writer?: $protobuf.Writer): $protobuf.Writer;
+
+        /**
+         * Encodes the specified VideoReconfigure message, length delimited. Does not implicitly {@link CloudLark.VideoReconfigure.verify|verify} messages.
+         * @param message VideoReconfigure message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: CloudLark.IVideoReconfigure, writer?: $protobuf.Writer): $protobuf.Writer;
+
+        /**
+         * Decodes a VideoReconfigure message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns VideoReconfigure
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): CloudLark.VideoReconfigure;
+
+        /**
+         * Decodes a VideoReconfigure message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns VideoReconfigure
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): CloudLark.VideoReconfigure;
+
+        /**
+         * Verifies a VideoReconfigure message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a VideoReconfigure message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns VideoReconfigure
+         */
+        public static fromObject(object: { [k: string]: any }): CloudLark.VideoReconfigure;
+
+        /**
+         * Creates a plain object from a VideoReconfigure message. Also converts values to other types if specified.
+         * @param message VideoReconfigure
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: CloudLark.VideoReconfigure, options?: $protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this VideoReconfigure to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of a ClientStatics. */
+    interface IClientStatics {
+
+        /** ClientStatics bytesReceivedInSecond */
+        bytesReceivedInSecond?: (number|null);
+
+        /** ClientStatics rtt */
+        rtt?: (number|null);
+
+        /** ClientStatics packageLostInSecond */
+        packageLostInSecond?: (number|null);
+
+        /** ClientStatics decodeDelay */
+        decodeDelay?: (number|null);
+
+        /** ClientStatics totalProcessDelay */
+        totalProcessDelay?: (number|null);
+    }
+
+    /** Represents a ClientStatics. */
+    class ClientStatics implements IClientStatics {
+
+        /**
+         * Constructs a new ClientStatics.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: CloudLark.IClientStatics);
+
+        /** ClientStatics bytesReceivedInSecond. */
+        public bytesReceivedInSecond: number;
+
+        /** ClientStatics rtt. */
+        public rtt: number;
+
+        /** ClientStatics packageLostInSecond. */
+        public packageLostInSecond: number;
+
+        /** ClientStatics decodeDelay. */
+        public decodeDelay: number;
+
+        /** ClientStatics totalProcessDelay. */
+        public totalProcessDelay: number;
+
+        /**
+         * Creates a new ClientStatics instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns ClientStatics instance
+         */
+        public static create(properties?: CloudLark.IClientStatics): CloudLark.ClientStatics;
+
+        /**
+         * Encodes the specified ClientStatics message. Does not implicitly {@link CloudLark.ClientStatics.verify|verify} messages.
+         * @param message ClientStatics message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: CloudLark.IClientStatics, writer?: $protobuf.Writer): $protobuf.Writer;
+
+        /**
+         * Encodes the specified ClientStatics message, length delimited. Does not implicitly {@link CloudLark.ClientStatics.verify|verify} messages.
+         * @param message ClientStatics message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: CloudLark.IClientStatics, writer?: $protobuf.Writer): $protobuf.Writer;
+
+        /**
+         * Decodes a ClientStatics message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns ClientStatics
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): CloudLark.ClientStatics;
+
+        /**
+         * Decodes a ClientStatics message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns ClientStatics
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): CloudLark.ClientStatics;
+
+        /**
+         * Verifies a ClientStatics message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a ClientStatics message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns ClientStatics
+         */
+        public static fromObject(object: { [k: string]: any }): CloudLark.ClientStatics;
+
+        /**
+         * Creates a plain object from a ClientStatics message. Also converts values to other types if specified.
+         * @param message ClientStatics
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: CloudLark.ClientStatics, options?: $protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this ClientStatics to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of a ServerStatics. */
+    interface IServerStatics {
+
+        /** ServerStatics captureDelay */
+        captureDelay?: (number|null);
+
+        /** ServerStatics captureFramerate */
+        captureFramerate?: (number|null);
+
+        /** ServerStatics renderDelay */
+        renderDelay?: (number|null);
+
+        /** ServerStatics renderFramerate */
+        renderFramerate?: (number|null);
+
+        /** ServerStatics encoderDelay */
+        encoderDelay?: (number|null);
+
+        /** ServerStatics encoderFramerate */
+        encoderFramerate?: (number|null);
+    }
+
+    /** Represents a ServerStatics. */
+    class ServerStatics implements IServerStatics {
+
+        /**
+         * Constructs a new ServerStatics.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: CloudLark.IServerStatics);
+
+        /** ServerStatics captureDelay. */
+        public captureDelay: number;
+
+        /** ServerStatics captureFramerate. */
+        public captureFramerate: number;
+
+        /** ServerStatics renderDelay. */
+        public renderDelay: number;
+
+        /** ServerStatics renderFramerate. */
+        public renderFramerate: number;
+
+        /** ServerStatics encoderDelay. */
+        public encoderDelay: number;
+
+        /** ServerStatics encoderFramerate. */
+        public encoderFramerate: number;
+
+        /**
+         * Creates a new ServerStatics instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns ServerStatics instance
+         */
+        public static create(properties?: CloudLark.IServerStatics): CloudLark.ServerStatics;
+
+        /**
+         * Encodes the specified ServerStatics message. Does not implicitly {@link CloudLark.ServerStatics.verify|verify} messages.
+         * @param message ServerStatics message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: CloudLark.IServerStatics, writer?: $protobuf.Writer): $protobuf.Writer;
+
+        /**
+         * Encodes the specified ServerStatics message, length delimited. Does not implicitly {@link CloudLark.ServerStatics.verify|verify} messages.
+         * @param message ServerStatics message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: CloudLark.IServerStatics, writer?: $protobuf.Writer): $protobuf.Writer;
+
+        /**
+         * Decodes a ServerStatics message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns ServerStatics
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): CloudLark.ServerStatics;
+
+        /**
+         * Decodes a ServerStatics message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns ServerStatics
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): CloudLark.ServerStatics;
+
+        /**
+         * Verifies a ServerStatics message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a ServerStatics message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns ServerStatics
+         */
+        public static fromObject(object: { [k: string]: any }): CloudLark.ServerStatics;
+
+        /**
+         * Creates a plain object from a ServerStatics message. Also converts values to other types if specified.
+         * @param message ServerStatics
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: CloudLark.ServerStatics, options?: $protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this ServerStatics to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
     /** Properties of a ClientInput. */
     interface IClientInput {
 
@@ -7759,6 +8098,12 @@ export namespace CloudLark {
 
         /** ClientInput rtmpStop */
         rtmpStop?: (CloudLark.IRtmp_Stop|null);
+
+        /** ClientInput videoConfigure */
+        videoConfigure?: (CloudLark.IVideoReconfigure|null);
+
+        /** ClientInput clientStatics */
+        clientStatics?: (CloudLark.IClientStatics|null);
     }
 
     /** Represents a ClientInput. */
@@ -7848,8 +8193,14 @@ export namespace CloudLark {
         /** ClientInput rtmpStop. */
         public rtmpStop?: (CloudLark.IRtmp_Stop|null);
 
+        /** ClientInput videoConfigure. */
+        public videoConfigure?: (CloudLark.IVideoReconfigure|null);
+
+        /** ClientInput clientStatics. */
+        public clientStatics?: (CloudLark.IClientStatics|null);
+
         /** ClientInput input. */
-        public input?: ("mouseMove"|"mouseDown"|"mouseUp"|"mouseWheel"|"keyDown"|"keyUp"|"clientEnter"|"clientLeave"|"dispatchController"|"requesController"|"textInput"|"gamepadInputJoystickStates"|"gamepadInputButtonDown"|"gamepadInputButtonUp"|"gamepadInputTriger"|"clientDcMsg"|"touchMove"|"touchDown"|"touchUp"|"aiVoicestreamStart"|"aiVoicestreamSlice"|"aiVoicestreamStop"|"aiVoicestreamReset"|"aiVoiceText"|"rtmpStart"|"rtmpStop");
+        public input?: ("mouseMove"|"mouseDown"|"mouseUp"|"mouseWheel"|"keyDown"|"keyUp"|"clientEnter"|"clientLeave"|"dispatchController"|"requesController"|"textInput"|"gamepadInputJoystickStates"|"gamepadInputButtonDown"|"gamepadInputButtonUp"|"gamepadInputTriger"|"clientDcMsg"|"touchMove"|"touchDown"|"touchUp"|"aiVoicestreamStart"|"aiVoicestreamSlice"|"aiVoicestreamStop"|"aiVoicestreamReset"|"aiVoiceText"|"rtmpStart"|"rtmpStop"|"videoConfigure"|"clientStatics");
 
         /**
          * Creates a new ClientInput instance using the specified properties.
@@ -8089,6 +8440,9 @@ export namespace CloudLark {
 
         /** AppNotification notifyFeatures */
         notifyFeatures?: (CloudLark.INotifyFeatures|null);
+
+        /** AppNotification serverStatics */
+        serverStatics?: (CloudLark.IServerStatics|null);
     }
 
     /** Represents an AppNotification. */
@@ -8145,8 +8499,11 @@ export namespace CloudLark {
         /** AppNotification notifyFeatures. */
         public notifyFeatures?: (CloudLark.INotifyFeatures|null);
 
+        /** AppNotification serverStatics. */
+        public serverStatics?: (CloudLark.IServerStatics|null);
+
         /** AppNotification notify. */
-        public notify?: ("resize"|"mousemode"|"updatePlayers"|"requestInput"|"gamepadOutput"|"datachannelState"|"appDcMsg"|"cursorStyle"|"aiVoiceRealtimeParseresult"|"aiVoiceResult"|"aiVoiceServiceStatus"|"aiVoiceErr"|"rtmpState"|"rtmpError"|"notifyFeatures");
+        public notify?: ("resize"|"mousemode"|"updatePlayers"|"requestInput"|"gamepadOutput"|"datachannelState"|"appDcMsg"|"cursorStyle"|"aiVoiceRealtimeParseresult"|"aiVoiceResult"|"aiVoiceServiceStatus"|"aiVoiceErr"|"rtmpState"|"rtmpError"|"notifyFeatures"|"serverStatics");
 
         /**
          * Creates a new AppNotification instance using the specified properties.

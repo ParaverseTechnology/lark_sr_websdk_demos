@@ -6978,10 +6978,10 @@ language-tags@^1.0.5:
   dependencies:
     language-subtag-registry "~0.3.2"
 
-larksr_websdk@^3.2.334:
-  version "3.2.334"
-  resolved "https://registry.yarnpkg.com/larksr_websdk/-/larksr_websdk-3.2.334.tgz#1e9dddc065b8c1efdfb5ac0f32185c8fb185e536"
-  integrity sha512-QLsd+sDdjn8pvBG6CtMhAZQheSnuIcVEN1Lta9QGqpCBahcuofdFeIvozC5PW5AfH26ZRh49QsgjzYFCLY+ctw==
+larksr_websdk@^3.2.401:
+  version "3.2.401"
+  resolved "https://registry.yarnpkg.com/larksr_websdk/-/larksr_websdk-3.2.401.tgz#9e0b83ef64851597aaa779551ba94e205c438457"
+  integrity sha512-4/OVZB45T0/3wetE2iFyg10VI21Hfa7XOT6SWxicURLuokpqFVGbyHToQKd8nPOEf/tSYIQ7Uk0zEXZwo9vjvg==
   dependencies:
     axios "^0.24.0"
     bowser "^2.11.0"
@@ -8477,10 +8477,10 @@ punycode@^2.1.0, punycode@^2.1.1:
   resolved "https://registry.yarnpkg.com/punycode/-/punycode-2.1.1.tgz#b58b010ac40c22c5657616c8d2c2c02c7bf479ec"
   integrity sha512-XRsRjdf+j5ml+y/6GKHPZbrF/8p2Yga0JPtdqTIY2Xe5ohJPD9saDJJLPvp9+NSBprVvevdXZybnj2cv8OEd0A==
 
-pxy_webcommonui@^0.1.6:
-  version "0.1.7"
-  resolved "https://registry.yarnpkg.com/pxy_webcommonui/-/pxy_webcommonui-0.1.7.tgz#992fc71086e2d6c328467cf62e37f0c88effc81c"
-  integrity sha512-S7TrraKcNhDY1CiVjnIZJ9zL7FalesGbn+U15SbSrG7xZeWpdAECWdVnRqlPEShjwnPo6ONv6d99QImBLP5jng==
+pxy_webcommonui@^0.1.10:
+  version "0.1.10"
+  resolved "https://registry.yarnpkg.com/pxy_webcommonui/-/pxy_webcommonui-0.1.10.tgz#4913b11371baf2e6b923a9beaaf594f38983a209"
+  integrity sha512-RQLdnAqrth2M52xs5pGV5E6cUsgXEMG39j9PgKfa0kSxKy+66KYe6vfztwkLJ+fQb0AIyx4bsYG1VNPMKDubWA==
   dependencies:
     core-js "^3.18.1"
 

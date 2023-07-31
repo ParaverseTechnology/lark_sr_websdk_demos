@@ -3,7 +3,7 @@ export declare class Level {
     static WARN: string;
     static ERR: string;
     static TRACE: string;
-    static getLevelIndex(level: string): 0 | 2 | 1 | 3 | 4;
+    static getLevelIndex(level: string): 0 | 1 | 2 | 3 | 4;
 }
 export interface LogObserver {
     onLog(msg: string): void;
