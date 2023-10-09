@@ -61,6 +61,11 @@ export default class Operation extends EventBase<OPREATION_EVENT_TYPE, Operation
     get lockPointer(): import("../larksr").LockPointer;
     get mouseZoomDirection(): number;
     set mouseZoomDirection(direction: number);
+    set aerialviewStatus(status: CloudLark.IAerialViewStatus | null);
+    get aerialviewStatus(): CloudLark.IAerialViewStatus | null;
+    _aerialviewStatus: CloudLark.IAerialViewStatus | null;
+    get aerialViewEnable(): boolean;
+    get aerialViewBox(): CloudLark.IAerialViewBox;
     constructor(rootElement: HTMLElement, larksr: LarkSR);
     setMouseEnable(enable: boolean): void;
     setKeyboardEnable(enable: boolean): void;

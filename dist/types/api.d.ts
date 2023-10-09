@@ -72,12 +72,19 @@ export interface StartAppInfo {
     rttLimitInterval: string;
     playerMode?: number;
     userType?: number;
-    roomCode?: string;
+    authCode?: string;
     nickName?: string;
     nickname?: string;
     appKey?: string;
     groupId?: string;
 }
+declare type HostAppliGetUrlReturnParams = {
+    appliId: string;
+    appKey: string;
+    timestamp: string;
+    signature: string;
+    groupId?: string;
+};
 export default class API {
     static CheckUTLockInfoPath: string;
     static GetTaskPATH: string;
@@ -93,24 +100,19 @@ export default class API {
         appliId: string;
         playerMode?: number;
         userType?: number;
-        roomCode?: string;
+        authCode?: string;
         taskId?: string;
     }): Promise<{
         host: string;
         origin: string;
-        params: {
-            appliId: string;
-            appKey: string;
-            timestamp: string;
-            signature: string;
-        };
+        params: HostAppliGetUrlReturnParams;
     }>;
     static GetStartInfo(serverAddress: string, params: {
         sdkId: string;
         appliId: string;
         playerMode?: number;
         userType?: number;
-        roomCode?: string;
+        authCode?: string;
         taskId?: string;
         clientMac?: string;
         groupId?: string;
@@ -131,3 +133,4 @@ export default class API {
     static RegionList(server: string, params: any): Promise<unknown>;
     static joinParam(params: any): string;
 }
+export {};

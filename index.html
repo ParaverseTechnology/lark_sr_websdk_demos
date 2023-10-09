@@ -32,8 +32,8 @@
     <script src="./js/jquery.min.js"></script>
     <!-- 可选组件库 -->
     <!-- @see https://github.com/pingxingyun/pxy_webcommonui -->
-    <script src="./js/pxy_webcommonui.min.js?v=331202305312"></script>
-    <script src="./dist/larksr-web-sdk.min.js?v=331202305312"></script>
+    <script src="./js/pxy_webcommonui.min.js?v=331202310091"></script>
+    <script src="./dist/larksr-web-sdk.min.js?v=331202310091"></script>
     <script src="https://unpkg.com/vconsole@latest/dist/vconsole.min.js" crossorigin="anonymous"></script>
     <script>
         // debug 
@@ -756,12 +756,13 @@
                 var useSeparateMediaSharePeer = urlParams.get('useSeparateMediaSharePeer');
                 var language = urlParams.get('language');
                 var enableCanvasRender = urlParams.get('enableCanvasRender');
+                var forceCanvas2d = urlParams.get('forceCanvas2d');
                 var frameRate = urlParams.get('frameRate');
                 var codeRate = urlParams.get('codeRate');
                 var audioCodeRate = urlParams.get('audioCodeRate');
 
                 console.log("load urlparrams", ip, port, sdkId, appliId, autoPlay, showPlayButton,
-                    enableCanvasRender, frameRate, codeRate, audioCodeRate);
+                    enableCanvasRender, frameRate, codeRate, audioCodeRate, forceCanvas2d);
 
                 var serverAddress = "";
                 var config = {};
@@ -789,6 +790,9 @@
                 }
                 if (audioCodeRate != null && audioCodeRate != undefined) {
                     config.audioCodeRate = parseInt(audioCodeRate);
+                }
+                if (forceCanvas2d != null && forceCanvas2d != undefined) {
+                    config.forceCanvas2d = forceCanvas2d === 'true' ? true : false;
                 }
 
                 if (ip && port) {
@@ -913,7 +917,7 @@
         <!-- 演示 UI 层 -->
         <div class="ui">
             <div class="block">
-                <p>LarkSR WebSDK TestV3.2.343.dev-331202305311</p>
+                <p>LarkSR WebSDK TestV3.2.344.dev-331202310091</p>
             </div>
             <div class="block">
                 <input placeholder="服务器地址,如 http://192.168.0.55:8181" id="input-server-address" type="text" />
