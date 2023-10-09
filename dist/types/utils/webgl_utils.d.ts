@@ -37,6 +37,7 @@ export declare class FullScreenGlRender {
     playing: boolean;
     timeupdate: boolean;
     copyVideo: boolean;
+    startInternal: boolean;
     constructor();
     init(canvas: HTMLCanvasElement, video: HTMLVideoElement): boolean;
     private checkReady;
