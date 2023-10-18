@@ -77,6 +77,7 @@ export interface StartAppInfo {
     nickname?: string;
     appKey?: string;
     groupId?: string;
+    initResolutionType?: number;
 }
 declare type HostAppliGetUrlReturnParams = {
     appliId: string;

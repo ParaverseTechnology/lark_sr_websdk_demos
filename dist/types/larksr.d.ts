@@ -489,6 +489,12 @@ interface ILarkSRConfig {
      * loading页载入Logo版本
      */
     loadingLogoVersion?: string;
+    /**
+     * 初始化分辨率方式
+     * 1:适应客户端窗口】和【0:应用默认分辨率】,默认值：0
+     * 此处配置优先级大于管理后台配置
+     */
+    initResolutionType?: number;
 }
 declare class LarkSR extends EventBase<LarkSRClientEvent, LarkSREvent> {
     /**
@@ -526,6 +532,7 @@ declare class LarkSR extends EventBase<LarkSRClientEvent, LarkSREvent> {
     get remoteScreenReady(): boolean;
     set remoteScreenReady(ready: boolean);
     private _remoteScreenReady;
+    onFirstAppsize(width: number, height: number): void;
     /**
      * 当前的屏幕状态
      * @see ScreenState
@@ -724,6 +731,8 @@ declare class LarkSR extends EventBase<LarkSRClientEvent, LarkSREvent> {
      * 停止鸟瞰模式区域
      */
     stopAerialview(): void;
+    get syncClientViewport(): boolean;
+    set syncClientViewport(sync: boolean);
     /**
      * LarkSR 客户端。所有操作和事件通过该类传递
      * @param config 本地配置，优先级最高

@@ -422,6 +422,102 @@ export namespace CloudLark {
         XR = 4
     }
 
+    /** Properties of a TaskDesc. */
+    interface ITaskDesc {
+
+        /** TaskDesc desktopWidth */
+        desktopWidth?: (number|null);
+
+        /** TaskDesc desktopHeight */
+        desktopHeight?: (number|null);
+    }
+
+    /** Represents a TaskDesc. */
+    class TaskDesc implements ITaskDesc {
+
+        /**
+         * Constructs a new TaskDesc.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: CloudLark.ITaskDesc);
+
+        /** TaskDesc desktopWidth. */
+        public desktopWidth: number;
+
+        /** TaskDesc desktopHeight. */
+        public desktopHeight: number;
+
+        /**
+         * Creates a new TaskDesc instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns TaskDesc instance
+         */
+        public static create(properties?: CloudLark.ITaskDesc): CloudLark.TaskDesc;
+
+        /**
+         * Encodes the specified TaskDesc message. Does not implicitly {@link CloudLark.TaskDesc.verify|verify} messages.
+         * @param message TaskDesc message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: CloudLark.ITaskDesc, writer?: $protobuf.Writer): $protobuf.Writer;
+
+        /**
+         * Encodes the specified TaskDesc message, length delimited. Does not implicitly {@link CloudLark.TaskDesc.verify|verify} messages.
+         * @param message TaskDesc message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: CloudLark.ITaskDesc, writer?: $protobuf.Writer): $protobuf.Writer;
+
+        /**
+         * Decodes a TaskDesc message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns TaskDesc
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): CloudLark.TaskDesc;
+
+        /**
+         * Decodes a TaskDesc message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns TaskDesc
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): CloudLark.TaskDesc;
+
+        /**
+         * Verifies a TaskDesc message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a TaskDesc message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns TaskDesc
+         */
+        public static fromObject(object: { [k: string]: any }): CloudLark.TaskDesc;
+
+        /**
+         * Creates a plain object from a TaskDesc message. Also converts values to other types if specified.
+         * @param message TaskDesc
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: CloudLark.TaskDesc, options?: $protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this TaskDesc to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
     /** Properties of a TaskResponse. */
     interface ITaskResponse {
 
@@ -436,6 +532,9 @@ export namespace CloudLark {
 
         /** TaskResponse reason */
         reason?: (string|null);
+
+        /** TaskResponse desc */
+        desc?: (CloudLark.ITaskDesc|null);
     }
 
     /** Represents a TaskResponse. */
@@ -458,6 +557,9 @@ export namespace CloudLark {
 
         /** TaskResponse reason. */
         public reason: string;
+
+        /** TaskResponse desc. */
+        public desc?: (CloudLark.ITaskDesc|null);
 
         /**
          * Creates a new TaskResponse instance using the specified properties.

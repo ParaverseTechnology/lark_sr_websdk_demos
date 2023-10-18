@@ -145,4 +145,10 @@ export default class Unit {
      * @returns
      */
     static evenNumber(n: number): number;
+    /**
+     * 向下为整数并且 向下计算为偶数
+     * @param n
+     * @returns
+     */
+    static floorevenNumber(n: number): number;
 }

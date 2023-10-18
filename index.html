@@ -49,6 +49,7 @@
         var currentMediaChannel = 0;
         var client;
         var joystick;
+        var streams;
 
         $(document).ready(function () {
             // console
@@ -386,9 +387,14 @@
             if (testGetUserMedia) {
                 navigator.mediaDevices.getUserMedia({
                     video: true,
-                    audio: true
+                    audio: false
                 })
-                .then(function () {
+                .then(function (e) {
+                    streams = e;
+
+                    streams.getTracks().forEach(function(e) {console.log(e, e.stop(), e.enabled = false) })
+
+                    // return;
                     getConnectedAudioinputDevices()
                         .then(function (res) {
                             console.log("getConnectedAudioinputDevices", res);

@@ -203,6 +203,7 @@ export interface IAppliParams {
     liveStreaming: boolean;
     useSeparateMediaSharePeer: boolean;
     mobileKeyboardType: number;
+    initResolutionType: number;
 }
 export declare enum AppliType {
     DESKTOP = 1,
@@ -272,6 +273,7 @@ export declare class AppliParams implements IAppliParams {
     liveStreaming: boolean;
     useSeparateMediaSharePeer: boolean;
     mobileKeyboardType: number;
+    initResolutionType: number;
     static copyAndCreate(params?: IAppliParams): AppliParams;
     static setUpWithSDKConfig(params: IAppliParams, config: ILarkSRConfig): AppliParams;
 }
