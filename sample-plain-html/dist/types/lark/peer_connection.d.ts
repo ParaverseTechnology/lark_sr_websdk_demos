@@ -34,7 +34,9 @@ export declare enum WEBRTC_EVENT_TYPE {
     AI_VOICE_ERROR = 21,
     RTMP_STREAM_STATE = 22,
     RTMP_STREAM_ERROR = 23,
-    INFO = 24
+    INFO = 24,
+    AerialViewStatus = 25,
+    AerialViewScreen = 26
 }
 export interface GoogleBitRate {
     start: number;
@@ -114,6 +116,8 @@ export default class PeerConnection extends EventBase<WEBRTC_EVENT_TYPE, WebRTCE
     private _serverFeatures;
     get serverStatics(): CloudLark.IServerStatics | null;
     private _serverStatics;
+    get currentAppSize(): CloudLark.IAppResize | null;
+    private _currentAppSize;
     constructor(larksr: LarkSR, config: WebRTCConfig);
     create(streams?: MediaStream | undefined | null, config?: CloudLark.IRTCConfiguration | null | undefined): Promise<void>;
     createOffer(): void;
@@ -164,7 +168,7 @@ export default class PeerConnection extends EventBase<WEBRTC_EVENT_TYPE, WebRTCE
     private resumeOrCreateBinding;
     addMediaTrack(track: MediaStreamTrack, ...streams: MediaStream[]): boolean;
     removeMediaTrack(track: RTCRtpSender): boolean;
-    requestUserMediaPermission(constraints?: MediaStreamConstraints): Promise<MediaStream>;
+    requestUserMediaPermission(constraints?: MediaStreamConstraints): Promise<unknown>;
     /**
      * 接收到sdp
      * @param des sdp

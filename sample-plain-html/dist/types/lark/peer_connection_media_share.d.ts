@@ -139,7 +139,7 @@ export default class PeerConnectionMediaShare extends EventBase<WEBRTC_MEDIA_SHA
     private resumeOrCreateBinding;
     addMediaTrack(track: MediaStreamTrack, ...streams: MediaStream[]): boolean;
     removeMediaTrack(track: RTCRtpSender): boolean;
-    requestUserMediaPermission(constraints?: MediaStreamConstraints): Promise<MediaStream>;
+    requestUserMediaPermission(constraints?: MediaStreamConstraints): Promise<unknown>;
     /**
      * 接收到sdp
      * @param des sdp

@@ -42,7 +42,8 @@ export interface SyncCursorStyle {
     customBase64: string;
 }
 export declare const enum SCREEN_EVENT_TYPE {
-    ReSize = 0
+    ReSize = 0,
+    ContainerResize = 1
 }
 export interface ScreenEvent extends LocalEvent<SCREEN_EVENT_TYPE> {
     container: ContainerSize;
@@ -52,9 +53,16 @@ export default class ScreenState extends EventBase<SCREEN_EVENT_TYPE, ScreenEven
     get appSize(): CloudLark.IAppResize;
     set appSize(size: CloudLark.IAppResize);
     private _appSize;
+    set originAppSize(viewport: ViewPort);
+    get originAppSize(): ViewPort;
+    private _originAppSize;
     get viewPort(): ViewPort;
     private _viewPort;
     get viewPortStyle(): string;
+    get syncClientViewport(): {
+        width: number;
+        height: number;
+    };
     get orientationIndexStyle(): {
         width: string;
         height: string;
@@ -116,5 +124,5 @@ export default class ScreenState extends EventBase<SCREEN_EVENT_TYPE, ScreenEven
     constructor(rootElement: HTMLElement, params: IAppliParams, larksr: LarkSR, handleRootElementSize?: boolean, onlyHandleRootElementTransform?: boolean);
     reset(params: IAppliParams): void;
     setMobileForceLandScape(force: boolean): void;
-    resize(baseElementScale?: number): void;
+    resize(baseElementScale?: number, containerResize?: boolean): void;
 }

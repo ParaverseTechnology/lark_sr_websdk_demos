@@ -137,7 +137,7 @@ export interface IAppliParams {
     /**
      * 口令:8位唯一码,写入TaskInfo. 房间code，备用。
      */
-    roomCode: string;
+    authCode: string;
     /**
      * debug task. 跳过task检测
      */
@@ -203,6 +203,7 @@ export interface IAppliParams {
     liveStreaming: boolean;
     useSeparateMediaSharePeer: boolean;
     mobileKeyboardType: number;
+    initResolutionType: number;
 }
 export declare enum AppliType {
     DESKTOP = 1,
@@ -246,7 +247,7 @@ export declare class AppliParams implements IAppliParams {
     playerMode: number;
     userType: number;
     nickname: string;
-    roomCode: string;
+    authCode: string;
     debugTask: boolean;
     debugWebServer: string;
     loadingTimeout: number;
@@ -272,6 +273,7 @@ export declare class AppliParams implements IAppliParams {
     liveStreaming: boolean;
     useSeparateMediaSharePeer: boolean;
     mobileKeyboardType: number;
+    initResolutionType: number;
     static copyAndCreate(params?: IAppliParams): AppliParams;
     static setUpWithSDKConfig(params: IAppliParams, config: ILarkSRConfig): AppliParams;
 }

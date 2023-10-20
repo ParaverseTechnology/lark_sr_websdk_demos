@@ -46,7 +46,9 @@ export declare enum APP_EVENT_TYPE {
     AI_VOICE_ERROR = 21,
     RTMP_STREAM_STATE = 22,
     RTMP_STREAM_ERROR = 23,
-    RTC_RETRY_SUCCESS = 24
+    RTC_RETRY_SUCCESS = 24,
+    AerialViewStatus = 25,
+    AerialViewScreen = 26
 }
 export interface AppEvent extends LocalEvent<APP_EVENT_TYPE> {
     data?: any;
@@ -79,6 +81,7 @@ export default class Application extends EventBase<APP_EVENT_TYPE, AppEvent> {
     get recodeState(): RECORDER_STATE;
     private recoder;
     private rtcConfig;
+    get currentAppSize(): Msg.CloudLark.IAppResize | null | undefined;
     constructor(larksr: LarkSR);
     init(): void;
     initSharePc(): void;
@@ -91,7 +94,24 @@ export default class Application extends EventBase<APP_EVENT_TYPE, AppEvent> {
     inputText(text: string): void;
     sendTextToDataChannel(text: string): void;
     sendBinaryToDataChannel(binary: Uint8Array): void;
+    sendReStartApplication(): void;
+    sendApplicationSize(width: number, height: number): void;
+    startAerialview(viewbox: {
+        x: number;
+        y: number;
+        width: number;
+        height: number;
+    }, interval: number | undefined, thumbnailWidth: 120, thumbnailHeight: 120): void;
+    updateAerialview(viewbox: {
+        x: number;
+        y: number;
+        width: number;
+        height: number;
+    }): void;
+    stopAerialview(): void;
+    sendShowDebugLayout(open: boolean): void;
     sendVideoBitrateKbps(bitrateKbps: number): void;
+    sendVideoFps(fps: number): void;
     aiDmTextInput(text: string): number;
     startAiDmVoiceInput(): Promise<number>;
     stopAiDmVoiceInput(): number;
@@ -135,6 +155,8 @@ export default class Application extends EventBase<APP_EVENT_TYPE, AppEvent> {
     private onRtmpStreamingError;
     private onIceStateChange;
     retryPeerconnection(): void;
+    private onAerialViewStatus;
+    private onAerialViewScreen;
     private onShareMediaError;
     private onShareMediaInfo;
     private onShareMediaOffer;

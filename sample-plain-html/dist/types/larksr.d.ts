@@ -241,7 +241,12 @@ declare enum LarkSRClientEvent {
      * 服务端 3.2.7.0 添加
      * rtmp 直播推流出错
      */
-    RTMP_STREAM_ERROR = "rtmpstreamerror"
+    RTMP_STREAM_ERROR = "rtmpstreamerror",
+    /**
+     * 服务端 3.2.2.x 添加
+     * 鸟瞰模式背景缩略图
+     */
+    AERIAL_VIEW_SCREEN = "aerialviewscreen"
 }
 /**
  * LarkSR 发出的事件
@@ -457,8 +462,8 @@ interface ILarkSRConfig {
     showPlayButton?: boolean;
     /**
      * 可选项
-     * 语言设置,目前只支持种英文两种,默认中文
-     * zh-CN 中文 en 英文
+     * 语言设置,目前支持中文简体、中文繁体、英文三种,默认中文简体
+     * zh-CN 中文简体 zh-TW 中文繁体 en 英文
      */
     language?: string;
     /**
@@ -476,10 +481,20 @@ interface ILarkSRConfig {
      */
     enableCanvasRender?: boolean;
     /**
+     * 强制使用canvs2d模式，默认优先使用 webgl
+     */
+    forceCanvas2d?: boolean;
+    /**
      * 可选项
      * loading页载入Logo版本
      */
     loadingLogoVersion?: string;
+    /**
+     * 初始化分辨率方式
+     * 1:适应客户端窗口】和【0:应用默认分辨率】,默认值：0
+     * 此处配置优先级大于管理后台配置
+     */
+    initResolutionType?: number;
 }
 declare class LarkSR extends EventBase<LarkSRClientEvent, LarkSREvent> {
     /**
@@ -517,6 +532,7 @@ declare class LarkSR extends EventBase<LarkSRClientEvent, LarkSREvent> {
     get remoteScreenReady(): boolean;
     set remoteScreenReady(ready: boolean);
     private _remoteScreenReady;
+    onFirstAppsize(width: number, height: number): void;
     /**
      * 当前的屏幕状态
      * @see ScreenState
@@ -674,6 +690,50 @@ declare class LarkSR extends EventBase<LarkSRClientEvent, LarkSREvent> {
      */
     setVideoBitrateKbps(bitrateKbps: number): void;
     /**
+     * 动态设置帧率
+     */
+    setVideoFps(fps: number): void;
+    /**
+     * 动态设置云端 debug 窗口
+     */
+    setCloudDebugLayout(open: boolean): void;
+    /**
+     * 重启云端应用
+     */
+    restartCloudApp(): void;
+    /**
+     * 设置云端应用大小
+     */
+    setCloudAppSize(width: number, height: number): void;
+    /**
+     * 当前云端应用窗口大小
+     */
+    get currentAppSize(): CloudLark.IAppResize | null | undefined;
+    /**
+     * 开始鸟瞰模式
+     */
+    startAerialview(viewbox: {
+        x: number;
+        y: number;
+        width: number;
+        height: number;
+    }, interval: number | undefined, thumbnailWidth: 120, thumbnailHeight: 120): void;
+    /**
+     * 更新鸟瞰模式区域
+     */
+    updateAerialview(viewbox: {
+        x: number;
+        y: number;
+        width: number;
+        height: number;
+    }): void;
+    /**
+     * 停止鸟瞰模式区域
+     */
+    stopAerialview(): void;
+    get syncClientViewport(): boolean;
+    set syncClientViewport(sync: boolean);
+    /**
      * LarkSR 客户端。所有操作和事件通过该类传递
      * @param config 本地配置，优先级最高
      */
@@ -700,7 +760,7 @@ declare class LarkSR extends EventBase<LarkSRClientEvent, LarkSREvent> {
         appliId: string;
         playerMode?: number;
         userType?: number;
-        roomCode?: string;
+        authCode?: string;
         taskId?: string;
         regionId?: string;
         groupId?: string;
@@ -738,7 +798,7 @@ declare class LarkSR extends EventBase<LarkSRClientEvent, LarkSREvent> {
         appliId: string;
         playerMode?: number;
         userType?: number;
-        roomCode?: string;
+        authCode?: string;
         taskId?: string;
         clientMac?: string;
         groupId?: string;
@@ -1249,5 +1309,6 @@ declare class LarkSR extends EventBase<LarkSRClientEvent, LarkSREvent> {
     private onDataChannelClose;
     private onOperationTimeout;
     private onOperationInput;
+    private setCanvasMode;
 }
 export { LarkSR, ILarkSRConfig, PlayerModeType, UserType, LarkSREvent, LarkEventType, LarkSRClientEvent, AppliParams, AppliParamsUtils, LoadAppliParamsFromUrl, LoadAppliParamsStartAppInfo, EventBase, API, Operation, Capabilities, ScaleMode, VirtualKey, KEYMAP, CloudLark, FullScreen, LockPointer, Recorder, GESTURE_TYPE, };

@@ -9,8 +9,8 @@
   },
   "dependencies": {
     "core-js": "^3.27.1",
-    "larksr_websdk": "^3.2.401",
-    "pxy_webcommonui": "^0.1.10",
+    "larksr_websdk": "^3.2.402",
+    "pxy_webcommonui": "^0.1.12",
     "vue": "^2.6.11",
     "vuex": "^3.6.2"
   },

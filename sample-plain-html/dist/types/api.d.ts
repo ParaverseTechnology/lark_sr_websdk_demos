@@ -72,11 +72,12 @@ export interface StartAppInfo {
     rttLimitInterval: string;
     playerMode?: number;
     userType?: number;
-    roomCode?: string;
+    authCode?: string;
     nickName?: string;
     nickname?: string;
     appKey?: string;
     groupId?: string;
+    initResolutionType?: number;
 }
 declare type HostAppliGetUrlReturnParams = {
     appliId: string;
@@ -100,7 +101,7 @@ export default class API {
         appliId: string;
         playerMode?: number;
         userType?: number;
-        roomCode?: string;
+        authCode?: string;
         taskId?: string;
     }): Promise<{
         host: string;
@@ -112,7 +113,7 @@ export default class API {
         appliId: string;
         playerMode?: number;
         userType?: number;
-        roomCode?: string;
+        authCode?: string;
         taskId?: string;
         clientMac?: string;
         groupId?: string;
