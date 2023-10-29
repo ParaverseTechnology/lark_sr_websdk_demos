@@ -80,6 +80,8 @@
                     ...config,
                 });
 
+                client.setMobileForceLandScape(false);
+
                 client.initSDKAuthCode(sdkid)
                     .then(function () {
                         // 开始连接
