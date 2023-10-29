@@ -214,6 +214,24 @@
                    // alert("	Playback has stopped because of a temporary lack of data.");
                 });
 
+                client.on("appstatechange", function(e) {
+                    console.log("appstatechange", e);
+
+                    if (e.data === 5) {
+                        console.log('show play button');
+                        $("#button-play").show();
+                    }
+
+                    if (e.data === 6) {
+                        console.log('hide play button');
+                        $("#button-play").hide();
+                    }
+                })
+
+                $("#button-play").on("click", function(e) {
+                    client.videoComponent.playVideo();
+                });
+            
                 // 
                 // client.videoElement.paused
                 // client.videoElement.played
@@ -758,7 +776,6 @@
                 var appliId = urlParams.get('appliId');
                 var autoPlay = urlParams.get('autoPlay');
                 var showPlayButton = urlParams.get('showPlayButton');
-                var showPlayButton = urlParams.get('showPlayButton');
                 var useSeparateMediaSharePeer = urlParams.get('useSeparateMediaSharePeer');
                 var language = urlParams.get('language');
                 var enableCanvasRender = urlParams.get('enableCanvasRender');
@@ -833,6 +850,10 @@
                     showBlock = true;
                 }
             });
+
+
+            $(".test-functions").hide();
+            showBlock = false;
 
             $("#canvas-render").on("click", function() {
                 if (client) {
@@ -914,6 +935,24 @@
             background-color: #303030;
             color: azure;
             text-align: center;
+        }
+
+        .ui .play {
+            position: absolute;
+            top: 50%;
+            width: 100vw;
+            align-items: center;
+            justify-content: center;
+            display: flex;
+            height: 100vh;
+        }
+
+        .ui #button-play {
+            display: none;
+        }
+
+        #container .pxy-container {
+            box-shadow: none;
         }
     </style>
 </head>
@@ -1019,6 +1058,9 @@
             <div id="joystick-container">
             </div>
 
+            <div class="play">
+                <button id="button-play">Start</button>
+            </div>
         </div>
     </div>
 </body>
