@@ -82,57 +82,59 @@
 
                 client.setMobileForceLandScape(false);
 
+                client.isEnableLoadingStateBar = false;
+
                 client.initSDKAuthCode(sdkid)
                     .then(function () {
                         // 开始连接
 
                         // 连接平行云托管平台的应用
-                        // client.connectWithPxyHost({
-                        //     // 从平行云托管平台获取
-                        //     appliId: "990411595240701952",
-                        //     // playerMode: 2,
-                        //     // userType: 1,
-                        //     // taskId: "",
-                        //     // nickname: "Test",
-                        // })
-                        // .catch(function(e) {
-                        //     console.error('enter appli falied', e);
-                        //     alert(JSON.stringify(e));
-                        // });
+                        client.connectWithPxyHost({
+                            // 从平行云托管平台获取
+                            appliId: "1077999260055633920",
+                            // playerMode: 2,
+                            // userType: 1,
+                            // taskId: "",
+                            // nickname: "Test",
+                        })
+                        .catch(function(e) {
+                            console.error('enter appli falied', e);
+                            alert(JSON.stringify(e));
+                        });
 
-                        client.connect({
-                                // 要使用的云端资源的应用 ID，从后云雀后台接口获取
-                                // 参考查询应用一栏文档
-                                // https://www.pingxingyun.com/online/api3_2.html?id=476
-                                // 如 222.128.6.137:8181 系统下的 879414254636105728 应用
-                                appliId: appliId,
-                                // 其他可选参数如下
-                                // 互动模式
-                                //启动模式：0：普通模式, 1：互动模式（一人操作多人观看），2: 多人协同（键盘鼠标放开，需要应用配合）
-                                // playerMode: 1,
-                                //Task所有者:1 /  观察者:0
-                                // userType: 1,
-                                //口令:8位唯一码,写入TaskInfo
-                                // roomCode: '',
-                                // taskId: '',
-                                // groups
-                                // clientMac: '',
-                                // groupId: '',
-                                // regionId: '',
-                                //指定节点分配
-                                // targetServerIp: '',
-                                // keys
-                                // appKey: '',
-                                // timestamp: '',
-                                // signature: '',
-                                // "extraParam.test1": "test1", // extrams
-                                // "extraParam.test2": "test2", // extrams
-                                // "extraParam.test3": "test3", // extrams
-                            })
-                            .catch(function (e) {
-                                console.error('enter appli falied', e);
-                                alert(JSON.stringify(e));
-                            });
+                        // client.connect({
+                        //         // 要使用的云端资源的应用 ID，从后云雀后台接口获取
+                        //         // 参考查询应用一栏文档
+                        //         // https://www.pingxingyun.com/online/api3_2.html?id=476
+                        //         // 如 222.128.6.137:8181 系统下的 879414254636105728 应用
+                        //         appliId: appliId,
+                        //         // 其他可选参数如下
+                        //         // 互动模式
+                        //         //启动模式：0：普通模式, 1：互动模式（一人操作多人观看），2: 多人协同（键盘鼠标放开，需要应用配合）
+                        //         // playerMode: 1,
+                        //         //Task所有者:1 /  观察者:0
+                        //         // userType: 1,
+                        //         //口令:8位唯一码,写入TaskInfo
+                        //         // roomCode: '',
+                        //         // taskId: '',
+                        //         // groups
+                        //         // clientMac: '',
+                        //         // groupId: '',
+                        //         // regionId: '',
+                        //         //指定节点分配
+                        //         // targetServerIp: '',
+                        //         // keys
+                        //         // appKey: '',
+                        //         // timestamp: '',
+                        //         // signature: '',
+                        //         // "extraParam.test1": "test1", // extrams
+                        //         // "extraParam.test2": "test2", // extrams
+                        //         // "extraParam.test3": "test3", // extrams
+                        //     })
+                        //     .catch(function (e) {
+                        //         console.error('enter appli falied', e);
+                        //         alert(JSON.stringify(e));
+                        //     });
                     })
                     .catch(function (e) {
                         console.error('auth falied', e);
@@ -227,11 +229,22 @@
                     if (e.data === 6) {
                         console.log('hide play button');
                         $("#button-play").hide();
+                        $("#button-speak").show();
                     }
                 })
 
                 $("#button-play").on("click", function(e) {
                     client.videoComponent.playVideo();
+                });               
+                
+                $("#button-speak").on("touchstart", function(e) {
+                    $("#button-speak").text("抬起发送");
+                    // client.videoComponent.playVideo();
+                });
+
+                $("#button-speak").on("touchend", function(e) {
+                    $("#button-speak").text("按住说话");
+                    client.videoComponent.sountPlayout();
                 });
             
                 // 
@@ -831,12 +844,15 @@
                 if (appliId) {
                     $("#input-appli-id").val(appliId);
                 }
-                if (ip && port && sdkId && appliId) {
-                    // 模拟异步创建
-                    window.setTimeout(function () {
-                        connect(serverAddress, sdkId, appliId, config);
-                    }, 1000);
-                }
+
+                // if (ip && port && sdkId && appliId) {
+                //     // 模拟异步创建
+                //     window.setTimeout(function () {
+                //         connect(serverAddress, sdkId, appliId, config);
+                //     }, 1000);
+                // }
+
+                connect(serverAddress, sdkId, appliId, config);
             })();
 
             $("#joystick-container").hide();
@@ -953,6 +969,10 @@
             display: none;
         }
 
+        .ui #button-speak {
+            display: none;
+        }
+
         #container .pxy-container {
             box-shadow: none;
         }
@@ -1062,6 +1082,7 @@
 
             <div class="play">
                 <button id="button-play">Start</button>
+                <button id="button-speak">按住说话</button>
             </div>
         </div>
     </div>
