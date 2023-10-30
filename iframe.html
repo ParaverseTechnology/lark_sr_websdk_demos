@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="format-detection" content="telephone=no, email=no" />
+    <meta name="screen-orientation" content="portrait">
+    <meta name="x5-orientation" content="portrait">
+    <meta name="full-screen" content="yes">
+    <meta name="x5-fullscreen" content="true">
+    <meta name="browsermode" content="application">
+    <meta name="x5-page-mode" content="app">
+    <meta name="msapplication-tap-highlight" content="no">
+    <meta name="HandheldFriendly" content="true">
+    <meta name="MobileOptimized" content="320">
+    <meta name="360-fullscreen" content="true" />
+
+    <meta name="theme-color" content="#000000" />
+    <meta name="renderer" content="webkit" />
+    <!--[if IE]>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <![endif]-->
+    <!-- 视图窗口，移动端特属的标签。 -->
+    <meta name="viewport"
+        content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no" />
+    <meta name="description" content="lark3.0" />
+    <title>平行云</title>
+    <link href="./css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .container {
+            padding-top: 50px;
+        }
+
+        #iframe {
+            width: -webkit-fill-available;
+            /* min-height: -webkit-fill-available; */
+            border: 1px solid lightgreen;
+            height: 500px;
+        }
+
+        .func-row {
+            margin-bottom: 5px;
+        }
+
+        .func-row button {
+            margin-right: 5px;
+        }
+
+        .cloud-client {
+            min-height: 300px;
+            position: relative;
+        }
+        iframe {
+            width: 100vw;
+            height: 100vh;
+        }
+    </style>
+    <script src="./js/jquery.min.js"></script>
+    <script src="./dist/larksr-web-sdk.min.js"></script>
+    <script src="https://unpkg.com/vconsole@latest/dist/vconsole.min.js" crossorigin="anonymous"></script>
+    <script>
+        $(document).ready(function () {
+            // console
+            var vConsole = new window.VConsole();
+        });
+    </script>
+</head>
+
+<body>
+    <iframe src="https://aixcx.dabaoensi.com/nj-bes-map-web/#/asr?sign=1231123123123" frameborder="0"></iframe>
+</body>
+
+</html>
