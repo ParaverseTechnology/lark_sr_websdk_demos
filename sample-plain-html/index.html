@@ -51,7 +51,7 @@
                 // 如：http://222.128.6.137:8181/
                 // 当使用平行云托管服务时服务器地址自动分配,可留空。
                 // serverAddress: "http://222.128.6.137:8181/",
-                serverAddress: "http://192.168.0.55:8181/"
+                serverAddress: "http://192.168.0.55:8181/",
                 // 授权码
                 // authCode: '您的 SDK ID 联系 business@pingxingyun.com 获取',
                 // 视频缩放模式，默认保留宽高比，不会拉伸并完整显示在容器中
@@ -60,6 +60,9 @@
                 // fullScreenMode: 0,
                 // 测试载入背景图
                 // loadingBgUrl: 'https://home-obs.pingxingyun.com/homePage_4_0/bg.jpg',
+                //
+                // 单独上传流程要求渲染服务器版本大于3290
+                useSeparateMediaSharePeer: true,
             });
 
             client.initSDKAuthCode('您的 SDK ID 联系 business@pingxingyun.com 获取')

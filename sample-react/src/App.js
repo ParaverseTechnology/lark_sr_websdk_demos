@@ -45,6 +45,9 @@ export default class App extends React.Component {
         // loadingBgUrl: "https://home-obs.pingxingyun.com/homePage_4_0/bg.jpg",
         // show log
         // logLevel: 'warn',
+
+        // 单独上传流程要求渲染服务器版本大于3290）
+        useSeparateMediaSharePeer: true,
     });
     
     // 初始化您的授权ID

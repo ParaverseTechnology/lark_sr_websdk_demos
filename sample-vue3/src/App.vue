@@ -51,6 +51,9 @@ export default {
         // show log
         // logLevel: 'warn',
         mobileForceLandscape: true,
+
+        // 单独上传流程要求渲染服务器版本大于3290
+        useSeparateMediaSharePeer: true,
     });
     
     // 初始化您的授权ID
