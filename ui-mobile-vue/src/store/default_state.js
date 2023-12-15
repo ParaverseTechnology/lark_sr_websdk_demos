@@ -52,6 +52,8 @@ export const DefaultState/*: RootState*/ = {
     //
     syncClipboardParseEvent: true,
     mobileControlBallPosition: { x: 0, y: 0},
+    // 鸟瞰模式
+	showAerialView: false,
     // moduls.
 	notifyBar: { timeout: -1, notify: defaultNotify,},
 	modalAlert: { modalAlert: defalutModalAlert },

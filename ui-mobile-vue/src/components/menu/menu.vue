@@ -65,6 +65,29 @@
                     <span v-on:click="toggleSyncClipboardParseEvent">{{syncClipboardParseEventText}}</span>
                 </div>
             </div>
+            <!-- SR(独占)、SR(共享-平行云通用方案)有鸟瞰功能 -->
+            <div v-if="larksr.params.appliType===1 ||larksr.params.appliType===2" class="item">
+                <div class="item-left">{{ ui.aerial }}</div>
+                <div class="item-right">
+                    <span v-on:click="aerailView">{{ ui.openAerial }}</span>
+                </div>
+            </div>
+            <div class="item">
+                <div class="item-left">{{ ui.resolutions }}</div>
+                <div class="item-right resolution">
+                    <select v-model="selecteResolution" v-on:change="onChangeResolution">
+                        <option v-for="(resolution, key) in resolutions" v-bind:value="resolution" v-bind:key="key">
+                            {{ resolution.width }} X {{ resolution.height }}
+                        </option>
+                    </select>
+                </div>
+            </div>
+            <div class="item">
+                <div class="item-left">{{ ui.restartTitle }}</div>
+                <div class="item-right">
+                    <span v-on:click="restartApp">{{ ui.restartButton }}</span>
+                </div>
+            </div>
         </div>
     </div>
 </template>
@@ -103,6 +126,25 @@ export default {
             },
             versionStr: "V3.2.2.0",
             isIOS: Capabilities.os === 'iOS',
+            selecteResolution: { width: 1920, height: 1080 }, 
+            resolutions: [
+                { width: 4096, height: 1080 },
+                { width: 4096, height: 2160 },
+                { width: 3840, height: 2160 },
+                { width: 3840, height: 1080 },
+                { width: 2560, height: 1440 },
+                { width: 2048, height: 1536 },
+                { width: 1920, height: 1080 },
+                { width: 1920, height: 1440 },
+                { width: 1600, height: 900 },
+                { width: 1366, height: 768 },
+                { width: 1280, height: 720 },
+                { width: 1280, height: 600 },
+                { width: 2180, height: 3840 },
+                { width: 1080, height: 1920 },
+                { width: 720, height: 1280 },
+                { width: 1536, height: 2048 },
+            ],
         }
     },
     computed: {
@@ -226,6 +268,37 @@ export default {
         showInput() {
             this.setInputMethodEnable(true);
         },
+        aerailView() {
+            this.toggleMenu();
+            this.toggleAerailView();
+        },
+        onChangeResolution() {
+            console.log("onChangeResolution", this.selecteResolution);
+            this.larksr?.setCloudAppSize(this.selecteResolution.width, this.selecteResolution.height);
+        },
+        restartApp() {
+            this.larksr?.restartCloudApp();
+        },
+        resetResolution() {
+            let found = false;
+            for (let res of this.resolutions) {
+                if (res.width === this.larksr.currentAppSize.width && res.height === this.larksr.currentAppSize.height) {
+                    found = true;
+                }
+            }
+
+            if (!found) {
+                this.resolutions.push({
+                    width: this.larksr.currentAppSize.width,
+                    height: this.larksr.currentAppSize.height,
+                });
+            }
+
+            this.selecteResolution = {
+                width: this.larksr.currentAppSize.width,
+                height: this.larksr.currentAppSize.height,
+            }
+        },
         ...mapMutations({
             'setInputMethodEnable': 'setInputMethodEnable',
             'setShowPlayerList': 'playerMode/setShowPlayerList',
@@ -243,6 +316,7 @@ export default {
             toggleMenu: 'toggleMenu',
             setFlipMouseWheel: 'flipMouseWheel',
             toggleSyncClipboardParseEvent: "toggleSyncClipboardParseEvent",
+            toggleAerailView: 'toggleAerailView',
         })
     }
 }

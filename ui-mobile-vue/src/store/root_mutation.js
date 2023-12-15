@@ -40,6 +40,9 @@ export const RootMutation/*: MutationTree<RootState>*/ = {
     setSyncClipboardParseEvent(state, syncClipboardParseEvent) {
         state.syncClipboardParseEvent = syncClipboardParseEvent;
     },
+    setShowAerialView(state, show) {
+        state.showAerialView = show;
+    },
 }
 
 export default RootMutation;

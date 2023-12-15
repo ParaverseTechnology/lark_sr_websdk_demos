@@ -118,6 +118,9 @@ export const RootActions/*: ActionTree<RootState, RootState>*/ = {
             larksr.initCursorMode = !larksr.initCursorMode;
         }
     },
+    toggleAerailView({commit, state}) {
+        commit('setShowAerialView', !state.showAerialView);
+    }
 };
 
 export default RootActions;

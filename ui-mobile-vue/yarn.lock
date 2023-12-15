@@ -4114,10 +4114,10 @@ klona@^2.0.4, klona@^2.0.5:
   resolved "https://registry.yarnpkg.com/klona/-/klona-2.0.5.tgz#d166574d90076395d9963aa7a928fabb8d76afbc"
   integrity sha512-pJiBpiXMbt7dkzXe8Ghj/u4FfXOOa98fPW+bihOJ4SjnoijweJrNThJfd3ifXpXhREjpoF2mZVH1GfS9LV3kHQ==
 
-larksr_websdk@^3.2.401:
-  version "3.2.401"
-  resolved "https://registry.yarnpkg.com/larksr_websdk/-/larksr_websdk-3.2.401.tgz#9e0b83ef64851597aaa779551ba94e205c438457"
-  integrity sha512-4/OVZB45T0/3wetE2iFyg10VI21Hfa7XOT6SWxicURLuokpqFVGbyHToQKd8nPOEf/tSYIQ7Uk0zEXZwo9vjvg==
+larksr_websdk@^3.2.402:
+  version "3.2.402"
+  resolved "https://registry.yarnpkg.com/larksr_websdk/-/larksr_websdk-3.2.402.tgz#439ecd0b4bbe20f0982f0ba35d33b91c55f94b91"
+  integrity sha512-RCk4/W2B2Nz4SdukPOTJTJxqG4XKnRizokVrrKKudZd7h4uVGMC1TX3YwFhfkQIHjVVoEGfsKc8MvndKSSIW7w==
   dependencies:
     axios "^0.24.0"
     bowser "^2.11.0"
@@ -5207,10 +5207,10 @@ punycode@^2.1.0:
   resolved "https://registry.npmjs.org/punycode/-/punycode-2.1.1.tgz"
   integrity sha512-XRsRjdf+j5ml+y/6GKHPZbrF/8p2Yga0JPtdqTIY2Xe5ohJPD9saDJJLPvp9+NSBprVvevdXZybnj2cv8OEd0A==
 
-pxy_webcommonui@^0.1.10:
-  version "0.1.10"
-  resolved "https://registry.yarnpkg.com/pxy_webcommonui/-/pxy_webcommonui-0.1.10.tgz#4913b11371baf2e6b923a9beaaf594f38983a209"
-  integrity sha512-RQLdnAqrth2M52xs5pGV5E6cUsgXEMG39j9PgKfa0kSxKy+66KYe6vfztwkLJ+fQb0AIyx4bsYG1VNPMKDubWA==
+pxy_webcommonui@^0.1.12:
+  version "0.1.12"
+  resolved "https://registry.yarnpkg.com/pxy_webcommonui/-/pxy_webcommonui-0.1.12.tgz#3746fdcc74f700b0247f42d4ae9a4d01c688b4a2"
+  integrity sha512-kIxZsDJq5BwmbCrR5x5sSscH9+0Z9UkeP2n29kTx05ZK5qMDe4DWHjvKZcvxogWokqeLlMXUSvOQaFkXgSXJEg==
   dependencies:
     core-js "^3.18.1"
 

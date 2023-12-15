@@ -24,6 +24,7 @@
         "userType_Observer": "Observer",
         "userType_Player": "Player",
         "requireNickName": "Please setup nickname.",
+        "requireAuthCode": "Please setup AuthCode",
         "requireInputChinese": "Need input text to cloud?",
         "buttonSubmit": "OK",
         "buttonCancel": "Cancel",
@@ -84,13 +85,27 @@
         "statusBiterate": "Bitrate",
         "statusRtt": "RTT",
         "statusPackgeLost": "Lost",
+        "avgDecodeDelay": "Decode",
+        "avgProcessDelay": "Client Process",
+        "serverStaticsRenderDelay": "Render",
+        "serverStaticsCaptureDelay": "Capture",
+        "serverStaticsEncoderDelay": "Encoder",
 
         "audioDevice": "Audio Deivce",
 
         "videoDevice": "Video Device",
 
         "inputbuttonText": "InputText",
-        "inputbuttonVKeyboard": "showVKeyboard"
+        "inputbuttonVKeyboard": "showVKeyboard",
+
+        "aerial": "Aerial",
+        "openAerial": "Open Aerial",
+        "closeAerial": "Close Aerial",
+        "hideAerial": "Hide Aerial",
+
+        "resolutions": "Resolution",
+        "restartTitle": "Restart",
+        "restartButton": "Restart Cloud App"
     },
     "notice": {
         "browserVersion": "It is detected that your current browser kernel version is lower, it is recommended to upgrade. Continue to use?",
@@ -126,8 +141,8 @@
         "playerChanging": "Switching",
         "playerCopyShareUrl": "Copy share url success",
         "playerCopyShareUrlFailed": "Copy share url failed, please copy it from inputbox.",
-        "playerCopyRoomCodeSuccess": "Copy roomcode success",
-        "playerCopyRoomCodeFailed": "Copy roomcode failed, please copy it from inputbox.",
+        "playerCopyAuthCodeSuccess": "Copy authcode success",
+        "playerCopyAuthCodeFailed": "Copy authcode failed, please copy it from inputbox.",
 
         "audioUseHttps": "Please use HTTPS to open media device",
         "videoUseHttps": "Please use HTTPS to open media device",

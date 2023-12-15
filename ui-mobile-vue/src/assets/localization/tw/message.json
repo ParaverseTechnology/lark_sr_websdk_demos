@@ -1,0 +1,101 @@
+{
+    "level": {
+        "INFO": "消息",
+        "WARING": "警告",
+        "ERROR": "錯誤"
+    },
+    "msg": {
+        "CONNECT_WEBRTC": "視頻連接中...",
+        "ICE_FAILED": "當前網絡環境較差，請關閉頁面，稍等片刻重新進入應用。",
+        "ICE_SUCCESS": "連接成功",
+        "WEBRTC_HANGUP": "當前網絡環境較差，請關閉頁面，稍等片刻重新進入應用。",
+
+        "CONNECT_WS_ERR": "連接服務器失敗",
+        "CONNECT_WS_ERR_1": "客戶端已啓動",
+        "CONNECT_WS_CLOSE": "與服務器連接已關閉",
+        "APP_LOGIN_ERR_1": "客戶端未認證",
+        "APP_LOGIN_ERR_2": "客戶端重複登錄",
+        "CONNECT_APP_ERR": "連接應用服務器失敗",
+        "CONNECT_APP_ERR2": "連接應用服務器超時",
+        "SIGNALING_APP_TIMEOUT": "連接超時。請檢查網絡或聯繫管理員。",
+        "REMOTE_APP_FAILED": "啓動雲端應用失敗。請聯繫管理員。",
+        "REMOTE_APP_CLOSE": "雲端應用已關閉，請重新進入應用。",
+
+        "REFRESH": "重新連接中...",
+        "COURSE_OVER": "應用到時",
+        "COURSE_QUIT": "確認退出應用",
+        "ORIENTATION": "橫屏瀏覽效果更佳",
+        "REQUEST_LOCK_MOUSE": "獨佔鼠標模式請點擊鎖定鼠標按鈕。",
+        "LOCK_MOUSE": "進入獨佔鼠標模式",
+        "PARAM_ERROR": "應用參數錯誤",
+        "LOAD_CONFIG_FAILED": "讀取配置文件失敗",
+        "TOKEN_EXPIRED": "檢測到 token 已過期，請重新進入。",
+        "REQUEST_PLAY_VIDEO": "點擊確認進入應用",
+
+        "LOGIN_SUCESS": "登錄成功",
+        "LOGIN_ERROR_COURSE_NOTATSTART": "登錄失敗，應用未到時間",
+        "LOGIN_ERROR_COURSE_NOTEXIST": "登錄失敗，應用不存在",
+        "LOGIN_ERROR_COURSE_TIMEOUT": "登錄失敗，應用已到時",
+        "LOGIN_ERROR_MEDIA_NOTREADY": "登錄失敗，應用未準備好，請稍後再試",
+        "LOGIN_ERROR_SESSION_EXIST": "登錄失敗，已有客戶端連接",
+        "LOGIN_ERROR_VALIDUSER": "登錄失敗，用戶認證失敗",
+        "LOGIN_ERROR_SAFEDOG_NOTFOUND": "登錄失敗，系統未找到加密狗",
+        "LOGIN_ERROR_SAFEDOG_TIMEOUT": "登錄失敗，加密狗已過期",
+        "LOGIN_ERROR_UNKNOWN": "未知登錄結果",
+        "LOGIN_ERROR_EMPTY": "登錄結果爲空",
+        
+        "APP_LOGIN_TIMOUT": "登錄超時",
+        "APP_LOGIN_MESSAGE_ERR": "登錄返回錯誤消息",
+
+        "CONNECT_TO_APP_SERVER_TIMEOUT": "連接應用服務器超時",
+
+        "APP_START_STREAM_TIMEOUT": "啓動流媒體超時",
+
+        "LK_LOADING_TIMEOUT": "加載時間超過系統設定",
+        "NO_OPERATION_TIMEOUT": "超過系統設定時間無操作，關閉連接。",
+
+        "RENDER_SERVER_CONNECTED": "連接渲染服務器成功",
+        "RENDER_SERVER_FAILED": "連接渲染服務器失敗",
+        "RENDER_SERVER_CLOSE": "與渲染服務器連接關閉",
+        "RENDER_SERVER_ERROR": "與渲染服務器連接出錯",
+
+        "PROXY_SERVER_CONNECTED": "連接代理服務器成功",
+        "PROXY_SERVER_FAILED": "連接代理服務器失敗",
+        "PROXY_SERVER_CLOSE": "與代理服務器連接關閉",
+        "PROXY_SERVER_ERROR": "與代理服務器連接出錯",
+
+        "VERSION_CHECK_SUCCESS": "版本檢測成功",
+        "VERSION_CHECK_FAILED": "版本檢測失敗",
+
+        "TASK_SUCCESS": "服務器端請求 Task 成功",
+        "TASK_ERROR": "服務器端請求 Task 出錯",
+        "TASK_NOTFOUND": "服務器端未發現 Task",
+        "TASK_SERVER_ERROR": "服務器端錯誤",
+        "TASK_APP_WRONGPARAM": "應用參數錯誤",
+        "TASK_NO_GPU_RESOURCE": "服務器端 Task 獲取成功，但是沒有可分配的顯卡",
+
+        "START_SUCCESS": "啓動流媒體成功",
+        "START_FAILED": "啓動流媒體出錯",
+        "START_STREAM_PROCESS_START_FAILED": "啓動失敗",
+        "START_STREAM_PROCESS_START_TIMEOUT": "啓動超時",
+        "START_STREAM_NOT_STREAMING": "未串流",
+        "START_STREAM_ENCODER_ERROR": "編碼錯誤",
+
+        "RTC_EVENT_PEERCONNECTION_CONNECTED": "RTC 連接成功",
+        "RTC_EVENT_PEERCONNECTION_CLOSED": "RTC 連接關閉",
+        "RTC_EVENT_PEERCONNECTION_ERROR": "RTC 連接出錯",
+
+        "VIDEO_LOADED": "視頻流加載成功",
+
+        "CONNECT_TO_ADMIN": "請聯繫管理員",
+
+        "RTC_RETRY_CONNECTION": "點對點連接斷開，重試中...",
+
+        "LK_NOTIFY_CLIENT_LOGOUT_PLAYER_LOGOUT": "服務端主動退出",
+
+        "LK_NOTIFY_CLIENT_LOGOUT_TASKOWNER_LOGOUT": "演示模式已結束",
+
+        "LK_APP_PROCESS_NOTIFI_APP_QUIT": "雲端應用斷開，重新啓動中",
+        "LK_APP_PROCESS_NOTIFI_APP_QUIT_2": "雲端應用退出，請重新進入該應用"
+    }
+}

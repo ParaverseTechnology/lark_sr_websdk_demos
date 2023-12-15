@@ -1,0 +1,46 @@
+@import "~@/assets/styles/mobile_base.scss";
+
+.aerial-view-container {
+    position: absolute;
+    bottom: 100px;
+    right: 100px;
+    width: 200px;
+    height: 200px;
+    border: 1px solid green;
+    z-index: 9999;
+    pointer-events: auto;
+
+    .aerial-view-box {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100px;
+        height: 100px;
+        border: 2px solid lightgreen;
+        pointer-events: auto;
+    }
+
+    .btn {
+        position: absolute;
+        background-color: var(--webclient-confirm-button-bg, $color-bg-blue);
+        border: px2rem(2) solid var(--webclient-confirm-button-border, $color-border-light-blue);
+        color: var(--webclient-confirm-button-font-color, $color-font-blue);
+        width: px2rem(200 * 0.6);
+        height: px2rem(30);
+        line-height: px2rem(30);
+        border-radius: px2rem(2);
+        font-size: px2rem(12);
+        text-align: center;
+        // margin-right: auto;
+        // margin-left: auto;
+        // margin-bottom: px2rem(35);
+    }
+    .btn.btn-hide{
+        left: 0;
+        top: px2rem(-32); 
+    }
+    .btn.btn-close{
+        right: 0;
+        top: px2rem(-32);
+    }
+}

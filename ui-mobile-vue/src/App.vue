@@ -22,6 +22,8 @@
     <States />
     <!-- 输入框，用于云端输入 -->
     <Input v-if="cloudReady && !isMobile" />
+    <!-- 鸟瞰模式 -->
+    <AerialView v-if="cloudReady && showAerialView" />
   </div>
 </template>
 
@@ -40,6 +42,7 @@ import Menu                from './components/menu/menu';
 import ControlBall         from './components/control_ball/control_ball'; 
 import States              from './components/states_modal/states_modal';
 import Input               from './components/input/input.vue'
+import AerialView          from './components/aerial_view/aerial_view.vue'
 
 export default {
   name: "App",
@@ -54,6 +57,7 @@ export default {
     ControlBall,
     States,
     Input,
+    AerialView,
   },
   data() {
     return {
@@ -78,6 +82,7 @@ export default {
       larksr: (state) => state.larksr,
       ui: (state) => state.ui,
       isMobile: (state) => state.isMobile,
+      showAerialView: state => state.showAerialView,
     }),
   },
   methods: {
@@ -176,7 +181,7 @@ export default {
         // 参考查询应用一栏文档
         // https://www.pingxingyun.com/online/api3_2.html?id=476
         // 如 222.128.6.137:8181 系统下的 879414254636105728 应用
-        appliId: "925773094113509376",
+        appliId: "913050644103823360",
         // 其他可选参数如下
         // 互动模式
         //启动模式：0：普通模式, 1：互动模式（一人操作多人观看），2: 多人协同（键盘鼠标放开，需要应用配合）

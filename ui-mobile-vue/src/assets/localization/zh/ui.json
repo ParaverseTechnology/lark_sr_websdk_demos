@@ -23,7 +23,8 @@
         "userType": "角色",
         "userType_Observer": "观看者",
         "userType_Player": "操作者",
-        "requireNickName": "请输入昵称加入观看模式",
+        "requireNickName": "请输入昵称",
+        "requireAuthCode": "请输入口令",
         "requireInputChinese": "是否需要输入中文？",
         "buttonSubmit": "确定",
         "buttonCancel": "取消",
@@ -84,13 +85,27 @@
         "statusBiterate": "码率",
         "statusRtt": "网络时延",
         "statusPackgeLost": "丢包率",
+        "avgDecodeDelay": "解码时延",
+        "avgProcessDelay": "客户端处理时延",
+        "serverStaticsRenderDelay": "渲染",
+        "serverStaticsCaptureDelay": "采集",
+        "serverStaticsEncoderDelay": "编码",
 
         "audioDevice": "音频输入设备",
 
         "videoDevice": "视频输入设备",
 
         "inputbuttonText": "输入中文",
-        "inputbuttonVKeyboard": "打开键盘"
+        "inputbuttonVKeyboard": "打开键盘",
+
+        "aerial": "鸟瞰模式",
+        "openAerial": "开启鸟瞰模式",
+        "closeAerial": "关闭鸟瞰模式",
+        "hideAerial": "隐藏选择框",
+
+        "resolutions": "分辨率",
+        "restartTitle": "重启应用",
+        "restartButton": "重启"
     },
     "notice": {
         "browserVersion": "检测到您当前浏览器内核版本较低，建议升级。是否继续使用？",
@@ -126,8 +141,8 @@
         "playerChanging": "正在切换操作权",
         "playerCopyShareUrl": "分享链接已拷贝到剪贴板",
         "playerCopyShareUrlFailed": "分享链接拷贝失败，请手动拷贝",
-        "playerCopyRoomCodeSuccess": "口令已拷贝到剪贴板",
-        "playerCopyRoomCodeFailed": "口令拷贝失败，请手动拷贝",
+        "playerCopyAuthCodeSuccess": "口令已拷贝到剪贴板",
+        "playerCopyAuthCodeFailed": "口令拷贝失败，请手动拷贝",
 
         "audioUseHttps": "请通过 HTTPS 连接访问音频功能",
         "videoUseHttps": "请请通过 HTTPS 连接访问视频功能",

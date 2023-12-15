@@ -66,6 +66,8 @@ export default class UI extends LocalizationBase {
 
     get requireNickName() { return this.getButton('requireNickName'); }
 
+    get requireAuthCode() { return this.getButton('requireAuthCode'); }
+
     get requireInputChinese() { return this.getButton('requireInputChinese'); }
 
     get buttonSubmit() { return this.getButton('buttonSubmit'); }
@@ -130,6 +132,11 @@ export default class UI extends LocalizationBase {
     get statusBiterate() { return this.getButton('statusBiterate'); } 
     get statusRtt() { return this.getButton('statusRtt'); } 
     get statusPackgeLost() { return this.getButton('statusPackgeLost'); } 
+    get avgDecodeDelay() { return this.getButton('avgDecodeDelay'); } 
+    get avgProcessDelay() { return this.getButton('avgProcessDelay'); } 
+    get serverStaticsRenderDelay() { return this.getButton('serverStaticsRenderDelay'); }
+    get serverStaticsCaptureDelay() { return this.getButton('serverStaticsCaptureDelay'); }
+    get serverStaticsEncoderDelay() { return this.getButton('serverStaticsEncoderDelay'); }
 
     get audioDevice() { return this.getButton('audioDevice'); } 
     get videoDevice() { return this.getButton('videoDevice'); } 
@@ -138,6 +145,14 @@ export default class UI extends LocalizationBase {
     get inputbuttonText() { return this.getButton('inputbuttonText'); } 
     get inputbuttonVKeyboard() { return this.getButton('inputbuttonVKeyboard'); } 
 
+    get aerial() {return this.getButton('aerial'); }
+    get openAerial() {return this.getButton('openAerial'); }
+    get closeAerial() {return this.getButton('closeAerial'); }
+    get hideAerial() {return this.getButton('hideAerial'); }
+
+    get resolutions() {return this.getButton('resolutions'); }
+    get restartTitle() {return this.getButton('restartTitle'); }
+    get restartButton() {return this.getButton('restartButton'); }
     ///////////////////////////////
     // notice
     get browserVersion() { return this.getNotice('browserVersion'); }
@@ -189,8 +204,8 @@ export default class UI extends LocalizationBase {
     get playerChanging() { return this.getNotice('playerChanging'); }
     get playerCopyShareUrl() { return this.getNotice('playerCopyShareUrl'); }
     get playerCopyShareUrlFailed() { return this.getNotice('playerCopyShareUrlFailed'); }
-    get playerCopyRoomCodeSuccess() { return this.getNotice('playerCopyRoomCodeSuccess'); }
-    get playerCopyRoomCodeFailed() { return this.getNotice('playerCopyRoomCodeFailed'); }
+    get playerCopyAuthCodeSuccess() { return this.getNotice('playerCopyAuthCodeSuccess'); }
+    get playerCopyAuthCodeFailed() { return this.getNotice('playerCopyAuthCodeFailed'); }
 
     get audioUseHttps() { return this.getNotice('audioUseHttps'); }
     get videoUseHttps() { return this.getNotice('videoUseHttps'); }
