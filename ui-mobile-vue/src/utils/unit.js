@@ -25,6 +25,20 @@ export default class Unit {
         return '';
     }
     /**
+     * 获取url额外参数 extraParam.XX
+     */
+    static queryExtraparam() {
+        let params = {}
+        let querys = window.location.search.substring(1).split('&');
+        querys.forEach((item,index) => {
+            let queryItem = item.split('=');
+            if(queryItem[0].includes('extraParam.')){
+                params[queryItem[0]] = queryItem[1];
+            }
+        });
+        return params;
+    }
+    /**
      * 深度拷贝对象,创建新对象
      * @param source 输入对象
      */

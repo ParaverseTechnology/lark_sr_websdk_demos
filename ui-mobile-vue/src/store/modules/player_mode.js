@@ -1,4 +1,5 @@
 import store from '..';
+import Load from '@/load';
 
 export const PlayerModeType = {
     // 普通模式
@@ -99,6 +100,9 @@ export const PlayerMode/*: Module<PlayerModeState, RootState>*/ = {
         setRoomCode(state, roomCode) {
             state.roomCode = roomCode;
         },
+        setAuthCode(state, roomCode) {
+            state.roomCode = roomCode;
+        },
         setPlayerList(state, playerList/*: Player[]*/) {
             state.playerList = playerList;
         },
@@ -107,6 +111,36 @@ export const PlayerMode/*: Module<PlayerModeState, RootState>*/ = {
         }
     },
     actions: {
+        /**
+         * 从loader中初始化状态
+         * @param state 
+         */
+        initFromLoader({ state, commit }) {
+            commit('setPlayerModeType', Load.playerMode);
+            commit('setUserType', Load.userType);
+            commit('setNickName', Load.nickname);
+            commit('setAuthCode', Load.authCode);
+            console.log('一人操作多人看 inited', state);
+        },
+        /**
+         * 从列表中找到id与当前用户相同的id，更新当前用户的状态
+         * @param param0 
+         */
+        updatePlayerList({ state, commit }, list) {
+            console.log('updatePlayerList', list);
+            let playerList/*: Player[]*/ = [];
+            for (let player of list) {
+                if (player.isCurrent) {
+                    // update self
+                    commit('setUserType', player.userType);
+                    commit('setUserId', player.userId);
+                    commit('setNickName', player.nickName);
+                    commit('setIsTaskOwner', player.isTaskOwner);
+                }
+                playerList.push(player);
+            }
+            commit('setPlayerList', playerList);
+        },
         /**
          * 更新玩家列表，在 webrtc datachannel 中获得。
          * 从列表中找到id与当前用户相同的id，更新当前用户的状态

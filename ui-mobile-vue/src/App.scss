@@ -1,0 +1,165 @@
+@import "~@/assets/styles/mobile_base.scss";
+
+.index {
+    position: absolute;
+    background-color: var(--webclient-bg-color, rgba(0, 0, 0, 0.05));
+    .container {
+        margin: 0 auto;
+        box-shadow: 0 0 10px rgba(0,0,0,0.4);
+        background-color: rgba(0,0,0,0.05);
+        position: relative;
+        overflow: hidden;
+    }
+    .inputText {
+        position: absolute;
+        z-index: 1029;
+        background-color: $color-bg-trans40-blue;
+        width: 70%;
+        left: 50%;
+        margin-left: -35%;
+        color: #fff;
+        font-size: 16px;
+        padding: 0 15px 15px 15px;
+        border-radius: 3px;
+        .title {
+            margin-bottom: 5px;
+            text-align: left;
+        }
+        textarea {
+            width: 94%;
+            border: 0;
+            box-shadow: 0 0 black;
+            font-size: 14px;
+            outline: 0;
+            border-radius: 3px;
+        }
+        .closeBtn-box {
+            width: 5%;
+            height: 25px;
+            text-align: right;
+        }
+        .closeBtn {
+            width: 16px;
+            height: 16px;
+            position: absolute;
+            top: 0;
+            right: -14px;
+        }
+        .submit-button-group {
+            display: flex;
+            flex-direction: row;
+            .submitBtn {
+                display: flex;
+                width: 200px;
+                background-color: rgba(18, 37, 95, 0.4);
+                color: #acc1ff;
+                height: 2.98507rem;
+                line-height: 2.98507rem;
+                border-radius: 0.14925rem;
+                font-size: 14px;
+                text-align: center;
+                flex: none;
+                margin-right: 10px;
+            }
+        }
+        .button-group {
+            // display: flex;
+            // flex-direction: row;
+            // justify-content: center;
+            // margin: 5px 0;
+            .button {
+                background-color: $color-bg-trans40-blue;
+                color: $color-font-blue;
+                height: px2rem(40);
+                line-height: px2rem(40);
+                border-radius: px2rem(2);
+                font-size: 14;
+                text-align: center;
+            }
+            .button+.button {
+                margin-left: px2rem(20);
+            }
+        }
+    }
+    .inputText.enable {
+        // bottom: 0;
+    }
+    .inputText.disable {
+        // bottom: -999px;
+    }
+    .modalInputPanel {
+        position: absolute;
+        z-index: 1101;
+        background-color: $color-bg-trans01-black;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        // width: 100vw;
+        // height: 100vh;
+        top: 0;
+        /* */
+        .container {
+            width: 400px;
+            /* height: 100px; */
+            background-color: $color-bg-trans80-blue;
+            border: px2rem(2) solid $color-border-trans80-light-blue;
+            border-radius: 2px;
+            word-break: break-word;
+            color: white;
+            padding: 10px;
+            overflow: auto;
+            word-break: break-word;
+            .info {
+                margin: 10px 0;
+            }
+            .info-row {
+                margin-bottom: 10px;
+                padding: 0 30px;
+            }
+            &-label {
+                font-size: 16px;
+                display: inlien-block;
+                width: 110px;
+            }
+            .inputContainer {
+                padding: 0 10px;
+                width: calc(100% - 110px);
+                input {
+                    width: 100%;
+                    outline: none;
+                    padding: 5px;
+                }
+            }
+            .buttonContainer {
+                display: flex;
+                flex-direction: row;
+                padding: 0 30px;
+                .button.submit{
+                    background-color: $color-bg-blue;
+                    border: px2rem(2) solid $color-border-light-blue;
+                    color: $color-font-blue;
+                    // width: 300px;
+                    height: 25px;
+                    line-height: 35px;
+                    border-radius: 2px;
+                    font-size: 16px;
+                    text-align: center;
+                    margin: 10px auto;
+                }
+                .button.submit:hover {
+                    box-shadow: 0 0 10px  rgba(50, 205, 205,0.5);
+                }
+            }
+            .info {
+                text-align: center;
+                h1 {
+                    font-size: 20px;
+                    margin: 1rem;
+                }
+                input.warning {
+                    border: 1px solid red;
+                }
+            }
+        }
+    }
+}

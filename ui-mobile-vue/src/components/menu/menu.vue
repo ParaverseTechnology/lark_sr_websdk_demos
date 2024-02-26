@@ -156,6 +156,10 @@ export default {
                 height: this.viewPort.height + "px",
             }
         },
+        playerModeButtonText() {
+            const pre = this.playerMode.showPlayerList ? this.ui.menuPlayerlistHide : this.ui.menuPlayerlistShow;
+            return pre + this.ui.menuPlayerlist;
+        },
         fullScreenClass() {
             return this.isFullScreen ? 'active' : '';
         },

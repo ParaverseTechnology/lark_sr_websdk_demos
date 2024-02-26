@@ -1,6 +1,48 @@
 <template>
-  <div id="app" ref="appContainer" @contextmenu.prevent  @mouseup="appContainerTouch" @touchend="appContainerTouch">
+  <div id="app" class="index" ref="appContainer" @contextmenu.prevent  @mouseup="appContainerTouch" @touchend="appContainerTouch">
     <input v-if="isMobile" class="virtualInput" ref="input" type="text" v-model="inputValue">
+    <!-- 观看模式昵称的输入框 -->
+    <div
+      v-if="inputNickName"
+      class="modalInputPanel"
+      v-bind:style="viewPortStyle"
+    >
+      <div class="container">
+        <div class="info">
+          <div v-if="showNicknameInput" type="flex" align="middle" class="info-row">
+            <span class="container-label">{{ ui.requireNickName }}：</span>
+            <div class="inputContainer">
+              <input
+                :class="nicknameRequireClass"
+                type="text"
+                v-model.trim="nickname"
+                v-on:focus="onInputFocus"
+              />
+            </div>
+          </div>
+          <div v-if="showAuthCodeInput" type="flex" align="middle" class="info-row">
+            <span class="container-label">{{ ui.requireAuthCode }}：</span>
+            <div class="inputContainer">
+              <input
+                :class="authCodeRequireClass"
+                type="text"
+                v-model.trim="authCode"
+                v-on:focus="onAuthCodeInputFocus"
+              />
+            </div>
+          </div>
+        </div>
+        <div class="buttonContainer">
+          <Btn
+            class="submit"
+            :title="ui.buttonSubmit"
+            submit="false"
+            v-on:click="onSubmitNickName"
+          />
+        </div>
+      </div>
+    </div>
+
     <!-- 手机端 UI -->
     <MobileIndex v-if="cloudReady && isMobile"></MobileIndex>
     <!-- 通用 UI -->
@@ -15,7 +57,7 @@
     <!-- 左上角延时显示 -->
     <RttInfo v-if="cloudReady" />
     <!-- 菜单 -->
-    <Menu />
+    <Menu v-if="cloudReady" />
     <!-- PC 版控制球 -->
     <ControlBall v-if="cloudReady && !isMobile" />
     <!-- 网络状态 -->
@@ -24,6 +66,8 @@
     <Input v-if="cloudReady && !isMobile" />
     <!-- 鸟瞰模式 -->
     <AerialView v-if="cloudReady && showAerialView" />
+    <!-- 互动模式 -->
+    <PlayerMode />
   </div>
 </template>
 
@@ -34,6 +78,7 @@ import { mapState, mapGetters, mapMutations, mapActions } from "vuex";
 import Unit from './utils/unit';
 import Capabilities from './utils/capabilities'
 import Alert               from './components/alert/alert';
+import Btn                 from './components/button/button';
 import Notify              from './components/notify/notify';
 import Toast               from './components/toast/toast';
 import Confirm             from './components/confirm/confirm';
@@ -43,12 +88,16 @@ import ControlBall         from './components/control_ball/control_ball';
 import States              from './components/states_modal/states_modal';
 import Input               from './components/input/input.vue'
 import AerialView          from './components/aerial_view/aerial_view.vue'
+import PlayerMode          from "./components/player_mode/player_mode"; 
+import Load                from './load';
+import store               from "@/store"; 
 
 export default {
   name: "App",
   components: {
     MobileIndex,
     Alert,
+    Btn,
     Notify,
     Toast,
     Confirm,
@@ -58,6 +107,7 @@ export default {
     States,
     Input,
     AerialView,
+    PlayerMode,
   },
   data() {
     return {
@@ -67,6 +117,13 @@ export default {
       inputValue: '',//隐藏的input，移动端调起系统键盘使用
       isIOS: Capabilities.os === 'iOS',
       inputFocusFlag: false, //云端输入事件input聚焦状态
+      inputNickName: false,
+      nicknameRequire: false,
+      nickname: "",
+      authCodeRequire: false,
+      authCode: "",
+      showAuthCodeInput: false, // 是否需要展示输入口令密码输入框
+      showNicknameInput: false,
     };
   },
   watch: {
@@ -78,14 +135,182 @@ export default {
     }
   },
   computed: {
+    nicknameRequireClass() {
+      return this.nicknameRequire ? "warning" : "";
+    },
+    authCodeRequireClass() {
+      return this.authCodeRequire ? "warning" : "";
+    },
     ...mapState({
       larksr: (state) => state.larksr,
       ui: (state) => state.ui,
       isMobile: (state) => state.isMobile,
       showAerialView: state => state.showAerialView,
+      playerMode: (state) => state.playerMode,
+    }),
+    ...mapGetters({
+      isObMode: "playerMode/isObMode",
+      playerList: "playerMode/playerList",
+      viewPortStyle: 'viewPortStyle'
     }),
   },
   methods: {
+    // 开始连接
+    async start() {
+      const { larksr } = this;
+      try {
+        let params = {};
+
+        // 要使用的云端资源的应用 ID，从后云雀后台接口获取
+        // 参考查询应用一栏文档
+        // https://www.pingxingyun.com/online/api3_2.html?id=476
+        // 如 222.128.6.137:8181 系统下的 879414254636105728 应用
+        params.appliId = Load.appliId;
+
+        if (!params.appliId) {
+          this.alert({des: "请设置appliId参数"})
+          .then(() => {
+            Unit.quit();
+          });
+          return;
+        }
+
+        // groups
+        if (Load.endDate) {
+          params.endDate = Load.endDate;
+        }
+        if (Load.clientMac) {
+          params.clientMac = Load.clientMac;
+        }
+        if (Load.groupId) {
+          params.groupId = Load.groupId;
+        }
+        if (Load.regionId) {
+          params.regionId = Load.regionId;
+        }
+
+        // 互动模式
+        if (Load.taskid) {
+          params.taskId = Load.taskid;
+        }
+        
+        //启动模式：0：普通模式, 1：互动模式（一人操作多人观看），2: 多人协同（键盘鼠标放开，需要应用配合）
+        // 互动模式测试连接 
+        // 所有者 userType = 1
+        // http://localhost:8081/?appliId=925773094113509376&playerMode=1&userType=1&authCode=fMFu92vg
+        // 观看者 userType = 0
+        // http://localhost:8081/?appliId=925773094113509376&playerMode=1&userType=0&authCode=fMFu92vg
+        if (Load.playerMode) {
+          params.playerMode = Load.playerMode;
+        }
+
+        //Task所有者:1 /  观察者:0
+        if (Load.userType || Load.userType === 0) {
+          params.userType = Load.userType;
+        }
+
+        // 用户手动输入昵称
+        if (this.nickname) {
+          larksr.params.nickname = this.nickname;
+        }
+        if (this.nickname) {
+          params.nickname = this.nickname;
+        }
+        // url 载入昵称
+        if (Load.nickname) {
+          params.nickname = Load.nickname;
+        }
+
+        //口令:8位唯一码,写入TaskInfo
+        if (Load.authCode) {
+          params.authCode = Load.authCode;
+        }
+        if(Load.accessType && Load.accessType === '0') {
+          // 私有应用需要传参 accessType shareId authCode（原身roomCode）
+          params.authCode = this.authCode;
+          params.accessType = '0';
+          params.shareId = Load.shareId;
+          larksr.params.accessType = Load.accessType;
+        }
+
+        //指定节点分配
+        if (Load.targetServerIp) {
+          params.targetServerIp = Load.targetServerIp;
+        }
+
+        // keys
+        if (Load.appKey) {
+          params.appKey = Load.appKey;
+        }
+        if (Load.timeStamp) {
+          params.timestamp = Load.timeStamp;
+        }
+        if (Load.signature) {
+          params.signature = Load.signature;
+        }
+        if (Load.language) {
+          params.language = Load.language;
+        } else {
+          params.language = this.navigatorLan;
+        }
+
+        if(Object.keys(Load.extraparams).length>0) {
+          params = Object.assign(params, Load.extraparams)
+        }
+
+        await larksr.connect(params);
+
+        console.log("connect", params);
+
+        // 设置网页 title
+        if (larksr.params.appliName) {
+          document.title = decodeURI(decodeURI(larksr.params.appliName));
+        }
+      } catch(e) {
+        console.error('connect and int failed.', e);
+        this.alert({des: e.message ? e.message : JSON.stringify(e)})
+        .then(() => {
+          Unit.quit();
+        });
+      }
+   },
+
+   onInputFocus() {
+    console.log("on focus");
+    this.nicknameRequire = false;
+  },
+  onAuthCodeInputFocus() {
+    console.log("on authCode input focus");
+    this.authCodeRequire = false;
+  },
+  onSubmitNickName() {
+    console.log("on submit nickname", this.nickname);
+    console.log('on submit authCode',this.authCode);
+    if(this.showAuthCodeInput) {// 只有私有应用 会出现输入口令密码的情况
+      if(this.showNicknameInput && this.nickname == "") {
+        this.nicknameRequire = true;
+      } else if(this.showAuthCodeInput && this.authCode == "") {
+        this.authCodeRequire = true;
+      } else {
+        this.inputNickName = false;
+        this.setNickName(this.nickname);
+        this.showNicknameInput = false;
+        this.showAuthCodeInput = false;
+        this.start(this.taskStated);
+      }
+      
+    } else {
+      if (this.nickname != "") {
+        // 填写昵称后再开始
+        this.inputNickName = false;
+        this.setNickName(this.nickname);
+        this.showNicknameInput = false;
+        this.start(this.taskStated);
+      } else {
+        this.nicknameRequire = true;
+      }
+    }
+  },
    appContainerTouch() {
       this.onMutePlay();
       if(this.isMobile && this.inputFocusFlag){
@@ -117,6 +342,8 @@ export default {
     ...mapMutations({
         setLarksr: "setLarksr",
         setAggregatedStats: "setAggregatedStats",
+        setNickName: "playerMode/setNickName",
+        setShareUrl: "playerMode/setShareUrl",
     }),
     ...mapActions({
       "resize": "resize",
@@ -128,6 +355,11 @@ export default {
     }),
   },
   mounted() {
+    // 从 url 载入参数
+    Load.InitProcess();
+    // init player mode params
+    store.dispatch('playerMode/initFromLoader');
+
     if(this.isMobile) {
       this.$refs.input.addEventListener('keyup',(e) => {
         this.sysKeybaordEnterOrBackspace(e);
@@ -175,6 +407,11 @@ export default {
       //     alert(JSON.stringify(e));
       // });
 
+      /**
+       * 
+       // 固定传入调用参数
+       // 从 url 中获取参数并传入参考上面 start 方法
+
       // start connect;
       larksr.connect({
         // 要使用的云端资源的应用 ID，从后云雀后台接口获取
@@ -182,15 +419,18 @@ export default {
         // https://www.pingxingyun.com/online/api3_2.html?id=476
         // 如 222.128.6.137:8181 系统下的 879414254636105728 应用
         appliId: "913050644103823360",
+
         // 其他可选参数如下
         // 互动模式
         //启动模式：0：普通模式, 1：互动模式（一人操作多人观看），2: 多人协同（键盘鼠标放开，需要应用配合）
-        // playerMode: 1,
+        playerMode: Load.playerMode,
         //Task所有者:1 /  观察者:0
-        // userType: 1,
+        userType: Load.userType,
         //口令:8位唯一码,写入TaskInfo
-        // roomCode: '',
-        // taskId: '',
+        // 新版服务器接口 从roomCode改为authCode
+        authCode: Load.authCode,
+        taskId: Load.taskid,
+
         // groups
         // clientMac: '',
         // groupId: '',
@@ -212,6 +452,8 @@ export default {
         console.error(e);
         alert(JSON.stringify(e));
       }); 
+
+      */
     })
     .catch((e) => {
       console.error(e);
@@ -239,6 +481,10 @@ export default {
     // 监听连接成功事件
     larksr.on("connect", (e) => {
       console.log("LarkSRClientEvent CONNECT", e);
+      
+      // 可能从getstartappinfo之后才获取来的参数.
+      // 后台配置的是否显示玩家列表参数
+      store.commit("playerMode/setShowPlayerList", larksr.params.showPlayerList);
     });
 
     larksr.on("gotremotesteam", (e) => {
@@ -315,12 +561,55 @@ export default {
           if (this.larksr)this.larksr.op.setKeyboardEnable(true);
         }
       }
-    })
+    });
+
+    larksr.on('playerlist', (e) => {
+      console.log('PLAYER_LIST', e.data);
+      store.dispatch('playerMode/updatePlayerList', e.data);
+    });
+
 
     // reset states.
     this.setLarksr(larksr);
     this.resetLocalization();
     this.resize();
+
+    if(Load.accessType === '0' && Load.shareId) { // 私有应用
+      if(Load.authCode) { //有口令密码
+        this.authCode = Load.authCode;
+        this.showAuthCodeInput = false;
+
+        // 互动模式需要填昵称
+        if (this.playerMode.playerModeType != 0 && this.playerMode.nickName == "") {
+          // 填写昵称后再开始
+          this.showNicknameInput = true;
+          this.inputNickName = true;
+        } else {
+          // start connect.
+          this.start();
+        }
+      } else {
+          // 需要用户输入口令密码
+          this.showAuthCodeInput = true;
+          // 互动模式需要填昵称
+         if (this.playerMode.playerModeType != 0 && this.playerMode.nickName == "") {
+          this.showNicknameInput = true;
+         }
+         this.inputNickName = true;
+        }
+    } else { // 公有应用
+      // 互动模式需要填昵称
+      if (this.playerMode.playerModeType != 0 && this.playerMode.nickName == "") {
+        console.log("need nick name");
+        // 填写昵称后再开始
+        this.inputNickName = true;
+        this.showNicknameInput = true;
+      } else {
+        // start connect.
+        this.start();
+      }
+    }
+    
 
     // this.alert({des: 1});
     // this.confirm({des:"22"});
@@ -361,7 +650,8 @@ export default {
 };
 </script>
 
-<style>
+<style lang="scss" scoped>
+@import "App.scss";
 .virtualInput {
   position:absolute;
   z-index: -1;
