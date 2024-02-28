@@ -148,7 +148,7 @@ export enum APP_STATE {
     LOGIN_SUCCESS,
     RTC_CONNECTED,
     MEDIA_LOADED,
-    MEDIA_PLAED,
+    MEDIA_PLAYED,
     RTC_RETRY,
     APP_RETRY,
     BEFORE_DESTORY,
@@ -404,4 +404,28 @@ larksr.fullScreen.exitFullscreen();
 larksr.lockPointer.lockPointer();
 // 释放鼠标
 larksr.lockPointer.exitPointerLock();
+```
+
+## 其他状态
+
+```typescript
+/**
+ * 当前云端应用窗口大小
+ */
+larksr.currentAppSize;
+
+/**
+ * 同步客户端视口大小状态
+ */
+larksr.syncClientViewport;
+
+/**
+ * 服务端支持功能列表
+ */
+larksr.serverFeatures;
+
+/**
+ * 服务端状态：编码延时，渲染延时等
+ */
+larksr.serverStatics;
 ```

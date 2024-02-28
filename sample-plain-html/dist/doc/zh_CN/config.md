@@ -221,8 +221,23 @@ interface ILarkSRConfig {
     /**
      * 是否启用 canvas 渲染. 默认关闭
      * 要注意移动端开启 canvas 会消耗额外性能。
-     * 已知问题: iOS 在关闭 canvas 模式下，忽略狂高比的拉伸模式无效。
+     * 已知问题: iOS 在关闭 canvas 模式下，忽略狂高比的拉伸模式无效。推荐使用 initResolutionType，适应客户端窗口分辨率
     */
     enableCanvasRender?: boolean;
+    /**
+     * 强制使用canvs2d模式，默认优先使用 webgl
+     */
+    forceCanvas2d?: boolean;
+    /**
+     * 可选项
+     * loading页载入Logo版本
+     */
+    loadingLogoVersion?: string;
+    /**
+     * 初始化分辨率方式
+     * 1:适应客户端窗口】和【0:应用默认分辨率】,默认值：0
+     * 此处配置优先级大于管理后台配置
+     */
+    initResolutionType?: number;
 }
 ```

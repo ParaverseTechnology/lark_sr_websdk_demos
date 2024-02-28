@@ -45,6 +45,10 @@ export declare const enum SCREEN_EVENT_TYPE {
     ReSize = 0,
     ContainerResize = 1
 }
+export interface ViewPortStyle extends ViewPort {
+    scrollX: boolean;
+    scrollY: boolean;
+}
 export interface ScreenEvent extends LocalEvent<SCREEN_EVENT_TYPE> {
     container: ContainerSize;
     viewPort: ViewPort;
@@ -56,7 +60,7 @@ export default class ScreenState extends EventBase<SCREEN_EVENT_TYPE, ScreenEven
     set originAppSize(viewport: ViewPort);
     get originAppSize(): ViewPort;
     private _originAppSize;
-    get viewPort(): ViewPort;
+    get viewPort(): ViewPortStyle;
     private _viewPort;
     get viewPortStyle(): string;
     get syncClientViewport(): {
@@ -101,8 +105,8 @@ export default class ScreenState extends EventBase<SCREEN_EVENT_TYPE, ScreenEven
         scaleX: number;
         scaleY: number;
     };
-    get initCursorMode(): boolean;
-    set initCursorMode(mode: boolean);
+    get initCursorMode(): number;
+    set initCursorMode(mode: number);
     private _initCursorMode;
     get isMobile(): boolean;
     private _isMobile;
@@ -125,4 +129,5 @@ export default class ScreenState extends EventBase<SCREEN_EVENT_TYPE, ScreenEven
     reset(params: IAppliParams): void;
     setMobileForceLandScape(force: boolean): void;
     resize(baseElementScale?: number, containerResize?: boolean): void;
+    scrollToCenter(): void;
 }

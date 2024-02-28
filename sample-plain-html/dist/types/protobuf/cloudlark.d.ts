@@ -422,6 +422,102 @@ export namespace CloudLark {
         XR = 4
     }
 
+    /** Properties of a TaskDesc. */
+    interface ITaskDesc {
+
+        /** TaskDesc desktopWidth */
+        desktopWidth?: (number|null);
+
+        /** TaskDesc desktopHeight */
+        desktopHeight?: (number|null);
+    }
+
+    /** Represents a TaskDesc. */
+    class TaskDesc implements ITaskDesc {
+
+        /**
+         * Constructs a new TaskDesc.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: CloudLark.ITaskDesc);
+
+        /** TaskDesc desktopWidth. */
+        public desktopWidth: number;
+
+        /** TaskDesc desktopHeight. */
+        public desktopHeight: number;
+
+        /**
+         * Creates a new TaskDesc instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns TaskDesc instance
+         */
+        public static create(properties?: CloudLark.ITaskDesc): CloudLark.TaskDesc;
+
+        /**
+         * Encodes the specified TaskDesc message. Does not implicitly {@link CloudLark.TaskDesc.verify|verify} messages.
+         * @param message TaskDesc message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: CloudLark.ITaskDesc, writer?: $protobuf.Writer): $protobuf.Writer;
+
+        /**
+         * Encodes the specified TaskDesc message, length delimited. Does not implicitly {@link CloudLark.TaskDesc.verify|verify} messages.
+         * @param message TaskDesc message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: CloudLark.ITaskDesc, writer?: $protobuf.Writer): $protobuf.Writer;
+
+        /**
+         * Decodes a TaskDesc message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns TaskDesc
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): CloudLark.TaskDesc;
+
+        /**
+         * Decodes a TaskDesc message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns TaskDesc
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): CloudLark.TaskDesc;
+
+        /**
+         * Verifies a TaskDesc message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a TaskDesc message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns TaskDesc
+         */
+        public static fromObject(object: { [k: string]: any }): CloudLark.TaskDesc;
+
+        /**
+         * Creates a plain object from a TaskDesc message. Also converts values to other types if specified.
+         * @param message TaskDesc
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: CloudLark.TaskDesc, options?: $protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this TaskDesc to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
     /** Properties of a TaskResponse. */
     interface ITaskResponse {
 
@@ -436,6 +532,9 @@ export namespace CloudLark {
 
         /** TaskResponse reason */
         reason?: (string|null);
+
+        /** TaskResponse desc */
+        desc?: (CloudLark.ITaskDesc|null);
     }
 
     /** Represents a TaskResponse. */
@@ -458,6 +557,9 @@ export namespace CloudLark {
 
         /** TaskResponse reason. */
         public reason: string;
+
+        /** TaskResponse desc. */
+        public desc?: (CloudLark.ITaskDesc|null);
 
         /**
          * Creates a new TaskResponse instance using the specified properties.
@@ -556,6 +658,9 @@ export namespace CloudLark {
 
         /** StartStreamRequest bitrateKbps */
         bitrateKbps?: (number|null);
+
+        /** StartStreamRequest useWebcodec */
+        useWebcodec?: (boolean|null);
     }
 
     /** Represents a StartStreamRequest. */
@@ -578,6 +683,9 @@ export namespace CloudLark {
 
         /** StartStreamRequest bitrateKbps. */
         public bitrateKbps: number;
+
+        /** StartStreamRequest useWebcodec. */
+        public useWebcodec: boolean;
 
         /**
          * Creates a new StartStreamRequest instance using the specified properties.
@@ -7696,6 +7804,9 @@ export namespace CloudLark {
 
         /** VideoReconfigure bitrate */
         bitrate?: (number|null);
+
+        /** VideoReconfigure fps */
+        fps?: (number|null);
     }
 
     /** Represents a VideoReconfigure. */
@@ -7710,8 +7821,11 @@ export namespace CloudLark {
         /** VideoReconfigure bitrate. */
         public bitrate?: (number|null);
 
+        /** VideoReconfigure fps. */
+        public fps?: (number|null);
+
         /** VideoReconfigure video. */
-        public video?: "bitrate";
+        public video?: ("bitrate"|"fps");
 
         /**
          * Creates a new VideoReconfigure instance using the specified properties.
@@ -8018,6 +8132,958 @@ export namespace CloudLark {
         public toJSON(): { [k: string]: any };
     }
 
+    /** Properties of a ShowDebugLayout. */
+    interface IShowDebugLayout {
+
+        /** ShowDebugLayout open */
+        open?: (boolean|null);
+    }
+
+    /** Represents a ShowDebugLayout. */
+    class ShowDebugLayout implements IShowDebugLayout {
+
+        /**
+         * Constructs a new ShowDebugLayout.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: CloudLark.IShowDebugLayout);
+
+        /** ShowDebugLayout open. */
+        public open: boolean;
+
+        /**
+         * Creates a new ShowDebugLayout instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns ShowDebugLayout instance
+         */
+        public static create(properties?: CloudLark.IShowDebugLayout): CloudLark.ShowDebugLayout;
+
+        /**
+         * Encodes the specified ShowDebugLayout message. Does not implicitly {@link CloudLark.ShowDebugLayout.verify|verify} messages.
+         * @param message ShowDebugLayout message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: CloudLark.IShowDebugLayout, writer?: $protobuf.Writer): $protobuf.Writer;
+
+        /**
+         * Encodes the specified ShowDebugLayout message, length delimited. Does not implicitly {@link CloudLark.ShowDebugLayout.verify|verify} messages.
+         * @param message ShowDebugLayout message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: CloudLark.IShowDebugLayout, writer?: $protobuf.Writer): $protobuf.Writer;
+
+        /**
+         * Decodes a ShowDebugLayout message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns ShowDebugLayout
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): CloudLark.ShowDebugLayout;
+
+        /**
+         * Decodes a ShowDebugLayout message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns ShowDebugLayout
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): CloudLark.ShowDebugLayout;
+
+        /**
+         * Verifies a ShowDebugLayout message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a ShowDebugLayout message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns ShowDebugLayout
+         */
+        public static fromObject(object: { [k: string]: any }): CloudLark.ShowDebugLayout;
+
+        /**
+         * Creates a plain object from a ShowDebugLayout message. Also converts values to other types if specified.
+         * @param message ShowDebugLayout
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: CloudLark.ShowDebugLayout, options?: $protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this ShowDebugLayout to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of an AerialViewBox. */
+    interface IAerialViewBox {
+
+        /** AerialViewBox minx */
+        minx?: (number|null);
+
+        /** AerialViewBox maxx */
+        maxx?: (number|null);
+
+        /** AerialViewBox miny */
+        miny?: (number|null);
+
+        /** AerialViewBox maxy */
+        maxy?: (number|null);
+    }
+
+    /** Represents an AerialViewBox. */
+    class AerialViewBox implements IAerialViewBox {
+
+        /**
+         * Constructs a new AerialViewBox.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: CloudLark.IAerialViewBox);
+
+        /** AerialViewBox minx. */
+        public minx: number;
+
+        /** AerialViewBox maxx. */
+        public maxx: number;
+
+        /** AerialViewBox miny. */
+        public miny: number;
+
+        /** AerialViewBox maxy. */
+        public maxy: number;
+
+        /**
+         * Creates a new AerialViewBox instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns AerialViewBox instance
+         */
+        public static create(properties?: CloudLark.IAerialViewBox): CloudLark.AerialViewBox;
+
+        /**
+         * Encodes the specified AerialViewBox message. Does not implicitly {@link CloudLark.AerialViewBox.verify|verify} messages.
+         * @param message AerialViewBox message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: CloudLark.IAerialViewBox, writer?: $protobuf.Writer): $protobuf.Writer;
+
+        /**
+         * Encodes the specified AerialViewBox message, length delimited. Does not implicitly {@link CloudLark.AerialViewBox.verify|verify} messages.
+         * @param message AerialViewBox message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: CloudLark.IAerialViewBox, writer?: $protobuf.Writer): $protobuf.Writer;
+
+        /**
+         * Decodes an AerialViewBox message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns AerialViewBox
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): CloudLark.AerialViewBox;
+
+        /**
+         * Decodes an AerialViewBox message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns AerialViewBox
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): CloudLark.AerialViewBox;
+
+        /**
+         * Verifies an AerialViewBox message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates an AerialViewBox message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns AerialViewBox
+         */
+        public static fromObject(object: { [k: string]: any }): CloudLark.AerialViewBox;
+
+        /**
+         * Creates a plain object from an AerialViewBox message. Also converts values to other types if specified.
+         * @param message AerialViewBox
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: CloudLark.AerialViewBox, options?: $protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this AerialViewBox to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of an AerialViewMode. */
+    interface IAerialViewMode {
+
+        /** AerialViewMode open */
+        open?: (boolean|null);
+
+        /** AerialViewMode interval */
+        interval?: (number|null);
+
+        /** AerialViewMode thumbnailWidth */
+        thumbnailWidth?: (number|null);
+
+        /** AerialViewMode thumbnailHeight */
+        thumbnailHeight?: (number|null);
+
+        /** AerialViewMode viewbox */
+        viewbox?: (CloudLark.IAerialViewBox|null);
+    }
+
+    /** Represents an AerialViewMode. */
+    class AerialViewMode implements IAerialViewMode {
+
+        /**
+         * Constructs a new AerialViewMode.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: CloudLark.IAerialViewMode);
+
+        /** AerialViewMode open. */
+        public open: boolean;
+
+        /** AerialViewMode interval. */
+        public interval: number;
+
+        /** AerialViewMode thumbnailWidth. */
+        public thumbnailWidth: number;
+
+        /** AerialViewMode thumbnailHeight. */
+        public thumbnailHeight: number;
+
+        /** AerialViewMode viewbox. */
+        public viewbox?: (CloudLark.IAerialViewBox|null);
+
+        /**
+         * Creates a new AerialViewMode instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns AerialViewMode instance
+         */
+        public static create(properties?: CloudLark.IAerialViewMode): CloudLark.AerialViewMode;
+
+        /**
+         * Encodes the specified AerialViewMode message. Does not implicitly {@link CloudLark.AerialViewMode.verify|verify} messages.
+         * @param message AerialViewMode message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: CloudLark.IAerialViewMode, writer?: $protobuf.Writer): $protobuf.Writer;
+
+        /**
+         * Encodes the specified AerialViewMode message, length delimited. Does not implicitly {@link CloudLark.AerialViewMode.verify|verify} messages.
+         * @param message AerialViewMode message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: CloudLark.IAerialViewMode, writer?: $protobuf.Writer): $protobuf.Writer;
+
+        /**
+         * Decodes an AerialViewMode message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns AerialViewMode
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): CloudLark.AerialViewMode;
+
+        /**
+         * Decodes an AerialViewMode message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns AerialViewMode
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): CloudLark.AerialViewMode;
+
+        /**
+         * Verifies an AerialViewMode message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates an AerialViewMode message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns AerialViewMode
+         */
+        public static fromObject(object: { [k: string]: any }): CloudLark.AerialViewMode;
+
+        /**
+         * Creates a plain object from an AerialViewMode message. Also converts values to other types if specified.
+         * @param message AerialViewMode
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: CloudLark.AerialViewMode, options?: $protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this AerialViewMode to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of an AerialViewStatus. */
+    interface IAerialViewStatus {
+
+        /** AerialViewStatus status */
+        status?: (boolean|null);
+
+        /** AerialViewStatus currentBox */
+        currentBox?: (CloudLark.IAerialViewBox|null);
+    }
+
+    /** Represents an AerialViewStatus. */
+    class AerialViewStatus implements IAerialViewStatus {
+
+        /**
+         * Constructs a new AerialViewStatus.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: CloudLark.IAerialViewStatus);
+
+        /** AerialViewStatus status. */
+        public status: boolean;
+
+        /** AerialViewStatus currentBox. */
+        public currentBox?: (CloudLark.IAerialViewBox|null);
+
+        /**
+         * Creates a new AerialViewStatus instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns AerialViewStatus instance
+         */
+        public static create(properties?: CloudLark.IAerialViewStatus): CloudLark.AerialViewStatus;
+
+        /**
+         * Encodes the specified AerialViewStatus message. Does not implicitly {@link CloudLark.AerialViewStatus.verify|verify} messages.
+         * @param message AerialViewStatus message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: CloudLark.IAerialViewStatus, writer?: $protobuf.Writer): $protobuf.Writer;
+
+        /**
+         * Encodes the specified AerialViewStatus message, length delimited. Does not implicitly {@link CloudLark.AerialViewStatus.verify|verify} messages.
+         * @param message AerialViewStatus message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: CloudLark.IAerialViewStatus, writer?: $protobuf.Writer): $protobuf.Writer;
+
+        /**
+         * Decodes an AerialViewStatus message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns AerialViewStatus
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): CloudLark.AerialViewStatus;
+
+        /**
+         * Decodes an AerialViewStatus message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns AerialViewStatus
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): CloudLark.AerialViewStatus;
+
+        /**
+         * Verifies an AerialViewStatus message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates an AerialViewStatus message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns AerialViewStatus
+         */
+        public static fromObject(object: { [k: string]: any }): CloudLark.AerialViewStatus;
+
+        /**
+         * Creates a plain object from an AerialViewStatus message. Also converts values to other types if specified.
+         * @param message AerialViewStatus
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: CloudLark.AerialViewStatus, options?: $protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this AerialViewStatus to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of an AerialViewFullScreen. */
+    interface IAerialViewFullScreen {
+
+        /** AerialViewFullScreen image */
+        image?: (string|null);
+    }
+
+    /** Represents an AerialViewFullScreen. */
+    class AerialViewFullScreen implements IAerialViewFullScreen {
+
+        /**
+         * Constructs a new AerialViewFullScreen.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: CloudLark.IAerialViewFullScreen);
+
+        /** AerialViewFullScreen image. */
+        public image: string;
+
+        /**
+         * Creates a new AerialViewFullScreen instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns AerialViewFullScreen instance
+         */
+        public static create(properties?: CloudLark.IAerialViewFullScreen): CloudLark.AerialViewFullScreen;
+
+        /**
+         * Encodes the specified AerialViewFullScreen message. Does not implicitly {@link CloudLark.AerialViewFullScreen.verify|verify} messages.
+         * @param message AerialViewFullScreen message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: CloudLark.IAerialViewFullScreen, writer?: $protobuf.Writer): $protobuf.Writer;
+
+        /**
+         * Encodes the specified AerialViewFullScreen message, length delimited. Does not implicitly {@link CloudLark.AerialViewFullScreen.verify|verify} messages.
+         * @param message AerialViewFullScreen message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: CloudLark.IAerialViewFullScreen, writer?: $protobuf.Writer): $protobuf.Writer;
+
+        /**
+         * Decodes an AerialViewFullScreen message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns AerialViewFullScreen
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): CloudLark.AerialViewFullScreen;
+
+        /**
+         * Decodes an AerialViewFullScreen message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns AerialViewFullScreen
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): CloudLark.AerialViewFullScreen;
+
+        /**
+         * Verifies an AerialViewFullScreen message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates an AerialViewFullScreen message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns AerialViewFullScreen
+         */
+        public static fromObject(object: { [k: string]: any }): CloudLark.AerialViewFullScreen;
+
+        /**
+         * Creates a plain object from an AerialViewFullScreen message. Also converts values to other types if specified.
+         * @param message AerialViewFullScreen
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: CloudLark.AerialViewFullScreen, options?: $protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this AerialViewFullScreen to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of an ApplicationControl. */
+    interface IApplicationControl {
+
+        /** ApplicationControl resize */
+        resize?: (CloudLark.IAppResize|null);
+
+        /** ApplicationControl restart */
+        restart?: (boolean|null);
+
+        /** ApplicationControl aerialview */
+        aerialview?: (CloudLark.IAerialViewMode|null);
+
+        /** ApplicationControl aerialviewBox */
+        aerialviewBox?: (CloudLark.IAerialViewBox|null);
+    }
+
+    /** Represents an ApplicationControl. */
+    class ApplicationControl implements IApplicationControl {
+
+        /**
+         * Constructs a new ApplicationControl.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: CloudLark.IApplicationControl);
+
+        /** ApplicationControl resize. */
+        public resize?: (CloudLark.IAppResize|null);
+
+        /** ApplicationControl restart. */
+        public restart?: (boolean|null);
+
+        /** ApplicationControl aerialview. */
+        public aerialview?: (CloudLark.IAerialViewMode|null);
+
+        /** ApplicationControl aerialviewBox. */
+        public aerialviewBox?: (CloudLark.IAerialViewBox|null);
+
+        /** ApplicationControl app. */
+        public app?: ("resize"|"restart"|"aerialview"|"aerialviewBox");
+
+        /**
+         * Creates a new ApplicationControl instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns ApplicationControl instance
+         */
+        public static create(properties?: CloudLark.IApplicationControl): CloudLark.ApplicationControl;
+
+        /**
+         * Encodes the specified ApplicationControl message. Does not implicitly {@link CloudLark.ApplicationControl.verify|verify} messages.
+         * @param message ApplicationControl message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: CloudLark.IApplicationControl, writer?: $protobuf.Writer): $protobuf.Writer;
+
+        /**
+         * Encodes the specified ApplicationControl message, length delimited. Does not implicitly {@link CloudLark.ApplicationControl.verify|verify} messages.
+         * @param message ApplicationControl message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: CloudLark.IApplicationControl, writer?: $protobuf.Writer): $protobuf.Writer;
+
+        /**
+         * Decodes an ApplicationControl message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns ApplicationControl
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): CloudLark.ApplicationControl;
+
+        /**
+         * Decodes an ApplicationControl message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns ApplicationControl
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): CloudLark.ApplicationControl;
+
+        /**
+         * Verifies an ApplicationControl message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates an ApplicationControl message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns ApplicationControl
+         */
+        public static fromObject(object: { [k: string]: any }): CloudLark.ApplicationControl;
+
+        /**
+         * Creates a plain object from an ApplicationControl message. Also converts values to other types if specified.
+         * @param message ApplicationControl
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: CloudLark.ApplicationControl, options?: $protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this ApplicationControl to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of an ApplicationControlResult. */
+    interface IApplicationControlResult {
+
+        /** ApplicationControlResult aerialviewStatus */
+        aerialviewStatus?: (CloudLark.IAerialViewStatus|null);
+
+        /** ApplicationControlResult aerialviewScreen */
+        aerialviewScreen?: (CloudLark.IAerialViewFullScreen|null);
+    }
+
+    /** Represents an ApplicationControlResult. */
+    class ApplicationControlResult implements IApplicationControlResult {
+
+        /**
+         * Constructs a new ApplicationControlResult.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: CloudLark.IApplicationControlResult);
+
+        /** ApplicationControlResult aerialviewStatus. */
+        public aerialviewStatus?: (CloudLark.IAerialViewStatus|null);
+
+        /** ApplicationControlResult aerialviewScreen. */
+        public aerialviewScreen?: (CloudLark.IAerialViewFullScreen|null);
+
+        /** ApplicationControlResult app. */
+        public app?: ("aerialviewStatus"|"aerialviewScreen");
+
+        /**
+         * Creates a new ApplicationControlResult instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns ApplicationControlResult instance
+         */
+        public static create(properties?: CloudLark.IApplicationControlResult): CloudLark.ApplicationControlResult;
+
+        /**
+         * Encodes the specified ApplicationControlResult message. Does not implicitly {@link CloudLark.ApplicationControlResult.verify|verify} messages.
+         * @param message ApplicationControlResult message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: CloudLark.IApplicationControlResult, writer?: $protobuf.Writer): $protobuf.Writer;
+
+        /**
+         * Encodes the specified ApplicationControlResult message, length delimited. Does not implicitly {@link CloudLark.ApplicationControlResult.verify|verify} messages.
+         * @param message ApplicationControlResult message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: CloudLark.IApplicationControlResult, writer?: $protobuf.Writer): $protobuf.Writer;
+
+        /**
+         * Decodes an ApplicationControlResult message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns ApplicationControlResult
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): CloudLark.ApplicationControlResult;
+
+        /**
+         * Decodes an ApplicationControlResult message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns ApplicationControlResult
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): CloudLark.ApplicationControlResult;
+
+        /**
+         * Verifies an ApplicationControlResult message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates an ApplicationControlResult message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns ApplicationControlResult
+         */
+        public static fromObject(object: { [k: string]: any }): CloudLark.ApplicationControlResult;
+
+        /**
+         * Creates a plain object from an ApplicationControlResult message. Also converts values to other types if specified.
+         * @param message ApplicationControlResult
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: CloudLark.ApplicationControlResult, options?: $protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this ApplicationControlResult to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of a StreamVideoFrame. */
+    interface IStreamVideoFrame {
+
+        /** StreamVideoFrame codec */
+        codec?: (CloudLark.StreamVideoFrame.Codec|null);
+
+        /** StreamVideoFrame width */
+        width?: (number|null);
+
+        /** StreamVideoFrame height */
+        height?: (number|null);
+
+        /** StreamVideoFrame isKeyFrame */
+        isKeyFrame?: (boolean|null);
+
+        /** StreamVideoFrame frameId */
+        frameId?: (number|null);
+
+        /** StreamVideoFrame packetCounter */
+        packetCounter?: (number|null);
+
+        /** StreamVideoFrame packetTotalSize */
+        packetTotalSize?: (number|null);
+
+        /** StreamVideoFrame packetIndex */
+        packetIndex?: (number|null);
+
+        /** StreamVideoFrame packetSize */
+        packetSize?: (number|null);
+
+        /** StreamVideoFrame data */
+        data?: (Uint8Array|null);
+    }
+
+    /** Represents a StreamVideoFrame. */
+    class StreamVideoFrame implements IStreamVideoFrame {
+
+        /**
+         * Constructs a new StreamVideoFrame.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: CloudLark.IStreamVideoFrame);
+
+        /** StreamVideoFrame codec. */
+        public codec: CloudLark.StreamVideoFrame.Codec;
+
+        /** StreamVideoFrame width. */
+        public width: number;
+
+        /** StreamVideoFrame height. */
+        public height: number;
+
+        /** StreamVideoFrame isKeyFrame. */
+        public isKeyFrame: boolean;
+
+        /** StreamVideoFrame frameId. */
+        public frameId: number;
+
+        /** StreamVideoFrame packetCounter. */
+        public packetCounter: number;
+
+        /** StreamVideoFrame packetTotalSize. */
+        public packetTotalSize: number;
+
+        /** StreamVideoFrame packetIndex. */
+        public packetIndex: number;
+
+        /** StreamVideoFrame packetSize. */
+        public packetSize: number;
+
+        /** StreamVideoFrame data. */
+        public data: Uint8Array;
+
+        /**
+         * Creates a new StreamVideoFrame instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns StreamVideoFrame instance
+         */
+        public static create(properties?: CloudLark.IStreamVideoFrame): CloudLark.StreamVideoFrame;
+
+        /**
+         * Encodes the specified StreamVideoFrame message. Does not implicitly {@link CloudLark.StreamVideoFrame.verify|verify} messages.
+         * @param message StreamVideoFrame message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: CloudLark.IStreamVideoFrame, writer?: $protobuf.Writer): $protobuf.Writer;
+
+        /**
+         * Encodes the specified StreamVideoFrame message, length delimited. Does not implicitly {@link CloudLark.StreamVideoFrame.verify|verify} messages.
+         * @param message StreamVideoFrame message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: CloudLark.IStreamVideoFrame, writer?: $protobuf.Writer): $protobuf.Writer;
+
+        /**
+         * Decodes a StreamVideoFrame message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns StreamVideoFrame
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): CloudLark.StreamVideoFrame;
+
+        /**
+         * Decodes a StreamVideoFrame message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns StreamVideoFrame
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): CloudLark.StreamVideoFrame;
+
+        /**
+         * Verifies a StreamVideoFrame message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a StreamVideoFrame message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns StreamVideoFrame
+         */
+        public static fromObject(object: { [k: string]: any }): CloudLark.StreamVideoFrame;
+
+        /**
+         * Creates a plain object from a StreamVideoFrame message. Also converts values to other types if specified.
+         * @param message StreamVideoFrame
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: CloudLark.StreamVideoFrame, options?: $protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this StreamVideoFrame to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    namespace StreamVideoFrame {
+
+        /** Codec enum. */
+        enum Codec {
+            HEVC = 0,
+            AV1 = 1,
+            H264 = 2
+        }
+    }
+
+    /** Properties of a StreamVideoControlForceIDR. */
+    interface IStreamVideoControlForceIDR {
+
+        /** StreamVideoControlForceIDR enable */
+        enable?: (boolean|null);
+    }
+
+    /** Represents a StreamVideoControlForceIDR. */
+    class StreamVideoControlForceIDR implements IStreamVideoControlForceIDR {
+
+        /**
+         * Constructs a new StreamVideoControlForceIDR.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: CloudLark.IStreamVideoControlForceIDR);
+
+        /** StreamVideoControlForceIDR enable. */
+        public enable: boolean;
+
+        /**
+         * Creates a new StreamVideoControlForceIDR instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns StreamVideoControlForceIDR instance
+         */
+        public static create(properties?: CloudLark.IStreamVideoControlForceIDR): CloudLark.StreamVideoControlForceIDR;
+
+        /**
+         * Encodes the specified StreamVideoControlForceIDR message. Does not implicitly {@link CloudLark.StreamVideoControlForceIDR.verify|verify} messages.
+         * @param message StreamVideoControlForceIDR message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: CloudLark.IStreamVideoControlForceIDR, writer?: $protobuf.Writer): $protobuf.Writer;
+
+        /**
+         * Encodes the specified StreamVideoControlForceIDR message, length delimited. Does not implicitly {@link CloudLark.StreamVideoControlForceIDR.verify|verify} messages.
+         * @param message StreamVideoControlForceIDR message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: CloudLark.IStreamVideoControlForceIDR, writer?: $protobuf.Writer): $protobuf.Writer;
+
+        /**
+         * Decodes a StreamVideoControlForceIDR message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns StreamVideoControlForceIDR
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): CloudLark.StreamVideoControlForceIDR;
+
+        /**
+         * Decodes a StreamVideoControlForceIDR message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns StreamVideoControlForceIDR
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): CloudLark.StreamVideoControlForceIDR;
+
+        /**
+         * Verifies a StreamVideoControlForceIDR message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a StreamVideoControlForceIDR message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns StreamVideoControlForceIDR
+         */
+        public static fromObject(object: { [k: string]: any }): CloudLark.StreamVideoControlForceIDR;
+
+        /**
+         * Creates a plain object from a StreamVideoControlForceIDR message. Also converts values to other types if specified.
+         * @param message StreamVideoControlForceIDR
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: CloudLark.StreamVideoControlForceIDR, options?: $protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this StreamVideoControlForceIDR to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
     /** Properties of a ClientInput. */
     interface IClientInput {
 
@@ -8104,6 +9170,15 @@ export namespace CloudLark {
 
         /** ClientInput clientStatics */
         clientStatics?: (CloudLark.IClientStatics|null);
+
+        /** ClientInput showDebuglayout */
+        showDebuglayout?: (CloudLark.IShowDebugLayout|null);
+
+        /** ClientInput appControl */
+        appControl?: (CloudLark.IApplicationControl|null);
+
+        /** ClientInput forceIdr */
+        forceIdr?: (CloudLark.IStreamVideoControlForceIDR|null);
     }
 
     /** Represents a ClientInput. */
@@ -8199,8 +9274,17 @@ export namespace CloudLark {
         /** ClientInput clientStatics. */
         public clientStatics?: (CloudLark.IClientStatics|null);
 
+        /** ClientInput showDebuglayout. */
+        public showDebuglayout?: (CloudLark.IShowDebugLayout|null);
+
+        /** ClientInput appControl. */
+        public appControl?: (CloudLark.IApplicationControl|null);
+
+        /** ClientInput forceIdr. */
+        public forceIdr?: (CloudLark.IStreamVideoControlForceIDR|null);
+
         /** ClientInput input. */
-        public input?: ("mouseMove"|"mouseDown"|"mouseUp"|"mouseWheel"|"keyDown"|"keyUp"|"clientEnter"|"clientLeave"|"dispatchController"|"requesController"|"textInput"|"gamepadInputJoystickStates"|"gamepadInputButtonDown"|"gamepadInputButtonUp"|"gamepadInputTriger"|"clientDcMsg"|"touchMove"|"touchDown"|"touchUp"|"aiVoicestreamStart"|"aiVoicestreamSlice"|"aiVoicestreamStop"|"aiVoicestreamReset"|"aiVoiceText"|"rtmpStart"|"rtmpStop"|"videoConfigure"|"clientStatics");
+        public input?: ("mouseMove"|"mouseDown"|"mouseUp"|"mouseWheel"|"keyDown"|"keyUp"|"clientEnter"|"clientLeave"|"dispatchController"|"requesController"|"textInput"|"gamepadInputJoystickStates"|"gamepadInputButtonDown"|"gamepadInputButtonUp"|"gamepadInputTriger"|"clientDcMsg"|"touchMove"|"touchDown"|"touchUp"|"aiVoicestreamStart"|"aiVoicestreamSlice"|"aiVoicestreamStop"|"aiVoicestreamReset"|"aiVoiceText"|"rtmpStart"|"rtmpStop"|"videoConfigure"|"clientStatics"|"showDebuglayout"|"appControl"|"forceIdr");
 
         /**
          * Creates a new ClientInput instance using the specified properties.
@@ -8443,6 +9527,12 @@ export namespace CloudLark {
 
         /** AppNotification serverStatics */
         serverStatics?: (CloudLark.IServerStatics|null);
+
+        /** AppNotification appControlResult */
+        appControlResult?: (CloudLark.IApplicationControlResult|null);
+
+        /** AppNotification videoFrame */
+        videoFrame?: (CloudLark.IStreamVideoFrame|null);
     }
 
     /** Represents an AppNotification. */
@@ -8502,8 +9592,14 @@ export namespace CloudLark {
         /** AppNotification serverStatics. */
         public serverStatics?: (CloudLark.IServerStatics|null);
 
+        /** AppNotification appControlResult. */
+        public appControlResult?: (CloudLark.IApplicationControlResult|null);
+
+        /** AppNotification videoFrame. */
+        public videoFrame?: (CloudLark.IStreamVideoFrame|null);
+
         /** AppNotification notify. */
-        public notify?: ("resize"|"mousemode"|"updatePlayers"|"requestInput"|"gamepadOutput"|"datachannelState"|"appDcMsg"|"cursorStyle"|"aiVoiceRealtimeParseresult"|"aiVoiceResult"|"aiVoiceServiceStatus"|"aiVoiceErr"|"rtmpState"|"rtmpError"|"notifyFeatures"|"serverStatics");
+        public notify?: ("resize"|"mousemode"|"updatePlayers"|"requestInput"|"gamepadOutput"|"datachannelState"|"appDcMsg"|"cursorStyle"|"aiVoiceRealtimeParseresult"|"aiVoiceResult"|"aiVoiceServiceStatus"|"aiVoiceErr"|"rtmpState"|"rtmpError"|"notifyFeatures"|"serverStatics"|"appControlResult"|"videoFrame");
 
         /**
          * Creates a new AppNotification instance using the specified properties.

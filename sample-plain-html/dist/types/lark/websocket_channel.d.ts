@@ -34,6 +34,7 @@ export default class WebsocketChannel extends EventBase<CHANNEL_EVENT_TYPE, Chan
     close(): Promise<void>;
     sendMsg(msg: Msg.CloudLark.ToServerMessage): void;
     sendBuffer(data: ArrayBuffer): void;
+    sendKeepAlive(): void;
     isOpen(): boolean;
     private startKeepAlive;
     private stopKeepAlive;

@@ -21,6 +21,7 @@ export default class WebsocketProxy extends EventBase<PROXY_EVENT_TYPE, ProxyEve
     private config;
     private connection;
     private keepAliveTimeout;
+    private timerWorker;
     private larksr;
     constructor(config: ProxyConfig, larksr: LarkSR);
     /**
@@ -34,6 +35,7 @@ export default class WebsocketProxy extends EventBase<PROXY_EVENT_TYPE, ProxyEve
     isOpen(): boolean;
     sendMsg(msg: Msg.CloudLark.ToServerMessage): void;
     sendBuffer(data: ArrayBuffer): void;
+    sendKeepAlive(): void;
     private startKeepAlive;
     private stopKeepAlive;
     /**

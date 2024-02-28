@@ -3,6 +3,7 @@ import * as Input from '../protobuf/cloudlark';
 import { LarkSR } from '../larksr';
 import { MediaShareInterface, RTCMediaTrackBinding } from './media_share_interface';
 import { CloudLark } from '@/protobuf/cloudlark';
+import WebCodec from './webcodec';
 export declare enum IceState {
     DISCONNECT = 1,
     BAD = 2,
@@ -36,7 +37,8 @@ export declare enum WEBRTC_EVENT_TYPE {
     RTMP_STREAM_ERROR = 23,
     INFO = 24,
     AerialViewStatus = 25,
-    AerialViewScreen = 26
+    AerialViewScreen = 26,
+    VideoFrame = 27
 }
 export interface GoogleBitRate {
     start: number;
@@ -118,7 +120,8 @@ export default class PeerConnection extends EventBase<WEBRTC_EVENT_TYPE, WebRTCE
     private _serverStatics;
     get currentAppSize(): CloudLark.IAppResize | null;
     private _currentAppSize;
-    constructor(larksr: LarkSR, config: WebRTCConfig);
+    private webcodec;
+    constructor(larksr: LarkSR, config: WebRTCConfig, webcodec: WebCodec);
     create(streams?: MediaStream | undefined | null, config?: CloudLark.IRTCConfiguration | null | undefined): Promise<void>;
     createOffer(): void;
     close(): void;
@@ -177,7 +180,7 @@ export default class PeerConnection extends EventBase<WEBRTC_EVENT_TYPE, WebRTCE
     onReceiveCandidate(candateInit: RTCIceCandidateInit): void;
     startNetTest(): void;
     stopNetTest(): void;
-    sendInput(input: Input.CloudLark.ClientInput): void;
+    sendInput(input: Input.CloudLark.ClientInput, needRemoteScreen?: boolean): void;
     sendBuffer(buffer: ArrayBuffer): void;
     sendToAppTextMsg(msg: string): void;
     sendToAppBinaryMsg(binary: Uint8Array): void;

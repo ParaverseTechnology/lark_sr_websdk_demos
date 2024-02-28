@@ -27,7 +27,8 @@ connectWithPxyHost(params: {
     appliId: string;
     playerMode?: number;
     userType?: number;
-    roomCode?: string;
+    roomCode?: string; // LarkXR 3.2.21废弃
+    authCode?: string; // LarkXR 3.2.21新增
     taskId?: string;
     regionId?: string;
     groupId?: string;
@@ -65,7 +66,8 @@ connect(params: {
     appliId: string;
     playerMode?: number;
     userType?: number;
-    roomCode?: string;
+    roomCode?: string; // LarkXR 3.2.21废弃
+    authCode?: string; // LarkXR 3.2.21新增
     taskId?: string;
     clientMac?: string;
     groupId?: string;
@@ -576,6 +578,59 @@ RTMP_STREAM_STATE = "rtmpstreamstate",
 * rtmp 直播推流出错
 */
 RTMP_STREAM_ERROR = "rtmpstreamerror"
+```
+
+## 鸟瞰模式
+
+```typescript
+/**
+ * 开始鸟瞰模式
+ */
+startAerialview(viewbox: {
+    x: number;
+    y: number;
+    width: number;
+    height: number;
+}, interval: number | undefined, thumbnailWidth: 120, thumbnailHeight: 120): void;
+/**
+ * 更新鸟瞰模式区域
+ */
+updateAerialview(viewbox: {
+    x: number;
+    y: number;
+    width: number;
+    height: number;
+}): void;
+/**
+ * 停止鸟瞰模式区域
+ */
+stopAerialview(): void;
+```
+
+## 调整参数
+
+```typescript
+/**
+ * 动态设置码率 单位 kbps
+ * @param bitrateKbps
+ */
+setVideoBitrateKbps(bitrateKbps: number): void;
+/**
+ * 动态设置帧率
+ */
+setVideoFps(fps: number): void;
+/**
+ * 动态设置云端 debug 窗口
+ */
+setCloudDebugLayout(open: boolean): void;
+/**
+ * 重启云端应用
+ */
+restartCloudApp(): void;
+/**
+ * 设置云端应用大小
+ */
+setCloudAppSize(width: number, height: number): void;
 ```
 
 ## 其他

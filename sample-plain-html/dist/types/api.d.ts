@@ -78,6 +78,9 @@ export interface StartAppInfo {
     appKey?: string;
     groupId?: string;
     initResolutionType?: number;
+    useWebCodec?: number;
+    preferDecoder?: string;
+    mobileWebMenuType?: number;
 }
 declare type HostAppliGetUrlReturnParams = {
     appliId: string;
@@ -132,6 +135,7 @@ export default class API {
     static GetTouchCtrMapping(server: string, appliId?: string): Promise<unknown>;
     static GetAppliList(server: string, params: any): Promise<unknown>;
     static RegionList(server: string, params: any): Promise<unknown>;
+    static heartbeat(server: string, taskId: string): Promise<unknown>;
     static joinParam(params: any): string;
 }
 export {};

@@ -6,6 +6,7 @@ import { LarkSR } from '../larksr';
 import PixelStreamingWebsocketChannel from './test_pixel_streaming';
 import { RECORDER_STATE } from './recoder';
 import PeerConnectionMediaShare from './peer_connection_media_share';
+import WebCodec from './webcodec';
 export declare enum APP_STATE {
     BEFORE_CREATE = 0,
     INITED = 1,
@@ -82,6 +83,8 @@ export default class Application extends EventBase<APP_EVENT_TYPE, AppEvent> {
     private recoder;
     private rtcConfig;
     get currentAppSize(): Msg.CloudLark.IAppResize | null | undefined;
+    get webcodecDecoder(): WebCodec;
+    private _webcodecDecoder;
     constructor(larksr: LarkSR);
     init(): void;
     initSharePc(): void;
@@ -118,18 +121,19 @@ export default class Application extends EventBase<APP_EVENT_TYPE, AppEvent> {
     private onRecoderData;
     start(): Promise<void>;
     connect(): Promise<PixelStreamingWebsocketChannel> | Promise<WebsocketProxy> | Promise<WebSocektChannel> | undefined;
+    sendKeepAlive(): void | undefined;
     disConnect(): void;
     closeRtc(): void;
     versionCheck(): void;
     task(): void;
-    startSteam(): void;
+    startSteam(): Promise<void>;
     startMonitorSteam(): void;
     restart(): void;
     restartApp(): void;
     rtcOffer(): Promise<void>;
     setAnswer(sdp: string): void;
     setIce(sdpMlineindex: number, sdpmid: string, candidate: string): void;
-    sendInput(input: Msg.CloudLark.ClientInput): void;
+    sendInput(input: Msg.CloudLark.ClientInput, needRemoteScreen?: boolean): void;
     sendInputBuffer(buffer: ArrayBuffer): void;
     private sendToWebsocektChannelBuffer;
     private sendToWebsocektChannelMsg;
@@ -157,6 +161,7 @@ export default class Application extends EventBase<APP_EVENT_TYPE, AppEvent> {
     retryPeerconnection(): void;
     private onAerialViewStatus;
     private onAerialViewScreen;
+    private onVideoFrame;
     private onShareMediaError;
     private onShareMediaInfo;
     private onShareMediaOffer;

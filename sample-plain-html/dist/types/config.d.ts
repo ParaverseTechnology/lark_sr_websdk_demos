@@ -55,5 +55,4 @@ export default class Config {
      */
     static VirtualRackerScale: number;
     static ErrChromeAndroidVersion: string[];
-    static DownloadChromium: string;
 }

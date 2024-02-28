@@ -385,10 +385,10 @@ interface ILarkSRConfig {
     mobileForceLandscape?: boolean;
     /**
      * 可选项
-     * 初始化鼠标模式, true 锁定，false 非锁定
+     * 初始化鼠标模式, 0 自动判断 1 锁定 2 非锁定
      * 对应后台应用管理->应用编辑->通用高级设置->初始化鼠标模式,该配置优先级高于后台配置
      */
-    initCursorMode?: boolean;
+    initCursorMode?: number;
     /**
      * 可选项
      * 渲染服务器外网端口映射
@@ -435,10 +435,11 @@ interface ILarkSRConfig {
     /**
      * 可选项
      * 触摸指令，移动端的触摸指令对应为云端的触屏还是鼠标
-     * 'touchScreen' | 'mouse'
+     * 'touchScreen' | 'mouse' | 'mix'
+     * mix 客户端触摸指令同时对应为触摸和鼠标指令发送给云端
      * 触摸指令模式，对应后台应用管理->应用编辑->移动端高级设置->触摸指令模式 优先级高于后台配置
      */
-    touchOperateMode?: 'touchScreen' | 'mouse';
+    touchOperateMode?: 'touchScreen' | 'mouse' | 'mix';
     /**
      * 可选项
      * 优先使用渲染服务器点对点连接外网ip
@@ -495,6 +496,10 @@ interface ILarkSRConfig {
      * 此处配置优先级大于管理后台配置
      */
     initResolutionType?: number;
+    /**
+     * 是否使用 webcodec
+     */
+    useWebCodec?: boolean;
 }
 declare class LarkSR extends EventBase<LarkSRClientEvent, LarkSREvent> {
     /**
@@ -644,10 +649,12 @@ declare class LarkSR extends EventBase<LarkSRClientEvent, LarkSREvent> {
     isTaskOwner(): boolean;
     _isTaskOwner: boolean;
     /**
-     * true：锁定模式 false：非锁定模式
+     * 0: 自动判断
+     * 1：锁定模式
+     * 2: 非锁定模式
      */
-    set initCursorMode(mode: boolean);
-    get initCursorMode(): boolean;
+    set initCursorMode(mode: number);
+    get initCursorMode(): number;
     /**
      * 当前打开的音频设备 ID，如果打开时没指定为空
      */
@@ -823,6 +830,10 @@ declare class LarkSR extends EventBase<LarkSRClientEvent, LarkSREvent> {
      * @returns 是否成功。主要校验授权码是否成功
      */
     start(): Promise<void>;
+    /**
+     * 主动调用发送心跳包
+     */
+    sendKeepAlive(): void;
     /**
      * 重新开始云渲染流程
      */
@@ -1298,6 +1309,7 @@ declare class LarkSR extends EventBase<LarkSRClientEvent, LarkSREvent> {
     private onRTCRetrySuccess;
     private onGotRemoteStream;
     private onGotRemoteAudioStream;
+    private onMediaPlayed;
     private onCursorStyle;
     private onAppResize;
     private onAppMouseMode;

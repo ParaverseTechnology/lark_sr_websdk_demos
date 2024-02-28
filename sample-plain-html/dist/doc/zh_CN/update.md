@@ -465,3 +465,115 @@ ERROR              = 'error',
 
 1. [多媒体通道](./multi_media_3_2_401.md)
 2. 配合渲染你服务器 3.2.2.0 升级
+
+## V3.2.402
+
+1. 服务端 3.2.21 之后的版本启动云端应用接口 `roomCode` 改为 `authCode`, `larksr.connect` 参数在新版本里应为：
+
+```typescript
+connect(params: {
+    appliId: string;
+    playerMode?: number;
+    userType?: number;
+    roomCode?: string; // LarkXR 3.2.21废弃
+    authCode?: string; // LarkXR 3.2.21新增
+    taskId?: string;
+    clientMac?: string;
+    groupId?: string;
+    regionId?: string;
+    targetServerIp?: string;
+    appKey?: string;
+    timestamp?: string;
+    signature?: string;
+} | any): Promise<void>;
+```
+
+2. 鸟瞰模式相关功能(渲染服务器应升级为最新)
+
+
+```typescript
+/**
+ * 开始鸟瞰模式
+ */
+startAerialview(viewbox: {
+    x: number;
+    y: number;
+    width: number;
+    height: number;
+}, interval: number | undefined, thumbnailWidth: 120, thumbnailHeight: 120): void;
+/**
+ * 更新鸟瞰模式区域
+ */
+updateAerialview(viewbox: {
+    x: number;
+    y: number;
+    width: number;
+    height: number;
+}): void;
+/**
+ * 停止鸟瞰模式区域
+ */
+stopAerialview(): void;
+```
+
+3. 同步客户端视口分辨率, 添加配置项  `new LarkSR({ ... 此处省略其他配置 ... initResolutionType: 1/0 })`, `initResolutionType:1` 时同步客户端分辨率给云端应用窗口。
+配置项功能同管理后台，优先级高于管理后台。
+
+动态获获取或改变同步客户端视口功能.
+
+```typescript
+/**
+ * 同步客户端视口大小状态
+ */
+larksr.syncClientViewport;
+```
+
+4. 动态调整的参数的方法
+
+```typescript
+/**
+ * 动态设置码率 单位 kbps
+ * @param bitrateKbps
+ */
+setVideoBitrateKbps(bitrateKbps: number): void;
+/**
+ * 动态设置帧率
+ */
+setVideoFps(fps: number): void;
+/**
+ * 动态设置云端 debug 窗口
+ */
+setCloudDebugLayout(open: boolean): void;
+/**
+ * 重启云端应用
+ */
+restartCloudApp(): void;
+/**
+ * 设置云端应用大小
+ */
+setCloudAppSize(width: number, height: number): void;
+```
+
+5. 其他状态
+
+```typescript
+/**
+ * 当前云端应用窗口大小
+ */
+larksr.currentAppSize;
+
+/**
+ * 同步客户端视口大小状态
+ */
+larksr.syncClientViewport;
+
+/**
+ * 服务端支持功能列表
+ */
+larksr.serverFeatures;
+
+/**
+ * 服务端状态：编码延时，渲染延时等
+ */
+larksr.serverStatics;
+```

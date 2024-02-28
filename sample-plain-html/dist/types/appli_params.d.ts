@@ -98,10 +98,11 @@ export interface IAppliParams {
     language: string;
     /**
      * 初始的鼠标锁定模式
-     * false：非锁定模式
-     * true：锁定模式
+     * 0：自动判断模式
+     * 1：锁定模式
+     * 2: 非锁定模式
      */
-    initCursorMode: boolean;
+    initCursorMode: number;
     /**
      * 背景颜色
      */
@@ -181,7 +182,7 @@ export interface IAppliParams {
     /**
      * 触摸操作对应的操作方式，触摸屏还是鼠标
      */
-    touchOperateMode: 'touchScreen' | 'mouse';
+    touchOperateMode: 'touchScreen' | 'mouse' | 'mix';
     /**
      * appid
      */
@@ -204,6 +205,8 @@ export interface IAppliParams {
     useSeparateMediaSharePeer: boolean;
     mobileKeyboardType: number;
     initResolutionType: number;
+    useWebCodec: boolean;
+    mobileWebMenuType: number;
 }
 export declare enum AppliType {
     DESKTOP = 1,
@@ -240,7 +243,7 @@ export declare class AppliParams implements IAppliParams {
     frameRate: number;
     network: 'local' | 'public';
     language: string;
-    initCursorMode: boolean;
+    initCursorMode: number;
     bgColor: string;
     fullScreenMode: number;
     mobileFullScreenMode: number;
@@ -257,7 +260,7 @@ export declare class AppliParams implements IAppliParams {
     mouseZoomDirection: number;
     showPlayerList: boolean;
     preferDecoder: 'auto' | 'vp8' | 'vp9' | 'h264' | 'h265' | 'hevc' | 'av1' | 'av1x';
-    touchOperateMode: 'touchScreen' | 'mouse';
+    touchOperateMode: 'touchScreen' | 'mouse' | 'mix';
     appliId: string;
     syncLocalToCloudClipboard: boolean;
     enableRttIcon: boolean;
@@ -274,6 +277,8 @@ export declare class AppliParams implements IAppliParams {
     useSeparateMediaSharePeer: boolean;
     mobileKeyboardType: number;
     initResolutionType: number;
+    useWebCodec: boolean;
+    mobileWebMenuType: number;
     static copyAndCreate(params?: IAppliParams): AppliParams;
     static setUpWithSDKConfig(params: IAppliParams, config: ILarkSRConfig): AppliParams;
 }
@@ -285,7 +290,7 @@ export declare class AppliParamsUtils {
     static getBoolOption(option: string | null | undefined | boolean, emptyValue?: boolean): boolean;
     static getNumberBoolOption(option: string | null | undefined | number, emptyValue?: boolean): boolean;
     static getStringOption(option: string | null | undefined, emptyValue?: string): string;
-    static getIntOption(option: string | null | undefined, emptyValue?: number): number;
+    static getIntOption(option: string | number | null | undefined, emptyValue?: number): number;
     static getBgColor(option: string | null | undefined): string;
 }
 /**

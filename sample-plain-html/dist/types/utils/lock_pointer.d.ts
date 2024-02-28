@@ -1,7 +1,8 @@
 import { EventBase, LocalEvent } from '../event/event_base';
 export declare const enum LockPointerEventType {
     LockPointChange = 0,
-    LockPointFailed = 1
+    LockPointFailed = 1,
+    LockPointNotSupport = 2
 }
 export interface LockPointerEvent extends LocalEvent<LockPointerEventType> {
     isLockPointer: boolean;
