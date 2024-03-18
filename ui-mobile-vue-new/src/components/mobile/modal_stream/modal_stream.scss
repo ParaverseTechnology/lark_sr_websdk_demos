@@ -1,0 +1,95 @@
+.mobile-modal {
+  background-color: var(--webclient-modal_bg, #5A5A5A);
+  transition: all .2s;
+  top: 0;
+  right: 0;
+  position: absolute;
+  z-index: 12;
+  &-title {
+    height: 5.2071rem;
+    padding: 1.18rem;
+    box-sizing: border-box;
+    background-color: var(--webclient-modal-title-bg,#454545);
+    color: var(--webclient-modal-font-color,#DDDDDD);
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    i {
+      display: inline-block;
+      transform: rotate(180deg);
+      font-size: 2.54rem;
+      vertical-align: middle;
+    }
+    &-text {
+      font-size: 1.6568rem;
+      vertical-align: middle;
+    }
+  }
+}
+.stream-content {
+  overflow-y: auto;
+  height: calc(100% - 5.2071rem);
+  padding: 1.89rem;
+  box-sizing: border-box;
+  color: var(--webclient-modal-font-color,#DDD);
+  &-path {
+    margin-bottom: 1.42rem;
+  }
+  &-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 1.42012rem;
+    .stream-tag {
+      display: inline-block;
+      padding: 0.47rem 1.89rem;
+      border-radius: 0.47337rem;
+      background-color: var(--webclient-modal-tag-active-bg,#fff);
+      color: var(--webclient-modal-tag-active-font-color,#444);
+    }
+    .tag-code {
+      margin: 0 0.2rem 0 0.95rem;
+    }
+    .quality-tag {
+      display: inline-block;
+      padding: 0.47rem 1.89rem;
+      border-radius: 0.47337rem;
+      color: var(--webclient-modal-tag-font-color,#fff);
+    }
+    .quality-check-tag {
+      background-color: var(--webclient-modal-tag-active-bg,#fff)!important;
+      color: var(--webclient-modal-tag-active-font-color,#444);
+    }
+    .el-icon-caret-right {
+      font-size: 2rem;
+    }
+  }
+}
+.customContentAlert-divider {
+  width: 100%;
+  border-bottom: 1px solid var(--webclient-dialog-divider);
+  margin: 1.5rem 0;
+}
+.status {
+  >p {
+    margin: 1.89rem 0;
+    text-align: left;
+    font-size: 1.42012rem;
+  }
+}
+.button-group {
+  .button {
+      border-radius: 0.45rem;
+      background: var(--webclient-dialog-button-bg);
+      color: var(--webclient-dialog-button-font-color,#DDD);
+      font-family: Noto Sans SC;
+      font-size: 1.33333rem;
+      text-align: center;
+  }
+  .button:hover {
+      background-color: var(--webclient-dialog-button-bg)!important;
+  }
+  .button+.button {
+      margin-left: 2rem;
+  }
+}

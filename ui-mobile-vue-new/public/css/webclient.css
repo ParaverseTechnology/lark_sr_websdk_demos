@@ -1,0 +1,65 @@
+/* Default */
+/* 全局变量 */
+:root {
+    /* 主背景颜色 */
+    --webclient-bg-color: rgba(0, 0, 0, 0.05);
+    /* all */
+    --webclient-check-color: #00B031;
+    /* 左上角网络图标 */
+    --webclient-rtt-good: #34a853;
+    --webclient-rtt-bad: red;
+    /* PC-菜单 */
+    --webclient-menubar-bg: rgba(68, 68, 68, 0.80);
+    --webclient-menubar-icon-color: #BBB;
+    --webclient-menubar-icon-hover-color: #fff;
+    --webclient-menubar-tooltip-bg: rgba(51, 51, 51, 0.90);
+    --webclient-menubar-tooltip-font-color: #DDD;
+    --webclient-menubar-btn-font-color: #5A5A5A;
+    --webclient-menubar-btn-bg: #444;
+    --webclient-menubar-btn-hover-bg: #ccc;
+    /* Mob menubar */
+    --webclient-mob-menubar-bg: #545454;
+    --webclient-mob-menubar-game-bg: rgba(255, 255, 255, 0.10);
+    --webclient-mob-menubar-icon-color: #DDD;
+    --webclient-mob-menubar-icon-close-bg: rgba(51, 51, 51, 0.40);
+    /* mob control_ball */
+    --webclient-controlball-bg: rgba(84, 84, 84, 0.40);
+    --webclient-controlball-icon-color: #EEEEEE;
+    --webclient-controlball-panel-bg: #454545;
+    --webclient-controlball-panel-font-color: #DDD;
+    /* 摄像头麦克风下拉框 */
+    --webclient-menubar-select-bg: #454545;
+    --webclient-menubar-select-hover-bg: #EEE;
+    --webclient-menubar-select-hover-font-color: #454545;
+    --webclient-menubar-select-title-font-color: #DDD;
+    --webclient-menubar-select-font-color: #FAFAFA;
+    /* dialog */
+    --webclient-dialog-title-bg: rgba(51, 51, 51, 0.90);
+    --webclient-dialog-body-bg: rgba(51, 51, 51, 0.80);
+    --webclient-dialog-font-color: #DDD;
+    --webclient-dialog-divider: rgba(255, 255, 255, 0.20);
+    --webclient-dialog-button-bg: #000;
+    --webclient-dialog-button-font-color: #DDD;
+    --webclient-dialog-button-hover-bg: #333;
+    /* toast */
+    --webclient-toast-bg-1: #333333;
+    --webclient-toast-bg-05: rgba(51, 51, 51, 0.5);
+    --webclient-toast-font-color: #fff;
+    /* PC-设置面板 */
+    --webclient-setting-titletab-bg: #555;
+    --webclient-setting-titletab-font-color: #fff;
+    --webclient-setting-btn-active-bg: #fff;
+    --webclient-setting-btn-active-font-color: #444;
+    --webclient-slide-bg: #474747;
+    --webclient-slide-bar-bg: #00B031;
+    --webclient-slide-btn-bg: #fff;
+    /* 移动端面板 */
+    --webclient-modal_bg: #5A5A5A;
+    --webclient-modal-title-bg: #454545;
+    --webclient-modal-font-color: #DDDDDD;
+    --webclient-modal-row-check-bg: #454545;
+    --webclient-modal-row-check-font-color: #DDD;
+    --webclient-modal-tag-font-color: #fff;
+    --webclient-modal-tag-active-bg: #fff;
+    --webclient-modal-tag-active-font-color: #444;
+}

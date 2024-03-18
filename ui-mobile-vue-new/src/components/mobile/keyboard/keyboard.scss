@@ -1,0 +1,88 @@
+@import "~@/assets/styles/mobile_base.scss";
+
+.keyboard {
+    width: px2rem(971);
+    height: px2rem(330);
+    position: fixed;
+    bottom: 0;
+    left: 50%;
+    margin-left: px2rem(calc(-971 / 2));
+    z-index: $z-index-index + 3;
+    background-color: $color-bg-trans40-blue;
+    border-top: px2rem(2) solid $color-border-trans40-light-blue;
+    border-left: px2rem(2) solid $color-border-trans40-light-blue;
+    border-right: px2rem(2) solid $color-border-trans40-light-blue;
+    border-top-left-radius: px2rem(10);
+    border-top-right-radius: px2rem(10);
+    padding: px2rem(12) px2rem(35) 0 px2rem(35);
+    .row {
+        margin-bottom: px2rem(8);
+        .capslock {
+            width: px2rem(8);
+            height: px2rem(8);
+            border-radius: px2rem(8);
+            position: absolute;
+            left: px2rem(6);
+            top: px2rem(6);
+        }
+        .capslock.capslock-lock {
+            background-color: lightgreen;
+        }
+        .capslock.capslock-unlock {
+            background-color: lightgray;
+        }
+        .shiftlock {
+            width: px2rem(8);
+            height: px2rem(8);
+            border-radius: px2rem(8);
+            position: absolute;
+        }
+        .shiftlock.shiftlock-left {
+            right: px2rem(20);
+            top: px2rem(10);
+        }
+        .shiftlock.shiftlock-right {
+            left: px2rem(20);
+            top: px2rem(10);
+        }
+        .shiftlock.shiftlock-lock {
+            background-color: lightgreen;
+        }
+        .shiftlock.shiftlock-unlock {
+            background-color: lightgray;
+        }
+        .icon-shift {
+            width: px2rem(26);
+            height: px2rem(30);
+        }
+        .icon-enter, .icon-delete {
+            width: px2rem(27);
+            height: px2rem(20);
+        }
+        .key-align-left {
+            text-align: left;
+            padding-left: px2rem(16);
+        }
+        .key-align-left img {
+            width: px2rem(26);
+            height: px2rem(30);
+        }
+        .key-blank {
+            width: px2rem(28);
+            height: px2rem(9);
+        }
+        .key-align-right {
+            text-align: right;
+            padding-right: px2rem(24);
+        }
+        // 
+        .upTag {
+            position: absolute;
+            top: px2rem(2);
+            right: px2rem(10);
+            line-height: 1;
+            display: inline-block;
+            font-size: px2rem(8);
+        }
+    }
+}

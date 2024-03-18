@@ -1,0 +1,9 @@
+@import "~@/assets/styles/mobile_base.scss";
+
+$joystick-radius : 200;
+
+.joy-container {
+    position: absolute;
+    width: px2rem($joystick-radius);
+    height: px2rem($joystick-radius);
+}

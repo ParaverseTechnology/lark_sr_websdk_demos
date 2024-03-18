@@ -1,0 +1,127 @@
+@import "~@/assets/styles/mobile_base.scss";
+
+$keyWidth: 68;
+$keyHeight: 70;
+$keyGap: 7;
+$circleR: 68;
+
+.key {
+    position: relative;
+    width: px2rem($keyWidth);
+    height: px2rem($keyHeight);
+    color: white;
+    font-weight: 600;
+    text-align: center;
+    line-height: px2rem($keyHeight);
+    display: inline-block;
+    background-color: $color-bg-trans20-light-blue;
+    border-radius: px2rem(10);
+    font-size: px2rem(24);
+    user-select: none;
+    .tip {
+        position: absolute;
+        top: px2rem(-20-$keyHeight);
+        padding: 0;
+        margin: 0;
+        width: px2rem($keyWidth);
+        height: px2rem($keyHeight);
+        background-color: $color-bg-light-blue;
+        border-radius: px2rem(10);
+        font-size: px2rem(24);
+        color: white;
+        font-weight: 600;
+        text-align: center;
+        line-height: px2rem($keyHeight);
+    }
+}
+
+.key+.key {
+    margin-left: px2rem($keyGap);
+}
+
+// size
+.key.x3_4 {
+    width: px2rem($keyWidth * 0.75);
+}
+.key.x1 {
+    width: px2rem($keyWidth);
+}
+.key.x2 {
+    width: px2rem($keyWidth * 2 + $keyGap);
+}
+.key.x4 {
+    width: px2rem($keyWidth * 4 + $keyGap * 3);
+}
+
+// circle
+.key.circle {
+    width: px2rem($circleR);
+    height: px2rem($circleR);
+    line-height: px2rem($circleR);
+    background-color: $color-bg-trans40-blue;
+    // border: px2rem(2) solid $color-border-trans40-light-blue;
+    border-radius: 50%;
+    .tip {
+        top: px2rem(-10-$circleR);
+        width: px2rem($circleR);
+        height: px2rem($circleR);
+        line-height: px2rem($circleR);
+        background-color: $color-bg-trans40-blue;
+        border-radius: 50%;
+    }
+}
+.key.circle.x3_4 {
+    width: px2rem($circleR * 0.75);
+    height: px2rem($circleR * 0.75);
+    line-height: px2rem($circleR * 0.75);
+    .tip {
+        top: px2rem(-10-$circleR * 0.75);
+        width: px2rem($circleR * 0.75);
+        height: px2rem($circleR * 0.75);
+        line-height: px2rem($circleR * 0.75);
+    }
+}
+.key.circle.x1 {
+    width: px2rem($circleR);
+    height: px2rem($circleR);
+    line-height: px2rem($circleR);
+    .tip {
+        top: px2rem(-10-$circleR);
+        width: px2rem($circleR);
+        height: px2rem($circleR);
+        line-height: px2rem($circleR);
+    }
+}
+.key.circle.x2 {
+    width: px2rem($circleR * 2);
+    height: px2rem($circleR * 2);
+    line-height: px2rem($circleR * 2);
+    .tip {
+        top: px2rem(-10-$circleR * 2);
+        width: px2rem($circleR * 2);
+        height: px2rem($circleR * 2);
+        line-height: px2rem($circleR * 2);
+    }
+}
+.key.circle.x3 {
+    width: px2rem($circleR * 3);
+    height: px2rem($circleR * 3);
+    line-height: px2rem($circleR * 3);
+    .tip {
+        top: px2rem(-10-$circleR * 3);
+        width: px2rem($circleR * 3);
+        height: px2rem($circleR * 3);
+        line-height: px2rem($circleR * 3);
+    }
+}
+.key.circle.x4 {
+    width: px2rem($circleR * 4);
+    height: px2rem($circleR * 4);
+    line-height: px2rem($circleR * 4);
+    .tip {
+        top: px2rem(-10-$circleR * 4);
+        width: px2rem($circleR * 4);
+        height: px2rem($circleR * 4);
+        line-height: px2rem($circleR * 4);
+    }
+}

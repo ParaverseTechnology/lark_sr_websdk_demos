@@ -1,0 +1,29 @@
+@import "~@/assets/styles/mobile_base.scss";
+
+.stream {
+    text-align: left;
+    padding-top: 20px;
+    &-input {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 1.33rem;
+        >span {
+            display: inline-block;
+            width: 8.89rem;
+        }
+        >div {
+            width: 24.44rem;
+        }
+    }
+    .status {
+        >p {
+            margin: 0;
+        }
+    }
+}
+
+.live.live-mobile.live-slot-3 {
+    left: px2rem(400);
+    top: px2rem(20);
+}
