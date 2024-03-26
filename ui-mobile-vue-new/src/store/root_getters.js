@@ -64,7 +64,7 @@ export const RootGetters/*: GetterTree<RootState, RootState>*/ = {
         return larksr ? larksr.params.rttLimit : 30;
     },
     isFlipMouseWheel({ larksr }) {
-        return larksr ? larksr.mouseZoomDirection === 0 : false;
+        return larksr.mouseZoomDirection === 1? true : false;
     },
     initCursorMode({ larksr }) {
         return larksr ? larksr.initCursorMode : false;

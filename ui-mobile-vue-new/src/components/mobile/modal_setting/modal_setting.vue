@@ -34,8 +34,8 @@
         <div class="setting-content-row">
           <span>放大手势与滚轮</span>
           <div>
-            <span @click="setFlipMouseWheel(true)" :class="{'setting-tag':true,'setting-tag-check':isFlipMouseWheel}">上滚</span>
-            <span @click="setFlipMouseWheel(false)" :class="{'setting-tag':true,'setting-tag-check':!isFlipMouseWheel}" style="margin-left: 0.95rem;">下滚</span>
+            <span @click="setFlipMouseWheel(1)" :class="{'setting-tag':true,'setting-tag-check':isFlipMouseWheel}">上滚</span>
+            <span @click="setFlipMouseWheel(0)" :class="{'setting-tag':true,'setting-tag-check':!isFlipMouseWheel}" style="margin-left: 0.95rem;">下滚</span>
           </div>
         </div>
         <div class="customContentAlert-divider"></div>
@@ -56,7 +56,7 @@
           <div class="customContentAlert-divider"></div>
         </template>
         <!-- 音量 -->
-        <div class="setting-content-volmue">
+        <div v-if="!isIOS" class="setting-content-volmue">
           <span class="iconfont">&#xe606;</span>
           <div>
             <Slider v-on:change="onVolmueChange" />
@@ -65,7 +65,7 @@
       </div>
     </div>
     <Quality v-if="isShowQualityModalForSetting" :codeRate="codeRate" :frameRate="frameRate" @sendCodeRate="receiveCodeRate" @sendFrameRate="receiveFrameRate"></Quality>
-    <resolutionRatioVue v-if="isShowResolutionRatioModalForSetting" :resolution="resolution" @sendResolution="receiveResolution"></resolutionRatioVue>
+    <resolutionRatioVue v-if="isShowResolutionRatioModalForSetting" :resolution="resolution" @sendResolution="receiveResolution" :newResolutionsItem="newResolutionsItem"></resolutionRatioVue>
   </div>
 </template>
 <script>
@@ -75,6 +75,7 @@ import Quality from '../components/codeRateAndFrameRate.vue';
 import resolutionRatioVue from '../components/resolutionRatio.vue';
 import PvtSwitch from '../../switch_pvt/switch_pvt'
 import Slider from '../../slider/slider';
+import Capabilities from '@/utils/capabilities';
 export default {
   components: {
     Quality,
@@ -83,7 +84,28 @@ export default {
     Slider
   },
   data () {
-    return {}
+    return {
+      isIOS: Capabilities.os === 'iOS',
+      resolutions: [
+        { width: 4096, height: 1080 },
+        { width: 4096, height: 2160, sublabel: '4K' },
+        { width: 3840, height: 2160 },
+        { width: 3840, height: 1080 },
+        { width: 2560, height: 1440 },
+        { width: 2048, height: 1536, sublabel: '2K' },
+        { width: 1920, height: 1080, sublabel: 'Default' },
+        { width: 1920, height: 1440 },
+        { width: 1600, height: 900 },
+        { width: 1366, height: 768 },
+        { width: 1280, height: 720, sublabel: 'HD' },
+        { width: 1280, height: 600 },
+        { width: 2180, height: 3840 },
+        { width: 1080, height: 1920 },
+        { width: 720, height: 1280 },
+        { width: 1536, height: 2048 },
+      ],
+      newResolutionsItem: null
+    }
   },
   computed: {
     settingStyle() {
@@ -211,6 +233,27 @@ export default {
         // TODO config audio 
         this.larksr.audioElement.volume = value / 100;
       }
+    },      
+    resetResolution() {
+      console.error('*****werwerw******')
+      let found = false;
+      for (let res of this.resolutions) {
+        if (res.width === this.larksr.currentAppSize.width && res.height === this.larksr.currentAppSize.height) {
+          found = true;
+        }
+      }
+
+      if (!found) {  
+        this.newResolutionsItem ={
+          width: this.larksr.currentAppSize.width,
+          height: this.larksr.currentAppSize.height,
+        }   
+      }
+      this.setResolution({
+        width: this.larksr.currentAppSize.width,
+        height: this.larksr.currentAppSize.height,
+      })
+      console.error('resolution',this.resolution)
     },
     ...mapActions({
       setFlipMouseWheel: 'flipMouseWheel',
@@ -228,6 +271,15 @@ export default {
       setCustomContentAlertTitle: 'customContentAlert/setCustomContentAlertTitle',
       setResolution: 'modalSetting/setResolution',
     })
+  },
+  mounted() {    
+    console.error('***********************',this.larksr,this.larksr.currentAppSize)  
+    if (this.larksr && this.larksr.currentAppSize) {
+      this.larksr.on("appresize", () => {
+        this.resetResolution();
+      });
+      this.resetResolution();
+    }
   }
 }
 </script>

@@ -26,7 +26,7 @@
 <script>
 import { mapState, mapGetters, mapMutations, mapActions } from "vuex";
 export default {
-  props: ['resolution'],
+  props: ['resolution','newResolutionsItem'],
   data () {
     return {
       resolutions: [
@@ -47,6 +47,25 @@ export default {
         { width: 720, height: 1280 },
         { width: 1536, height: 2048 },
       ]
+    }
+  },
+  watch: {
+    'newResolutionsItem': {
+      handler(newval) {
+        if(newval) {
+          let found = false;
+          for (let res of this.resolutions) {
+            if (res.width === newval.width && res.height === newval.height) {
+              found = true;
+            }
+          }
+          if (!found) {
+            this.resolutions.push(newval);
+          }     
+        }
+      },
+      immediate: true,
+      deep: true
     }
   },
   computed: {

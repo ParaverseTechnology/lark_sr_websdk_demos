@@ -5,7 +5,7 @@ export const ModalSetting/*: Module<ControlBarInterface, RootState>*/ = {
     qualityMode: '1', // 画质 默认1标清
     coderate: 10000, //码率 对齐一览页的进入应用码率
     fps: 60, //帧率 对齐一览页的进入应用帧率
-    resolution: { id: 7, width: 1920, height: 1080 }, //分辨率
+    resolution: { id: '19201080', width: 1920, height: 1080 }, //分辨率
     aerialViewCheck: false, // 鸟瞰模式Switch
     isShowMobileSettingModal: false
   },

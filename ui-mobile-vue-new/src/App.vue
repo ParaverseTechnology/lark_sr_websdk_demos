@@ -57,23 +57,36 @@
         <img :src="closeImg" class="button-close" @click="onCloseInputText">
       </el-row>
     </div>
-    <!-- 手机端入口 -->
-    <template v-if="cloudReady && isMobile">
-      <!-- 菜单条 -->
-      <MobileMenuBar v-if="mobileWebMenuType===0"></MobileMenuBar>
-      <!-- 控制球 -->
-      <ControlBallM v-else></ControlBallM>
-    </template>
-    <template v-else>
-       <!-- showControlBar -->
-      <MenuBar v-if="cloudReady && !isMobile" />
-      <!-- 帮助 -->
-      <ModalHelp v-if="isShowHelpAlert"></ModalHelp>
-      <!-- 设置 -->
-      <ModallSetting v-if="isShowSettingAlert"></ModallSetting>
-      <!-- 推流 -->
-      <LiveStreaming v-if="isShowStreamAlert" />
-    </template>
+
+    <div v-if="showUI">
+      <!-- 手机端入口 -->
+      <template v-if="cloudReady && isMobile">
+        <!-- 菜单条 -->
+        <MobileMenuBar v-if="mobileWebMenuType===1"></MobileMenuBar>
+        <!-- 控制球 -->
+        <ControlBallM v-else></ControlBallM>
+      </template>
+      <template v-else>
+        <!-- showControlBar -->
+        <MenuBar v-if="cloudReady && !isMobile" />
+        <!-- 帮助 -->
+        <ModalHelp v-if="isShowHelpAlert"></ModalHelp>
+        <!-- 设置 -->
+        <ModallSetting v-if="isShowSettingAlert"></ModallSetting>
+        <!-- 推流 -->
+        <LiveStreaming v-if="isShowStreamAlert" />
+      </template>
+      <!-- 左上角延时显示 -->
+      <RttInfo v-if="cloudReady" />   
+      <!-- 网络状态 -->
+      <States />
+      <!-- 鸟瞰模式 -->
+      <AerialView v-if="cloudReady && showAerialView" />
+      <!-- 互动模式 -->
+      <PlayerMode />
+    </div>
+    
+    
     
     <!-- 通用 UI -->
     <!-- 警告框 -->
@@ -84,14 +97,7 @@
     <Toast v-if="cloudReady" />
     <!-- 确认框 -->
     <Confirm v-if="modalConfirm.show"/>
-    <!-- 左上角延时显示 -->
-    <RttInfo v-if="cloudReady" />   
-    <!-- 网络状态 -->
-    <States />
-    <!-- 鸟瞰模式 -->
-    <AerialView v-if="cloudReady && showAerialView" />
-    <!-- 互动模式 -->
-    <PlayerMode />
+    
   </div>
 </template>
 
@@ -158,6 +164,7 @@ export default {
       inputText: '',
       returnImg: require('@/assets/images/return.svg'),
       closeImg: require("@/assets/images/close.svg"),
+      showUI: false,
     };
   },
   watch: {
@@ -207,6 +214,7 @@ export default {
       modalAlert: (state) => state.modalAlert.modalAlert,
       notifyBar: (state) => state.notifyBar,
       mobileWebMenuType: state => state.mobileWebMenuType,
+      mobileKeyboardType: state => state.mobileKeyboardType,
     }),
     ...mapGetters({
       isObMode: "playerMode/isObMode",
@@ -505,6 +513,8 @@ export default {
       'alert': 'modalAlert/showModalAlert',
       'confirm': 'modalConfirm/showModalConfirm',
       'resetLocalization': 'resetLocalization',
+      'toggleVKeyboard': 'toggleVKeyboard',
+      'setFlipMouseWheel': 'flipMouseWheel'
     }),
   },
   mounted() {
@@ -643,7 +653,15 @@ export default {
       // joystick
       store.commit('setJoyStick', larksr.params.mobileVirtualJoystick);
       if(larksr.params.mobileVirtualJoystick) store.commit('setPreComponentName', 'joystick');
-      if(larksr.params.mobileWebMenuType) store.commit('setMobileWebMenuType',larksr.params.mobileWebMenuType)
+      if(larksr.params.mobileWebMenuType) store.commit('setMobileWebMenuType',larksr.params.mobileWebMenuType);
+      Log.info('load params', larksr.params);
+      /**
+       * mouseZoomDirection
+       * 用于移动端捏合缩放操作与应用鼠标缩放的对应关系
+       * 1:鼠标滚轮向上为放大，
+       * 0:鼠标滚轮向下为放大(default)
+       */
+      this.setFlipMouseWheel(larksr.params.mouseZoomDirection);
     });
 
     larksr.on("gotremotesteam", (e) => {
@@ -754,7 +772,10 @@ export default {
         }
       }
     });
-
+    larksr.on('appresize', (e) => {
+      Log.info("LarkSRClientEvent APP_RESIZE", e);
+      this.showUI = true;
+    });
     larksr.on('playerlist', (e) => {
       console.log('PLAYER_LIST', e.data);
       store.dispatch('playerMode/updatePlayerList', e.data);

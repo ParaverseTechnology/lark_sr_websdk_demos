@@ -57,14 +57,14 @@ export const RootActions/*: ActionTree<RootState, RootState>*/ = {
         commit('setUI', LocalizationLoader.ui);
     },
     // scale mode
-    resetScaleMode({ commit, state, getters,dispatch }) {
-        commit('resetScaleMode');
-        dispatch('resize');
-    },
-    setScaleMode({ commit, state, getters, dispatch }, mode) {
-        commit('setScaleMode', mode);
-        dispatch('resize');
-    },
+    // resetScaleMode({ commit, state, getters,dispatch }) {
+    //     commit('resetScaleMode');
+    //     dispatch('resize');
+    // },
+    // setScaleMode({ commit, state, getters, dispatch }, mode) {
+    //     commit('setScaleMode', mode);
+    //     dispatch('resize');
+    // },
     setScaleToDefault({ commit, state, getters, dispatch }) {
         commit('resetScaleMode');
         dispatch('resize');
@@ -95,22 +95,27 @@ export const RootActions/*: ActionTree<RootState, RootState>*/ = {
             return;
         }
         if (getters.isChangedScaledMode) {
-            commit('resetScaleMode');
+            dispatch('resetScaleMode');
         } else {
-            commit('setScaleMode', ScaleMode.FILL_STRETCH);
+            dispatch('setScaleMode', ScaleMode.FILL_STRETCH);
         }
         dispatch('resize');
     },
-    flipMouseWheel({commit, state, dispatch}, flip/*: boolean*/) {
+    flipMouseWheel({commit, state, dispatch}, direction/*: number*/) {
         const { larksr } = state;
         if (larksr) {
-            const direction = larksr.params.mouseZoomDirection === 0 ? 1 : 0;
-            larksr.mouseZoomDirection = flip ? direction : larksr.params.mouseZoomDirection;
+            // const direction = larksr.params.mouseZoomDirection === 0 ? 1 : 0;
+            // larksr.mouseZoomDirection = flip ? direction : larksr.params.mouseZoomDirection;
             // Log.info('flipMouseWheel', larksr.mouseZoomDirection, direction, flip);
+            larksr.mouseZoomDirection = direction
         }
     },
     toggleSyncClipboardParseEvent({commit, state, dispatch}) {
-         commit('setSyncClipboardParseEvent', !state.syncClipboardParseEvent);
+        commit('setSyncClipboardParseEvent', !state.syncClipboardParseEvent);
+        const { larksr } = state;
+        if (larksr) {
+           larksr.op.enableParse = state.syncClipboardParseEvent;
+        }
     },
     toggleInitCursorMode({commit, state, dispatch}) {
         const  { larksr } = state;
@@ -120,7 +125,19 @@ export const RootActions/*: ActionTree<RootState, RootState>*/ = {
     },
     toggleAerailView({commit, state}) {
         commit('setShowAerialView', !state.showAerialView);
-    }
+    },
+    setScaleMode({ state }, scaleMode) {
+        const { larksr } = state;
+        if (larksr) {
+            larksr.scaleMode = scaleMode;
+        }
+    },
+    resetScaleMode({state}) {
+        const { larksr } = state;
+        if (larksr) {
+            larksr.scaleMode = larksr.params.scaleMode;
+        }
+    },
 };
 
 export default RootActions;

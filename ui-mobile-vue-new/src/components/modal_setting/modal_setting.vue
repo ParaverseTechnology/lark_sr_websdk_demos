@@ -196,22 +196,22 @@ export default {
         60,
       ],
       resolutions: [
-        { id: 1, width: 4096, height: 1080 },
-        { id: 2, width: 4096, height: 2160 },
-        { id: 3, width: 3840, height: 2160 },
-        { id: 4, width: 3840, height: 1080 },
-        { id: 5, width: 2560, height: 1440 },
-        { id: 6, width: 2048, height: 1536 },
-        { id: 7, width: 1920, height: 1080 },
-        { id: 8, width: 1920, height: 1440 },
-        { id: 9, width: 1600, height: 900 },
-        { id: 10, width: 1366, height: 768 },
-        { id: 11, width: 1280, height: 720 },
-        { id: 12, width: 1280, height: 600 },
-        { id: 13, width: 2180, height: 3840 },
-        { id: 14, width: 1080, height: 1920 },
-        { id: 15, width: 720, height: 1280 },
-        { id: 16, width: 1536, height: 2048 },
+        { id: '40961080', width: 4096, height: 1080 },
+        { id: '40962160', width: 4096, height: 2160 },
+        { id: '38402160', width: 3840, height: 2160 },
+        { id: '38401080', width: 3840, height: 1080 },
+        { id: '25601440', width: 2560, height: 1440 },
+        { id: '20481536', width: 2048, height: 1536 },
+        { id: '19201080', width: 1920, height: 1080 },
+        { id: '19201440', width: 1920, height: 1440 },
+        { id: '1600900', width: 1600, height: 900 },
+        { id: '1366768', width: 1366, height: 768 },
+        { id: '1280720', width: 1280, height: 720 },
+        { id: '1280600', width: 1280, height: 600 },
+        { id: '21803840', width: 2180, height: 3840 },
+        { id: '10801920', width: 1080, height: 1920 },
+        { id: '7201280', width: 720, height: 1280 },
+        { id: '15362048', width: 1536, height: 2048 },
       ],
     }
   },
@@ -283,6 +283,28 @@ export default {
         if(!this.aerailView)this.toggleAerailView();
         this.setCustomContentAlertTitle('鸟瞰图');
       }
+    },   
+    resetResolution() {
+      let found = false;
+      for (let res of this.resolutions) {
+        if (res.width === this.larksr.currentAppSize.width && res.height === this.larksr.currentAppSize.height) {
+          found = true;
+        }
+      }
+
+      if (!found) {        
+        this.resolutions.push({
+          id: this.larksr.currentAppSize.width+''+this.larksr.currentAppSize.height,
+          width: this.larksr.currentAppSize.width,
+          height: this.larksr.currentAppSize.height,
+        });
+      }
+
+      this.setResolution({
+        id: this.larksr.currentAppSize.width+''+this.larksr.currentAppSize.height,
+        width: this.larksr.currentAppSize.width,
+        height: this.larksr.currentAppSize.height,
+      })
     },
     ...mapMutations({
       setIsShowSettingAlert: 'modalSetting/setIsShowSettingAlert',
@@ -301,7 +323,14 @@ export default {
         codeFpsChange: 'modalSetting/codeFpsChange',
       })
   },
-  mounted() {},
+  mounted() {  
+    if (this.larksr && this.larksr.currentAppSize) {
+      this.larksr.on("appresize", () => {
+        this.resetResolution();
+      });
+      this.resetResolution();
+    }
+  },
   beforeDestroy() {},
 }
 </script>
