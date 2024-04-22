@@ -133,16 +133,25 @@ export default {
   },
   computed: {
     // 是否显示玩家列表勾选框
-    playerListChecked() {
-      return this.playerMode.showPlayerList;
+    playerListChecked: {
+      get() {
+        return this.playerMode.showPlayerList;
+      },
+      set() {}  
     },
     // 同步本地剪贴板勾选框
-    cipboardParseChecked() {
-      return this.syncClipboardParseEvent;
+    cipboardParseChecked: {
+      get() {
+         return this.syncClipboardParseEvent;
+      },
+      set() {}     
     },
     // 鸟瞰模式勾选框
-    checked() {
-      return this.aerialViewCheck;
+    checked: {
+      get() {
+        return this.aerialViewCheck;
+      },
+      set() {}         
     },
     // 画质
     qualityTab() {
@@ -281,6 +290,7 @@ export default {
       } else {
         this.onCancel();
         if(!this.aerailView)this.toggleAerailView();
+        this.setShowAerialView(true);
         this.setCustomContentAlertTitle('鸟瞰图');
       }
     },   
@@ -313,6 +323,7 @@ export default {
       setQualityMode: 'modalSetting/setQualityMode',
       setResolution: 'modalSetting/setResolution',
       setAerialViewCheck: 'modalSetting/setAerialViewCheck',
+      setShowAerialView: 'setShowAerialView',
     }),
     ...mapActions({
         toggleScaleToFillStretch: 'toggleScaleToFillStretch',

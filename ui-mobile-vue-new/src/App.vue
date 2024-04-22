@@ -81,7 +81,7 @@
       <!-- 网络状态 -->
       <States />
       <!-- 鸟瞰模式 -->
-      <AerialView v-if="cloudReady && showAerialView" />
+      <AerialView v-if="cloudReady && showAerialView && aerialViewCheck" />
       <!-- 互动模式 -->
       <PlayerMode />
     </div>
@@ -215,6 +215,7 @@ export default {
       notifyBar: (state) => state.notifyBar,
       mobileWebMenuType: state => state.mobileWebMenuType,
       mobileKeyboardType: state => state.mobileKeyboardType,
+      aerialViewCheck: state => state.modalSetting.aerialViewCheck,
     }),
     ...mapGetters({
       isObMode: "playerMode/isObMode",

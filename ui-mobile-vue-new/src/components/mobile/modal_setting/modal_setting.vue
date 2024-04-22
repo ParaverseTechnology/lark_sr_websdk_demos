@@ -125,17 +125,26 @@ export default {
       }
       return obj
     },
-    // 鸟瞰模式勾选框
-    checked() {
-      return this.aerialViewCheck;
+    // 鸟瞰模式勾选框 
+    checked: {
+      get() {
+        return this.aerialViewCheck;
+      },
+      set() {}         
     },
     // 同步本地剪贴板勾选框
-    cipboardParseChecked() {
-      return this.syncClipboardParseEvent;
+    cipboardParseChecked: {
+      get() {
+         return this.syncClipboardParseEvent;
+      },
+      set() {}  
     },
     // 是否显示玩家列表勾选框
-    playerListChecked() {
-      return this.playerMode.showPlayerList;
+    playerListChecked: {
+      get() {
+        return this.playerMode.showPlayerList;
+      },
+      set() {}  
     },
     // 码率
     codeRate() {
@@ -219,6 +228,7 @@ export default {
         this.larksr.stopAerialview();
       } else {
         if(!this.aerailView)this.toggleAerailView();
+        this.setShowAerialView(true);
         this.setCustomContentAlertTitle('鸟瞰图');
         this.closeModal();
       }
@@ -270,6 +280,7 @@ export default {
       setAerialViewCheck: 'modalSetting/setAerialViewCheck',
       setCustomContentAlertTitle: 'customContentAlert/setCustomContentAlertTitle',
       setResolution: 'modalSetting/setResolution',
+      setShowAerialView: 'setShowAerialView',
     })
   },
   mounted() {    
