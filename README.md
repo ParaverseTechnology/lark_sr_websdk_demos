@@ -30,7 +30,7 @@ SDK include:
 ### Notice
 
 > SDK V3.2.30 only support server version above [V3.2.3.1](https://www.pingxingyun.com/devCenter.html)
-> [Old verion SDK Demo](https://github.com/pingxingyun/lark_sr_websdk_demos/releases/tag/V3.2.10)
+> [Old verion SDK Demo](https://github.com/ParaverseTechnology/lark_sr_websdk_demos/releases/tag/V3.2.10)
 > V3.2.314 server and datachannel above 3.2.5.1
 
 ## Quick Start
@@ -60,7 +60,7 @@ Connect cloud resource and all event access with new LarkSR object.
 > SDK mainly contain loading page and cloud video page no other ui.efore start:
 
 1. Lark SR server address, exp：http://222.128.6.137:8181/
-2. SDK auth code，connect business@pingxingyun.com or register https://www.pingxingyun.com/console/#/
+2. SDK auth code，connect business@paraverse.cc
 3. App id from Lark SR admin server applist.
 
 ```javascript
@@ -72,8 +72,6 @@ var client = new LarkSR({
     serverAddress: "Lark Sever address",
     // SDK ID or set by call initSDKAuthCode
     // authCode: 'your SDK ID',
-    // test backgroud url
-    // loadingBgUrl: 'https://home-obs.pingxingyun.com/homePage_4_0/bg.jpg',
 });
 ```
 
@@ -113,8 +111,8 @@ client.initSDKAuthCode('Your SDK ID')
 1. [sample-vue](./sample-vue/)
 1. [sample-vue3](./sample-vue3/)
 1. [ui-mobile-vue](./ui-mobile-vue/) default webclient ui.
-1. [AI Voice to cloud demo](https://github.com/pingxingyun/vh-webclient)
+1. [AI Voice to cloud demo](https://github.com/ParaverseTechnology/vh-webclient)
 
 ### Doc
 
-[LarkSR WebClient SDK](https://pingxingyun.github.io/en/webclient_sdk/)
+[LarkSR WebClient SDK](https://ParaverseTechnology.github.io/en/webclient_sdk/)
