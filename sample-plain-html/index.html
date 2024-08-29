@@ -22,15 +22,15 @@
     <!--[if IE]>
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
     <![endif]-->
-    <!-- 视图窗口，移动端特属的标签。 -->
+    <!-- viewport for mobile -->
     <meta name="viewport"
         content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no,viewport-fit=cover" />
     <meta name="description" content="lark3.0" />
-    <title>平行云</title>
+    <title>Paraverse</title>
     <link href="./css/bootstrap.min.css" rel="stylesheet">
     <script src="./js/jquery.min.js"></script>
     <script src="./js/vconsole.min.js"></script>
-    <!-- 可选组件库 -->
+    <!-- Option ui components -->
     <!-- @see https://github.com/pingxingyun/pxy_webcommonui -->
     <script src="./js/pxy_webcommonui.min.js"></script>
     <!-- <script src="https://unpkg.com/pxy_webcommonui@latest/dist/pxy_webcommonui.min.js"></script> -->
@@ -44,34 +44,107 @@
             // var vConsole = new window.VConsole();
 
             client = new larksr_websdk.LarkSR({
-                // 设置挂载显示的元素
-                // 注意*不要*设置为 document.documentElement
+                /** 
+                 * @lang=zh
+                 * @require
+                 * 设置挂载显示的元素
+                 * 注意*不要*设置为 document.documentElement
+                 */
+                /** 
+                 * @lang=en
+                 * @require
+                 * set root element for larksr websdk
+                 * notice *don't* use document.documentElement
+                */
                 rootElement: document.getElementById('container'),
-                // 服务器地址,实际使用中填写您的服务器地址
-                // 如：http://222.128.6.137:8181/
-                // 当使用平行云托管服务时服务器地址自动分配,可留空。
-                // serverAddress: "http://222.128.6.137:8181/",
-                serverAddress: "http://192.168.0.55:8181/",
-                // 授权码
-                // authCode: '您的 SDK ID 联系 business@pingxingyun.com 获取',
-                // 视频缩放模式，默认保留宽高比，不会拉伸并完整显示在容器中
+
+                /** 
+                 * @lang=zh
+                 * @option when use hub
+                 * 服务器地址,实际使用中填写您的服务器地址
+                 * 如：http://222.128.6.137:8181/
+                 * 当使用平行云托管服务时服务器地址自动分配,可留空。
+                 */
+                /** 
+                 * @lang=en
+                 * @option when use host
+                 * larksr sever address
+                 * exp: http://222.128.6.137:8181/
+                 * Empty when use LarkXR host (https://www.pingxingyun.com/console/#/)
+                 */
+                serverAddress: "Lark Sever address",
+
+                /**
+                 * @lang=zh
+                 * @option
+                 * 授权码, 您的 SDK ID 联系 business@pingxingyun.com 获取
+                 * @see also initSDKAuthCode
+                 */
+                /**
+                 * @lang=en
+                 * @option
+                 * authCode
+                 * Conenct business@paraverse.cc for your authcode
+                 * @see also initSDKAuthCode
+                 */
+                 // authCode: 'your auth code',
+
+                /**
+                 * @lang=zh
+                 * @option
+                 * 视频缩放模式，默认保留宽高比，不会拉伸并完整显示在容器中
+                 */
+                /**
+                 * @lang=en
+                 * @option
+                 * Video scale mode,defaul 'contain' mode keep video origion asp with no clip or stretch 
+                 */
                 // scaleMode: 'contain',
-                // 0 -》 用户手动触发, 1 -》 首次点击进入触发, 2 -》 每次点击触发
+
+                /**
+                 * @lang=zh
+                 * @option
+                 * 全屏模式
+                 * 0 -》 用户手动触发, 1 -》 首次点击进入触发, 2 -》 每次点击触发
+                 */
+                /**
+                 * @lang=en
+                 * @option 
+                 * Fullscreen trigger mode
+                 * @value 0 -> Manual, 1 -> First tap trigger fullscreen, 2 -> Every tap trigger fullscreen
+                 */
                 // fullScreenMode: 0,
-                // 测试载入背景图
-                // loadingBgUrl: 'https://home-obs.pingxingyun.com/homePage_4_0/bg.jpg',
-                //
-                // 单独上传流程要求渲染服务器版本大于3290
-                useSeparateMediaSharePeer: true,
+
+                /**
+                 * @lang=zh
+                 * @option
+                 * 是否复用媒体上传通道,服务器端版本应大于 3290  
+                 */
+                /**
+                 * @lang=en
+                 * @option 
+                 * Whether to reuse the media upload channel, the server-side version should be greater than 3290  
+                 */
+                // useSeparateMediaSharePeer: true,
             });
 
-            client.initSDKAuthCode('您的 SDK ID 联系 business@pingxingyun.com 获取')
+            /**
+             * @lang=zh
+             * 授权码, 您的 SDK ID 联系 business@pingxingyun.com 获取
+             */
+            /**
+             * @lang=en
+             * authCode
+             * Conenct business@paraverse.cc for your authcode
+             */
+            client.initSDKAuthCode('Your auth code')
             .then(function() {
-                // 开始连接
+                // Start connection
 
-                    // 连接平行云托管平台的应用
+                    // Use larkxr host (https://www.pingxingyun.com/console/#/)
                     // client.connectWithPxyHost({
                     //     // 从平行云托管平台获取
+                    //     // appid from LarkXR host
                     //     appliId: "990411595240701952",
                     //     // playerMode: 2,
                     //     // userType: 1,
@@ -84,19 +157,69 @@
                     // });
 
                     client.connect({
-                            // 要使用的云端资源的应用 ID，从后云雀后台接口获取
-                            // 参考查询应用一栏文档
-                            // https://www.pingxingyun.com/online/api3_2.html?id=476
-                            // 如 222.128.6.137:8181 系统下的 879414254636105728 应用
-                            // appliId: "879414254636105728",
+                            /**
+                             * @lang=zh
+                             * @require
+                             * 要使用的云端资源的应用 ID，从后云雀后台接口获取
+                             * 参考查询应用一栏文档
+                             * https://www.pingxingyun.com/online/api3_2.html?id=476
+                             * 如 222.128.6.137:8181 系统下的 879414254636105728 应用
+                             * appliId: "879414254636105728",
+                             * */
+                            /**
+                             * @lang=en
+                             * @require
+                             * Cloud resource app id from LarkXR server.
+                             * */
                             appliId: "925773094113509376",
-                            // 其他可选参数如下
-                            // 互动模式
-                            //启动模式：0：普通模式, 1：互动模式（一人操作多人观看），2: 多人协同（键盘鼠标放开，需要应用配合）
+
+                            /**
+                             * @lang=zh
+                             * @option
+                             * 其他可选参数
+                             * */
+                            /**
+                             * @lang=en
+                             * @option
+                             * option params
+                             * */
+                            /**
+                             * @lang=zh
+                             * @option
+                             * 互动模式相关参数
+                             * */
+                            /**
+                             * @lang=en
+                             * @option
+                             * Params for player mode.
+                             * */
+
+                            /**
+                             * @lang=zh
+                             * @option
+                             * @value 启动模式：0：普通模式, 1：互动模式（一人操作多人观看），2: 多人协同（键盘鼠标放开，需要应用配合）
+                             * */
+                            /**
+                             * @lang=en
+                             * @option
+                             * @value playerMode：0：normal, 1：share mode（one player），2: coop mode（multi player）
+                             * */
                             // playerMode: 1,
-                            //Task所有者:1 /  观察者:0
+
+                            /**
+                             * @lang=zh
+                             * @option
+                             * @value 启动模式：0：普通模式, 1：互动模式（一人操作多人观看），2: 多人协同（键盘鼠标放开，需要应用配合）
+                             * */
+                            /**
+                             * @lang=en
+                             * @option
+                             * @value playerMode：0：normal, 1：share mode（one player），2: coop mode（multi player）
+                             * */
+                            // Task所有者:1 /  观察者:0
                             // userType: 1,
-                            //口令:8位唯一码,写入TaskInfo
+                            
+                            // 口令:8位唯一码,写入TaskInfo
                             // roomCode: '',
                             // taskId: '',
                             // groups
