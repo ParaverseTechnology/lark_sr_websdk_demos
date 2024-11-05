@@ -1,6 +1,6 @@
 <template>
   <div class="mobile-ui" v-on:contextmenu="onContextmenu" >
-      <div class="pop pop-toggle"
+      <div v-if="enableMobileControlBall && showWebMenu" class="pop pop-toggle"
           :style="positionStyle"
           draggable="true"
           v-on:touchstart="onDragStart"
@@ -230,8 +230,8 @@ export default {
               x: 0,
               y: 0,
           },
-          isFix: true,//是否锁定
-          isShrink: false,//控制球是否收缩
+          isFix: false,//是否锁定
+          isShrink: true,//控制球是否收缩
           timer: null,//控制球自动收缩定时器
           shrinkPositionPre: null,
           isShowControlPanel: false,//是否展示控制面板
@@ -334,7 +334,8 @@ export default {
         isShowMobileStream: state => state.modalStream.isShowMobileStream,
         isShowMobileSettingModal: state => state.modalSetting.isShowMobileSettingModal,
         aerialViewCheck: state => state.modalSetting.aerialViewCheck,
-        mobileCamera: state => state.modalCamera.mobileCamera,
+        mobileCamera: state => state.modalCamera.mobileCamera,       
+        showWebMenu: (state) => state.showWebMenu,
       }),
       ...mapGetters({
           screenOrientation: 'screenOrientation',
@@ -791,7 +792,7 @@ export default {
   created() {
     // 初始控制球位置
     const top = (this.viewPort.height - 48 * 2);
-    const left = (this.viewPort.width - 48 * 2);
+    const left = (this.viewPort.width - 48 / 2);
     this.setMobileControlBallPosition({
         x: left,
         y: top,

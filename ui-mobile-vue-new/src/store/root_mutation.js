@@ -64,6 +64,9 @@ export const RootMutation/*: MutationTree<RootState>*/ = {
     setMobileWebMenuType(state, mobileWebMenuType) {
         state.mobileWebMenuType = mobileWebMenuType;
     },
+    setShowWebMenu(state, showWebMenu) {
+        state.showWebMenu = showWebMenu;
+    },
 }
 
 export default RootMutation;

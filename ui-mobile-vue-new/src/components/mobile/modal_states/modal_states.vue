@@ -194,7 +194,7 @@ export default {
   right: 0;
   position: absolute;
   touch-action: auto;
-  z-index: 12;
+  z-index: 99;
   &-title {
     height: 5.2071rem;
     padding: 1.18rem;

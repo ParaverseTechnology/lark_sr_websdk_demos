@@ -44,7 +44,8 @@
                         <p>{{status.text}}</p>
                     </div>
                    <div class="button-group">
-                        <Btn class="submit" :title="ui.liveSubmit" submit="false" @click="onSubmit"/>
+                        <Btn v-if="status.code == 1" class="submit" :title="$t('message.vrAppli.close')" submit="false" @click="onCancelLive"/>
+                        <Btn v-else class="submit" :title="ui.liveSubmit" submit="false" @click="onSubmit"/>
                     </div>
                 </div>
             </div>
@@ -98,6 +99,7 @@ export default {
             status: {
                 isError: false,
                 text: '',
+                code: ''
             },
             mobileScreenLandscapState: false,
         }
@@ -128,7 +130,9 @@ export default {
             ui: state => state.ui,
             isMobile: state => state.isMobile,
             viewPort: state => state.viewPort,
-      isShowStreamAlert: state => state.modalStream.isShowStreamAlert,
+            isShowStreamAlert: state => state.modalStream.isShowStreamAlert,
+            rtmpstreamstate: state => state.modalStream.rtmpstreamstate,
+            rtmpstreamForm: state => state.modalStream.rtmpstreamForm,
         }),
         ...mapGetters([
             'viewPortStyle',
@@ -146,6 +150,7 @@ export default {
                 this.status = {
                     isError: true,
                     text: '必须填写推流地址',
+                    code: ''
                 }
                 return;
             }
@@ -162,14 +167,31 @@ export default {
                 this.status = {
                     isError: false,
                     text: '准备推流中...',
+                    code: res.state || ''
                 }
+                
+                this.setRtmpstreamForm({
+                    rtmpPath: this.rtmpPath,
+                    rtmpKey: this.rtmpKey,
+                    codeRate: this.selectCoderate,
+                    frameRate: this.selectFps,
+                    resolution: this.selectRes
+                });
             })
             .catch((err) => {
                 this.status = {
                     isError: true,
                     text: err,
+                    code: ''
                 }
+                this.setRtmpstreamForm(null);
             });
+        },
+        onCancelLive() {
+            Log.info('on close live streaming');
+            this.larksr.StopLiveStreaming();
+            this.setRtmpstreamstate(null);
+            this.setRtmpstreamForm(null);
         },
         onInputFocus() {
             if (this.isMobile && this.screenOrientation == "landscape") {
@@ -191,7 +213,9 @@ export default {
             this.status = {
                 isError: false,
                 text: e.data.desc,
+                code: e.data.state || ''
             }
+            this.setRtmpstreamstate(this.status);
         },
         onRtmpStreamError(e) {
             Log.info("onRtmpStreamError", e);
@@ -199,7 +223,9 @@ export default {
             this.status = {
                 isError: true,
                 text: e.data.desc,
+                code: ''
             }
+            this.setRtmpstreamstate(this.status);
         },
         ...mapActions({
             toast: "toast/toast",
@@ -208,13 +234,24 @@ export default {
         }),
         ...mapMutations({
             setCustomContentAlertTitle: 'customContentAlert/setCustomContentAlertTitle',
-            setIsShowStreamAlert: 'modalStream/setIsShowStreamAlert'
+            setIsShowStreamAlert: 'modalStream/setIsShowStreamAlert',
+            setRtmpstreamstate: 'modalStream/setRtmpstreamstate',
+            setRtmpstreamForm: 'modalStream/setRtmpstreamForm',
         }),
     },
     mounted() {
         Log.info('live larksr', this.larksr);
         this.larksr.on(LarkSRClientEvent.RTMP_STREAM_STATE, this.onRtmpStreamState, this);
         this.larksr.on(LarkSRClientEvent.RTMP_STREAM_ERROR, this.onRtmpStreamError, this);
+        
+        if (this.rtmpstreamstate!==null) this.status = this.rtmpstreamstate;
+        if (this.rtmpstreamForm!==null) {
+            this.rtmpPath = this.rtmpstreamForm.rtmpPath;
+            this.rtmpKey = this.rtmpstreamForm.rtmpKey;
+            this.selectCoderate = this.rtmpstreamForm.codeRate;
+            this.selectFps = this.rtmpstreamForm.frameRate;
+            this.selectRes = this.rtmpstreamForm.resolution
+        }
     },
     unmounted() {
         Log.info("relase livestreaming icon");

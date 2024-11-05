@@ -78,7 +78,7 @@ export default {
   top: 0;
   right: 0;
   position: absolute;
-  z-index: 12;
+  z-index: 99;
   &-title {
     height: 5.2071rem;
     padding: 1.18rem;

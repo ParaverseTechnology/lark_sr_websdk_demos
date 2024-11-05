@@ -42,7 +42,8 @@
           <p>{{status.text}}</p>
       </div>
       <el-row type="flex" justify="center" class="button-group">
-        <Btn class="submit" :title="ui.liveSubmit" submit="false" @click="onSubmit"/>
+        <Btn v-if="status.code == 1" class="submit" :title="$t('message.vrAppli.close')" submit="false" @click="onCancelLive"/>
+        <Btn v-else class="submit" :title="ui.liveSubmit" submit="false" @click="onSubmit"/>
       </el-row>
     </div>
   </div>
@@ -73,6 +74,7 @@ export default {
       status: {
           isError: false,
           text: '',
+          code: ''
       },
     }
   },
@@ -105,7 +107,9 @@ export default {
       mobileForceLandScape: state => state.mobileForceLandScape,
       isShowMobileStream: state => state.modalStream.isShowMobileStream,
       isShowQualityModal: state => state.modalStream.isShowQualityModal,
-      isShowResolutionRatioModal: state => state.modalStream.isShowResolutionRatioModal
+      isShowResolutionRatioModal: state => state.modalStream.isShowResolutionRatioModal,
+      rtmpstreamstate: state => state.modalStream.rtmpstreamstate,
+      rtmpstreamForm: state => state.modalStream.rtmpstreamForm,
     })
   },
   methods: {
@@ -151,6 +155,7 @@ export default {
         this.status = {
             isError: true,
             text: '必须填写推流地址',
+            code: ''
         }
         return;
       }
@@ -167,14 +172,30 @@ export default {
         this.status = {
           isError: false,
           text: '准备推流中',
+          code: res.code || ''
         }
+        this.setRtmpstreamForm({
+          rtmpPath: this.rtmpPath,
+          rtmpKey: this.rtmpKey,
+          codeRate: this.codeRate,
+          frameRate: this.frameRate,
+          resolution: this.resolution
+        });
       })
       .catch((err) => {
         this.status = {
           isError: true,
           text: err,
+          code: ''
         }
+        this.setRtmpstreamForm(null);
       });
+    },
+    onCancelLive() {
+      Log.info('on close live streaming');
+      this.larksr.StopLiveStreaming();
+      this.setRtmpstreamstate(null);
+      this.setRtmpstreamForm(null);
     },
     onRtmpStreamState(e) {
       Log.info("onRtmpStreamState", e);
@@ -182,7 +203,9 @@ export default {
       this.status = {
         isError: false,
         text: e.data.desc,
+        code: e.data.state || ''
       }
+      this.setRtmpstreamstate(this.status);
     },
     onRtmpStreamError(e) {
       Log.info("onRtmpStreamError", e);
@@ -190,18 +213,35 @@ export default {
       this.status = {
         isError: true,
         text: e.data.desc,
+        code: e.state || ''
       }
+      this.setRtmpstreamstate(this.status);
     },
+    ...mapActions({
+        toast: "toast/toast",
+        notify: "notifyBar/notify",
+        alert: "modalAlert/showModalAlert",
+    }),
     ...mapMutations({
       setIsShowMobileStream: 'modalStream/setIsShowMobileStream',
       setIsShowQualityModal: 'modalStream/setIsShowQualityModal',
-      setIsShowResolutionRatioModal: 'modalStream/setIsShowResolutionRatioModal'
+      setIsShowResolutionRatioModal: 'modalStream/setIsShowResolutionRatioModal',
+      setRtmpstreamstate: 'modalStream/setRtmpstreamstate',
+      setRtmpstreamForm: 'modalStream/setRtmpstreamForm',
     })
   },
   mounted() {
       Log.info('live larksr', this.larksr);
       this.larksr.on(LarkSRClientEvent.RTMP_STREAM_STATE, this.onRtmpStreamState, this);
       this.larksr.on(LarkSRClientEvent.RTMP_STREAM_ERROR, this.onRtmpStreamError, this);
+      if (this.rtmpstreamstate!==null) this.status = this.rtmpstreamstate;
+      if (this.rtmpstreamForm!==null) {
+        this.rtmpPath = this.rtmpstreamForm.rtmpPath;
+        this.rtmpKey = this.rtmpstreamForm.rtmpKey;
+        this.codeRate = this.rtmpstreamForm.codeRate;
+        this.frameRate = this.rtmpstreamForm.frameRate;
+        this.resolution = this.rtmpstreamForm.resolution
+      }
   },
 }
 </script>

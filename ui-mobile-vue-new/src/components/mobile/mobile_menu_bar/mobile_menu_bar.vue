@@ -1,5 +1,6 @@
 <template>
   <div>
+    <div v-if="enableMobileControlBall && showWebMenu" class="v-box" :style="mobilebarStyle">
     <div class="v-box" :style="mobilebarStyle">
     <div class="mobilebar" :style="mobilebarStyle">
       <div class="mobilebar-box">
@@ -78,8 +79,9 @@
       </div>
     </div>
     </div>
+    </div>
     <!-- shrink -->
-    <div class="mobilebar-shrink" :style="mobilebarShrinkStyle">
+    <div v-if="enableMobileControlBall && showWebMenu" class="mobilebar-shrink" :style="mobilebarShrinkStyle">
       <div class="mobilebar-shrink-arrow">
         <i class="iconfont icon-arrow" @click.prevent="menubarShrinkFn"></i>
       </div>
@@ -126,7 +128,7 @@ export default {
       isIOS: Capabilities.os === 'iOS',
       showCamerabar: false,
       showGameChild: false,
-      menubarShrink: false,
+      menubarShrink: true,
       selecteDevice: '',
       devices: [
         { label: 'Front', deviceId: 'user', facingMode: 'user', }, 
@@ -264,6 +266,8 @@ export default {
       vmouseMode: state => { return state.vmouseMode == 'vmouse'; },
       enableVmouse: state => { return state.vmouseMode != 'none'; },
       mobileCamera: state => state.modalCamera.mobileCamera,
+      enableMobileControlBall: state => { return state.enableMobileControlBall; },
+      showWebMenu: state => state.showWebMenu
     })
   },
   mounted() {},

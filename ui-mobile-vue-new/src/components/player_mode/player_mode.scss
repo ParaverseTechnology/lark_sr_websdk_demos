@@ -5,7 +5,7 @@
     color: var(--webclient-dialog-font-color);
     font-weight: bold;
     // width: 330px;
-    width: 29rem;
+    min-width: 29rem;
     position: absolute;
     // top: 75px;
     // right: 20px;
@@ -14,7 +14,7 @@
     overflow-y: auto;
     overflow: auto;
     transition: all .5s ease-in-out;
-    z-index: 1030;
+    z-index: 999;
     border-radius: 0.88757rem;
     p {
         margin: 0;
@@ -28,15 +28,15 @@
         font-size: 14px;
     }
     .player-row {
+        width: 100%;
         display: flex;
         flex-direction: row;
         align-items: center;
         justify-self: start;
         // height: 24px;
-        height: 5rem;
+        height: 4rem;
         font-size: 1.42012rem; //12px;
         border-bottom: 1px solid var(--webclient-dialog-divider);
-        padding: 0.6rem 0;
         span {
             text-align: center;
             display: flex;
@@ -52,7 +52,7 @@
             flex: 2;
         }
         .nickname {
-            flex: 3;
+            flex: 4;
             word-break: break-all;
         }
         .role {
@@ -77,8 +77,10 @@
         }
     }
     .player-box {
-        padding: 0 20px;
+        padding: 0 20px 20px 20px;
         background-color: var(--webclient-dialog-body-bg);
+        border-bottom-left-radius: 0.88757rem;
+        border-bottom-right-radius: 0.88757rem;
     }
     
     // .button-group {
@@ -178,10 +180,18 @@
             right: 20px;
             i {
                 color: var(--webclient-dialog-font-color);
-                font-size: 1.8rem;
+                font-size: 16px;
                 cursor: pointer;
             }
+            .flod-icon {
+                margin-right: 8px;
+                font-weight: 600;
+            }
           }
+    }
+    .windowBar-hide {
+        border-bottom-left-radius: 0.88757rem;
+        border-bottom-right-radius: 0.88757rem;
     }
 }
 .check-color {

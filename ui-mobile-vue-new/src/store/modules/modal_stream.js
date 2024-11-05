@@ -7,6 +7,8 @@ export const ModalStream/*: Module<ControlBarInterface, RootState>*/ = {
     isShowResolutionRatioModal: false,
     isShowQualityModalForSetting: false,
     isShowResolutionRatioModalForSetting: false,
+    rtmpstreamstate: null, // 直播推流状态信息
+    rtmpstreamForm: null // 直播推流参数信息
   },
   mutations: { 
     setIsShowStreamAlert (state, isShowStreamAlert) {
@@ -27,5 +29,11 @@ export const ModalStream/*: Module<ControlBarInterface, RootState>*/ = {
     setIsShowResolutionRatioModalForSetting (state, isShowResolutionRatioModalForSetting) {
       state.isShowResolutionRatioModalForSetting = isShowResolutionRatioModalForSetting;
     },
+    setRtmpstreamstate (state, rtmpstreamstate) {
+      state.rtmpstreamstate = rtmpstreamstate;
+    },
+    setRtmpstreamForm (state, rtmpstreamForm) {
+      state.rtmpstreamForm = rtmpstreamForm;
+    }
   },
 }

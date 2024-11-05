@@ -120,7 +120,7 @@ export const RootActions/*: ActionTree<RootState, RootState>*/ = {
     toggleInitCursorMode({commit, state, dispatch}) {
         const  { larksr } = state;
         if (larksr) {
-            larksr.initCursorMode = !larksr.initCursorMode;
+            larksr.initCursorMode = larksr.initCursorMode === 0 ? 1 : 0;
         }
     },
     toggleAerailView({commit, state}) {

@@ -1,6 +1,6 @@
 <template>
     <div :class="playerModeClass" :style="alertPositionStyle">
-        <div class="windowBar">
+        <div :class="{'windowBar': true, 'windowBar-hide': !showPlayerBox}">
             <div class="authCode">
                 <template v-if="playerMode.authCode">
                     <input type="text" id="authCode" :value="playerMode.authCode" readonly="true" />
@@ -11,11 +11,12 @@
                 </template>
                 <i v-if="showShareBtn" style="margin-left: 1rem;" class="iconfont" ref="copyBtn" data-clipboard-target="#shareUrl">&#xe621;</i>
             </div>
-            <div class="close" @click="onClose">
-                <i class="el-icon-close"></i>
+            <div class="close">
+                <i v-if="isMobile" :class="showPlayerBox?'el-icon-arrow-down flod-icon':'el-icon-arrow-up flod-icon'" @click="showPlayerBox = !showPlayerBox"></i>
+                <i class="el-icon-close" @click="onClose"></i>
             </div>
         </div>
-        <div class="player-box">
+        <div v-show="showPlayerBox" class="player-box">
             <div class="player-row">
                 <span class="number">{{ ui.playerNumber }}</span>
                 <span class="nickname">{{ ui.playerNickname }}</span>
@@ -57,7 +58,7 @@ export default {
             copyAuthCodeBtn: null,
             copyBtn: null,
             showShare: false,
-            
+            showPlayerBox: true            
         }
     },
     computed: {
@@ -71,8 +72,8 @@ export default {
         alertPositionStyle() {
             if(this.isMobile) {
                 return {
-                    top: '50%',
-                    transform: 'translateY(-50%)',
+                    top: '10%',
+                    // transform: 'translateY(-50%)',
                     left: '1.89rem'
                 }
             } else {

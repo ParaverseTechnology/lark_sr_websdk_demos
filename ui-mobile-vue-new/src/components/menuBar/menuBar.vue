@@ -112,7 +112,7 @@ export default {
     },
     data() {
         return {
-            showMenubar: true,
+            showMenubar: false,
             isBarHover: false,
             offsetPositon: {
                 x: 0,
@@ -210,7 +210,8 @@ export default {
             ui: state => state.ui,
             inputMethodEnable: state => state.inputMethodEnable,
             menubarPosition: state => state.menubarPosition,
-            isShowHelpAlert: state => state.modalHelp.isShowHelpAlert,
+            isShowHelpAlert: state => state.modalHelp.isShowHelpAlert,  
+            showWebMenu: (state) => state.showWebMenu,
         }),
         ...mapGetters({
             isChangedScaledMode: 'isChangedScaledMode',

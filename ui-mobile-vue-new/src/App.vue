@@ -2,11 +2,7 @@
   <div id="app" class="index" ref="appContainer" @contextmenu.prevent @mousedown="appContainerMousedown"  @mouseup="appContainerTouch" @touchend="appContainerTouch">
     <input v-if="isMobile" class="virtualInput" ref="input" type="text" v-model="inputValue">
     <!-- 观看模式昵称的输入框 -->
-    <div
-      v-if="inputNickName"
-      class="modalInputPanel"
-      v-bind:style="viewPortStyle"
-    >
+    <div v-if="inputNickName" class="modalInputPanel" :style="viewPortStyle" >
       <div class="container">
         <div class="info">
           <div v-if="showNicknameInput" type="flex" align="middle" class="info-row">
@@ -68,7 +64,7 @@
       </template>
       <template v-else>
         <!-- showControlBar -->
-        <MenuBar v-if="cloudReady && !isMobile" />
+        <MenuBar v-if="cloudReady && showControlBar && showWebMenu" />
         <!-- 帮助 -->
         <ModalHelp v-if="isShowHelpAlert"></ModalHelp>
         <!-- 设置 -->
@@ -165,6 +161,7 @@ export default {
       returnImg: require('@/assets/images/return.svg'),
       closeImg: require("@/assets/images/close.svg"),
       showUI: false,
+      urlShowWebMenu: null
     };
   },
   watch: {
@@ -202,6 +199,7 @@ export default {
       larksr: (state) => state.larksr,
       ui: (state) => state.ui,
       isMobile: (state) => state.isMobile,
+      showControlBar: (state) => state.showControlBar,
       showAerialView: state => state.showAerialView,
       playerMode: (state) => state.playerMode,
       menubarPosition: state => state.menubarPosition,
@@ -215,7 +213,8 @@ export default {
       notifyBar: (state) => state.notifyBar,
       mobileWebMenuType: state => state.mobileWebMenuType,
       mobileKeyboardType: state => state.mobileKeyboardType,
-      aerialViewCheck: state => state.modalSetting.aerialViewCheck,
+      aerialViewCheck: state => state.modalSetting.aerialViewCheck,    
+      showWebMenu: (state) => state.showWebMenu,
     }),
     ...mapGetters({
       isObMode: "playerMode/isObMode",
@@ -506,6 +505,7 @@ export default {
         setInputMethodEnable: "setInputMethodEnable",
         setInputMethodStart: "setInputMethodStart",
         setControlBallInputMethod: 'setControlBallInputMethod',
+        setShowWebMenu: 'setShowWebMenu'
     }),
     ...mapActions({
       "resize": "resize",
@@ -655,6 +655,12 @@ export default {
       store.commit('setJoyStick', larksr.params.mobileVirtualJoystick);
       if(larksr.params.mobileVirtualJoystick) store.commit('setPreComponentName', 'joystick');
       if(larksr.params.mobileWebMenuType) store.commit('setMobileWebMenuType',larksr.params.mobileWebMenuType);
+      // 是否显示菜单
+      if (this.urlShowWebMenu) {
+          this.setShowWebMenu(this.urlShowWebMenu === '0'? false : true);
+        } else {
+          this.setShowWebMenu(larksr.params.showWebMenu === 0? false : true);
+        }
       Log.info('load params', larksr.params);
       /**
        * mouseZoomDirection

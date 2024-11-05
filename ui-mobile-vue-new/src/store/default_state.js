@@ -73,6 +73,7 @@ export const DefaultState/*: RootState*/ = {
 	preComponentName: '',//记录虚拟键盘上一个显示的组件 joystick/kboard/menu
 	mobileWebMenuType: 0, // 移动端菜单类型0：控制球 1：菜单条
 	clientTheme: 'dark', // 客户端主题色 dark light
+    showWebMenu: 1, // 是否显示菜单
 }
 
 export default DefaultState;
