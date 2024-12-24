@@ -161,7 +161,8 @@ export default {
       returnImg: require('@/assets/images/return.svg'),
       closeImg: require("@/assets/images/close.svg"),
       showUI: false,
-      urlShowWebMenu: null
+      urlShowWebMenu: null,
+      textInputTimer: null
     };
   },
   watch: {
@@ -404,8 +405,9 @@ export default {
           this.$refs.input.blur();
         }else if(e.key === 'Backspace') {
           this.larksr.keyDown('Backspace', false);
-          setTimeout(() => {
+          this.textInputTimer = setTimeout(() => {
             this.larksr.keyUp('Backspace');
+            if(this.textInputTimer) clearTimeout(this.textInputTimer);
           },50)
         }
       }
@@ -414,10 +416,23 @@ export default {
       if(e.key === 'Backspace') {
         if(this.inputText === "") {
           this.larksr.keyDown('Backspace', false);
-          setTimeout(() => {
+          this.textInputTimer = setTimeout(() => {
             this.larksr.keyUp('Backspace');
+            if(this.textInputTimer) clearTimeout(this.textInputTimer);
           },50)
         }
+      } else if((e.key === 'c'|| e.key === 'v' || e.key === 'a' || e.key === 'x') && e.ctrlKey) { 
+        this.larksr.keyDown('ControlLeft', false);
+        this.larksr.keyDown(e.code, false);
+        if(this.inputText) {
+          this.larksr.inputText(this.inputText);
+          this.inputText = "";
+        }
+        this.textInputTimer = setTimeout(() => {
+          this.larksr.keyUp(e.code);
+          this.larksr.keyUp('ControlLeft');
+          if(this.textInputTimer) clearTimeout(this.textInputTimer);
+        },50)
       }
     },
     inputTextareaKeyup(e) {
