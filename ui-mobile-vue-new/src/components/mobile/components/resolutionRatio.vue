@@ -68,6 +68,11 @@ export default {
       deep: true
     }
   },
+  mounted() {
+    if(this.larksr.params.useWebCodec) {
+      this.resolutions.unshift({ width: 7680, height: 4320, sublabel: '8K' });
+    }
+  },
   computed: {
     resolutionStyle() {
       let obj = {};
@@ -93,6 +98,7 @@ export default {
     }),
     ...mapState({
       ui: state => state.ui,
+      larksr: state => state.larksr, 
       mobileForceLandScape: state => state.mobileForceLandScape,
       isShowResolutionRatioModal: state => state.modalStream.isShowResolutionRatioModal,
       isShowResolutionRatioModalForSetting: state => state.modalStream.isShowResolutionRatioModalForSetting

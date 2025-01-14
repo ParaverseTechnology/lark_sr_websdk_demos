@@ -48,6 +48,7 @@
           @focus="onInputMethodFocus"
           @blur="onInputMethodBlur"
           @input="onInputMethodInput"
+          @paste="handleInputPaste"
         />
         <img :src="returnImg" class="button-return" @click="onSubmitInputText">
         <img :src="closeImg" class="button-close" @click="onCloseInputText">
@@ -485,6 +486,12 @@ export default {
           this.larksr.inputText(this.inputText);
         }
         this.inputText = "";
+      }
+    },
+    // 【同步本地剪贴板】关闭时，禁用文本输入框粘贴功能，防止粘贴到文本输入框的内容发送到云端
+    handleInputPaste(e) {
+      if(!this.larksr?.op.enableParse) {
+        e.preventDefault();
       }
     },
     compositionEnd(e) {
