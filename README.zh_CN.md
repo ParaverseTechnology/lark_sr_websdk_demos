@@ -108,4 +108,4 @@ SDK 加载成功之后，非模块模式下，SDK 挂载为全局对象 larksr_w
 
 ### 文档
 
-[LarkSR WebClient 接入 SDK](https://pingxingyun.github.io/webclient_sdk/)
+[LarkSR WebClient 接入 SDK](https://ParaverseTechnology.github.io/webclient_sdk/)
