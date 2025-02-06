@@ -78,7 +78,7 @@ client.initSDKAuthCode('Your SDK ID')
     client.connect({
         // LarkSR cloud appid from LarkSR admin server.
         // doc
-        // https://www.pingxingyun.com/online/api3_2.html?id=476
+        // https://showdoc.pingxingyun.com/web/#/75/1697
         appliId: "appid from LarkSR admin"
     })
     .then(() => {

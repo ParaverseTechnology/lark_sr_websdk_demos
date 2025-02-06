@@ -72,7 +72,7 @@ client.initSDKAuthCode('您的 SDK ID')
     client.connect({
         // 要使用的云端资源的应用 ID，从后云雀后台接口获取
         // 参考查询应用一栏文档
-        // https://www.pingxingyun.com/online/api3_2.html?id=476
+        // https://showdoc.pingxingyun.com/web/#/75/1697
         appliId: "应用ID"
     })
     .then(() => {

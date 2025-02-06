@@ -233,7 +233,7 @@ export default {
 
         // 要使用的云端资源的应用 ID，从后云雀后台接口获取
         // 参考查询应用一栏文档
-        // https://www.pingxingyun.com/online/api3_2.html?id=476
+        // https://showdoc.pingxingyun.com/web/#/75/1697
         // 如 222.128.6.137:8181 系统下的 879414254636105728 应用
         params.appliId = Load.appliId;
 
@@ -602,7 +602,7 @@ export default {
       larksr.connect({
         // 要使用的云端资源的应用 ID，从后云雀后台接口获取
         // 参考查询应用一栏文档
-        // https://www.pingxingyun.com/online/api3_2.html?id=476
+        // https://showdoc.pingxingyun.com/web/#/75/1697
         // 如 222.128.6.137:8181 系统下的 879414254636105728 应用
         appliId: "913050644103823360",
 
