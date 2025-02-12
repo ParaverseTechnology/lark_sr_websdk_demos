@@ -64,6 +64,10 @@
         <ControlBallM v-else></ControlBallM>
       </template>
       <template v-else>
+        <!-- 右上角关闭应用icon -->
+        <div v-if="showWebMenu" class="close-appli-pc" @click.prevent="onQuit">
+          <img :src="closeImg">
+        </div>
         <!-- showControlBar -->
         <MenuBar v-if="cloudReady && showControlBar && showWebMenu" />
         <!-- 帮助 -->
@@ -380,6 +384,17 @@ export default {
         this.nicknameRequire = true;
       }
     }
+  },
+  onQuit() {
+    // code 920 // 用户主动点击关闭按钮
+    this.confirm({ title: '退出应用', des: '确认退出应用', code: 920 })
+    .then(()=>{
+        Log.info('user confirm');
+        Unit.quit();
+    })
+    .catch((e) => {
+        Log.info('user cancle');
+    });
   },
    appContainerTouch() {
       this.onMutePlay();
