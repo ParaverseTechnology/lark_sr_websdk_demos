@@ -104,6 +104,12 @@ export default {
     methods: {
         videoCheck(row) {
             this.selecteDevice = row.deviceId;
+            if(!this.videoPaused) { // 视频开启状态
+                if(this.larksr.videoDeviceId !== this.selecteDevice) {
+                    this.larksr?.closeVideo();
+                    this.openVideo();
+                }
+            }
         },
         iconEnter(index) {
 			this['icon'+index+'_hover'] = true;
@@ -152,13 +158,11 @@ export default {
         },
         toggleVideo() {
             Log.info("toggleVideo", this.videoDeviceId);
-            if (this.setupPanel) {
-                this.openVideo();
-                this.setupPanel = !this.setupPanel;
-            } if (!this.videoPaused) {
-                this.larksr?.pauseVideoSending();
+            if (this.setupPanel) this.setupPanel = false;
+            if(!this.videoPaused) { // 视频开启状态
+                this.larksr?.closeVideo();
                 this.videoTrackEnable = !this.videoPaused;
-            } else {
+            } else { // 视频关闭状态
                 this.openVideo();
             }
         },
