@@ -334,7 +334,16 @@ export default {
         codeFpsChange: 'modalSetting/codeFpsChange',
       })
   },
+<<<<<<< HEAD
   mounted() {
+=======
+  created() {
+    if(this.larksr.params.useWebCodec) {
+      this.resolutions.unshift({ id: '76804320', width: 7680, height: 4320 })
+    }
+  },
+  mounted() {  
+>>>>>>> ee6b3333c9105c7d1b06715a9e860776a6f33251
     if (this.larksr && this.larksr.currentAppSize) {
       this.larksr.on("appresize", () => {
         this.resetResolution();

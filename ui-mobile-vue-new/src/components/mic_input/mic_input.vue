@@ -90,6 +90,12 @@ export default {
     methods: {
         micCheck(row) {
             this.selecteDevice = row.deviceId;
+            if(!this.audioPaused) { // 音频开启状态
+                if(this.larksr.audioDeviceId !== this.selecteDevice) {
+                    this.larksr?.closeAudio();
+                    this.openAudio();
+                }
+            }
         },
         iconEnter(index) {
 			this['icon'+index+'_hover'] = true;
@@ -118,14 +124,12 @@ export default {
         },
         toggleMic() {
             Log.info("toggleMic", this.audioDeviceId);
-            if (this.setupPanel) {
-                this.openAudio();
-                this.setupPanel = !this.setupPanel;
-            } if (!this.audioPaused) {
-                this.larksr?.pauseAudioSending();
+            if (this.setupPanel) this.setupPanel = false;
+            if(!this.audioPaused) { // 音频开启状态
+                this.larksr?.closeAudio();
                 this.audioTrackEnable = !this.audioPaused;
                 this.$forceUpdate();
-            } else {
+            } else { // 音频关闭状态
                 this.openAudio();
             }
         },

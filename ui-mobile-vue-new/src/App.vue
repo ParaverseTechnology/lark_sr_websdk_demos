@@ -48,6 +48,7 @@
           @focus="onInputMethodFocus"
           @blur="onInputMethodBlur"
           @input="onInputMethodInput"
+          @paste="handleInputPaste"
         />
         <img :src="returnImg" class="button-return" @click="onSubmitInputText">
         <img :src="closeImg" class="button-close" @click="onCloseInputText">
@@ -63,6 +64,10 @@
         <ControlBallM v-else></ControlBallM>
       </template>
       <template v-else>
+        <!-- 右上角关闭应用icon -->
+        <div v-if="showWebMenu" class="close-appli-pc" @click.prevent="onQuit">
+          <img :src="closeImg">
+        </div>
         <!-- showControlBar -->
         <MenuBar v-if="cloudReady && showControlBar && showWebMenu" />
         <!-- 帮助 -->
@@ -161,7 +166,8 @@ export default {
       returnImg: require('@/assets/images/return.svg'),
       closeImg: require("@/assets/images/close.svg"),
       showUI: false,
-      urlShowWebMenu: null
+      urlShowWebMenu: null,
+      textInputTimer: null
     };
   },
   watch: {
@@ -231,7 +237,7 @@ export default {
 
         // 要使用的云端资源的应用 ID，从后云雀后台接口获取
         // 参考查询应用一栏文档
-        // https://www.pingxingyun.com/online/api3_2.html?id=476
+        // https://showdoc.pingxingyun.com/web/#/75/1697
         // 如 222.128.6.137:8181 系统下的 879414254636105728 应用
         params.appliId = Load.appliId;
 
@@ -379,6 +385,17 @@ export default {
       }
     }
   },
+  onQuit() {
+    // code 920 // 用户主动点击关闭按钮
+    this.confirm({ title: '退出应用', des: '确认退出应用', code: 920 })
+    .then(()=>{
+        Log.info('user confirm');
+        Unit.quit();
+    })
+    .catch((e) => {
+        Log.info('user cancle');
+    });
+  },
    appContainerTouch() {
       this.onMutePlay();
       if(this.isMobile){
@@ -404,8 +421,9 @@ export default {
           this.$refs.input.blur();
         }else if(e.key === 'Backspace') {
           this.larksr.keyDown('Backspace', false);
-          setTimeout(() => {
+          this.textInputTimer = setTimeout(() => {
             this.larksr.keyUp('Backspace');
+            if(this.textInputTimer) clearTimeout(this.textInputTimer);
           },50)
         }
       }
@@ -414,10 +432,23 @@ export default {
       if(e.key === 'Backspace') {
         if(this.inputText === "") {
           this.larksr.keyDown('Backspace', false);
-          setTimeout(() => {
+          this.textInputTimer = setTimeout(() => {
             this.larksr.keyUp('Backspace');
+            if(this.textInputTimer) clearTimeout(this.textInputTimer);
           },50)
         }
+      } else if((e.key === 'c'|| e.key === 'v' || e.key === 'a' || e.key === 'x') && e.ctrlKey) { 
+        this.larksr.keyDown('ControlLeft', false);
+        this.larksr.keyDown(e.code, false);
+        if(this.inputText) {
+          this.larksr.inputText(this.inputText);
+          this.inputText = "";
+        }
+        this.textInputTimer = setTimeout(() => {
+          this.larksr.keyUp(e.code);
+          this.larksr.keyUp('ControlLeft');
+          if(this.textInputTimer) clearTimeout(this.textInputTimer);
+        },50)
       }
     },
     inputTextareaKeyup(e) {
@@ -470,6 +501,12 @@ export default {
           this.larksr.inputText(this.inputText);
         }
         this.inputText = "";
+      }
+    },
+    // 【同步本地剪贴板】关闭时，禁用文本输入框粘贴功能，防止粘贴到文本输入框的内容发送到云端
+    handleInputPaste(e) {
+      if(!this.larksr?.op.enableParse) {
+        e.preventDefault();
       }
     },
     compositionEnd(e) {
@@ -580,7 +617,7 @@ export default {
       larksr.connect({
         // 要使用的云端资源的应用 ID，从后云雀后台接口获取
         // 参考查询应用一栏文档
-        // https://www.pingxingyun.com/online/api3_2.html?id=476
+        // https://showdoc.pingxingyun.com/web/#/75/1697
         // 如 222.128.6.137:8181 系统下的 879414254636105728 应用
         appliId: "913050644103823360",
 
