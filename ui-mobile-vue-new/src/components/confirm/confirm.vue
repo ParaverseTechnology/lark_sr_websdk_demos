@@ -1,5 +1,5 @@
 <template>
-    <div class="modalConfirmPanel" v-bind:style="viewPortStyle">        
+    <div class="modalConfirmPanel" v-bind:style="viewPortStyle">
         <div class="container">
             <div class="modalConfirmPanel-title">
                 <div>
@@ -14,8 +14,8 @@
             </div>
             <div class="modalConfirmPanel-divider"></div>
             <div class="button-group">
-                <Btn class="submit" title="确定" submit="false" v-on:click="onSubmit" />
-                <Btn class="cancel" title="取消" submit="false" v-on:click="onCancel" />
+                <Btn class="submit" :title="ui.buttonSubmit" submit="false" v-on:click="onSubmit" />
+                <Btn class="cancel" :title="ui.buttonCancel" submit="false" v-on:click="onCancel" />
             </div>
         </div>
     </div>
@@ -23,8 +23,8 @@
 <script>
 import Btn        from '../button/button';
 import Log        from '@/utils/log';
-import { 
-    mapState, 
+import {
+    mapState,
     mapGetters,
 }                 from 'vuex'
 
