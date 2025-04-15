@@ -3,17 +3,17 @@
     <div class="mobile-modal-title">
       <i class="iconfont icon-arrow" @click="closeModal"></i>
       <span class="mobile-modal-title-text">
-        选择摄像头
+        {{ ui.selectCamera }}
       </span>
     </div>
     <div class="camera-content">
       <div class="camera-content-row">
-        <span>前置摄像头</span>
+        <span>{{ ui.cameraFront }}</span>
         <span @click="toogleCamera('environment')" v-if="mobileCamera==='user'" class="iconfont camera-content-row-icon">&#xe63c;</span>
         <span @click="toogleCamera('user')" v-else class="iconfont camera-content-row-icon">&#xe650;</span>
       </div>
       <div class="camera-content-row">
-        <span>后置摄像头</span>
+        <span>{{ ui.cameraBack }}</span>
         <span @click="toogleCamera('user')" v-if="mobileCamera==='environment'" class="iconfont camera-content-row-icon">&#xe63c;</span>
         <span @click="toogleCamera('environment')" v-else class="iconfont camera-content-row-icon">&#xe650;</span>
       </div>

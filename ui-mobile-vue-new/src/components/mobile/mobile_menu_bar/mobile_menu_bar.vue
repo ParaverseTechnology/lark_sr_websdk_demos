@@ -131,7 +131,7 @@ export default {
       menubarShrink: true,
       selecteDevice: '',
       devices: [
-        { label: 'Front', deviceId: 'user', facingMode: 'user', }, 
+        { label: 'Front', deviceId: 'user', facingMode: 'user', },
         { label: 'Back', deviceId: 'environment', facingMode: 'environment', }
       ],
       facingMode: 'none',
@@ -253,7 +253,7 @@ export default {
         isFullScreen: "isFullScreen",
     }),
     ...mapState({
-      larksr: state => state.larksr, 
+      larksr: state => state.larksr,
       ui: state => state.ui,
       joystick: state => state.joystick,
       vkeyboard: state => state.vkeyboard,
@@ -303,7 +303,7 @@ export default {
     },
     onQuit() {
       // code 920 // 用户主动点击关闭按钮
-      this.confirm({ title: '退出应用', des: '确认退出应用', code: 920 })
+      this.confirm({ title: this.ui.quit, des: this.ui.quitTip, code: 920 })
       .then(()=>{
           Log.info('user confirm');
           Unit.quit();
@@ -319,7 +319,7 @@ export default {
       this.setIsShowMobileStateModal(true);
     },
 		restartFn() {
-			this.showModalConfirm({title: '重启应用', des: '确认重启应用'})
+			this.showModalConfirm({title: this.ui.restart, des: this.ui.restartTip})
 			.then(()=>{
         Log.info('restart Appli confirm');
         this.larksr?.restartCloudApp();
@@ -425,23 +425,23 @@ export default {
       if (this.mouseButton == 'left') {
         this.mouseButton = 'none';
         this.toggleVMouseMode();
-        this.toast({ text: '您已切换到触摸模式', position: 2 });
+        this.toast({ text: this.ui.touchMode, position: 2 });
       } else {
         if(!this.vmouseMode) this.toggleVMouseMode();
         this.$nextTick(() => {
-          this.toast({ text: '您已切换到鼠标左键', position: 2 });
+          this.toast({ text: this.ui.mouseLeft, position: 2 });
           this.mouseButton = 'left';
         })
       }
     },
     touchFingerClick() {
       if (this.vmouseMode) {
-        this.toast({ text: '您已切换到触摸模式', position: 2 });
+        this.toast({ text: this.ui.touchMode, position: 2 });
         this.mouseButton = 'none';
         this.toggleVMouseMode();
       } else {
         this.toggleVMouseMode();
-        this.toast({ text: '您已切换到鼠标左键', position: 2 });
+        this.toast({ text: this.ui.mouseLeft, position: 2 });
         this.mouseButton = 'left';
       }
     },
@@ -449,12 +449,12 @@ export default {
       e.preventDefault();
       e.stopPropagation();
       if (this.mouseButton == 'mid') {
-        this.toast({ text: '您已切换到触摸模式', position: 2 });
+        this.toast({ text: this.ui.touchMode, position: 2 });
         this.mouseButton = 'none';
         this.toggleVMouseMode();
       } else {
         if(!this.vmouseMode) this.toggleVMouseMode();
-        this.toast({ text: '您已切换到鼠标滚轮', position: 2 });
+        this.toast({ text: this.ui.mouseMid, position: 2 });
         this.mouseButton = 'mid';
       }
     },
@@ -462,13 +462,13 @@ export default {
       e.preventDefault();
       e.stopPropagation();
       if (this.mouseButton == 'right') {
-        this.toast({ text: '您已切换到触摸模式', position: 2 });
+        this.toast({ text: this.ui.touchMode, position: 2 });
         this.mouseButton = 'none';
         this.toggleVMouseMode();
       } else {
         if(!this.vmouseMode) this.toggleVMouseMode();
         this.$nextTick(() => {
-          this.toast({ text: '您已切换到鼠标右键', position: 2 });
+          this.toast({ text: this.ui.mouseRight, position: 2 });
           this.mouseButton = 'right';
         })
       }

@@ -4,14 +4,14 @@
       <div class="mobile-modal-title">
         <i class="iconfont icon-arrow" @click="closeModal"></i>
         <span class="mobile-modal-title-text">
-          设置
+          {{ui.setting}}
         </span>
       </div>
       <div class="setting-content">
         <!-- 画质 -->
         <div>
           <div class="setting-content-row" style="margin-bottom: 1.89rem;">
-            <span>画质</span>
+            <span>{{ ui.quality }}</span>
             <div @click.prevent="showQualityModalFn">
               <span class="setting-tag tag-code setting-tag-check">{{frameRate}}</span>
               <span class="setting-tag setting-tag-check">{{codeRate}}</span>
@@ -19,15 +19,15 @@
             </div>
           </div>
           <div class="setting-content-row">
-            <span @click="qualityClick('0')" :class="{'quality-tag': true, 'quality-check-tag': frameRate===60&&codeRate===8000}">流畅</span>
-            <span @click="qualityClick('1')" :class="{'quality-tag': true, 'quality-check-tag': frameRate===60&&codeRate===10000}">标清</span>
-            <span @click="qualityClick('2')" :class="{'quality-tag': true, 'quality-check-tag': frameRate===60&&codeRate===20000}">高清</span>
-            <span @click="qualityClick('3')" :class="{'quality-tag': true, 'quality-check-tag': frameRate===60&&codeRate===50000}">超清</span>
+            <span @click="qualityClick('0')" :class="{'quality-tag': true, 'quality-check-tag': frameRate===60&&codeRate===8000}">{{ ui.quality1 }}</span>
+            <span @click="qualityClick('1')" :class="{'quality-tag': true, 'quality-check-tag': frameRate===60&&codeRate===10000}">{{ ui.quality2 }}</span>
+            <span @click="qualityClick('2')" :class="{'quality-tag': true, 'quality-check-tag': frameRate===60&&codeRate===20000}">{{ ui.quality3 }}</span>
+            <span @click="qualityClick('3')" :class="{'quality-tag': true, 'quality-check-tag': frameRate===60&&codeRate===50000}">{{ ui.quality4 }}</span>
           </div>
         </div>
         <div class="customContentAlert-divider"></div>
         <div class="setting-content-row">
-          <span>鸟瞰模式</span>
+          <span>{{ ui.aerial }}</span>
           <PvtSwitch v-model="checked" @change="aerialCheckedChange"/>
         </div>
         <div class="customContentAlert-divider"></div>
@@ -50,7 +50,7 @@
         <div class="customContentAlert-divider"></div>
         <template v-if="isInteractiveMode">
           <div class="setting-content-row">
-            <span>显示玩家列表</span>
+            <span>{{ ui.showPlayerList }}</span>
             <PvtSwitch v-model="playerListChecked" @change="togglePlayerList"/>
           </div>
           <div class="customContentAlert-divider"></div>
@@ -125,26 +125,26 @@ export default {
       }
       return obj
     },
-    // 鸟瞰模式勾选框 
+    // 鸟瞰模式勾选框
     checked: {
       get() {
         return this.aerialViewCheck;
       },
-      set() {}         
+      set() {}
     },
     // 同步本地剪贴板勾选框
     cipboardParseChecked: {
       get() {
          return this.syncClipboardParseEvent;
       },
-      set() {}  
+      set() {}
     },
     // 是否显示玩家列表勾选框
     playerListChecked: {
       get() {
         return this.playerMode.showPlayerList;
       },
-      set() {}  
+      set() {}
     },
     // 码率
     codeRate() {
@@ -157,7 +157,7 @@ export default {
     // 分辨率
     resolution() {
       return this.resolution;
-    }, 
+    },
     ...mapGetters({
       screenOrientation: 'screenOrientation',
       viewPort: 'viewPort',
@@ -166,7 +166,7 @@ export default {
       isInteractiveMode: 'playerMode/isInteractiveMode',
     }),
     ...mapState({
-      larksr: state => state.larksr,  
+      larksr: state => state.larksr,
       ui: state => state.ui,
       playerMode: state => state.playerMode,
       mobileForceLandScape: state => state.mobileForceLandScape,
@@ -195,16 +195,16 @@ export default {
     qualityClick(type) {
       if(this.frameRate!==60)this.receiveFrameRate(60);
       switch(type) {
-        case '0': 
+        case '0':
           this.receiveCodeRate(8000);
           break;
-        case'1': 
+        case'1':
           this.receiveCodeRate(10000);
           break;
-        case '2': 
+        case '2':
           this.receiveCodeRate(20000);
           break;
-        case '3': 
+        case '3':
           this.receiveCodeRate(50000);
           break;
       }
@@ -229,21 +229,21 @@ export default {
       } else {
         if(!this.aerailView)this.toggleAerailView();
         this.setShowAerialView(true);
-        this.setCustomContentAlertTitle('鸟瞰图');
+        this.setCustomContentAlertTitle(this.ui.aerial);
         this.closeModal();
       }
     },
-    
+
     togglePlayerList() {
       this.setShowPlayerList(!this.playerMode.showPlayerList);
     },
     onVolmueChange(value) {
       if (this.larksr) {
         this.larksr.videoElement.volume = value / 100;
-        // TODO config audio 
+        // TODO config audio
         this.larksr.audioElement.volume = value / 100;
       }
-    },      
+    },
     resetResolution() {
       console.error('*****werwerw******')
       let found = false;
@@ -253,11 +253,11 @@ export default {
         }
       }
 
-      if (!found) {  
+      if (!found) {
         this.newResolutionsItem ={
           width: this.larksr.currentAppSize.width,
           height: this.larksr.currentAppSize.height,
-        }   
+        }
       }
       this.setResolution({
         width: this.larksr.currentAppSize.width,
@@ -283,8 +283,8 @@ export default {
       setShowAerialView: 'setShowAerialView',
     })
   },
-  mounted() {    
-    console.error('***********************',this.larksr,this.larksr.currentAppSize)  
+  mounted() {
+    console.error('***********************',this.larksr,this.larksr.currentAppSize)
     if (this.larksr && this.larksr.currentAppSize) {
       this.larksr.on("appresize", () => {
         this.resetResolution();

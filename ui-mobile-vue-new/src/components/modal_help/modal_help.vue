@@ -29,15 +29,15 @@ export default {
   computed: {
     helpList() {
       let list = [
-        {title: '卡顿解决办法',content: '当前网络质量不稳定，请尝试更换网络环境'},
-        {title: '应用无法启动',content: '当前进入应用的用户数较多，等待一段时间后仍无法进入，可尝试点击重新启动按钮再次进入应用；如仍旧无法进入，请尝试刷新网页 url 重新连接应用'}
+        {title: this.ui.helpTitle1,content: this.ui.helpContent1},
+        {title: this.ui.helpTitle2,content: this.ui.helpContent2}
       ]
       if(this.isMobile) {
-        list.push({title: '如何收缩/显示控制球',content: '点击【解锁】进行控制球菜单解锁，关闭控制球菜单面板2秒后控制球收缩到屏幕侧边，点击控制球，控制球弹出显示；如需持续显示控制球，点击【锁定】进行控制球菜单锁定，控制球将不会收缩至屏幕侧边'})
+        list.push( {title: this.ui.helpTitle4,content: this.ui.helpContent4})
       }
       return list
     },
-    
+
     ...mapState({
       isMobile: state => state.isMobile
     }),
@@ -65,7 +65,7 @@ export default {
         this.$refs['content'+index][0].style['max-height'] = '28.3rem';
         this.$refs['content'+index][0].style['margin-bottom'] = '20px';
       }
-      
+
       this.$refs['caret'+index][0].style.transition = 'all 0.1s';
       this.$refs['content'+index][0].style.transition = 'all 0.3s';
     },

@@ -7,7 +7,7 @@
                     <i class="iconfont" ref="copy-authcode-button" data-clipboard-target="#authCode">&#xe61b;</i>
                 </template>
                 <template v-else>
-                    <span>玩家列表</span>
+                    <span>{{ ui.showPlayerTtile }}</span>
                 </template>
                 <i v-if="showShareBtn" style="margin-left: 1rem;" class="iconfont" ref="copyBtn" data-clipboard-target="#shareUrl">&#xe621;</i>
             </div>
@@ -36,20 +36,20 @@
             </div>
             <input style="opacity: 0;z-index: -1;" type="text" id="shareUrl" :value="shareUrl" readonly="true">
         </div>
-        
+
     </div>
 </template>
 <script>
-import { 
+import {
     mapState,
     mapActions, mapMutations
 }                                    from 'vuex'
-import { 
-    PlayerModeType, 
-    UserType 
+import {
+    PlayerModeType,
+    UserType
 }                                    from '@/store/modules/player_mode'
 import Log                           from '@/utils/log';
-import clipboard                     from 'clipboard'; 
+import clipboard                     from 'clipboard';
 import Load                          from '@/load';
 
 export default {
@@ -58,7 +58,7 @@ export default {
             copyAuthCodeBtn: null,
             copyBtn: null,
             showShare: false,
-            showPlayerBox: true            
+            showPlayerBox: true
         }
     },
     computed: {
@@ -100,12 +100,12 @@ export default {
         },
         playerModeStr() {
             return this.isInteractiveMode ?
-                this.ui.playerModeInteractive : 
+                this.ui.playerModeInteractive :
                 this.ui.playerModeNormal;
         },
         userTypeStr() {
-            return this.isPlayer ? 
-                this.ui.userTypePlayer : 
+            return this.isPlayer ?
+                this.ui.userTypePlayer :
                 this.ui.userTypeObserver;
         },
         isTaskOwner() {
@@ -127,7 +127,7 @@ export default {
             // Log.info("larksr params", params);
             let shareUrl = "";
             // this.shareUrl = window.location.href.replace(/userType=[0-1]/, (match) => {
-            //     Log.info("type match", match); 
+            //     Log.info("type match", match);
             //     return "userType=0";
             // });
             // this.shareUrl = this.shareUrl.replace(/(^|&)nickName=([^&]*)(&|$)/, (match) => {
@@ -160,8 +160,8 @@ export default {
             if (Load.shareId && Load.shareId != '') {
                 searchUrl += "shareId=" + Load.shareId + "&";
             }
-            
-            
+
+
             searchUrl += "wsProxy=" + params.wsProxy + "&";
             // only ob
             searchUrl += "playerMode=" + params.playerMode + "&userType=0";
@@ -200,7 +200,7 @@ export default {
             }
         },
         toggleShareButton() {
-            this.showShare = !this.showShare;  
+            this.showShare = !this.showShare;
         },
         onClose() {
             Log.info('onClose');

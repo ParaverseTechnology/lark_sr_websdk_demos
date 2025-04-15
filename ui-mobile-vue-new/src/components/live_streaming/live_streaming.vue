@@ -126,7 +126,7 @@ export default {
             return this.larksr?.params.videoInput;
         },
         ...mapState({
-            larksr: state => state.larksr,  
+            larksr: state => state.larksr,
             ui: state => state.ui,
             isMobile: state => state.isMobile,
             viewPort: state => state.viewPort,
@@ -149,7 +149,7 @@ export default {
             if (!this.rtmpPath) {
                 this.status = {
                     isError: true,
-                    text: '必须填写推流地址',
+                    text: this.ui.liveStreamTip,
                     code: ''
                 }
                 return;
@@ -158,7 +158,7 @@ export default {
             this.larksr.StartCloudLiveStreaming({
                 path: this.rtmpPath,
                 key: this.rtmpKey,
-                width: this.selectRes.width, 
+                width: this.selectRes.width,
                 height: this.selectRes.height,
                 framerate: this.selectFps,
                 bitrate: this.selectCoderate
@@ -166,10 +166,10 @@ export default {
             .then((res) => {
                 this.status = {
                     isError: false,
-                    text: '准备推流中...',
+                    text: this.ui.liveStreamPrepare,
                     code: res.state || ''
                 }
-                
+
                 this.setRtmpstreamForm({
                     rtmpPath: this.rtmpPath,
                     rtmpKey: this.rtmpKey,
@@ -243,7 +243,7 @@ export default {
         Log.info('live larksr', this.larksr);
         this.larksr.on(LarkSRClientEvent.RTMP_STREAM_STATE, this.onRtmpStreamState, this);
         this.larksr.on(LarkSRClientEvent.RTMP_STREAM_ERROR, this.onRtmpStreamError, this);
-        
+
         if (this.rtmpstreamstate!==null) this.status = this.rtmpstreamstate;
         if (this.rtmpstreamForm!==null) {
             this.rtmpPath = this.rtmpstreamForm.rtmpPath;

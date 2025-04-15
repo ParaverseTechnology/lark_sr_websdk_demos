@@ -1,7 +1,7 @@
 <template>
     <div :class="containerClass"  v-if="audioInput">
         <Tooltip>
-            <template #title>麦克风</template>
+            <template #title>{{ ui.mic }}</template>
             <!-- <div class="menu-icon"  @click="toggleMic" @mouseenter="iconEnter('8')" @mouseleave="iconLeave('8')">
                 <i :class="audioTrackEnable? 'iconfont icon-mic icon-click':'iconfont icon-mic'"></i>
             </div> -->
@@ -14,7 +14,7 @@
         </Tooltip>
         <i :class="setupPanel?'el-icon-arrow-down':'el-icon-arrow-up'" @click="toggleSetupPanel"></i>
         <div v-if="setupPanel" :class="{'setup':true, 'top': menubarPosition==='top','bottom': menubarPosition==='bottom'}">
-            <p class="setup-title">选择麦克风</p>
+            <p class="setup-title">{{ ui.selectMic }}</p>
             <template v-if="devices.length">
                 <div v-for="(device, key) in devices" @click="micCheck(device)" class="setup-row" :key="key">
                     <span> {{ device.label }}</span>
@@ -23,7 +23,7 @@
             </template>
             <template v-else>
                 <div class="setup-row">
-                    <span>无</span>
+                    <span>{{ ui.nothing }}</span>
                 </div>
             </template>
         </div>
@@ -81,7 +81,7 @@ export default {
             }
         },
         ...mapState({
-            larksr: state => state.larksr,  
+            larksr: state => state.larksr,
             ui: state => state.ui,
             isMobile: state => state.isMobile,
             menubarPosition: state => state.menubarPosition

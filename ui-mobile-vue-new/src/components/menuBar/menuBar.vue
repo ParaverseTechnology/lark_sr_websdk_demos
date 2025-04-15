@@ -17,7 +17,7 @@
                 <VideoInput />
                 <MicInput />
                 <Tooltip class="menu-tools-box" v-if="isLiveStream">
-                    <template #title>推流</template>
+                    <template #title>{{ ui.liveStream}}</template>
                     <div class="menu-icon" @click="liveStreamFn">
                         <i class="iconfont icon-stream" style="font-size: 28px;display: inline-block;margin-top: 1px;"></i>
                     </div>
@@ -27,43 +27,44 @@
             <!-- 右侧基础菜单 -->
             <div class="basemenu">
                 <Tooltip>
-                    <template #title>文字输入</template>
+                    <template #title>{{ ui.inputText }}</template>
                     <div class="menu-icon" @click.prevent="showInput" @mouseenter="iconEnter('1')" @mouseleave="iconLeave('1')">
                         <i class="iconfont icon-menuBarIcon1"></i>
                     </div>
                 </Tooltip>
                 <Tooltip>
-                    <template #title>重启应用</template>
+                    <template #title>{{ ui.restart }}</template>
                     <div class="menu-icon" @click.prevent="restartFn" @mouseenter="iconEnter('2')" @mouseleave="iconLeave('2')">
                         <i class="iconfont icon-menuBarIcon2"></i>
                     </div>
                 </Tooltip>
                 <Tooltip v-if="!isFullScreen">
-                    <template #title>全屏</template>
+                    <template #title>{{ ui.fullScreen }}</template>
                     <div class="menu-icon" @click.prevent="onFullScreen" @mouseenter="iconEnter('3')" @mouseleave="iconLeave('3')">
                         <i class="iconfont icon-menuBarIcon3"></i>
                     </div>
                 </Tooltip>
                 <Tooltip v-else>
-                    <template #title>退出全屏</template>
+                    <template #title>{{ ui.fullScreenExit }}</template>
                     <div class="menu-icon" @click.prevent="onFullScreen" @mouseenter="iconEnter('3')" @mouseleave="iconLeave('3')">
                         <i class="iconfont icon-menuBarIcon3_click fullScreen-hover"></i>
                     </div>
                 </Tooltip>
                 <Tooltip>
-                    <template #title>网络</template>
+                    <!--{{ ui.net}}-->
+                    <template #title>{{ ui.network}}</template>
                     <div class="menu-icon" @click="networkStateFn" @mouseenter="iconEnter('4')" @mouseleave="iconLeave('4')">
                         <i class="iconfont icon-menuBarIcon4"></i>
                     </div>
                 </Tooltip>
                 <Tooltip>
-                    <template #title>设置</template>
+                    <template #title>{{ ui.setting }}</template>
                     <div class="menu-icon" @click="showSettingAlertFn" @mouseenter="iconEnter('5')" @mouseleave="iconLeave('5')">
                         <i class="iconfont icon-menuBarIcon5"></i>
                     </div>
                 </Tooltip>
                 <Tooltip>
-                    <template #title>帮助</template>
+                    <template #title>{{ ui.help }}</template>
                     <div class="menu-icon" @click.prevent="showHelpAlert" @mouseenter="iconEnter('6')" @mouseleave="iconLeave('6')">
                         <i class="iconfont icon-menuBarIcon6"></i>
                     </div>
@@ -71,19 +72,19 @@
             </div>
         </div>
         <div v-if="menubarPosition==='top'"
-            @mouseenter="barHoverFn" 
-            @mouseleave="barLeaveFn" 
-            :class="'menubar-bar-top menubar-bar'" 
-            :style="barHoverStyle" 
+            @mouseenter="barHoverFn"
+            @mouseleave="barLeaveFn"
+            :class="'menubar-bar-top menubar-bar'"
+            :style="barHoverStyle"
             @click="toogleMenubar">
             <span class="iconfont icon-bar_1" style="transform: rotate(180deg)"></span>
             <i v-if="isBarHover" class="el-icon-arrow-up"></i>
         </div>
         <div v-else
-            @mouseenter="barHoverFn" 
-            @mouseleave="barLeaveFn" 
-            :class="'menubar-bar-bottom menubar-bar'" 
-            :style="barHoverStyle" 
+            @mouseenter="barHoverFn"
+            @mouseleave="barLeaveFn"
+            :class="'menubar-bar-bottom menubar-bar'"
+            :style="barHoverStyle"
             @click="toogleMenubar">
             <span class="iconfont icon-bar_1"></span>
             <i v-if="isBarHover" class="el-icon-arrow-down"></i>
@@ -150,7 +151,7 @@ export default {
                     'color': color
                 }
             }
-            
+
         },
         positionStyle() {
             if (this.position.x != 0) {
@@ -195,7 +196,7 @@ export default {
             // rotate-right
             return clazz;
         },
-        
+
         isLiveStream() {
             return this.larksr?.params.liveStreaming;
         },
@@ -206,11 +207,11 @@ export default {
             return this.larksr?.params.videoInput;
         },
         ...mapState({
-            larksr: state => state.larksr,  
+            larksr: state => state.larksr,
             ui: state => state.ui,
             inputMethodEnable: state => state.inputMethodEnable,
             menubarPosition: state => state.menubarPosition,
-            isShowHelpAlert: state => state.modalHelp.isShowHelpAlert,  
+            isShowHelpAlert: state => state.modalHelp.isShowHelpAlert,
             showWebMenu: (state) => state.showWebMenu,
         }),
         ...mapGetters({
@@ -239,18 +240,18 @@ export default {
 			this.toggleState();
 			this.setCustomContentAlertTitle(this.ui.net)
 		},
-		
+
 		showHelpAlert() {
             if(!this.isShowHelpAlert) {
                 this.setIsShowHelpAlert(true);
-			    this.setCustomContentAlertTitle('帮助');
+			    this.setCustomContentAlertTitle(this.ui.help);
             } else {
                 this.setIsShowHelpAlert(false);
 			    this.setCustomContentAlertTitle('');
             }
 		},
 		restartFn() {
-			this.showModalConfirm({title:'重启应用', des: '请确认是否重启应用'})
+			this.showModalConfirm({title: this.ui.restart, des: this.ui.restartTip})
 			.then(()=>{
                 Log.info('restart Appli confirm');
                 this.larksr?.restartCloudApp();

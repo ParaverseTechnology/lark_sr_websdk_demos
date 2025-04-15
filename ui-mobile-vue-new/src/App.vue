@@ -73,7 +73,7 @@
         <LiveStreaming v-if="isShowStreamAlert" />
       </template>
       <!-- 左上角延时显示 -->
-      <RttInfo v-if="cloudReady" />   
+      <RttInfo v-if="cloudReady" />
       <!-- 网络状态 -->
       <States />
       <!-- 鸟瞰模式 -->
@@ -81,9 +81,9 @@
       <!-- 互动模式 -->
       <PlayerMode />
     </div>
-    
-    
-    
+
+
+
     <!-- 通用 UI -->
     <!-- 警告框 -->
     <Alert v-if="modalAlert.show" />
@@ -93,7 +93,7 @@
     <Toast v-if="cloudReady" />
     <!-- 确认框 -->
     <Confirm v-if="modalConfirm.show"/>
-    
+
   </div>
 </template>
 
@@ -110,7 +110,7 @@ import Confirm             from './components/confirm/confirm';
 import RttInfo             from './components/rttinfo/rttinfo';
 import States              from './components/states_modal/states_modal';
 import AerialView          from './components/aerial_view/aerial_view.vue'
-import PlayerMode          from "./components/player_mode/player_mode"; 
+import PlayerMode          from "./components/player_mode/player_mode";
 import MenuBar             from "./components/menuBar/menuBar";
 import ModalHelp           from './components/modal_help/modal_help';
 import ModallSetting       from './components/modal_setting/modal_setting';
@@ -118,7 +118,7 @@ import LiveStreaming       from './components/live_streaming/live_streaming';
 import MobileMenuBar       from './components/mobile/mobile_menu_bar/mobile_menu_bar.vue'
 import ControlBallM        from "./components/mobile/control_ball/control_ball"
 import Load                from './load';
-import store               from "@/store"; 
+import store               from "@/store";
 import Log                 from "@/utils/log";
 
 export default {
@@ -213,7 +213,7 @@ export default {
       notifyBar: (state) => state.notifyBar,
       mobileWebMenuType: state => state.mobileWebMenuType,
       mobileKeyboardType: state => state.mobileKeyboardType,
-      aerialViewCheck: state => state.modalSetting.aerialViewCheck,    
+      aerialViewCheck: state => state.modalSetting.aerialViewCheck,
       showWebMenu: (state) => state.showWebMenu,
     }),
     ...mapGetters({
@@ -261,9 +261,9 @@ export default {
         if (Load.taskid) {
           params.taskId = Load.taskid;
         }
-        
+
         //启动模式：0：普通模式, 1：互动模式（一人操作多人观看），2: 多人协同（键盘鼠标放开，需要应用配合）
-        // 互动模式测试连接 
+        // 互动模式测试连接
         // 所有者 userType = 1
         // http://localhost:8081/?appliId=925773094113509376&playerMode=1&userType=1&authCode=fMFu92vg
         // 观看者 userType = 0
