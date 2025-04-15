@@ -283,12 +283,7 @@ export default {
       setShowAerialView: 'setShowAerialView',
     })
   },
-<<<<<<< HEAD
   mounted() {
-    console.error('***********************',this.larksr,this.larksr.currentAppSize)
-=======
-  mounted() {    
->>>>>>> ee6b3333c9105c7d1b06715a9e860776a6f33251
     if (this.larksr && this.larksr.currentAppSize) {
       this.larksr.on("appresize", () => {
         this.resetResolution();

@@ -40,7 +40,7 @@
     </div>
     <div ref="inputTextClassBox" v-if="!isMobile" :class="inputTextClass" :style="{top: (menubarPosition==='top'?curMousePositionY-0+30:curMousePositionY-80)+'px'}">
       <el-row type="flex" justify="space-between" align="middle">
-        <textarea 
+        <textarea
           ref="inputTextarea"
           :class="nicknameRequireClass"
           type="text"
@@ -372,7 +372,7 @@ export default {
         this.showAuthCodeInput = false;
         this.start(this.taskStated);
       }
-      
+
     } else {
       if (this.nickname != "") {
         // 填写昵称后再开始
@@ -427,7 +427,7 @@ export default {
           },50)
         }
       }
-    },    
+    },
     inputTextareaKeydown(e) {
       if(e.key === 'Backspace') {
         if(this.inputText === "") {
@@ -437,7 +437,7 @@ export default {
             if(this.textInputTimer) clearTimeout(this.textInputTimer);
           },50)
         }
-      } else if((e.key === 'c'|| e.key === 'v' || e.key === 'a' || e.key === 'x') && e.ctrlKey) { 
+      } else if((e.key === 'c'|| e.key === 'v' || e.key === 'a' || e.key === 'x') && e.ctrlKey) {
         this.larksr.keyDown('ControlLeft', false);
         this.larksr.keyDown(e.code, false);
         if(this.inputText) {
@@ -493,7 +493,7 @@ export default {
       }
       this.$refs.inputTextarea.blur();
       this.inputText = "";
-    },    
+    },
     onInputMethodInput(e) {
       if(!this.controlBallInputMethod) {
         if (this.larksr) {
@@ -559,7 +559,7 @@ export default {
     // 从 url 载入参数
     Load.InitProcess();
     // init player mode params
-    store.dispatch('playerMode/initFromLoader');    
+    store.dispatch('playerMode/initFromLoader');
     if(this.isMobile) {
       this.$refs.input.addEventListener('keyup',this.sysKeybaordEnterOrBackspace)
     } else {
@@ -573,7 +573,9 @@ export default {
         // 服务器地址,实际使用中填写您的服务器地址
         // 如：http://222.128.6.137:8181/
         // serverAddress: "http://222.128.6.137:8181/",
-        serverAddress: "http://192.168.0.55:8181/",
+      serverAddress: "http://192.168.0.184:8181/",
+      logLevel: 'info',
+      language: 'en',
         // 视频缩放模式，默认保留宽高比，不会拉伸并完整显示在容器中
         // scaleMode: "contain",
         // 0 -》 用户手动触发, 1 -》 首次点击进入触发, 2 -》 每次点击触发
@@ -583,15 +585,15 @@ export default {
         // loadingBgUrl: "https://home-obs.pingxingyun.com/homePage_4_0/bg.jpg",
         // show log
         // logLevel: 'warn',
-        
+
         // 单独上传流程要求渲染服务器版本大于3290）
         useSeparateMediaSharePeer: true,
     });
-    
+
     // 初始化您的授权ID
     // "SDK 授权码，联系 business@pingxingyun.com 获取,注意是 SDK 本身的授权码，不是服务器上的授权"
     // 使用 Unit.queryString("sdkID") 可从 url 载入名称为 sdkID 的参数
-    larksr.initSDKAuthCode("SDK 授权码，联系 business@pingxingyun.com 获取,注意是 SDK 本身的授权码，不是服务器上的授权")
+    larksr.initSDKAuthCode("381f9336504844d4b9b3cf7bdf4d59ca") //184
     .then(() => {
 
       // 连接平行云托管平台的应用
@@ -608,8 +610,7 @@ export default {
       //     alert(JSON.stringify(e));
       // });
 
-      /**
-       * 
+
        // 固定传入调用参数
        // 从 url 中获取参数并传入参考上面 start 方法
 
@@ -617,10 +618,10 @@ export default {
       larksr.connect({
         // 要使用的云端资源的应用 ID，从后云雀后台接口获取
         // 参考查询应用一栏文档
-        // https://showdoc.pingxingyun.com/web/#/75/1697
+        // https://www.pingxingyun.com/online/api3_2.html?id=476
         // 如 222.128.6.137:8181 系统下的 879414254636105728 应用
-        appliId: "913050644103823360",
-
+        appliId: "1341779180651544576",
+        language: "en-US",
         // 其他可选参数如下
         // 互动模式
         //启动模式：0：普通模式, 1：互动模式（一人操作多人观看），2: 多人协同（键盘鼠标放开，需要应用配合）
@@ -652,9 +653,8 @@ export default {
       .catch((e) => {
         console.error(e);
         alert(JSON.stringify(e));
-      }); 
+      });
 
-      */
     })
     .catch((e) => {
       console.error(e);
@@ -682,7 +682,7 @@ export default {
     // 监听连接成功事件
     larksr.on("connect", (e) => {
       console.log("LarkSRClientEvent CONNECT", e);
-      
+
       // 可能从getstartappinfo之后才获取来的参数.
       // 后台配置的是否显示玩家列表参数
       store.commit("playerMode/setShowPlayerList", larksr.params.showPlayerList);
@@ -734,7 +734,7 @@ export default {
     larksr.on("meidaplaymute", (e) => {
       console.log("LarkSRClientEvent meidaplaymute", e);
       this.mutePlay = true;
-      this.toast({text: '点击屏幕中心打开音频', position: 2, level: 3});
+      this.toast({text: this.ui.enableAudio, position: 2, level: 3});
     });
 
     larksr.on("peerstatusreport", (e) => {
@@ -743,21 +743,21 @@ export default {
     });
 
     larksr.on('error', (e) => {
-        console.error("LarkSRClientEvent error", e.message); 
+        console.error("LarkSRClientEvent error", e.message);
         this.alert({des: e.message, code: e.code})
         .then(() => {
             Unit.quit();
         });
-    });   
+    });
 
     larksr.on('info', (e) => {
-        console.log("LarkSRClientEvent info", e); 
+        console.log("LarkSRClientEvent info", e);
         this.toast({text: e.message});
     });
     console.log("load appli success", larksr);
-    
+
     larksr.on('resourcenotenough', (e) => {
-        console.log("LarkSRClientEvent resourcenotenough", e); 
+        console.log("LarkSRClientEvent resourcenotenough", e);
         if(e.type === 0) {
           alert("当前系统繁忙，请稍后再试！");
         }
@@ -782,7 +782,7 @@ export default {
         } else{
             const isOperating = this.playerList.find(item => item.nickName === this.playerMode.nickName).userType == 1;
             // 演示模式 && 没有操作权限时候不弹出提示框
-            if(!(Load.playerMode === 1 && !isOperating)) { 
+            if(!(Load.playerMode === 1 && !isOperating)) {
               this.setControlBallInputMethod(false);
               this.curMousePositionY = this.mousePositionY;
               this.setInputMethodEnable(e.data);
@@ -863,10 +863,10 @@ export default {
         this.showNicknameInput = true;
       } else {
         // start connect.
-        this.start();
+        //this.start();
       }
     }
-    
+
 
     // this.alert({des: 1});
     // this.confirm({des:"22"});
