@@ -221,6 +221,7 @@ export default {
       mobileKeyboardType: state => state.mobileKeyboardType,
       aerialViewCheck: state => state.modalSetting.aerialViewCheck,    
       showWebMenu: (state) => state.showWebMenu,
+      enableChineseInput: (state) => state.enableChineseInput,
     }),
     ...mapGetters({
       isObMode: "playerMode/isObMode",
@@ -586,6 +587,8 @@ export default {
         
         // 单独上传流程要求渲染服务器版本大于3290）
         useSeparateMediaSharePeer: true,
+        // 默认可以大于服务器端分辨率推流
+        ignoreCloudDesktopResolution: true,
     });
     
     // 初始化您的授权ID
@@ -780,6 +783,10 @@ export default {
             }
           }
         } else{
+          // PC端禁止中文输入
+          if(!this.enableChineseInput){
+            return false;
+          }
             const isOperating = this.playerList.find(item => item.nickName === this.playerMode.nickName).userType == 1;
             // 演示模式 && 没有操作权限时候不弹出提示框
             if(!(Load.playerMode === 1 && !isOperating)) { 

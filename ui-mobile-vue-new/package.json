@@ -10,11 +10,11 @@
   "dependencies": {
     "clipboard": "^2.0.8",
     "core-js": "^3.27.1",
-    "larksr_websdk": "^3.3.102",
+    "element-ui": "^2.13.0",
+    "larksr_websdk": "^3.3.104",
     "pxy_webcommonui": "^0.1.12",
     "vue": "^2.6.11",
-    "vuex": "^3.6.2",
-    "element-ui": "^2.13.0"
+    "vuex": "^3.6.2"
   },
   "devDependencies": {
     "@babel/core": "^7.12.16",

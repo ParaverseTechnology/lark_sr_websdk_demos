@@ -1,8 +1,8 @@
 @font-face {
   font-family: "iconfont"; /* Project id 4342694 */
-  src: url('iconfont.woff2?t=1706780707069') format('woff2'),
-       url('iconfont.woff?t=1706780707069') format('woff'),
-       url('iconfont.ttf?t=1706780707069') format('truetype');
+  src: url('iconfont.woff2?t=1742175286259') format('woff2'),
+       url('iconfont.woff?t=1742175286259') format('woff'),
+       url('iconfont.ttf?t=1742175286259') format('truetype');
 }
 
 .iconfont {
@@ -11,6 +11,14 @@
   font-style: normal;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-shurufa_off:before {
+  content: "\e630";
+}
+
+.icon-shurufa:before {
+  content: "\f46d";
 }
 
 .icon-bijibendiannao_o:before {

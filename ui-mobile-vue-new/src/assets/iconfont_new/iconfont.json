@@ -6,6 +6,20 @@
   "description": "",
   "glyphs": [
     {
+      "icon_id": "43655524",
+      "name": "输入法_off",
+      "font_class": "shurufa_off",
+      "unicode": "e630",
+      "unicode_decimal": 58928
+    },
+    {
+      "icon_id": "21061547",
+      "name": "输入法",
+      "font_class": "shurufa",
+      "unicode": "f46d",
+      "unicode_decimal": 62573
+    },
+    {
       "icon_id": "5387754",
       "name": "笔记本电脑_o",
       "font_class": "bijibendiannao_o",

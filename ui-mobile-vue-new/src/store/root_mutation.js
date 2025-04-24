@@ -67,6 +67,9 @@ export const RootMutation/*: MutationTree<RootState>*/ = {
     setShowWebMenu(state, showWebMenu) {
         state.showWebMenu = showWebMenu;
     },
+    setEnableChineseInput(state, enableChineseInput) {
+        state.enableChineseInput = enableChineseInput;
+    }
 }
 
 export default RootMutation;

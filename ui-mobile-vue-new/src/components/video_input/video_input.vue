@@ -124,21 +124,24 @@ export default {
             const device = this.devices?.filter(device => device.deviceId === this.selecteDevice)[0];
 
             // fix to 1920 1080
-            let width = 1920;
-            let height = 1080;
+            // let width = 1920;
+            // let height = 1080;
 
-            if (device && device.getCapabilities && typeof device.getCapabilities === 'function') {
-                Log.info(device.getCapabilities());
-            }
+            // if (device && device.getCapabilities && typeof device.getCapabilities === 'function') {
+            //     Log.info(device.getCapabilities());
+            // }
 
-            if (device && device.getCapabilities && typeof device.getCapabilities === 'function' && device.getCapabilities().width && device.getCapabilities().width.max) {
-            //     width = device.getCapabilities().width.max;
-                width = Math.min(device.getCapabilities().width.max, width);
-            }
-            if (device && device.getCapabilities && typeof device.getCapabilities === 'function' && device.getCapabilities().height && device.getCapabilities().height.max) {
-            //     height = device.getCapabilities().height.max;
-                height = Math.min(device.getCapabilities().height.max, height);
-            }
+            // if (device && device.getCapabilities && typeof device.getCapabilities === 'function' && device.getCapabilities().width && device.getCapabilities().width.max) {
+            // //     width = device.getCapabilities().width.max;
+            //     width = Math.min(device.getCapabilities().width.max, width);
+            // }
+            // if (device && device.getCapabilities && typeof device.getCapabilities === 'function' && device.getCapabilities().height && device.getCapabilities().height.max) {
+            // //     height = device.getCapabilities().height.max;
+            //     height = Math.min(device.getCapabilities().height.max, height);
+            // }
+
+            let width = 0;
+            let height = 0;
             
             Log.info('openVideo with device ', this.selecteDevice, device, this.devices, width, height);
 

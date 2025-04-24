@@ -27,6 +27,12 @@
             <!-- 右侧基础菜单 -->
             <div class="basemenu">
                 <Tooltip>
+                    <template #title>{{enableChineseInput? "中文输入": "禁止中文输入"}}</template>
+                    <div class="menu-icon" @click.prevent="changeTextInputFn">
+                        <i :class="enableChineseInput?'iconfont icon-shurufa':'iconfont icon-shurufa_off'"></i>
+                    </div>
+                </Tooltip>
+                <Tooltip>
                     <template #title>文字输入</template>
                     <div class="menu-icon" @click.prevent="showInput" @mouseenter="iconEnter('1')" @mouseleave="iconLeave('1')">
                         <i class="iconfont icon-menuBarIcon1"></i>
@@ -131,6 +137,9 @@ export default {
         }
     },
     computed: {
+        enableChineseInput() {
+            return this.$store.state.enableChineseInput;
+        },
         barHoverStyle() {
             const scal = this.isBarHover? '1': '0.6';
             const bottom = this.isBarHover? '-14': '-13';
@@ -411,6 +420,10 @@ export default {
                 this.setInputMethodStart(false);
                 this.setControlBallInputMethod(false);
             }
+        },
+        changeTextInputFn() {
+            const val = this.$store.state.enableChineseInput;
+            this.$store.commit('setEnableChineseInput', !val);
         },
         ...mapMutations({
             setInputMethodStart: "setInputMethodStart",

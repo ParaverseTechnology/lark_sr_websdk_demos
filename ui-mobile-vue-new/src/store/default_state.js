@@ -74,6 +74,7 @@ export const DefaultState/*: RootState*/ = {
 	mobileWebMenuType: 0, // 移动端菜单类型0：控制球 1：菜单条
 	clientTheme: 'dark', // 客户端主题色 dark light
     showWebMenu: 1, // 是否显示菜单
+	enableChineseInput: true, //收到文字输入事件时，是否允许输入中文，默认true
 }
 
 export default DefaultState;
