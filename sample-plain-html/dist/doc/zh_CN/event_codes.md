@@ -3,7 +3,7 @@
 在 `LarkEvent = 'larkevent'`, `ERROR = 'error'`, `INFO = 'info'` 这三个事件中附加 code 字段，具体值即下面 LarkEventType。
 在 LarkEvent 事件中可能会抛出所有的事件码。
 
-LarkEventType 事件码还用于 iframe poster 使用方式时的监听事件码。iframe 嵌入客户端并使用事件码参考 demo: [larkwebclient-iframe-demos](https://github.com/pingxingyun/larkwebclient-iframe-demos)
+LarkEventType 事件码还用于 iframe poster 使用方式时的监听事件码。iframe 嵌入客户端并使用事件码参考 demo: [larkwebclient-iframe-demos](https://github.com/ParaverseTechnology/larkwebclient-iframe-demos)
 
 ```typescript
 //

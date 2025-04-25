@@ -5,7 +5,7 @@
 ## 3.2.401 新增功能
 
 > 以下示例代码假定 `larksr` 对象初始化并连接成功。
-> 测试demo https://github.com/pingxingyun/lark_sr_websdk_demos/tree/gh-pages
+> 测试demo https://github.com/ParaverseTechnology/lark_sr_websdk_demos/tree/gh-pages
 
 (1). 新增多路 Web 端上传媒体功能。使用 `larksr.getMediaSharePeerConnection(index)` 获取上传媒体通道。
 

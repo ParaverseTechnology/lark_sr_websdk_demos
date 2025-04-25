@@ -127,7 +127,7 @@ interface ILarkSRConfig {
     mobileForceLandscape?: boolean;
     /**
      * 可选项
-     * 初始化鼠标模式, true 锁定，false 非锁定
+     * 初始化鼠标模式, 0 自动判断 1 锁定 2 非锁定
      * 对应后台应用管理->应用编辑->通用高级设置->初始化鼠标模式,该配置优先级高于后台配置
      */
     initCursorMode?: boolean;

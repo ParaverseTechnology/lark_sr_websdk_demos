@@ -21,7 +21,7 @@ npm i larksr_websdk
 ### 注意
 
 > V3.2.30 开始仅支持服务端 [V3.2.3.1](https://www.pingxingyun.com/devCenter.html) 以上版本。
-> [老版本 SDK Demo 下载](https://github.com/pingxingyun/lark_sr_websdk_demos/releases/tag/V3.2.10)
+> [老版本 SDK Demo 下载](https://github.com/ParaverseTechnology/lark_sr_websdk_demos/releases/tag/V3.2.10)
 > V3.2.314 版本对应服务器版本和数据通道版本为 3.2.5.1 及以上
 
 ## 创建 LarkSR 实例
@@ -57,7 +57,7 @@ var client = new LarkSR({
 client.connect({
     // 要使用的云端资源的应用 ID，从后云雀后台接口获取
     // 参考查询应用一栏文档
-    // https://showdoc.pingxingyun.com/web/#/75/1697
+    // https://www.pingxingyun.com/online/api3_2.html?id=476
     // 如 222.128.6.137:8181 系统下的 879408743551336448 应用
     appliId: "应用ID"
 })

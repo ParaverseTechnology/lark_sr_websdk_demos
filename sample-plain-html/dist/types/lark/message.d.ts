@@ -7,6 +7,7 @@ export default class Message {
     static versionCheckRequest(isPixelStreaming: boolean): Msg.CloudLark.ToServerMessage;
     static taskRequest(taskid: string, isInteractiveMode: boolean, isObMode: boolean, nickName: string, isPixelStreaming: boolean): Msg.CloudLark.ToServerMessage;
     static startStreamReqeuest(request: Msg.CloudLark.IStartStreamRequest, isPixelStreaming: boolean): Msg.CloudLark.ToServerMessage;
+    static startNewVrStreamReqeuest(request: Msg.CloudLark.IStartNewVrStreamRequest, isPixelStreaming: boolean): Msg.CloudLark.ToServerMessage;
     static startMonitorStreamReqeuest(request: Msg.CloudLark.IVrMonitorRequest): Msg.CloudLark.ToServerMessage;
     static rtcOfferMsg(type: string, sdp: string): Msg.CloudLark.ToServerMessage;
     static iceMsg(sdpmid: string, sdpMlineindex: number, candidate: string, username: string | null | undefined): Msg.CloudLark.ToServerMessage;

@@ -22,7 +22,7 @@ SDK include:
 ### Notice
 
 > SDK V3.2.30 only support server version above [V3.2.3.1](https://www.pingxingyun.com/devCenter.html)
-> [Old verion SDK Demo](https://github.com/pingxingyun/lark_sr_websdk_demos/releases/tag/V3.2.10)
+> [Old verion SDK Demo](https://github.com/ParaverseTechnology/lark_sr_websdk_demos/releases/tag/V3.2.10)
 > V3.2.314 server and datachannel above 3.2.5.1
 
 ## Quick Start
@@ -78,7 +78,7 @@ client.initSDKAuthCode('Your SDK ID')
     client.connect({
         // LarkSR cloud appid from LarkSR admin server.
         // doc
-        // https://showdoc.pingxingyun.com/web/#/75/1697
+        // https://www.pingxingyun.com/online/api3_2.html?id=476
         appliId: "appid from LarkSR admin"
     })
     .then(() => {

@@ -1,72 +1,72 @@
-# LarkSR 对象成员变量
+# LarkSR Object Member Variables
 
-LarkSR 对象成员变量,注意以下划线开头的变量为内部使用私有变量或只读成员变量，不建议修改直接使用。
+LarkSR object member variables. Note that variables starting with an underscore are internal private variables or read-only member variables and are not recommended for direct modification or use.
 
-> 以下代码中 larksr 为创建好的 LarkSR 对象实例。省略创建过程。
+> In the following code, `larksr` is an instance of the created LarkSR object. The creation process is omitted.
 
 ```javascript
 let larksr;
 
-...// create code.
+// ... create code.
 ```
 
-## 视频组件
+## Video Component
 
-1. `videoComponent` 视频组件
+1. `videoComponent` Video Component
 
 ```javascript
-// 获取播放的 <video /> 视频元素
+// Get the <video /> video element being played
 larksr.videoComponent.getVideo();
-// 播放视频，async 方法播放失败抛出异常
+// Play the video, async method throws an exception if playback fails
 larksr.videoComponent.playVideo();
-// 停止视频播放
+// Stop video playback
 larksr.videoComponent.stopVideo();
-// 播放视频声音，取消静音播放
+// Play video sound, unmute playback
 larksr.videoComponent.sountPlayout();
-// 截取一帧，返回 base64，并抛出截图成功事件
+// Capture a frame, return base64, and throw a screenshot success event
 larksr.videoComponent.captrueFrame(data);
 ```
 
-2. `videoElement`  html `video` 视频元素本身
+2. videoElement HTML video video element itself
 
 ```javascript
 larksr.videoElement;
 ```
 
-3. 控制显示元素
+3. Control Display Elements
 
 ```javascript
-// 是否显示移动端触摸点
+// Whether to show touch points on mobile
 larksr.isEnableTouchPoint = false;
-// 是否显示载入画面时底部文字
+// Whether to show bottom text during loading screen
 larksr.isEnableLoadingStateBar = false;
 ```
 
 ```javascript
-// 设置缩放模式
+// Set zoom mode
 larksr.scaleMode = ScaleMode.CONTAIN_APP;
 ```
 
-4. 虚拟鼠标和触摸点
+4. Virtual Mouse and Touch Points
 
 ```javascript
 /**
- * 虚拟鼠标的当前位置,相对于整体容器
+ * Current position of the virtual mouse, relative to the overall container
  */
 larksr.virtualCursorPosition
 /**
- * 虚拟鼠标的当前位置,内部缩放容器，与实际显示虚拟鼠标 CSS 样式相同
+ * Current position of the virtual mouse, internal zoom container, same as the actual display virtual mouse CSS style
  */
 larksr.virtualCursorPositionRaw
 ```
 
-例：
+Example:
 
-下面示例代码使用 react 演示点击一个按钮，同步一个外层的元素和虚拟鼠标的位置
+The following example code uses React to demonstrate clicking a button to synchronize the position of an outer element and the virtual mouse.
 
 ```javascript
 // ....
-// 省略 react 创建代码
+// Omitted React creation code
 export default class App extends React.Component {
     private state: any = {
         pointPosition: {
@@ -75,12 +75,12 @@ export default class App extends React.Component {
         }
     };
     // ....
-    // 此处省略 larksr 创建过程等其他代码
+    // Omitted larksr creation process and other code
     render() {
         return (
             <div>
                 // ...
-                // 省略其他元素
+                // Omitted other elements
                 <div style={{
                         zIndex: 1000,
                         position: 'absolute', 
@@ -94,9 +94,9 @@ export default class App extends React.Component {
                 </div>
                 <button style={{pointerEvents: "all"}} 
                     onClick={()=>{
-                        // 获取虚拟鼠标的位置
+                        // Get the position of the virtual mouse
                         console.log("touch point", this.larksr.virtualCursorPosition);
-                        // 同步虚拟鼠标的位置
+                        // Synchronize the position of the virtual mouse
                         this.setState({
                             pointPosition: this.larksr.virtualCursorPosition,
                         })
@@ -110,35 +110,35 @@ export default class App extends React.Component {
 }
 ```
 
-## 配置参数
+## Configuration Parameters
 
 ```javascript
-// `config` IAppliParams传入的 ILarkSRConfig 对象
+// `config` ILarkSRConfig object passed in IAppliParams
 larksr.config;
-//  `params` 构造函数中传入的 IAppliParams 对象
+// `params` IAppliParams object passed in the constructor
 larksr.params;
 ```
 
-## 用户模式
+## User Mode
 
 ```javascript
-// `playerModeType` 当前的玩家模式;
+// `playerModeType` Current player mode;
 larksr.playerModeType;
-// `userType` 当前用户类型;
+// `userType` Current user type;
 larksr.userType;
-// 当前是否是交互模式，交互默认即可以操作的模式
+// Whether it is currently in interactive mode, the default interactive mode is operable
 larksr.isInteractiveMode;
-// 是否是观看者模式
+// Whether it is observer mode
 larksr.isObMode;
 ```
 
-## 当前 app 的状态
+## Current App State
 
 ```javascript
 larksr.appState;
 ```
 
-具体状态值如下:
+Specific state values are as follows:
 
 ```javascript
 export enum APP_STATE {
@@ -158,57 +158,57 @@ export enum APP_STATE {
 }
 ```
 
-可通过事件 `APPSTATE_CHANGE = 'appstatechange'` 监听 APP_STATE 的变化
+You can listen to the APP_STATE changes through the event APPSTATE_CHANGE = 'appstatechange'.
 
 ```javascript
 // create code
 ...
 
-// 监听连接成功事件
+// Listen to the connection success event
 larksr.on('appstatechange', function(e) { 
     console.log("appstatechange", e); 
 });
 ```
 
-## 云端画面是否准备好
+## Whether the Cloud Screen is Ready
 
 ```javascript
-// 云端画面是否准备好，准备好后才可以发送输入事件
+// Whether the cloud screen is ready, input events can only be sent after it is ready
 larksr.remoteScreenReady
 ```
 
-## 当前的屏幕状态
+## Current Screen State
 
 ```javascript
-// 通知视口改变或者需要重新计算显示属性
+// Notify viewport change or need to recalculate display properties
 larksr.screenState.resize();
-// 当前云端 APP 的大小
+// Current size of the cloud app
 larksr.screenState.appSize;
-// 当前云端 APP 的鼠标状态
+// Current mouse state of the cloud app
 larksr.screenState.appMouseMode;
-// 当前渲染容器的大小
+// Current size of the rendering container
 larksr.screenState.viewPort;
-// 强制横屏模式
+// Force landscape mode
 larksr.screenState.screenOrientation;
-// 缩放模式
+// Zoom mode
 larksr.screenState.scaleMode;
-// 是否全屏状态
+// Whether it is in full screen mode
 larksr.screenState.isFullScreen;
-// 是否锁定鼠标状态
+// Whether the mouse state is locked
 larksr.screenState.isLockMouse;
-// 云端应用的鼠标样式
+// Mouse style of the cloud app
 larksr.screenState.cursorStyle;
-// 初始化鼠标模式
+// Initialize mouse mode
 larksr.screenState.initCursorMode;
-// 是否是手机模式
+// Whether it is mobile mode
 larksr.screenState.isMobile;
-// 是否渲染本地鼠标
+// Whether to render the local mouse
 larksr.screenState.isLocalRenderMouse;
-// 是否锁定鼠标
+// Whether to lock the mouse
 larksr.screenState.isLockMosue;
 ```
 
-监听 screenState 的状态改变，事件码为 `0`。当 SDK 内部或者外部触发了 `screenState.resize()` 之后调用。
+Listen to the state changes of screenState, the event code is 0. It is called after screenState.resize() is triggered internally or externally by the SDK.
 
 ```javascript
 larksr.screenState.on(0, () => {
@@ -216,123 +216,119 @@ larksr.screenState.on(0, () => {
 });
 ```
 
-## 操作类实例
+## Operation Class Instances
 
 ```javascript
-// 开始监听,默认情况下自动开始
+// Start listening, automatically starts by default
 larksr.op.startListening();
-// 结束监听输入事件.
+// Stop listening to input events.
 larksr.op.stopListenling();
-// 开启或关闭鼠标输入事件
+// Enable or disable mouse input events
 larksr.op.setMouseEnable(enable: boolean);
-// 开启或关闭键盘输入事件
+// Enable or disable keyboard input events
 larksr.op.setKeyboardEnable(enable: boolean);
-// 开启或关闭手柄输入事件
+// Enable or disable gamepad input events
 larksr.op.setGamepadEnable(enable: boolean);
-// 开启或关闭触摸屏幕输入事件
+// Enable or disable touch screen input events
 larksr.op.setTouchEnable(enable: boolean);
 ```
 
-### 操作类中的 keyboardhandler
+### Keyboard Handler in Operation Class
 
 ```javascript
-// 设置键盘事件默认拦截浏览器默认行为。
-// 在 preventKeys 中的将拦截，如果数组设置为空则全部不拦截
-// 默认拦截 F1 F5 F12
+// Set the default interception of keyboard events to prevent the default behavior of the browser.
+// The keys in preventKeys will be intercepted, if the array is empty, all will be intercepted
+// Default interception F1 F5 F12
 larksr.op.keyboardHandler.preventKeys = [["F1", "F5", "F12"]];
 ```
 
-### 操作类中的 gestureHandler
+### Gesture Handler in Operation Class
 
-gestureHandler 处理将移动端触摸事件对应为鼠标事件的过程。
+gestureHandler handles the process of converting mobile touch events to mouse events.
 
-#### 调节触摸事件触发参数
+#### Adjust Touch Event Trigger Parameters
 
 ```javascript
-// 触摸事件在对应为鼠标事件中，提供的鼠标相对移动的速度。
-// 即 rx = （pxNew-pxOld） * relativeMouseMoveSpeed
-//    ry = （pyNew-pyOld）* relativeMouseMoveSpeed
-// 可能会影响使用相对移动（rawInput）判断的云端应用的效果
+// The speed of the mouse relative movement provided when the touch event is converted to a mouse event.
+// That is, rx = (pxNew-pxOld) * relativeMouseMoveSpeed
+//        ry = (pyNew-pyOld) * relativeMouseMoveSpeed
+// May affect the effect of cloud applications that use relative movement (rawInput) judgment
 larksr.op.gestureHandler.relativeMouseMoveSpeed = 2;
-// 触摸模拟为鼠标事件时，模拟点击的判断范围。
-// 实际的鼠标事件点击时一般不会移动，而触摸操作基本上一定会触发移动事件
-// 如果要模拟PC上的击事件，比如单击或双击，在鼠标按下和抬起之间不应再插入鼠标移动
-// 当触发移动事件时，超出该判断范围才发送移动事件。
-// 注意，修改该值可能会导致云端应用上判断单击或双击失败，如果云端应用不包含类似操作基本影响不大
+// The judgment range for simulating clicks when touch events are converted to mouse events.
+// Actual mouse events generally do not move when clicked, but touch operations will almost certainly trigger move events
+// If you want to simulate click events on a PC, such as single or double clicks, no mouse move should be inserted between mouse down and up
+// When a move event is triggered, a move event is sent only if it exceeds this judgment range.
+// Note that modifying this value may cause single or double click failures on cloud applications, but it generally has little impact if the cloud application does not include similar operations
 larksr.op.gestureHandler.tapLimitRadius = 20;
-// 在该时间范围下将尝试发送单机按下事件，修改该值可能会导致单机事件的触发成功率
+// Attempts to send a single click down event within this time range, modifying this value may affect the success rate of triggering single click events
 larksr.op.gestureHandler.tapLimitTimeout = 100;
 ```
 
-#### 拦截触摸事件回调
+#### Intercept Touch Event Callback
 
-可以通过拦截触摸事件回调的方式，设置具体的触摸事件和鼠标事件的对应关系。
+You can set the specific correspondence between touch events and mouse events by intercepting the touch event callback.
 
-> 通过 larksr.op.gestureHandler.gestureCallback 设置回调函数
-> 下面例子中的 GESTURE_TYPE 为 SDK 导出的手势事件类型，如果用 amd 方式引入的 SDK，所有导出类型均在 larksr_websdk 全局对象下。
-> 如果是使用其他方式引入 SDK，如 improt 方式导入 `import { GESTURE_TYPE } from 'larksr_websdk'`
-> 以下示例代码忽略 larksr 创建等过程
+> Set the callback function through larksr.op.gestureHandler.gestureCallback The GESTURE_TYPE in the example below is the gesture event type exported by the SDK. If the SDK is introduced in amd mode, all exported types are under the larksr_websdk global object. If the SDK is introduced in other ways, such as importing import { GESTURE_TYPE } from 'larksr_websdk' The following example code omits the larksr creation process and other code
 
 ```javascript
-// 参数 event 有如下字段
+// The event parameter has the following fields
 // event : {
-//      type: GESTURE_TYPE; 手势事件的类型
-//      x: number;          转换为云端的坐标 x
-//      y: number;          转换为云端的坐标 y
-//      rx: number;         转换为云端的坐标 rx
-//      ry: number;         转换为云端的坐标 ry
-//      edge: boolean;      是否到触摸边缘
-//      rawEvent: any;      未转换为云端坐标的触摸事件
+//      type: GESTURE_TYPE; Gesture event type
+//      x: number;          Converted to cloud coordinate x
+//      y: number;          Converted to cloud coordinate y
+//      rx: number;         Converted to cloud coordinate rx
+//      ry: number;         Converted to cloud coordinate ry
+//      edge: boolean;      Whether it reaches the touch edge
+//      rawEvent: any;      Touch event not converted to cloud coordinates
 //    }
 // 
 larksr.op.gestureHandler.gestureCallback = (event) => {
     console.log(event);
     const p = event;
     switch (event.type) {
-    // 单只触摸开始移动鼠标到当前位置
+    // Single touch starts moving the mouse to the current position
     case GESTURE_TYPE.SINGLE_FINGER_TOUCH_START:
         larksr.mouseMove(p.x, p.y, p.rx, p.ry);
         break;
-    // 单指单击 -》左键单击
+    // Single finger tap -> left mouse click
     case GESTURE_TYPE.SINGLE_FINGER_TAP:
         larksr.mouseTap(p.x, p.y, CloudLark.MouseKey.LEFT);
         break;
-    // 单指按下 -》 移动鼠标, 按下鼠标
+    // Single finger tap down -> move mouse, press mouse
     case GESTURE_TYPE.SINGLE_FINGER_TAP_DOWN:
         // move mouse first
         larksr.mouseMove(p.x, p.y, p.rx, p.ry);
         // sync tap down
         larksr.mouseDown(p.x, p.y, CloudLark.MouseKey.LEFT);
         break;
-    // 单指抬起 -》 移动鼠标， 抬起鼠标
+    // Single finger tap up -> move mouse, release mouse
     case GESTURE_TYPE.SINGLE_FINGER_TAP_UP:
         // move mouse first
         larksr.moseMove(p.x, p.y, p.rx, p.ry);
         // sync tap down
         larksr.mouseUp(p.x, p.y, CloudLark.MouseKey.LEFT);
         break;
-    // 单指滑动 -》 移动鼠标
+    // Single finger swipe -> move mouse
     case GESTURE_TYPE.SINGLE_FINGER_SWIPE:
         larksr.moseMove(p.x, p.y, p.rx, p.ry);
         break;
-    // 单指开始滑动 -》 鼠标左键按下
+    // Single finger swipe start -> left mouse button down
     case GESTURE_TYPE.SINGLE_FINGER_SWIPE_START:
         // sync tap down
         larksr.mouseDown(p.x, p.y, CloudLark.MouseKey.LEFT);
         break;
-    // 单指滑动结束 -》 鼠标左键抬起
+    // Single finger swipe end -> left mouse button up
     case GESTURE_TYPE.SINGLE_FINGER_SWIPE_END:
         larksr.mouseUp(p.x, p.y, CloudLark.MouseKey.LEFT);
         break;
-    // 双指单击 -》 鼠标右键单击
+    // Double finger tap -> right mouse click
     case GESTURE_TYPE.DOUBLE_FINGER_TAP:
         larksr.mouseTap(p.x, p.y, CloudLark.MouseKey.RIGHT);
         break;
-    // 双指按下 -》 移动鼠标
+    // Double finger tap down -> move mouse
     case GESTURE_TYPE.DOUBLE_FINGER_TAP_DOWN:
         // move mouse first
         larksr.moseMove(p.x, p.y, p.rx, p.ry);
-        // 抬起所有
         // sync tap down
         larksr.mouseDown(p.x, p.y, CloudLark.MouseKey.RIGHT);
         break;
@@ -342,49 +338,49 @@ larksr.op.gestureHandler.gestureCallback = (event) => {
         // sync tap up
         larksr.mouseUp(p.x, p.y, CloudLark.MouseKey.RIGHT);
         break;
-    // 双指移动 -》 滚动滚轮
+    // Double finger swipe -> scroll wheel
     case GESTURE_TYPE.DOUBLE_FINGER_SWIPE:
         // move mouse mid
         // this.$emitMouseWheel(p.x, p.y, e.motion.y);
         larksr.moseMove(p.x, p.y, p.rx, p.ry);
         break;
     case GESTURE_TYPE.DOUBLE_FINGER_EXPAND: 
-        // windows 消息 deltaY 上是 +120 下是 -120
-                // 双指扩展向外滑动
-                // 滚轮向下移动
+        // Windows message deltaY up is +120 down is -120
+        // Double finger expand swipe outwards
+        // Scroll wheel down
         // move mouse mid
         larksr.mouseWheel(p.x, p.y, 120);
         break;
     case GESTURE_TYPE.DOUBLE_FINGER_SHRINK:
-        // windows 消息 deltaY 上是 +120 下是 -120
-                // 双指向内滑动
-                // 滚轮向上移动
+        // Windows message deltaY up is +120 down is -120
+        // Double finger swipe inwards
+        // Scroll wheel up
         larksr.mouseWheel(p.x, p.y,  -120);
         break;
     case GESTURE_TYPE.DOUBLE_FINGER_SWIPE_END:
         // sync tap up
         larksr.mouseUp(p.x, p.y, CloudLark.MouseKey.RIGHT);
         break;
-    // 三指单击 -》 鼠标中键单击
+    // Triple finger tap -> middle mouse click
     case GESTURE_TYPE.TRIPLE_FINGER_TAP:
         larksr.mouseTap(p.x, p.y, CloudLark.MouseKey.MIDDLE);
         break;
-    // 三指滑动 -》 移动鼠标
+    // Triple finger swipe -> move mouse
     case GESTURE_TYPE.TRIPLE_FINGER_SWIPE:
         larksr.mouseMove(p.x, p.y, p.rx, p.ry);
         break;
-    // 三指滑动按下 -》 鼠标中键按下
+    // Triple finger swipe start -> middle mouse button down
     case GESTURE_TYPE.TRIPLE_FINGER_SWIPE_START:
         larksr.mouseMove(p.x, p.y, p.rx, p.ry);
         //
         larksr.mouseDown(p.x, p.y, CloudLark.MouseKey.MIDDLE);
         break;
-    // 三指滑动按下 -》 鼠标中键抬起
+    // Triple finger swipe end -> middle mouse button up
     case GESTURE_TYPE.TRIPLE_FINGER_SWIPE_END:
         // sync tap up
         larksr.mouseUp(p.x, p.y, CloudLark.MouseKey.MIDDLE);
         break;
-    // 所有手指抬起
+    // All fingers up
     case GESTURE_TYPE.RELEASE:
         break;
     default:
@@ -393,15 +389,15 @@ larksr.op.gestureHandler.gestureCallback = (event) => {
 };
 ```
 
-## 全屏锁屏
+## Full Screen and Lock Screen
 
 ```javascript
-// 进入全屏模式
+// Enter full screen mode
 larksr.fullScreen.launchFullScreen();
-// 退出全屏模式
+// Exit full screen mode
 larksr.fullScreen.exitFullscreen();
-// 锁定鼠标
+// Lock the mouse
 larksr.lockPointer.lockPointer();
-// 释放鼠标
+// Release the mouse
 larksr.lockPointer.exitPointerLock();
 ```

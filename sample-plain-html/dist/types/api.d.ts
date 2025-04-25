@@ -7,7 +7,7 @@ export interface UTLockInfo {
 }
 export interface GetTaskResult {
     adminViewer: number;
-    appKey: string;
+    wsId: string;
     appliId: string;
     appliType: number;
     city: string;
@@ -24,7 +24,6 @@ export interface GetTaskResult {
     reserveFlag: number;
     serverId: string;
     serverIp: string;
-    shareUrl: string;
     startAt: string;
     startParam: string;
     startProcType: number;
@@ -33,13 +32,15 @@ export interface GetTaskResult {
     updateDate: string;
     useGamepad: number;
     wm: number;
-    textInputEventPrompt: number;
-    audioInput: number;
-    audioInputAutoStart: number;
-    videoInput: number;
-    videoInputAutoStart: number;
-    liveStreaming: number;
+    shareUrl?: string;
+    textInputEventPrompt?: number;
+    audioInput?: number;
+    audioInputAutoStart?: number;
+    videoInput?: number;
+    videoInputAutoStart?: number;
+    liveStreaming?: number;
     mobileKeyboardType?: number;
+    imeFirstNotice?: number;
 }
 export interface StartAppInfo {
     appliId: string;
@@ -75,16 +76,27 @@ export interface StartAppInfo {
     authCode?: string;
     nickName?: string;
     nickname?: string;
-    appKey?: string;
+    wsId?: string;
     groupId?: string;
     initResolutionType?: number;
     useWebCodec?: number;
     preferDecoder?: string;
     mobileWebMenuType?: number;
+    shareUrl?: string;
+    textInputEventPrompt?: number;
+    audioInput?: number;
+    audioInputAutoStart?: number;
+    videoInput?: number;
+    videoInputAutoStart?: number;
+    liveStreaming?: number;
+    mobileKeyboardType?: number;
+    showWebMenu?: number;
+    frameRate?: number;
+    imeFirstNotice?: number;
 }
 declare type HostAppliGetUrlReturnParams = {
     appliId: string;
-    appKey: string;
+    wsId: string;
     timestamp: string;
     signature: string;
     groupId?: string;
@@ -100,6 +112,7 @@ export default class API {
     private static GetTouchCtrMappingPath;
     private static GetAppliListPath;
     private static RegionListPath;
+    private static TestEnableWaitQueue;
     static HostAppliGetUrl(params: {
         appliId: string;
         playerMode?: number;
@@ -122,7 +135,7 @@ export default class API {
         groupId?: string;
         regionId?: string;
         targetServerIp?: string;
-        appKey?: string;
+        wsId?: string;
         timestamp?: string;
         signature?: string;
     } | any): Promise<StartAppInfo>;
@@ -135,6 +148,9 @@ export default class API {
     static GetTouchCtrMapping(server: string, appliId?: string): Promise<unknown>;
     static GetAppliList(server: string, params: any): Promise<unknown>;
     static RegionList(server: string, params: any): Promise<unknown>;
+    static IsEnableWaitQueue(server: string, params: any): Promise<{
+        enableWaitQueue: boolean;
+    }>;
     static heartbeat(server: string, taskId: string): Promise<unknown>;
     static joinParam(params: any): string;
 }

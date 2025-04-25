@@ -78,4 +78,5 @@ export default class Message extends LocalizationBase {
     get LK_NOTIFY_CLIENT_LOGOUT_TASKOWNER_LOGOUT(): string;
     get LK_APP_PROCESS_NOTIFI_APP_QUIT(): string;
     get LK_LOADING_TIMEOUT(): string;
+    get WAIT_QUEUE_COUNT(): string;
 }

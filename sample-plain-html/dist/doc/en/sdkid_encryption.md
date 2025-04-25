@@ -1,28 +1,28 @@
-# SDK ID 加密配置
+# SDK ID Encryption Configuration
 
-使用 larksr SDK 首先需要从平行云商务 business@pingxingyun.com 或者在 https://www.pingxingyun.com/console 获取 SDK 授权码（注意不是服务器端的授权码）。
+To use the larksr SDK, you first need to obtain an SDK authorization code from Pingxingyun Business (business@pingxingyun.com) or at https://www.pingxingyun.com/console (note that this is not the server-side authorization code).
 
-通过 larksr config 传入 `authCode` 或者通过 larksr.initSDKAuthCode('您的SDKID') 方法设置授权码。
+Pass the `authCode` through larksr config or set the authorization code using the method `larksr.initSDKAuthCode('YourSDKID')`.
 
-为保护 SDK ID 的安全性，可以从服务端 3.2.3.0 开始可以对 SDK ID 进行加密配置。
+To protect the security of the SDK ID, from server version 3.2.3.0 onwards, you can configure SDK ID encryption.
 
-配置 SDK 加密：
+Configure SDK encryption:
 
-1. 首先在 larkxr 平台后台登陆，找到系统设定->接入管理->SDKID密钥管理生成 SDK ID 加密 KEY
+1. First, log in to the larkxr platform backend, find System Settings -> Access Management -> SDKID Key Management to generate an SDK ID encryption key.
 
-2. 对 SDK ID 进行加密
+2. Encrypt the SDK ID
 
-以下 java 代码为例:
+The following is an example in Java:
 
 ```java
 public static void main(String[] args) {
     /**
-    * @param res   被加密的原生字符串
-    * @param key  16位字符作为加密的key
+    * @param res   The original string to be encrypted
+    * @param key   16-character key for encryption
     */
     try {
-        String res = "被加密的原生字符串";
-        String key = "16位字符作为加密的key";
+        String res = "The original string to be encrypted";
+        String key = "16-character key for encryption";
         String ALGORITHM = "AES";
         String CHARSET = "UTF-8";
         SecretKeySpec sks = new SecretKeySpec(key.getBytes(CHARSET), ALGORITHM);
@@ -32,9 +32,9 @@ public static void main(String[] args) {
         // BASE64Encoder encoder = new BASE64Encoder();      //java8
         Base64.Encoder encoder = Base64.getEncoder(); //java9+
         System.out.println(encoder.encodeToString(result));
-    }catch (Exception e){
+    } catch (Exception e) {
     }
 }
 ```
 
-3. 获取到加密好的字符串传入 lark 配置中即可。
+3. Pass the encrypted string into the lark configuration.

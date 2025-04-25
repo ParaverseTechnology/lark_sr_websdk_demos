@@ -1,27 +1,27 @@
-# LarkSR 对象成员方法
+# LarkSR Object Member Methods
 
-LarkSR 对象成员方法主要分为以下三类
+LarkSR object member methods are mainly divided into the following three categories
 
-## 控制流程方法，包括启动，关闭，重启，注册授权码等。
+## Control flow methods, including start, stop, restart, register authorization code, etc.
 
 ```typescript
 /**
-* 单独设置服务器地址，作用同 config 中的 serverAddress 字段
-* 在进入应用之前都可以更新。
-* @param serverAddress 服务器地址，如 http://192.168.0.55:8181/
+* Set the server address separately, same as the serverAddress field in config
+* Can be updated before entering the application.
+* @param serverAddress Server address, e.g., http://192.168.0.55:8181/
 */
 updateServerAddress(serverAddress: string): void;
 /**
  *
- * @param id sdk id 初始化sdkid
+ * @param id sdk id Initialize sdk id
  * @returns
  */
 initSDKAuthCode(id: string): Promise<void>;
 /**
- * 使用平行云托管平台时，使用 connectWithPxyHost 连接云端应用
- * 托管平台 https://www.pingxingyun.com/console/#/
- * @param params 同 connect 方法
- * @return 同 connect 方法
+ * When using the Pingxingyun hosting platform, use connectWithPxyHost to connect to the cloud application
+ * Hosting platform https://www.pingxingyun.com/console/#/
+ * @param params Same as connect method
+ * @return Same as connect method
  */
 connectWithPxyHost(params: {
     appliId: string;
@@ -33,30 +33,30 @@ connectWithPxyHost(params: {
     groupId?: string;
 }): Promise<void>;
 /**
- * 连接云端渲染资源
- * @params appID 云端资源的 ID
- * @returns Promise 调用接口并校验授权通过返回成功并自动开始连接
- * Promise 返回的错误对象：
+ * Connect to cloud rendering resources
+ * @params appID Cloud resource ID
+ * @returns Promise Call the interface and verify the authorization to return success and automatically start the connection
+ * Promise returned error object:
  * {
-        // type 0 渲染资源不足导致的错误，1 其他错误, 可用 type == 0 判断是否是渲染资源不足类型的错误
+        // type 0 Error caused by insufficient rendering resources, 1 Other errors, can use type == 0 to determine if it is an insufficient rendering resource error
         type: 0,
 
-        // 渲染资源不足时的事件类型，其他情况可能不返回，比如网络错误
+        // Event type when rendering resources are insufficient, may not return in other cases, such as network errors
         eventType?：LarkSRClientEvent.RESOURCE_NOT_ENOUGH,
 
-        // 服务端返回的错误码，服务端请求正确返回时存在。需要注意渲染资源不足类型的错误码。
-        // 可用 type == 0 判断是否是渲染资源不足类型的错误,再用 code 进行细节处理，或者只用 type == 0 进行处理。
-        // 813=当前应用的运行数量已达到最大值：{0},请稍后再试
-        // 814=同一appKey下的应用运行数量达到最大值：{0}，请稍后再试
-        // 815=应用运行数量已达到最大授权并发数量，请稍后再试
-        // 816=VR应用运行数量已达到最大授权并发数量，请稍后再试
-        // 817=渲染资源不足，请稍后再试
-        // 820=暂无活跃的GPU节点
-        // 821=节点资源使用率已达到设置的阈值
-        // 823=单节点运行应用数量已达到单节点最大授权并发数量，请稍后再试
+        // Error code returned by the server, present when the server request is correct. Pay attention to the error codes for insufficient rendering resources.
+        // Can use type == 0 to determine if it is an insufficient rendering resource error, then use code for detailed handling, or just use type == 0 for handling.
+        // 813=The current number of running applications has reached the maximum: {0}, please try again later
+        // 814=The number of running applications under the same appKey has reached the maximum: {0}, please try again later
+        // 815=The number of running applications has reached the maximum authorized concurrency, please try again later
+        // 816=The number of running VR applications has reached the maximum authorized concurrency, please try again later
+        // 817=Insufficient rendering resources, please try again later
+        // 820=No active GPU nodes
+        // 821=Node resource usage has reached the set threshold
+        // 823=The number of running applications on a single node has reached the maximum authorized concurrency, please try again later
         code?: 817,
 
-        // 错误信息
+        // Error message
         message:? "",
     }
     *
@@ -76,122 +76,122 @@ connect(params: {
     signature?: string;
 } | any): Promise<void>;
 /**
- * 重新开始云渲染流程
+ * Restart the cloud rendering process
  */
 restart(): void;
 /**
- * 重新启动云端应用
+ * Restart the cloud application
  */
 restartApp(): void;
 /**
- * 主动关闭连接
+ * Actively close the connection
  */
 close(): void;
 ```
 
-## 输入输出相关方法，包括鼠标，键盘，手柄，触摸
+## Input and output related methods, including mouse, keyboard, gamepad, touch
 
 ```typescript
 /**
- * 切换当前操作者
- * @param uid 用户id
+ * Switch the current operator
+ * @param uid User id
  */
 changeOperater(uid: number): void;
 /**
- * 向云端应用发送文字。当云端应用出现输入框时，可以将本地文本填写进去.
- * @param text 文字
+ * Send text to the cloud application. When the cloud application has an input box, you can fill in the local text.
+ * @param text Text
  */
 inputText(text: string): void;
 /**
- * 操作相关事件
- * 所有事件坐标相对于云端应用，不相对于网页
- * CloudLark.IClientInput 是所有操作指令接口对象的合集
- * 可以单独使用下面 moseMove 等接口
- * @param input 操作指令
+ * Operation related events
+ * All event coordinates are relative to the cloud application, not the webpage
+ * CloudLark.IClientInput is a collection of all operation command interface objects
+ * You can use the following moseMove interfaces separately
+ * @param input Operation command
  */
 sendInput(input: CloudLark.IClientInput): void;
 /**
- * 向云端发送鼠标移动事件
- * 事件坐标相对于云端应用，不相对于网页
- * 计算方式可以参考  https://github.com/pingxingyun/lark_sr_websdk_demos 例子中 v_cursor.vue getVMouseTouchPosition 方法
- * 原理是通过 LarkSR 对象的成员 screenState.operateScale 获取相对的缩放，
- * 本地坐标 X larksr.screenState.operateScale.scaleX / scaleY 即可得到相对云端的坐标
+ * Send mouse move event to the cloud
+ * Event coordinates are relative to the cloud application, not the webpage
+ * Calculation method can refer to the getVMouseTouchPosition method in v_cursor.vue in the example https://github.com/ParaverseTechnology/lark_sr_websdk_demos
+ * The principle is to obtain the relative scale through the screenState.operateScale member of the LarkSR object,
+ * Local coordinates X larksr.screenState.operateScale.scaleX / scaleY to get the coordinates relative to the cloud
  *
- * @param PosX 相对云端鼠标 X 点坐标
- * @param PosY 相对云端鼠标 Y 点坐标
- * @param DeltaX 相对云端鼠标 X 轴移动距离
- * @param DeltaY 相对云端鼠标 X 轴移动距离
+ * @param PosX Mouse X coordinate relative to the cloud
+ * @param PosY Mouse Y coordinate relative to the cloud
+ * @param DeltaX Mouse X axis movement distance relative to the cloud
+ * @param DeltaY Mouse Y axis movement distance relative to the cloud
  */
 mouseMove(PosX: number, PosY: number, DeltaX: number, DeltaY: number): void;
 /**
- * 向云端发送鼠标移动事件
- * 事件坐标相对于云端应用，不相对于网页
- * 计算方式可以参考  https://github.com/pingxingyun/lark_sr_websdk_demos 例子中 v_cursor.vue getVMouseTouchPosition 方法
- * 原理是通过 LarkSR 对象的成员 screenState.operateScale 获取相对的缩放，
- * 本地坐标 X larksr.screenState.operateScale.scaleX / scaleY 即可得到相对云端的坐标
+ * Send mouse move event to the cloud
+ * Event coordinates are relative to the cloud application, not the webpage
+ * Calculation method can refer to the getVMouseTouchPosition method in v_cursor.vue in the example https://github.com/ParaverseTechnology/lark_sr_websdk_demos
+ * The principle is to obtain the relative scale through the screenState.operateScale member of the LarkSR object,
+ * Local coordinates X larksr.screenState.operateScale.scaleX / scaleY to get the coordinates relative to the cloud
  *
- * @param PosX 相对云端鼠标 X 点坐标
- * @param PosY 相对云端鼠标 Y 点坐标
- * @param DeltaX 相对云端鼠标 X 轴移动距离
- * @param DeltaY 相对云端鼠标 X 轴移动距离
+ * @param PosX Mouse X coordinate relative to the cloud
+ * @param PosY Mouse Y coordinate relative to the cloud
+ * @param DeltaX Mouse X axis movement distance relative to the cloud
+ * @param DeltaY Mouse Y axis movement distance relative to the cloud
  */
 moseMove(PosX: number, PosY: number, DeltaX: number, DeltaY: number): void;
 /**
- * 向云端发送鼠标单击事件
- * X Y 坐标计算方式同 mouseMove
+ * Send mouse click event to the cloud
+ * X Y coordinate calculation method is the same as mouseMove
  *
- * @param PosX 相对云端鼠标 X 点坐标
- * @param PosY 相对云端鼠标 Y 点坐标
+ * @param PosX Mouse X coordinate relative to the cloud
+ * @param PosY Mouse Y coordinate relative to the cloud
  * @param key  LEFT = 0,RIGHT = 1, MIDDLE = 2
  */
 mouseTap(PosX: number, PosY: number, key: CloudLark.MouseKey): void;
 /**
- * 向云端发送鼠标按下事件
- * X Y 坐标计算方式同 mouseMove
+ * Send mouse down event to the cloud
+ * X Y coordinate calculation method is the same as mouseMove
  *
- * @param PosX 相对云端鼠标 X 点坐标
- * @param PosY 相对云端鼠标 Y 点坐标
+ * @param PosX Mouse X coordinate relative to the cloud
+ * @param PosY Mouse Y coordinate relative to the cloud
  * @param key  LEFT = 0,RIGHT = 1, MIDDLE = 2
  */
 mouseDown(PosX: number, PosY: number, key: CloudLark.MouseKey): void;
 /**
- * 向云端发送鼠标抬起事件
- * X Y 坐标计算方式同 mouseMove
+ * Send mouse up event to the cloud
+ * X Y coordinate calculation method is the same as mouseMove
  *
- * @param PosX 相对云端鼠标 X 点坐标
- * @param PosY 相对云端鼠标 Y 点坐标
+ * @param PosX Mouse X coordinate relative to the cloud
+ * @param PosY Mouse Y coordinate relative to the cloud
  * @param key  LEFT = 0,RIGHT = 1, MIDDLE = 2
  */
 mouseUp(PosX: number, PosY: number, key: CloudLark.MouseKey): void;
 /**
- * 向云端发送鼠标滚轮事件
- * X Y 坐标计算方式同 mouseMove
+ * Send mouse wheel event to the cloud
+ * X Y coordinate calculation method is the same as mouseMove
  *
- * @param PosX 相对云端鼠标 X 点坐标
- * @param PosY 相对云端鼠标 Y 点坐标
- * @param Delata  120/-120 鼠标滚轮滚动的数值
+ * @param PosX Mouse X coordinate relative to the cloud
+ * @param PosY Mouse Y coordinate relative to the cloud
+ * @param Delata  120/-120 Mouse wheel scroll value
  */
 mouseWheel(PosX: number, PosY: number, Delata: number): void;
 /**
- * 向云端发送键盘按键按下事件
- * @param key KeyboardEvent.code 字段，具体内容参考 Chrome https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/code/code_values
- * @param isRepeat KeyboardEvent.repeat 字段，参考https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/repeat
- * @returns 是否发送成功，如果key参数传递错误可能发送失败
+ * Send keyboard key down event to the cloud
+ * @param key KeyboardEvent.code field, specific content refer to Chrome https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/code/code_values
+ * @param isRepeat KeyboardEvent.repeat field, refer to https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/repeat
+ * @returns Whether the sending is successful, if the key parameter is passed incorrectly, the sending may fail
  */
 keyDown(key: string, isRepeat: boolean): void;
 /**
- * 向云端发送键盘按键抬起事件
- * @param key KeyboardEvent.code 字段，具体内容参考 Chrome https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/code/code_values
- * @returns 是否发送成功，如果key参数传递错误可能发送失败
+ * Send keyboard key up event to the cloud
+ * @param key KeyboardEvent.code field, specific content refer to Chrome https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/code/code_values
+ * @returns Whether the sending is successful, if the key parameter is passed incorrectly, the sending may fail
  */
 keyUp(key: string): void;
- /**
- * 手柄接口消息按照 windows xbox 360 手柄标准定义，即包含 xbox 360 手柄的功能，如按钮，摇杆，扳机键。windows 上最多支持4个手柄，
- * 当前版本服务端只处理1个手柄，后续会放开多个手柄的支持。接口中发送的按键值为对应的 windows 中定义的按键值。
- * 向云端发送手柄按钮按下事件
- * 參考 js 中获取手柄事件，参考 https://developer.mozilla.org/zh-CN/docs/Web/API/Gamepad_API/Using_the_Gamepad_API
- * @param userIndex 手柄的索引,硬件设备索引 0-3. 第一个连接的手柄为0，第二个为1，以此类推。
- * @param button 按鍵 @see https://docs.microsoft.com/en-us/windows/win32/api/xinput/ns-xinput-xinput_gamepad
+/**
+ * Gamepad interface messages are defined according to the Windows Xbox 360 gamepad standard, including the functions of the Xbox 360 gamepad, such as buttons, joysticks, and trigger keys. Windows supports up to 4 gamepads,
+ * The current version of the server only handles 1 gamepad, and support for multiple gamepads will be released later. The key values sent in the interface are the corresponding key values defined in Windows.
+ * Send gamepad button down event to the cloud
+ * Refer to js to get gamepad events, refer to https://developer.mozilla.org/zh-CN/docs/Web/API/Gamepad_API/Using_the_Gamepad_API
+ * @param userIndex Gamepad index, hardware device index 0-3. The first connected gamepad is 0, the second is 1, and so on.
+ * @param button Button @see https://docs.microsoft.com/en-us/windows/win32/api/xinput/ns-xinput-xinput_gamepad
  * export const enum XINPUT_BUTTONS {
  *       XINPUT_GAMEPAD_DPAD_UP        = 0x0001,
  *       XINPUT_GAMEPAD_DPAD_DOWN      = 0x0002,
@@ -209,395 +209,395 @@ keyUp(key: string): void;
  *       XINPUT_GAMEPAD_Y              = 0x8000,
  *       XINPUT_UNKNOWN                = -1,
  *   }
- * @param isRepeat 是否重复按下
+ * @param isRepeat Whether to repeat
  * @returns
  */
 gamepadButtonDown(userIndex: number, button: number, isRepeat: boolean): void;
 /**
- * 向云端发送手柄按钮抬起事件
- * 參考 https://developer.mozilla.org/zh-CN/docs/Web/API/Gamepad_API/Using_the_Gamepad_API
- * @param userIndex 手柄的索引
- * @param button 按鍵
+ * Send gamepad button up event to the cloud
+ * Refer to https://developer.mozilla.org/zh-CN/docs/Web/API/Gamepad_API/Using_the_Gamepad_API
+ * @param userIndex Gamepad index
+ * @param button Button
  * @returns
  */
 gamepadButtonUp(userIndex: number, button: number): void;
 /**
- * 向云端发送手柄按trigger键事件
- * 參考 https://developer.mozilla.org/zh-CN/docs/Web/API/Gamepad_API/Using_the_Gamepad_API
- * @param userIndex 手柄的索引
- * @param isleft 是否是左trigger
- * @param value trigger的值 扳机键的值 0-255
+ * Send gamepad trigger key event to the cloud
+ * Refer to https://developer.mozilla.org/zh-CN/docs/Web/API/Gamepad_API/Using_the_Gamepad_API
+ * @param userIndex Gamepad index
+ * @param isleft Whether it is the left trigger
+ * @param value Trigger value 0-255
  * @returns
  */
 gamepadTrigger(userIndex: number, isleft: boolean, value: number): void;
 /**
- * 向云端发送手柄按摇杆的值，即 axes 值
+ * Send gamepad joystick values to the cloud, i.e., axes values
  * win      MAX
  *           |
  *  MIN-------------MAX
  *          |
  *         MIN
- * js 中获取硬件手柄參考 https://developer.mozilla.org/zh-CN/docs/Web/API/Gamepad_API/Using_the_Gamepad_API
- * @param userIndex 手柄的索引
- * @param thumblx 左摇杆 X 值，-32767 到 32767
- * @param thumbly 左摇杆 Y 值，-32767 到 32767
- * @param thumbrx 右摇杆 X 值，-32767 到 32767
- * @param thumbry 右摇杆 Y 值，-32767 到 32767
+ * Refer to js to get hardware gamepad https://developer.mozilla.org/zh-CN/docs/Web/API/Gamepad_API/Using_the_Gamepad_API
+ * @param userIndex Gamepad index
+ * @param thumblx Left joystick X value, -32767 to 32767
+ * @param thumbly Left joystick Y value, -32767 to 32767
+ * @param thumbrx Right joystick X value, -32767 to 32767
+ * @param thumbry Right joystick Y value, -32767 to 32767
  * @returns
  */
 joystick(userIndex: number, thumblx: number, thumbly: number, thumbrx: number, thumbry: number): void;
 /**
- * 向云端发送触摸按下事件
- * 坐标位置与 mouseMove 相同，相对与云端的鼠标移动位置
- * @param id 手指的id
- * @param x 相对云端的x轴坐标
- * @param y 相对云端的y轴坐标
+ * Send touch down event to the cloud
+ * Coordinate position is the same as mouseMove, relative to the cloud mouse move position
+ * @param id Finger id
+ * @param x X coordinate relative to the cloud
+ * @param y Y coordinate relative to the cloud
  * @returns
  */
 touchDown(id: number, x: number, y: number): void;
 /**
- * 向云端发送触摸移动事件
- * 坐标位置与 mouseMove 相同，相对与云端的鼠标移动位置
- * @param id 手指的id
- * @param x 相对云端的x轴坐标
- * @param y 相对云端的y轴坐标
+ * Send touch move event to the cloud
+ * Coordinate position is the same as mouseMove, relative to the cloud mouse move position
+ * @param id Finger id
+ * @param x X coordinate relative to the cloud
+ * @param y Y coordinate relative to the cloud
  * @returns
  */
 touchMove(id: number, x: number, y: number): void;
 /**
- * 向云端发送触摸抬起事件
- * 坐标位置与 mouseMove 相同，相对与云端的鼠标移动位置
- * @param id 手指的id
- * @param x 相对云端的x轴坐标
- * @param y 相对云端的y轴坐标
+ * Send touch up event to the cloud
+ * Coordinate position is the same as mouseMove, relative to the cloud mouse move position
+ * @param id Finger id
+ * @param x X coordinate relative to the cloud
+ * @param y Y coordinate relative to the cloud
  * @returns
  */
 touchUp(id: number, x: number, y: number): void;
 /**
- * 字符串转换为输入的鼠标按键值
+ * Convert string to input mouse button value
  * @param button 'left' | 'mid' | 'right'
  * @returns  LEFT = 0,RIGHT = 1,MIDDLE = 2
  */
 getMouseButtonType(button: 'left' | 'mid' | 'right'): CloudLark.MouseKey;
 ```
 
-## 数据通道扩展，向云端应用数据通道发送数据
+## Data channel extension, send data to the cloud application data channel
 
 ```typescript
 /**
- * 发送文字消息给数据通道
- * 注意 云端应用要继承数据通道功能
- * > V3.2.314 版本对应服务器版本和数据通道版本为 3.2.5.1 及以上
- * @param text 文字
+ * Send text message to data channel
+ * Note that the cloud application needs to inherit the data channel function
+ * > V3.2.314 version corresponds to server version and data channel version 3.2.5.1 and above
+ * @param text Text
  */
 sendTextToDataChannel(text: string): void;
 /**
- * 发送字节消息给数据通道
- * 注意 云端应用要继承数据通道功能
- * @param binary 字节消息
+ * Send binary message to data channel
+ * Note that the cloud application needs to inherit the data channel function
+ * @param binary Binary message
  */
 sendBinaryToDataChannel(binary: Uint8Array): void;
 ```
 
-## 智能语音相关接口
+## Intelligent voice related interfaces
 
 ```typescript
 /**
-* 开始智能语音对话文本输入
-* 应在只能语音为开始状态下开始输入
-* @param text 输入的文本
-* @returns 返回对话 ID
+* Start intelligent voice dialogue text input
+* Should start input when intelligent voice is in the start state
+* @param text Input text
+* @returns Return dialogue ID
 */
 aiDmTextInput(text: string): number;
 /**
-* 开始智能语音对话语音输入，自动请求录音权限
-* 应在只能语音为开始状态下开始输入
-* @returns 成功返回对话id，失败返回异常
+* Start intelligent voice dialogue voice input, automatically request recording permission
+* Should start input when intelligent voice is in the start state
+* @returns Success returns dialogue id, failure returns exception
 */
 startAiDmVoiceInput(): Promise<number>;
 /**
-* 停止智能语音输入，通知语音引擎当前用户输入对话结束
-* @returns 返回当前对话的id
+* Stop intelligent voice input, notify the voice engine that the current user input dialogue is over
+* @returns Return the current dialogue id
 */
 stopAiDmVoiceInput(): number;
 ```
 
-LarkSR 添加如下事件来获取智能语音服务状态:
+LarkSR adds the following events to get the status of the intelligent voice service:
 
 ```typescript
 larksr.on('aivoicestatus', (e) => {
-    // 智能语音服务状态
+    // Intelligent voice service status
 });
 
 larksr.on('aivoiceasrresult', (e) => {
-    // 智能语音转文字识别结果
+    // Intelligent voice to text recognition result
 });
 
 larksr.on('aivoicedmresult', (e) => {
-    // 智能语音对话结果
+    // Intelligent voice dialogue result
 });
 ```
 
-## 麦克风输入接口
+## Microphone input interface
 
-客户端打开后云端应用可直接通过读取声卡上的麦克风接收到音频。
+After the client is turned on, the cloud application can directly receive audio by reading the microphone on the sound card.
 
-> 该功能匹配的服务端版本最低为 V3.2.51
-> 使用该功能要注意在后台开启语音输入功能
-> 注意要在连接成功之后打开媒体设备。即 `mediaPlayed` 之后调用才有效
+> The minimum server version that matches this feature is V3.2.51
+> To use this feature, make sure to enable the voice input feature in the backend
+> Note that the media device should be turned on after the connection is successful. That is, it is effective after calling `mediaPlayed`
 
 ```typescript
 /**
- * 打开一个音频设备，要注意浏览器限制在 https 或者 localhost 下才能打开音频
- * @param deviceId 音频设备id，如果不传将打开默认设备。@see getConnectedAudioinputDevices
+ * Turn on an audio device, note that the browser restricts it to https or localhost to open audio
+ * @param deviceId Audio device id, if not passed, the default device will be opened. @see getConnectedAudioinputDevices
  * @returns
  */
 openAudio(deviceId?: string);
 /**
- * 关闭当前的音频设备
+ * Turn off the current audio device
  * @returns
  */
 closeAudio(): boolean | undefined;
 /**
- * 暂停发送音频
+ * Pause sending audio
  * @returns
  */
 pauseAudioSending(): any;
 /**
- * 恢复发送音频
+ * Resume sending audio
  * @returns
  */
 resumeAudioSending(): any;
 /**
- * 返回已连接的音频设备列表，设备列表中的设备的 deviceId 可用来打开某个音频设备
+ * Return the list of connected audio devices, the device id in the device list can be used to open a specific audio device
  * @returns
  */
 getConnectedAudioinputDevices(): Promise<MediaDeviceInfo[] | undefined>;
 /**
- * 设置当前已开启的音频track是否启用状态
- * @param enable 是否启用
+ * Set whether the currently opened audio track is enabled
+ * @param enable Whether to enable
  * @returns
  */
 setAudioEnable(enable: boolean): void | undefined;
 
 /**
- * 请求浏览器打开媒体并且打开上传到服务器通道。
- * 要注意的是在服务器连接成功之后请求打开
- * @param constraints 参考 navigator.mediaDevices.getUserMedia(constraints)
- * @param reset 是否重制媒体通道。true 的情况下重制整个 peerconnection
- * @returns 打开的通道的绑定信息。管理媒体通道如关闭暂停或恢复使用。
+ * Request the browser to open the media and open the upload channel to the server.
+ * Note that the request should be made after the server connection is successful
+ * @param constraints Refer to navigator.mediaDevices.getUserMedia(constraints)
+ * @param reset Whether to reset the media channel. If true, reset the entire peerconnection
+ * @returns The binding information of the opened channel. Manage the media channel such as closing, pausing, or resuming use.
  */
 openUserMedia(constraints?: MediaStreamConstraints, reset?: boolean): Promise<any>;
 ```
 
-larksr 配置项自动打开麦克风配置,在`new LarkSR({ ... 此处省略其他配置 ... audioInputAutoStart: true})` 时传入，
+LarkSR configuration item to automatically open the microphone configuration, passed in when `new LarkSR({ ... other configurations omitted ... audioInputAutoStart: true})`,
 
-> 手动传入的 `audioInputAutoStart` 优先级高于后台配置
+> Manually passed `audioInputAutoStart` has a higher priority than the backend configuration
 
 ```javascript
 /**
-* 当启用音频输入功能，是否自动连入音频设备。
-* 默认关闭。
-* 需要注意默认打开的是系统中默认的音频设备。
+* When the audio input function is enabled, whether to automatically connect to the audio device.
+* Disabled by default.
+* Note that the default audio device of the system is enabled by default.
 */
 audioInputAutoStart?: boolean;
 ```
 
-获取当前打开音频设备的状态, 如 `larksr.audioPaused`
+Get the status of the currently opened audio device, such as `larksr.audioPaused`
 
 ```javascript
 /**
- * 当前打开的音频设备 ID，如果打开时没指定为空
+ * The ID of the currently opened audio device, if not specified when opened, it is empty
  */
 get audioDeviceId(): string | null | undefined;
 /**
- * 当前打开音频的track对象，未打开状态为空
+ * The track object of the currently opened audio, if not opened, it is empty
  */
 get audioTrack(): MediaStreamTrack | null | undefined;
 /**
- * 音频通道是否暂停
+ * Whether the audio channel is paused
  */
 get audioPaused(): boolean | undefined;
 ```
 
-## 视频输入接口
+## Video input interface
 
-客户端打开后云端应用可直接通过读取服务端的摄像头读取视频数据。
+After the client is turned on, the cloud application can directly read video data by reading the camera on the server.
 
-> 该功能匹配的服务端版本最低为 V3.2.61
-> 使用该功能要注意在后台应用管理中开启视频输入功能
-> 注意要在连接成功之后打开媒体设备。即 `mediaPlayed` 之后调用才有效
+> The minimum server version that matches this feature is V3.2.61
+> To use this feature, make sure to enable the video input feature in the backend application management
+> Note that the media device should be turned on after the connection is successful. That is, it is effective after calling `mediaPlayed`
 
 ```typescript
 /**
- * 打开一个视频设备，要注意浏览器限制在 https 或者 localhost 下才能打开视频
- * @param audio boolean 是否同时开启音频
- * @param cameraId 视频设备id，如果不传将打开默认设备。@see getConnectedVideoinputDevices
- * @param width 限制打开设备的宽
- * @param height 限制打开设备的高
+ * Turn on a video device, note that the browser restricts it to https or localhost to open video
+ * @param audio boolean Whether to turn on audio at the same time
+ * @param cameraId Video device id, if not passed, the default device will be opened. @see getConnectedVideoinputDevices
+ * @param width Limit the width of the device to be opened
+ * @param height Limit the height of the device to be opened
  * @returns Promise
  */
 openVideo(audio?: boolean, cameraId?: string, width?: number, height?: number): Promise<any>;
 /**
- * 打开摄像头设备
- * @param cameraId 摄像头设备ID，@see getConnectedVideoinputDevices
- * @param minWidth 限制打开设备的宽
- * @param minHeight 限制打开设备的高
+ * Turn on the camera device
+ * @param cameraId Camera device ID, @see getConnectedVideoinputDevices
+ * @param minWidth Limit the width of the device to be opened
+ * @param minHeight Limit the height of the device to be opened
  * @returns @see openUserMedia
  */
 openCamera(cameraId: string, minWidth?: number, minHeight?: number): Promise<any>;
 /**
- * 打开默认媒体设备，要注意浏览器限制在 https 或者 localhost 下
- * 如果需要指定特殊的媒体设备请单独使用 @see openAudio @see openVideo
- * @param video 是否包含视频
- * @param audio 是否包含音频
+ * Turn on the default media device, note that the browser restricts it to https or localhost
+ * If you need to specify a specific media device, please use @see openAudio @see openVideo separately
+ * @param video Whether to include video
+ * @param audio Whether to include audio
  * @returns Promise
  */
-openDefaultMedia(video?: boolean, audio?: boolean)>;
+openDefaultMedia(video?: boolean, audio?: boolean): Promise<any>;
 /**
- * 返回已连接的视频设备
+ * Return the list of connected video devices
  * @returns Promise<MediaDeviceInfo[]>
  */
-getConnectedVideoinputDevices();
+getConnectedVideoinputDevices(): Promise<MediaDeviceInfo[]>;
 /**
- * 设置当前已开启的视频track是否启用状态
- * @param enable 是否启用
+ * Set whether the currently opened video track is enabled
+ * @param enable Whether to enable
  * @returns void
  */
-setVideoEnable(enable: boolean);
+setVideoEnable(enable: boolean): void;
 
 /**
- * 暂停发送视频
+ * Pause sending video
  * @returns
  */
 pauseVideoSending(): any;
 /**
- * 恢复发送视频
+ * Resume sending video
  * @returns
  */
 resumeVideoSending(): any;
 
 /**
- * 关闭当前已打开的视频设备
+ * Turn off the currently opened video device
  * @returns
  */
 closeVideo(): any;
 /**
- * 关闭当前已打开的共享设备如共享的标签页等
+ * Turn off the currently opened shared device, such as a shared tab, etc.
  * @returns
  */
 closeShare(): any;
 /**
- * 请求浏览器打开媒体并且打开上传到服务器通道。
- * 要注意的是在服务器连接成功之后请求打开
- * @param constraints 参考 navigator.mediaDevices.getUserMedia(constraints)
- * @param reset 是否重制媒体通道。true 的情况下重制整个 peerconnection
- * @returns 打开的通道的绑定信息。管理媒体通道如关闭暂停或恢复使用。
+ * Request the browser to open the media and open the upload channel to the server.
+ * Note that the request should be made after the server connection is successful
+ * @param constraints Refer to navigator.mediaDevices.getUserMedia(constraints)
+ * @param reset Whether to reset the media channel. If true, reset the entire peerconnection
+ * @returns The binding information of the opened channel. Manage the media channel such as closing, pausing, or resuming use.
  */
 openUserMedia(constraints?: MediaStreamConstraints, reset?: boolean): Promise<any>;
 ```
 
-larksr 配置项自动打开视频输入配置,在`new LarkSR({ ... 此处省略其他配置 ... videoInputAutoStart: true})` 时传入
+LarkSR configuration item to automatically open the video input configuration, passed in when `new LarkSR({ ... other configurations omitted ... videoInputAutoStart: true})`,
 
-> 手动传入的 `videoInputAutoStart` 优先级高于后台配置
+> Manually passed `videoInputAutoStart` has a higher priority than the backend configuration
 
 ```javascript
 /**
- * 当启用视频输入功能，是否自动连入视频设备。
- * 默认关闭。
- * 需要注意默认打开的是系统中默认的视频设备。
+ * When the video input function is enabled, whether to automatically connect to the video device.
+ * Disabled by default.
+ * Note that the default video device of the system is enabled by default.
  */
 videoInputAutoStart?: boolean;
 ```
 
-获取当前打开视频设备的状态,如 `larksr.videoPaused`
+Get the status of the currently opened video device, such as `larksr.videoPaused`
 
 ```javascript
 /**
- * 当前打开视频设备 ID，如果打开时没指定特设备id为空
+ * The ID of the currently opened video device, if not specified when opened, it is empty
  */
 get videoDeviceId(): string | null | undefined;
 /**
- * 当前打开视频track对象，未打开状态为空
+ * The track object of the currently opened video, if not opened, it is empty
  */
 get videoTrack(): MediaStreamTrack | null | undefined;
 /**
- * 视频通道是否暂停
+ * Whether the video channel is paused
  */
 get videoPaused(): boolean | undefined;
 ```
 
-## 云端直播推流功能
+## Cloud live streaming function
 
-> 服务端 3.2.7.0 添加， 要注意使用云端直播推流功能要在后台应用管理中开启该功能
+> Server 3.2.7.0 added, note that to use the cloud live streaming function, you need to enable this function in the backend application management
 
 ```javascript
 /**
-* 启动云端推流功能
+* Start the cloud live streaming function
 * @param params {
-*  // rtmp push url 必须填
+*  // rtmp push url must be filled
 *  path: "",
 *  //rtmp push key
 *  key: "",
-*  // 推流的宽
+*  // Push stream width
 *  width: 1280,
-*  // 推流的高
+*  // Push stream height
 *  height: 720,
 *  framerate: 30,
 *  // kbps
 *  bitrate: 1024 * 2,
-*  // 是否支持断线重连
+*  // Whether to support reconnection
 *  reconnect: true,
-*  //最大重连次数
+*  //Maximum number of reconnections
 *  reconnectRetries: 3,
-*  //是否串流麦克风(语音输入支持的情况)
+*  //Whether to stream the microphone (if voice input is supported)
 *  voice: audioInput,
 * }
 * @returns Promise
 */
 StartCloudLiveStreaming(params: CloudLark.IRtmp_Start): Promise<void> | undefined;
 /**
-* 关闭云端推流功能
+* Turn off the cloud live streaming function
 * @returns
 */
 StopLiveStreaming(): void | undefined;
 ```
 
-云端直播的相关状态参考 `RTMP_STREAM_STATE` 和 `RTMP_STREAM_ERROR` 两个事件
+The relevant status of cloud live streaming refers to the two events `RTMP_STREAM_STATE` and `RTMP_STREAM_ERROR`
 
 ```javascript
 /**
-* 服务端 3.2.7.0 添加
-* rtmp 直播推流状态
+* Server 3.2.7.0 added
+* rtmp live streaming status
 */
 RTMP_STREAM_STATE = "rtmpstreamstate",
 /**
-* 服务端 3.2.7.0 添加
-* rtmp 直播推流出错
+* Server 3.2.7.0 added
+* rtmp live streaming error
 */
 RTMP_STREAM_ERROR = "rtmpstreamerror"
 ```
 
-## 其他
+## Other
 
 ```typescript
 /**
- * 采集一帧图像
- * @params data: any 抛出采集事件时抛出的附加data，比如采集的时间戳
- * @params option:  { width: number, height: number } 截图的宽高，如果未设置则使用云端应用窗口的宽高
- * @return { data: any, base64: base64string } 返回传入的 data 和采集的 base64 字符串
+ * Capture a frame of image
+ * @params data: any Additional data thrown when the capture event is thrown, such as the capture timestamp
+ * @params option:  { width: number, height: number } Screenshot width and height, if not set, use the width and height of the cloud application window
+ * @return { data: any, base64: base64string } Return the passed data and the captured base64 string
  */
 captrueFrame(data: any, option?: { width: number; height: number;})
 
 /**
- * 设置是否强制横屏显示内容.
- * handelRootElementSize 必须设置为 true 才有作用。
- * 要注意强制横屏模式下网页的坐标系xy和视觉上相反，如果通过外部输入 input 事件。要注意调整
- * @param force 是否强制横屏
+ * Set whether to force landscape display content.
+ * handelRootElementSize must be set to true to be effective.
+ * Note that in forced landscape mode, the coordinate system xy of the webpage is opposite to the visual, if input events are input through external input. Pay attention to adjustment
+ * @param force Whether to force landscape
  */
 setMobileForceLandScape(force: boolean): void;
 /**
- * 从DOM种删除渲染组件，注意删除渲染组件之后将无法再次进入应用，所有状态将失效,不可恢复，只能重新new LarkSR
+ * Remove the rendering component from the DOM, note that after the rendering component is removed, it will not be possible to enter the application again, all states will be invalid, and cannot be restored, only new LarkSR can be used
  */
 destroy(): void;
 ```

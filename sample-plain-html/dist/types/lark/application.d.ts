@@ -49,7 +49,8 @@ export declare enum APP_EVENT_TYPE {
     RTMP_STREAM_ERROR = 23,
     RTC_RETRY_SUCCESS = 24,
     AerialViewStatus = 25,
-    AerialViewScreen = 26
+    AerialViewScreen = 26,
+    START_XR_STREAM_RESPONSE = 27
 }
 export interface AppEvent extends LocalEvent<APP_EVENT_TYPE> {
     data?: any;

@@ -62,7 +62,7 @@ declare enum LarkSRClientEvent {
             // 服务端返回的错误码，服务端请求正确返回时存在。需要注意渲染资源不足类型的错误码。
             // 可用 type == 0 判断是否是渲染资源不足类型的错误,再用 code 进行细节处理，或者只用 type == 0 进行处理。
             // 813=当前应用的运行数量已达到最大值：{0},请稍后再试
-            // 814=同一appKey下的应用运行数量达到最大值：{0}，请稍后再试
+            // 814=同一wsId下的应用运行数量达到最大值：{0}，请稍后再试
             // 815=应用运行数量已达到最大授权并发数量，请稍后再试
             // 816=VR应用运行数量已达到最大授权并发数量，请稍后再试
             // 817=渲染资源不足，请稍后再试
@@ -246,7 +246,10 @@ declare enum LarkSRClientEvent {
      * 服务端 3.2.2.x 添加
      * 鸟瞰模式背景缩略图
      */
-    AERIAL_VIEW_SCREEN = "aerialviewscreen"
+    AERIAL_VIEW_SCREEN = "aerialviewscreen",
+    /**
+     */
+    START_XR_STREAM_RESPONSE = "startxrstreamresponse"
 }
 /**
  * LarkSR 发出的事件
@@ -500,6 +503,30 @@ interface ILarkSRConfig {
      * 是否使用 webcodec
      */
     useWebCodec?: boolean;
+    /**
+     * 是否启用等待队列
+     * 优先级高于后台配置
+     */
+    disableWaitQueue?: boolean;
+    /**
+     * XR stream
+     */
+    enableWebXR?: boolean;
+    /**
+     * 强制指定云端应用分辨率
+     */
+    forceResolution?: {
+        width: number;
+        height: number;
+    };
+    /**
+     * 自动同步客户端分辨率时忽略云端桌面分辨率大小限制
+     */
+    ignoreCloudDesktopResolution?: boolean;
+    /**
+     * 强制横屏模式时使用屏幕宽高判断是否横屏
+     */
+    ignoreScreenOrientation?: boolean;
 }
 declare class LarkSR extends EventBase<LarkSRClientEvent, LarkSREvent> {
     /**
@@ -524,6 +551,11 @@ declare class LarkSR extends EventBase<LarkSRClientEvent, LarkSREvent> {
      * 当前是否是交互模式，交互默认即可以操作的模式
      */
     get isInteractiveMode(): boolean;
+    /**
+     * 获取是否为像素流送的状态。
+     * 如果应用参数中的应用类型等于像素流送类型，则返回true；否则返回false。
+     * @returns {boolean} 是否为像素流送的状态。
+     */
     get isPixelStreaming(): boolean;
     /**
      * 当前 app 的状态
@@ -537,6 +569,12 @@ declare class LarkSR extends EventBase<LarkSRClientEvent, LarkSREvent> {
     get remoteScreenReady(): boolean;
     set remoteScreenReady(ready: boolean);
     private _remoteScreenReady;
+    /**
+     * 当首次获取到应用窗口大小时的处理函数。
+     * 如果当前设置为同步客户端视口，则根据同步客户端视口的宽度和高度设置云端应用的大小，并在100毫秒后将屏幕滚动到中心位置。
+     * @param width - 应用窗口的宽度。
+     * @param height - 应用窗口的高度。
+     */
     onFirstAppsize(width: number, height: number): void;
     /**
      * 当前的屏幕状态
@@ -548,6 +586,10 @@ declare class LarkSR extends EventBase<LarkSRClientEvent, LarkSREvent> {
      * 动态设置scalemode
      */
     set scaleMode(scaleMode: ScaleMode);
+    /**
+     * 获取鼠标缩放方向。
+     * @returns {number} 鼠标缩放方向。
+     */
     get mouseZoomDirection(): number;
     /**
      * 动态设置滚轮和缩放手势对应关系
@@ -564,8 +606,16 @@ declare class LarkSR extends EventBase<LarkSRClientEvent, LarkSREvent> {
      */
     private pixelInput;
     private iframeHandler;
+    /**
+     * 获取全屏对象。
+     * @returns {FullScreen} 全屏对象。
+     */
     get fullScreen(): FullScreen;
     private _fullScreen;
+    /**
+     * 获取锁对象。
+     * @returns {LockPointer} 对象。
+     */
     get lockPointer(): LockPointer;
     private _lockPointer;
     private _view;
@@ -590,7 +640,8 @@ declare class LarkSR extends EventBase<LarkSRClientEvent, LarkSREvent> {
      */
     get containerElement(): any;
     /**
-     *
+     * 获取视口元素。
+     * @returns {HTMLElement} 视口元素。
      */
     get viewportElement(): any;
     /**
@@ -626,10 +677,28 @@ declare class LarkSR extends EventBase<LarkSRClientEvent, LarkSREvent> {
      * 是否显示载入画面时底部文字
      */
     set isEnableLoadingStateBar(enable: boolean);
+    /**
+     * 获取根元素。
+     * @returns {HTMLElement} 根元素。
+     */
     get rootElement(): HTMLElement;
     private _rootElement;
+    /**
+     * 获取服务器地址。
+     * 如果配置对象中存在服务器地址，则返回该地址；否则返回空字符串。
+     * @returns {string} 服务器地址。
+     */
     get serverAddress(): string;
+    /**
+     * 获取服务器的IP地址。
+     * 该方法通过解析服务器地址的URL，提取出主机名作为服务器的IP地址。
+     * @returns {string} 服务器的IP地址。
+     */
     get serverIp(): string;
+    /**
+     * 获取当前 LarkSR 实例的配置对象。
+     * @returns {ILarkSRConfig} 当前 LarkSR 实例的配置对象。
+     */
     get config(): ILarkSRConfig;
     private _config;
     private loadingTimeout;
@@ -690,6 +759,11 @@ declare class LarkSR extends EventBase<LarkSRClientEvent, LarkSREvent> {
      * 服务器支持的功能列表
      */
     get serverFeatures(): CloudLark.INotifyFeatures | null | undefined;
+    /**
+     * 获取服务器统计信息。
+     * 如果应用对象存在，则返回服务器统计信息；否则返回undefined。
+     * @returns {ServerStatics | undefined} 服务器统计信息或undefined。
+     */
     get serverStatics(): CloudLark.IServerStatics | null | undefined;
     /**
      * 动态设置码率 单位 kbps
@@ -738,8 +812,20 @@ declare class LarkSR extends EventBase<LarkSRClientEvent, LarkSREvent> {
      * 停止鸟瞰模式区域
      */
     stopAerialview(): void;
+    /**
+     * 获取是否同步客户端视口的状态。
+     * 如果初始化分辨率类型不等于0，则返回true，表示同步客户端视口；否则返回false。
+     * @returns {boolean} 是否同步客户端视口的状态。
+     */
     get syncClientViewport(): boolean;
+    /**
+     * 设置是否同步客户端视口的状态。
+     * 如果传入的参数sync为true，则设置云端应用的大小为当前屏幕状态的同步客户端视口的宽度和高度，并将初始化分辨率类型设置为1；
+     * 如果传入的参数sync为false，则将初始化分辨率类型设置为0。
+     * @param {boolean} sync 是否同步客户端视口的状态。
+     */
     set syncClientViewport(sync: boolean);
+    private waitQueue;
     /**
      * LarkSR 客户端。所有操作和事件通过该类传递
      * @param config 本地配置，优先级最高
@@ -787,7 +873,7 @@ declare class LarkSR extends EventBase<LarkSRClientEvent, LarkSREvent> {
             // 服务端返回的错误码，服务端请求正确返回时存在。需要注意渲染资源不足类型的错误码。
             // 可用 type == 0 判断是否是渲染资源不足类型的错误,再用 code 进行细节处理，或者只用 type == 0 进行处理。
             // 813=当前应用的运行数量已达到最大值：{0},请稍后再试
-            // 814=同一appKey下的应用运行数量达到最大值：{0}，请稍后再试
+            // 814=同一wsId下的应用运行数量达到最大值：{0}，请稍后再试
             // 815=应用运行数量已达到最大授权并发数量，请稍后再试
             // 816=VR应用运行数量已达到最大授权并发数量，请稍后再试
             // 817=渲染资源不足，请稍后再试
@@ -912,6 +998,9 @@ declare class LarkSR extends EventBase<LarkSRClientEvent, LarkSREvent> {
      * 可以不使用该方法退出页面
      */
     quit(): void;
+    /**
+     * 重置应用的鼠标锁定状态
+     */
     resetAppMouseLockState(): void;
     /**
      * 采集一帧图像
@@ -937,7 +1026,7 @@ declare class LarkSR extends EventBase<LarkSRClientEvent, LarkSREvent> {
     /**
      * 向云端发送鼠标移动事件
      * 事件坐标相对于云端应用，不相对于网页
-     * 计算方式可以参考  https://github.com/pingxingyun/lark_sr_websdk_demos 例子中 v_cursor.vue getVMouseTouchPosition 方法
+     * 计算方式可以参考  https://github.com/ParaverseTechnology/lark_sr_websdk_demos 例子中 v_cursor.vue getVMouseTouchPosition 方法
      * 原理是通过 LarkSR 对象的成员 screenState.operateScale 获取相对的缩放，
      * 本地坐标 X larksr.screenState.operateScale.scaleX / scaleY 即可得到相对云端的坐标
      *
@@ -950,7 +1039,7 @@ declare class LarkSR extends EventBase<LarkSRClientEvent, LarkSREvent> {
     /**
      * 向云端发送鼠标移动事件
      * 事件坐标相对于云端应用，不相对于网页
-     * 计算方式可以参考  https://github.com/pingxingyun/lark_sr_websdk_demos 例子中 v_cursor.vue getVMouseTouchPosition 方法
+     * 计算方式可以参考  https://github.com/ParaverseTechnology/lark_sr_websdk_demos 例子中 v_cursor.vue getVMouseTouchPosition 方法
      * 原理是通过 LarkSR 对象的成员 screenState.operateScale 获取相对的缩放，
      * 本地坐标 X larksr.screenState.operateScale.scaleX / scaleY 即可得到相对云端的坐标
      *

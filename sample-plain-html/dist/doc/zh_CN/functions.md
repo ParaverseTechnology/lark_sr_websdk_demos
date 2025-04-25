@@ -115,7 +115,7 @@ sendInput(input: CloudLark.IClientInput): void;
 /**
  * 向云端发送鼠标移动事件
  * 事件坐标相对于云端应用，不相对于网页
- * 计算方式可以参考  https://github.com/pingxingyun/lark_sr_websdk_demos 例子中 v_cursor.vue getVMouseTouchPosition 方法
+ * 计算方式可以参考  https://github.com/ParaverseTechnology/lark_sr_websdk_demos 例子中 v_cursor.vue getVMouseTouchPosition 方法
  * 原理是通过 LarkSR 对象的成员 screenState.operateScale 获取相对的缩放，
  * 本地坐标 X larksr.screenState.operateScale.scaleX / scaleY 即可得到相对云端的坐标
  *
@@ -128,7 +128,7 @@ mouseMove(PosX: number, PosY: number, DeltaX: number, DeltaY: number): void;
 /**
  * 向云端发送鼠标移动事件
  * 事件坐标相对于云端应用，不相对于网页
- * 计算方式可以参考  https://github.com/pingxingyun/lark_sr_websdk_demos 例子中 v_cursor.vue getVMouseTouchPosition 方法
+ * 计算方式可以参考  https://github.com/ParaverseTechnology/lark_sr_websdk_demos 例子中 v_cursor.vue getVMouseTouchPosition 方法
  * 原理是通过 LarkSR 对象的成员 screenState.operateScale 获取相对的缩放，
  * 本地坐标 X larksr.screenState.operateScale.scaleX / scaleY 即可得到相对云端的坐标
  *

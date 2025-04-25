@@ -194,7 +194,7 @@ export interface IAppliParams {
     enableRttIcon: boolean;
     enableSoundRequire: boolean;
     toastLevel: number;
-    appKey: string;
+    wsId: string;
     groupId: string;
     textInputEventPrompt: boolean;
     audioInput: boolean;
@@ -207,6 +207,22 @@ export interface IAppliParams {
     initResolutionType: number;
     useWebCodec: boolean;
     mobileWebMenuType: number;
+    showWebMenu: number;
+    /**
+      * 强制指定云端应用分辨率
+      * @width
+      * @height
+      */
+    forceResolution: boolean;
+    /**
+     * 自动同步客户端分辨率时忽略云端桌面分辨率大小限制
+     */
+    ignoreCloudDesktopResolution: boolean;
+    /**
+     * 强制横屏模式时使用屏幕宽高判断是否横屏
+     */
+    ignoreScreenOrientation: boolean;
+    imeFirstNotice: number;
 }
 export declare enum AppliType {
     DESKTOP = 1,
@@ -266,7 +282,7 @@ export declare class AppliParams implements IAppliParams {
     enableRttIcon: boolean;
     enableSoundRequire: boolean;
     toastLevel: number;
-    appKey: string;
+    wsId: string;
     groupId: string;
     textInputEventPrompt: boolean;
     audioInput: boolean;
@@ -279,6 +295,11 @@ export declare class AppliParams implements IAppliParams {
     initResolutionType: number;
     useWebCodec: boolean;
     mobileWebMenuType: number;
+    showWebMenu: number;
+    forceResolution: boolean;
+    ignoreCloudDesktopResolution: boolean;
+    ignoreScreenOrientation: boolean;
+    imeFirstNotice: number;
     static copyAndCreate(params?: IAppliParams): AppliParams;
     static setUpWithSDKConfig(params: IAppliParams, config: ILarkSRConfig): AppliParams;
 }

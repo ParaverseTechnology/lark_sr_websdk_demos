@@ -1,26 +1,26 @@
-# Dev 分支 目前版本 3.2.4-dev.0.1
+# Dev Branch Current Version 3.2.4-dev.0.1
 
-> Dev 分支包含未发布的服务端功能。测试联调使用。
+> The Dev branch includes unreleased server-side features. Used for testing and debugging.
 
-## 3.2.4-dev.0.1 新增功能
+## New Features in 3.2.4-dev.0.1
 
-> 以下示例代码假定 `larksr` 对象初始化并连接成功。
-> 测试demo https://github.com/pingxingyun/lark_sr_websdk_demos/tree/gh-pages
+> The following sample code assumes that the `larksr` object has been initialized and connected successfully.
+> Test demo: https://github.com/ParaverseTechnology/lark_sr_websdk_demos/tree/gh-pages
 
-(1). 新增多路 Web 端上传媒体功能。使用 `larksr.getMediaSharePeerConnection(index)` 获取上传媒体通道。
+(1). Added multi-channel media upload feature on the Web. Use `larksr.getMediaSharePeerConnection(index)` to get the media upload channel.
 
-序号 index 支持 0 - 5, 获取媒体通道之后的打开媒体操作和之前的接口相同。原有的接口等同于 `getMediaSharePeerConnection(0)`
+The index supports 0 - 5. The operations for opening media after obtaining the media channel are the same as the previous interface. The original interface is equivalent to `getMediaSharePeerConnection(0)`.
 
-使用方式如
+Usage example:
 
 ```javascript
 larksr.getMediaSharePeerConnection(0).openVideo();
 larksr.getMediaSharePeerConnection(0).closeVideo();
 ```
 
-> 连接不支持多通道上传的老版本渲染服务器时，仅通道 0 起作用。
+> When connected to older versions of the rendering server that do not support multi-channel uploads, only channel 0 will work.
 
-(2). 获取具体通道的连接状态 `getStats` 
+(2). Get the connection status of a specific channel using `getStats`
 
 ```javascript
 larksr.getMediaSharePeerConnection(0).getStats()
@@ -32,16 +32,16 @@ larksr.getMediaSharePeerConnection(0).getStats()
 })
 ```
 
-(3). 设置具体连接通道的视频编码 `preferVideoCode`
+(3). Set the video codec for a specific connection channel using `preferVideoCode`
 
 ```javascript
 larksr.getMediaSharePeerConnection(0).preferVideoCode = 'h264';
 ```
 
-> 当当前浏览器支持所设定的视频编码时优先使用，如果不支持使用默认的编码方式
-> 设置完成之后再次打开视频起效，已经打开的视频通不会有变化。
+> If the current browser supports the specified video codec, it will be used preferentially. If not, the default codec will be used.
+> The setting will take effect the next time the video is opened. The already opened video channel will not change.
 
-(4). 设置具体连接通道的视频上传码率
+(4). Set the video upload bitrate for a specific connection channel
 
 ```javascript
 larksr.getMediaSharePeerConnection(0).codeRate = {
@@ -51,9 +51,9 @@ larksr.getMediaSharePeerConnection(0).codeRate = {
 }
 ```
 
-> 设置完成之后再次打开视频起效，已经打开的视频通不会有变化。
+> The setting will take effect the next time the video is opened. The already opened video channel will not change.
 
-(5). 媒体连接通道可以单独监听事件，如
+(5). Media connection channels can listen to events individually, for example:
 
 ```javascript
 larksr.getMediaSharePeerConnection(0).on("rtc_state_change", function(e) {
@@ -61,24 +61,24 @@ larksr.getMediaSharePeerConnection(0).on("rtc_state_change", function(e) {
 });
 ```
 
-(6). 打开或保存下来的媒体通道对象有单独的id, 0 - 5
+(6). The opened or saved media channel object has a unique id, 0 - 5
 
 ```javascript
 larksr.getMediaSharePeerConnection(0).id
 ```
 
-(7). 强制使用画布模式，视频通道的画布可以顺时针或者逆时针旋转画面
+(7). Force the use of canvas mode, and the video channel's canvas can rotate the image clockwise or counterclockwise.
 
-开启旋转
+Enable rotation:
 
 ```javascript
 larksr.getMediaSharePeerConnection(0).forceRenderToCanvas = true;
 ```
 
-强制顺时针旋转
+Force clockwise rotation:
 
 ```javascript
 larksr.getMediaSharePeerConnection(0).canvasRender.setRotate(true);
 ```
 
-> 设置完成之后再次打开视频起效，已经打开的视频通不会有变化。
+> The setting will take effect the next time the video is opened. The already opened video channel will not change.

@@ -1,140 +1,140 @@
-# LarkSR 对象参数
+# LarkSR Object Parameters
 
-创建 LarkSR 对象参数如下
+The parameters for creating a LarkSR object are as follows:
 
 ```typescript
 /**
- * 构造 LarkSR 参数
+ * LarkSR Configuration Interface
  */
 interface ILarkSRConfig {
     /**
-     * 必选项 根元素。组件会挂载到跟元素下面
-     * 注意*不要*设置为 document.documentElement
-     * 默认模式下会通过旋转根元素实现强制横屏模式。
+     * Required. Root element. The component will be mounted under the root element.
+     * Note: *Do not* set it to document.documentElement.
+     * In default mode, the root element will be rotated to enforce landscape mode.
      * @see handleRootElementSize
      * @see scaleMode
      */
     rootElement: HTMLElement;
     /**
-     * 可选项 服务器地址. LarkServer 前台访问的地址
-     * 如： http://192.168.0.55:8181/
-     * 当使用托管服务时服务器地址自动分配,可留空。
-     * 使用托管服务时@see CreateLarkSRClientFromePXYHost @see larksr.connectWithPxyHost
+     * Optional. Server address. The address for accessing the LarkServer frontend.
+     * Example: http://192.168.0.55:8181/
+     * When using managed services, the server address is automatically assigned and can be left empty.
+     * When using managed services, @see CreateLarkSRClientFromePXYHost @see larksr.connectWithPxyHost
      */
     serverAddress?: string;
     /**
-     * 可选项。 sdk 授权码。如果不在此处填，则必须在后续的实例里调用 initSDKAuthCode 初始化。
+     * Optional. SDK authorization code. If not provided here, it must be initialized in the instance later by calling initSDKAuthCode.
      */
     authCode?: string;
     /**
-     * 可选项，授权是否成功
-     * @deprecated 目前不会回调该参数。如果SDK验证失败将在 connect 返回失败
+     * Optional. Whether the authorization is successful.
+     * @deprecated This parameter is currently not called back. If SDK verification fails, it will return a failure in connect.
      */
     authCodeCallback?: (isSuccess: boolean, e: any) => void;
     /**
-     * 可选项，载入时的背景图片 url
+     * Optional. Background image URL during loading.
      */
     loadingBgUrl?: string;
     /**
-     * 可选项，是否同步传入根的组件的大小样式。
-     * 默认开启，将跟组件大小设置为浏览器视口大小
-     * 如果关闭，内部组件将按照传入的根元素大小去显示
-     * 注意，当关闭时不会自动填充根元素，如果根元素高度为 0 将显示不出来。
-     * 注意，当关闭时 mobileForceLandscape 将失去作用。
+     * Optional. Whether to synchronize the size style of the root component.
+     * Enabled by default, setting the root component size to the browser viewport size.
+     * If disabled, the internal components will be displayed according to the size of the passed root element.
+     * Note: When disabled, the root element will not be automatically filled. If the root element height is 0, it will not be displayed.
+     * Note: When disabled, mobileForceLandscape will lose its effect.
      */
     handleRootElementSize?: boolean;
     /**
-     * 同 handleRootElementSize
+     * Same as handleRootElementSize.
      */
     handelRootElementSize?: boolean;
     /**
-     * 是否只设置根的组件的旋转。只当 handleRootElementSize 为 true 时有效。设置根组件的旋转用于 mobileForceLandscape 模式。
-     * 默认为false，此时 SDK 会设置根组件的宽高,margin 0,padding 0
-     * 为true并且handleRootElementSize也为true时，只设置根组件的旋转属性，用于强制横屏模式以及强制横屏竖屏的切换。
-     * 要注意onlyHandleRootElementTransform开启成功时，要保证根节点的元素大小并且当根节点变化时应调用 resize 方法通知更新根节点的大小。
+     * Whether to only set the rotation of the root component. Only effective when handleRootElementSize is true. Sets the rotation of the root component for mobileForceLandscape mode.
+     * Default is false. In this case, the SDK will set the width, height, margin 0, and padding 0 of the root component.
+     * When true and handleRootElementSize is also true, only the rotation attribute of the root component is set, used for forced landscape mode and switching between forced landscape and portrait modes.
+     * Note: When onlyHandleRootElementTransform is successfully enabled, ensure the size of the root element and call the resize method to notify the update of the root element size when the root element changes.
      */
     onlyHandleRootElementTransform?: boolean;
     /**
-     * 是否在sdk内部监听鼠标键盘等输入事件
-     * 如果关闭需要手动发送输入事件
-     * 注意关闭时全屏模式和锁定模式将失效,需要在sdk外部触发
+     * Whether to listen to mouse, keyboard, and other input events within the SDK.
+     * If disabled, input events need to be sent manually.
+     * Note: When disabled, full-screen mode and lock mode will be invalid and need to be triggered externally.
      * @see fullScreenMode
      */
     handlInput?: boolean;
     /**
-     * 当视频播自动放失败时是否尝试静音播放,静音播放时将抛出事件
-     * 静音播放当用户操作屏幕时将尝试播放声音
+     * Whether to attempt muted playback when video autoplay fails. An event will be thrown when muted playback occurs.
+     * When the user interacts with the screen during muted playback, it will attempt to play sound.
      */
     mutePlayWhenFailed?: boolean;
     /**
-     * 可选项，是否是 vr 监控类型。
+     * Optional. Whether it is a VR monitoring type.
      */
     isMonitor?: boolean;
     /**
-     * 可选项，码率
+     * Optional. Bitrate.
      */
     codeRate?: number;
     /**
-     * 可选项，帧率
+     * Optional. Frame rate.
      */
     frameRate?: number;
     /**
-     * 可选项，音频帧率
+     * Optional. Audio frame rate.
      */
     audioCodeRate?: number;
     /**
-     * 可选项，日志级别。默认为 warn
+     * Optional. Log level. Default is warn.
      */
     logLevel?: 'info' | 'warn' | 'error';
     /**
-     * 可选项，载入超时时间. 默认为 60s。超过该事件停止载入
+     * Optional. Loading timeout. Default is 60s. Loading stops after this time.
      */
     loadingTimeout?: number;
     /**
-     * 可选项，是否自动同步剪贴板数据
+     * Optional. Whether to automatically synchronize clipboard data.
      */
     syncLocalToCloudClipboard?: boolean;
     /**
-     * 可选项，优选选择的视频编码格式
+     * Optional. Preferred video codec format.
      */
     preferDecoder?: 'auto' | 'vp8' | 'vp9' | 'h264' | 'h265' | 'hevc' | 'av1x';
     /**
-     * 可选项，视频在容器中的缩放模式
+     * Optional. Video scaling mode within the container.
      * ScaleMode: 'contain' | 'fill_clip' | 'fill_stretch'
-     * contain: 以应用原始尺寸的缩放
-     * fill_clip: 裁剪模式，完全填充屏幕但保留宽高比
-     * fill_stretch: 拉伸模式，完全填充屏幕但不保留宽高比
-     * 对应后台应用管理->应用编辑->通用高级设置->窗口初始显示方式,该配置优先级高于后台配置
+     * contain: Scales with the original size of the application.
+     * fill_clip: Crop mode, fully fills the screen while maintaining aspect ratio.
+     * fill_stretch: Stretch mode, fully fills the screen without maintaining aspect ratio.
+     * Corresponds to the initial display mode in the backend application management -> application editing -> general advanced settings. This configuration has a higher priority than the backend configuration.
      */
     scaleMode?: ScaleMode;
     /**
-     * 全屏模式
-     *  0 -》 用户手动触发
-     *  1 -》 首次点击进入触发
-     *  2 -》 每次点击触发
-     * 对应后台应用管理->应用编辑->通用高级设置->全屏模式,该配置优先级高于后台配置
+     * Full-screen mode.
+     *  0 -》 Manually triggered by the user.
+     *  1 -》 Triggered on the first click.
+     *  2 -》 Triggered on every click.
+     * Corresponds to the full-screen mode in the backend application management -> application editing -> general advanced settings. This configuration has a higher priority than the backend configuration.
      */
     fullScreenMode?: number;
     /**
-     * 可选项，手机端的全屏模式，值同  fullScreenMode
-     * 对应后台应用管理->应用编辑->移动端高级设置->全屏模式,该配置优先级高于后台配置
+     * Optional. Full-screen mode on mobile devices, same values as fullScreenMode.
+     * Corresponds to the full-screen mode in the backend application management -> application editing -> mobile advanced settings. This configuration has a higher priority than the backend configuration.
      */
     mobileFullScreenMode?: number;
     /**
-     * 可选项，手机端是否强制横屏
-     * 对应后台应用管理->应用编辑->移动端高级设置->手机端时是否强制横屏,该配置优先级高于后台配置
+     * Optional. Whether to force landscape mode on mobile devices.
+     * Corresponds to whether to force landscape mode on mobile devices in the backend application management -> application editing -> mobile advanced settings. This configuration has a higher priority than the backend configuration.
      */
     mobileForceLandscape?: boolean;
     /**
-     * 可选项
-     * 初始化鼠标模式, true 锁定，false 非锁定
-     * 对应后台应用管理->应用编辑->通用高级设置->初始化鼠标模式,该配置优先级高于后台配置
+     * Optional.
+     * Initial mouse mode, 0 for automatic detection, 1 for locked, 2 for unlocked.
+     * Corresponds to the initial mouse mode in the backend application management -> application editing -> general advanced settings. This configuration has a higher priority than the backend configuration.
      */
     initCursorMode?: boolean;
     /**
-     * 可选项
-     * 渲染服务器外网端口映射
-     * 格式为  key=[渲染服务器IP:PORT] value=[外网IP:PORT]
+     * Optional.
+     * External port mapping of the rendering server.
+     * Format: key=[Rendering Server IP:PORT] value=[External IP:PORT]
      * {
      *    "RENDER-A-IP:RENDER-A-PORT1": "PUBLIC-A-IP:PORT1",
      *    "RENDER-B-IP:RENDER-B-PORT1": "PUBLIC-A-IP:PORT2",
@@ -146,83 +146,83 @@ interface ILarkSRConfig {
      */
     publicPortMapping?: PublicPortMapping;
     /**
-     * 可选项
-     * 是否提示输入文字 APP_REQUEST_INPUT
-     * 当服务端检测到输入法事件后会抛出事件，可在 web 层添加输入框，配合 inputText 发送文字到云端
-     * 默认打开，当手动关闭时将不会抛出 APP_REQUEST_INPUT 事件
+     * Optional.
+     * Whether to prompt for text input APP_REQUEST_INPUT.
+     * When the server detects an input method event, an event will be thrown. You can add an input box on the web layer and use inputText to send text to the cloud.
+     * Enabled by default. When manually disabled, the APP_REQUEST_INPUT event will not be thrown.
      */
     textInputEventPrompt?: boolean;
     /**
-     * 可选项
-     * 当启用音频输入功能，是否自动连入音频设备。
-     * 默认关闭。
-     * 需要注意默认打开的是系统中默认的音频设备。
+     * Optional.
+     * Whether to automatically connect to audio devices when the audio input feature is enabled.
+     * Disabled by default.
+     * Note that the default audio device of the system is enabled by default.
      */
     audioInputAutoStart?: boolean;
     /**
-     * 可选项
-     * 当启用视频输入功能，是否自动连入视频设备。
-     * 默认关闭。
-     * 需要注意默认打开的是系统中默认的视频设备。
+     * Optional.
+     * Whether to automatically connect to video devices when the video input feature is enabled.
+     * Disabled by default.
+     * Note that the default video device of the system is enabled by default.
      */
     videoInputAutoStart?: boolean;
     /**
-     * 可选项
+     * Optional.
      * mouseZoomDirection
-     * 用于移动端捏合缩放操作与应用鼠标缩放的对应关系
-     * 1:鼠标滚轮向上为放大，
-     * 0:鼠标滚轮向下为放大(default)
+     * Used for the correspondence between pinch zoom operations on mobile devices and application mouse zoom.
+     * 1: Mouse wheel up to zoom in,
+     * 0: Mouse wheel down to zoom in (default).
      */
     mouseZoomDirection?: number;
     /**
-     * 可选项
-     * 触摸指令，移动端的触摸指令对应为云端的触屏还是鼠标
+     * Optional.
+     * Touch operation mode, whether the touch operation on mobile devices corresponds to the touch screen or mouse on the cloud.
      * 'touchScreen' | 'mouse'
-     * 触摸指令模式，对应后台应用管理->应用编辑->移动端高级设置->触摸指令模式 优先级高于后台配置
+     * Touch operation mode, corresponds to the touch operation mode in the backend application management -> application editing -> mobile advanced settings. This configuration has a higher priority than the backend configuration.
      */
     touchOperateMode?: 'touchScreen' | 'mouse';
     /**
-     * 可选项
-     * 优先使用渲染服务器点对点连接外网ip
-     * 如果配置将覆盖后台设置的 preferPublicIp 参数
+     * Optional.
+     * Prefer to use the external IP for peer-to-peer connection of the rendering server.
+     * If configured, it will override the preferPublicIp parameter set in the backend.
      */
     preferPublicIp?: string;
     /**
-     * 可选项
-     * 是否自动播放。默认开启。
-     * 如果关闭，连接成功之后会有提示UI，用户手动触发。
-     * 开启自动播放时也不能保证所有浏览器自动播放成功，当播放失败或者浏览器不支持自动播放时，
-     * 也会显示播放按钮，用户点击播放按钮手动播放。
+     * Optional.
+     * Whether to autoplay. Enabled by default.
+     * If disabled, there will be a prompt UI after a successful connection, and the user needs to trigger it manually.
+     * Enabling autoplay does not guarantee that all browsers will autoplay successfully. When playback fails or the browser does not support autoplay,
+     * a play button will be displayed, and the user needs to click the play button to play manually.
      */
     autoPlay?: boolean;
     /**
-     * 可选项
-     * 在播放失败或者手动播放模式下是否显示播放的按钮。
-     * 默认开启。要注意，如果关闭情况下要添加好提示或UI，引导用户点击播放。
-     * UI中要让用户触发 larksr.videoComponent.playVideo();
+     * Optional.
+     * Whether to display the play button in case of playback failure or manual playback mode.
+     * Enabled by default. Note that if disabled, you need to add prompts or UI to guide the user to click play.
+     * In the UI, the user needs to trigger larksr.videoComponent.playVideo();
      */
     showPlayButton?: boolean;
     /**
-     * 可选项
-     * 语言设置,目前只支持种英文两种,默认中文
-     * zh-CN 中文 en 英文
+     * Optional.
+     * Language settings, currently only supports Chinese and English, default is Chinese.
+     * zh-CN for Chinese, en for English.
      */
     language?: string;
     /**
-     * 点对点连接成功，但未接收到视频流或未播放成功超时时间。自动播放模式下超时会弹出提示按钮。
-     * 默认 20S
+     * Timeout for receiving video streams or successful playback after a successful peer-to-peer connection. In autoplay mode, a prompt button will pop up after the timeout.
+     * Default is 20s.
      */
     playTimeout?: number;
     /**
-     * 是否使用新版摄像头/麦克风协议
-     * 单独上传流程要求渲染服务器版本大于3290）
+     * Whether to use the new camera/microphone protocol.
+     * Separate upload process requires rendering server version greater than 3290.
      */
     useSeparateMediaSharePeer?: boolean;
     /**
-     * 是否启用 canvas 渲染. 默认关闭
-     * 要注意移动端开启 canvas 会消耗额外性能。
-     * 已知问题: iOS 在关闭 canvas 模式下，忽略狂高比的拉伸模式无效。
-    */
+     * Whether to enable canvas rendering. Disabled by default.
+     * Note that enabling canvas on mobile devices will consume additional performance.
+     * Known issue: On iOS, when canvas mode is disabled, the stretch mode that ignores the aspect ratio is invalid.
+     */
     enableCanvasRender?: boolean;
 }
 ```
