@@ -15,7 +15,7 @@
       <div class="customContentAlert-divider"></div>
       <div>
         <div class="stream-content-row" style="margin-bottom: 1.89rem;">
-          <span>画质</span>
+          <span>{{ ui.quality }}</span>
           <div @click.prevent="showQualityModalFn">
             <span class="stream-tag tag-code">{{frameRate}}</span>
             <span class="stream-tag">{{codeRate}}</span>
@@ -23,10 +23,10 @@
           </div>
         </div>
         <div class="stream-content-row">
-          <span @click="qualityClick('0')" :class="{'quality-tag': true, 'quality-check-tag': frameRate===60&&codeRate===8000}">流畅</span>
-          <span @click="qualityClick('1')" :class="{'quality-tag': true, 'quality-check-tag': frameRate===60&&codeRate===10000}">标清</span>
-          <span @click="qualityClick('2')" :class="{'quality-tag': true, 'quality-check-tag': frameRate===60&&codeRate===20000}">高清</span>
-          <span @click="qualityClick('3')" :class="{'quality-tag': true, 'quality-check-tag': frameRate===60&&codeRate===50000}">超清</span>
+          <span @click="qualityClick('0')" :class="{'quality-tag': true, 'quality-check-tag': frameRate===60&&codeRate===8000}">{{ ui.quality1 }}</span>
+          <span @click="qualityClick('1')" :class="{'quality-tag': true, 'quality-check-tag': frameRate===60&&codeRate===10000}">{{ ui.quality2 }}</span>
+          <span @click="qualityClick('2')" :class="{'quality-tag': true, 'quality-check-tag': frameRate===60&&codeRate===20000}">{{ ui.quality3 }}</span>
+          <span @click="qualityClick('3')" :class="{'quality-tag': true, 'quality-check-tag': frameRate===60&&codeRate===50000}">{{ ui.quality4 }}</span>
         </div>
       </div>
       <div class="customContentAlert-divider"></div>
@@ -102,7 +102,7 @@ export default {
       mobilePixelUnit: 'mobilePixelUnit',
     }),
     ...mapState({
-      larksr: state => state.larksr,  
+      larksr: state => state.larksr,
       ui: state => state.ui,
       mobileForceLandScape: state => state.mobileForceLandScape,
       isShowMobileStream: state => state.modalStream.isShowMobileStream,
@@ -129,16 +129,16 @@ export default {
     qualityClick(type) {
       this.frameRate = 60;
       switch(type) {
-        case '0': 
+        case '0':
           this.codeRate = 8000;
           break;
-        case'1': 
+        case'1':
           this.codeRate = 10000;
           break;
-        case '2': 
+        case '2':
           this.codeRate = 20000;
           break;
-        case '3': 
+        case '3':
           this.codeRate = 50000;
           break;
       }
@@ -154,7 +154,7 @@ export default {
       if (!this.rtmpPath) {
         this.status = {
             isError: true,
-            text: '必须填写推流地址',
+            text: this.ui.liveStreamTip,
             code: ''
         }
         return;
@@ -163,7 +163,7 @@ export default {
       this.larksr.StartCloudLiveStreaming({
           path: this.rtmpPath,
           key: this.rtmpKey,
-          width: this.resolution.width, 
+          width: this.resolution.width,
           height: this.resolution.height,
           framerate: this.codeRate,
           bitrate: this.frameRate

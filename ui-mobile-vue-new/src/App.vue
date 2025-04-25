@@ -40,7 +40,7 @@
     </div>
     <div ref="inputTextClassBox" v-if="!isMobile" :class="inputTextClass" :style="{top: (menubarPosition==='top'?curMousePositionY-0+30:curMousePositionY-80)+'px'}">
       <el-row type="flex" justify="space-between" align="middle">
-        <textarea 
+        <textarea
           ref="inputTextarea"
           :class="nicknameRequireClass"
           type="text"
@@ -78,7 +78,7 @@
         <LiveStreaming v-if="isShowStreamAlert" />
       </template>
       <!-- 左上角延时显示 -->
-      <RttInfo v-if="cloudReady" />   
+      <RttInfo v-if="cloudReady" />
       <!-- 网络状态 -->
       <States />
       <!-- 鸟瞰模式 -->
@@ -86,9 +86,9 @@
       <!-- 互动模式 -->
       <PlayerMode />
     </div>
-    
-    
-    
+
+
+
     <!-- 通用 UI -->
     <!-- 警告框 -->
     <Alert v-if="modalAlert.show" />
@@ -98,7 +98,7 @@
     <Toast v-if="cloudReady" />
     <!-- 确认框 -->
     <Confirm v-if="modalConfirm.show"/>
-    
+
   </div>
 </template>
 
@@ -115,7 +115,7 @@ import Confirm             from './components/confirm/confirm';
 import RttInfo             from './components/rttinfo/rttinfo';
 import States              from './components/states_modal/states_modal';
 import AerialView          from './components/aerial_view/aerial_view.vue'
-import PlayerMode          from "./components/player_mode/player_mode"; 
+import PlayerMode          from "./components/player_mode/player_mode";
 import MenuBar             from "./components/menuBar/menuBar";
 import ModalHelp           from './components/modal_help/modal_help';
 import ModallSetting       from './components/modal_setting/modal_setting';
@@ -123,7 +123,7 @@ import LiveStreaming       from './components/live_streaming/live_streaming';
 import MobileMenuBar       from './components/mobile/mobile_menu_bar/mobile_menu_bar.vue'
 import ControlBallM        from "./components/mobile/control_ball/control_ball"
 import Load                from './load';
-import store               from "@/store"; 
+import store               from "@/store";
 import Log                 from "@/utils/log";
 
 export default {
@@ -219,7 +219,7 @@ export default {
       notifyBar: (state) => state.notifyBar,
       mobileWebMenuType: state => state.mobileWebMenuType,
       mobileKeyboardType: state => state.mobileKeyboardType,
-      aerialViewCheck: state => state.modalSetting.aerialViewCheck,    
+      aerialViewCheck: state => state.modalSetting.aerialViewCheck,
       showWebMenu: (state) => state.showWebMenu,
       enableChineseInput: (state) => state.enableChineseInput,
     }),
@@ -268,9 +268,9 @@ export default {
         if (Load.taskid) {
           params.taskId = Load.taskid;
         }
-        
+
         //启动模式：0：普通模式, 1：互动模式（一人操作多人观看），2: 多人协同（键盘鼠标放开，需要应用配合）
-        // 互动模式测试连接 
+        // 互动模式测试连接
         // 所有者 userType = 1
         // http://localhost:8081/?appliId=925773094113509376&playerMode=1&userType=1&authCode=fMFu92vg
         // 观看者 userType = 0
@@ -373,7 +373,7 @@ export default {
         this.showAuthCodeInput = false;
         this.start(this.taskStated);
       }
-      
+
     } else {
       if (this.nickname != "") {
         // 填写昵称后再开始
@@ -388,7 +388,7 @@ export default {
   },
   onQuit() {
     // code 920 // 用户主动点击关闭按钮
-    this.confirm({ title: '退出应用', des: '确认退出应用', code: 920 })
+    this.confirm({ title: this.ui.quit, des: this.ui.quitTip, code: 920 })
     .then(()=>{
         Log.info('user confirm');
         Unit.quit();
@@ -428,7 +428,7 @@ export default {
           },50)
         }
       }
-    },    
+    },
     inputTextareaKeydown(e) {
       if(e.key === 'Backspace') {
         if(this.inputText === "") {
@@ -438,7 +438,7 @@ export default {
             if(this.textInputTimer) clearTimeout(this.textInputTimer);
           },50)
         }
-      } else if((e.key === 'c'|| e.key === 'v' || e.key === 'a' || e.key === 'x') && e.ctrlKey) { 
+      } else if((e.key === 'c'|| e.key === 'v' || e.key === 'a' || e.key === 'x') && e.ctrlKey) {
         this.larksr.keyDown('ControlLeft', false);
         this.larksr.keyDown(e.code, false);
         if(this.inputText) {
@@ -494,7 +494,7 @@ export default {
       }
       this.$refs.inputTextarea.blur();
       this.inputText = "";
-    },    
+    },
     onInputMethodInput(e) {
       if(!this.controlBallInputMethod) {
         if (this.larksr) {
@@ -560,7 +560,7 @@ export default {
     // 从 url 载入参数
     Load.InitProcess();
     // init player mode params
-    store.dispatch('playerMode/initFromLoader');    
+    store.dispatch('playerMode/initFromLoader');
     if(this.isMobile) {
       this.$refs.input.addEventListener('keyup',this.sysKeybaordEnterOrBackspace)
     } else {
@@ -574,7 +574,7 @@ export default {
         // 服务器地址,实际使用中填写您的服务器地址
         // 如：http://222.128.6.137:8181/
         // serverAddress: "http://222.128.6.137:8181/",
-        serverAddress: "http://192.168.0.55:8181/",
+        serverAddress: "http://192.168.0.184:8181/",
         // 视频缩放模式，默认保留宽高比，不会拉伸并完整显示在容器中
         // scaleMode: "contain",
         // 0 -》 用户手动触发, 1 -》 首次点击进入触发, 2 -》 每次点击触发
@@ -584,13 +584,13 @@ export default {
         // loadingBgUrl: "https://home-obs.pingxingyun.com/homePage_4_0/bg.jpg",
         // show log
         // logLevel: 'warn',
-        
+
         // 单独上传流程要求渲染服务器版本大于3290）
         useSeparateMediaSharePeer: true,
         // 默认可以大于服务器端分辨率推流
         ignoreCloudDesktopResolution: true,
     });
-    
+
     // 初始化您的授权ID
     // "SDK 授权码，联系 business@pingxingyun.com 获取,注意是 SDK 本身的授权码，不是服务器上的授权"
     // 使用 Unit.queryString("sdkID") 可从 url 载入名称为 sdkID 的参数
@@ -612,7 +612,7 @@ export default {
       // });
 
       /**
-       * 
+       *
        // 固定传入调用参数
        // 从 url 中获取参数并传入参考上面 start 方法
 
@@ -655,7 +655,7 @@ export default {
       .catch((e) => {
         console.error(e);
         alert(JSON.stringify(e));
-      }); 
+      });
 
       */
     })
@@ -685,7 +685,7 @@ export default {
     // 监听连接成功事件
     larksr.on("connect", (e) => {
       console.log("LarkSRClientEvent CONNECT", e);
-      
+
       // 可能从getstartappinfo之后才获取来的参数.
       // 后台配置的是否显示玩家列表参数
       store.commit("playerMode/setShowPlayerList", larksr.params.showPlayerList);
@@ -695,6 +695,8 @@ export default {
       store.commit('setJoyStick', larksr.params.mobileVirtualJoystick);
       if(larksr.params.mobileVirtualJoystick) store.commit('setPreComponentName', 'joystick');
       if(larksr.params.mobileWebMenuType) store.commit('setMobileWebMenuType',larksr.params.mobileWebMenuType);
+      // 是否开启中文输入
+      this.$store.commit('setEnableChineseInput', larksr.params.imeFirstNotice === 0 ? false : true);
       // 是否显示菜单
       if (this.urlShowWebMenu) {
           this.setShowWebMenu(this.urlShowWebMenu === '0'? false : true);
@@ -737,7 +739,7 @@ export default {
     larksr.on("meidaplaymute", (e) => {
       console.log("LarkSRClientEvent meidaplaymute", e);
       this.mutePlay = true;
-      this.toast({text: '点击屏幕中心打开音频', position: 2, level: 3});
+      this.toast({text: this.ui.enableAudio, position: 2, level: 3});
     });
 
     larksr.on("peerstatusreport", (e) => {
@@ -746,21 +748,21 @@ export default {
     });
 
     larksr.on('error', (e) => {
-        console.error("LarkSRClientEvent error", e.message); 
+        console.error("LarkSRClientEvent error", e.message);
         this.alert({des: e.message, code: e.code})
         .then(() => {
             Unit.quit();
         });
-    });   
+    });
 
     larksr.on('info', (e) => {
-        console.log("LarkSRClientEvent info", e); 
+        console.log("LarkSRClientEvent info", e);
         this.toast({text: e.message});
     });
     console.log("load appli success", larksr);
-    
+
     larksr.on('resourcenotenough', (e) => {
-        console.log("LarkSRClientEvent resourcenotenough", e); 
+        console.log("LarkSRClientEvent resourcenotenough", e);
         if(e.type === 0) {
           alert("当前系统繁忙，请稍后再试！");
         }
@@ -770,6 +772,10 @@ export default {
     larksr.on('apprequestinput', (e) => {
       console.log('apprequestinput', e)
       if(e.data === true) {
+        // 禁止中文输入
+        if(!this.enableChineseInput){
+          return false;
+        }
         this.inputFocusFlag = true;
         if(this.isMobile) {
           if(this.mobileKeyboardType === 1) {
@@ -789,7 +795,7 @@ export default {
           }
             const isOperating = this.playerList.find(item => item.nickName === this.playerMode.nickName).userType == 1;
             // 演示模式 && 没有操作权限时候不弹出提示框
-            if(!(Load.playerMode === 1 && !isOperating)) { 
+            if(!(Load.playerMode === 1 && !isOperating)) {
               this.setControlBallInputMethod(false);
               this.curMousePositionY = this.mousePositionY;
               this.setInputMethodEnable(e.data);
@@ -873,7 +879,7 @@ export default {
         this.start();
       }
     }
-    
+
 
     // this.alert({des: 1});
     // this.confirm({des:"22"});

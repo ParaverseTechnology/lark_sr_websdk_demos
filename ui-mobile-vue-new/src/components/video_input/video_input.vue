@@ -1,7 +1,7 @@
 <template>
     <div :class="containerClass" v-if="videoInput">
         <Tooltip class="menu-tools-box">
-            <template #title>摄像头</template>
+            <template #title>{{ ui.camera }}</template>
             <div v-if="videoTrackEnable" class="menu-icon"  @click="toggleVideo">
                 <i class="iconfont icon-camera_1 icon-click"></i>
             </div>
@@ -11,7 +11,7 @@
         </Tooltip>
         <i :class="setupPanel?'el-icon-arrow-down':'el-icon-arrow-up'" @click="toggleSetupPanel"></i>
         <div v-if="setupPanel" :class="{'setup':true, 'top': menubarPosition==='top','bottom': menubarPosition==='bottom'}">
-            <p class="setup-title">选择摄像头</p>
+            <p class="setup-title">{{ ui.selectCamera }}</p>
             <template v-if="devices.length">
                 <div v-for="(device, key) in devices" @click="videoCheck(device)" class="setup-row" :key="key">
                     <span> {{ device.label }}</span>
@@ -20,7 +20,7 @@
             </template>
             <template v-else>
                 <div class="setup-row">
-                    <span>无</span>
+                    <span>{{ ui.nothing }}</span>
                 </div>
             </template>
         </div>
@@ -95,7 +95,7 @@ export default {
             },
         },
         ...mapState({
-            larksr: state => state.larksr,  
+            larksr: state => state.larksr,
             ui: state => state.ui,
             isMobile: state => state.isMobile,
             menubarPosition: state => state.menubarPosition

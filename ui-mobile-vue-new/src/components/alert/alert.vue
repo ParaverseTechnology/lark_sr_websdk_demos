@@ -3,7 +3,7 @@
         <div class="container">
             <div class="container-title">
                 <div>
-                    <p>提示</p>
+                    <p>{{ ui.tip }}</p>
                 </div>
             </div>
             <div class="content">
@@ -18,8 +18,8 @@
 </template>
 <script>
 import Btn        from '../button/button';
-import { 
-    mapState, 
+import {
+    mapState,
     mapGetters,
 }                 from 'vuex'
 

@@ -1,10 +1,10 @@
 <template>
-  <div class="customContentAlert" :style="viewPortStyle">        
+  <div class="customContentAlert" :style="viewPortStyle">
       <div class="customContentAlert-container">
           <div class="customContentAlert-title">
               <div class="customContentAlert-title-tab">
-                  <p @click="tabClick('0')" :class="{'customContentAlert-title-tab-left':true, 'active':activeTab==='0'}">设置</p>
-                  <p @click="tabClick('1')" :class="{'customContentAlert-title-tab-right':true, 'active':activeTab==='1'}">画面</p>
+                  <p @click="tabClick('0')" :class="{'customContentAlert-title-tab-left':true, 'active':activeTab==='0'}">{{ui.setting}}</p>
+                  <p @click="tabClick('1')" :class="{'customContentAlert-title-tab-right':true, 'active':activeTab==='1'}">{{ ui.viewTab }}</p>
               </div>
               <div class="close" @click="onCancel">
                   <i class="el-icon-close"></i>
@@ -13,7 +13,7 @@
           <template v-if="activeTab==='0'">
             <div class="customContentAlert-content">
               <div class="quality content-row setting-row">
-                  <span>鼠标</span>
+                  <span>{{ ui.mouse }}</span>
                   <div class="quality-btn">
                     <p @click="toggleInitCursorMode" :class="{'quality-btn-active': !initCursorMode}">{{ui.mouseModeAuto}}</p>
                     <p @click="toggleInitCursorMode" :class="{'quality-btn-active': initCursorMode}">{{ui.mosueModeLock}}</p>
@@ -31,7 +31,7 @@
                 <div class="customContentAlert-divider"></div>
                 <template v-if="isInteractiveMode">
                   <div class="quality content-row setting-row">
-                    <span>显示玩家列表</span>
+                    <span>{{ ui.showPlayerList }}</span>
                     <div class="ratio-btn">
                       <div>
                         <PvtSwitch v-model="playerListChecked" @change="togglePlayerList"/>
@@ -41,7 +41,7 @@
                   <div class="customContentAlert-divider"></div>
                 </template>
                 <div class="quality content-row setting-row">
-                  <span>音量</span>
+                  <span>{{ ui.volume }}</span>
                   <div class="quality-btn">
                     <i class="iconfont icon-mute" style="margin-right: 10px;font-size: 20px;"></i>
                     <Slider v-on:change="onVolmueChange" />
@@ -53,19 +53,19 @@
           <template v-if="activeTab==='1'">
             <div class="customContentAlert-content">
                 <div class="quality content-row">
-                  <span>画质</span>
+                  <span>{{ ui.quality }}</span>
                   <div class="quality-btn">
-                    <p @click="qualityClick('0')" :class="{'quality-btn-active': qualityTab==='0'}">流畅</p>
-                    <p @click="qualityClick('1')" :class="{'quality-btn-active': qualityTab==='1'}">标清</p>
-                    <p @click="qualityClick('2')" :class="{'quality-btn-active': qualityTab==='2'}">高清</p>
-                    <p @click="qualityClick('3')" :class="{'quality-btn-active': qualityTab==='3'}">超清</p>
+                    <p @click="qualityClick('0')" :class="{'quality-btn-active': qualityTab==='0'}">{{ ui.quality1 }}</p>
+                    <p @click="qualityClick('1')" :class="{'quality-btn-active': qualityTab==='1'}">{{ ui.quality2 }}</p>
+                    <p @click="qualityClick('2')" :class="{'quality-btn-active': qualityTab==='2'}">{{ ui.quality3 }}</p>
+                    <p @click="qualityClick('3')" :class="{'quality-btn-active': qualityTab==='3'}">{{ ui.quality4 }}</p>
                   </div>
                 </div>
                 <div class="customContentAlert-divider"></div>
                 <div class="custom custom-code content-row">
-                  <span>自定义</span>
+                  <span>{{ ui.custom }}</span>
                   <div class="custom-content">
-                    <span>码率</span>
+                    <span>{{ ui.codeRate }}</span>
                     <el-select @change="onChangeBitrate" v-model="selectCoderate" size="mini" :placeholder="ui.liveBitrate">
                       <el-option v-for="(coderate, key) in coderates" v-bind:value="coderate" v-bind:key="key">
                           {{ coderate }} kbps
@@ -76,7 +76,7 @@
                 <div class="custom content-row">
                   <span></span>
                   <div class="custom-content">
-                    <span>帧率</span>
+                    <span>{{ ui.frameRate }}</span>
                     <el-select @change="onChangeCodeFps" v-model="selectFps" size="mini" :placeholder="ui.liveFPS">
                       <el-option v-for="(fps, key) in fpss" v-bind:value="fps" v-bind:key="key">
                           {{ fps }} FPS
@@ -86,7 +86,7 @@
                 </div>
                 <div class="customContentAlert-divider"></div>
                 <div class="quality content-row">
-                  <span>比例</span>
+                  <span>{{ ui.ratio }}</span>
                   <div class="ratio-btn">
                     <p @click="toggleScaleToFillStretch" :class="{'quality-btn-active':isChangedScaledMode}">{{ ui.scale }}</p>
                     <p @click="toggleScaleToFillStretch" :class="{'quality-btn-active':!isChangedScaledMode}">{{ui.scaleAuto}}</p>
@@ -105,7 +105,7 @@
                 <template v-if="larksr.params.appliType===1 ||larksr.params.appliType===2">
                   <div class="customContentAlert-divider"></div>
                   <div class="quality content-row">
-                    <span>鸟瞰模式</span>
+                    <span>{{ ui.aerial }}</span>
                     <div class="ratio-btn">
                       <div>
                         <PvtSwitch v-model="checked" @change="aerialCheckedChange"/>
@@ -137,21 +137,21 @@ export default {
       get() {
         return this.playerMode.showPlayerList;
       },
-      set() {}  
+      set() {}
     },
     // 同步本地剪贴板勾选框
     cipboardParseChecked: {
       get() {
          return this.syncClipboardParseEvent;
       },
-      set() {}     
+      set() {}
     },
     // 鸟瞰模式勾选框
     checked: {
       get() {
         return this.aerialViewCheck;
       },
-      set() {}         
+      set() {}
     },
     // 画质
     qualityTab() {
@@ -168,7 +168,7 @@ export default {
     // 分辨率
     selecteResolution() {
       return this.resolution;
-    }, 
+    },
     ...mapGetters({
       viewPortStyle: 'viewPortStyle',
       isChangedScaledMode: 'isChangedScaledMode',
@@ -176,7 +176,7 @@ export default {
       isInteractiveMode: 'playerMode/isInteractiveMode',
     }),
     ...mapState({
-      larksr: state => state.larksr,  
+      larksr: state => state.larksr,
       ui: state => state.ui,
       playerMode: state => state.playerMode,
       syncClipboardParseEvent: state => state.syncClipboardParseEvent,
@@ -237,7 +237,7 @@ export default {
     onVolmueChange(value) {
       if (this.larksr) {
         this.larksr.videoElement.volume = value / 100;
-        // TODO config audio 
+        // TODO config audio
         this.larksr.audioElement.volume = value / 100;
       }
     },
@@ -247,24 +247,24 @@ export default {
     qualityClick(type) {
       this.setQualityMode(type);
       switch(type) {
-        case '0': 
+        case '0':
           this.onChangeBitrate(8000);
           this.onChangeCodeFps(60);
           break;
-        case'1': 
+        case'1':
           this.onChangeBitrate(10000);
           this.onChangeCodeFps(60);
           break;
-        case '2': 
+        case '2':
           this.onChangeBitrate(20000);
           this.onChangeCodeFps(60);
           break;
-        case '3': 
+        case '3':
           this.onChangeBitrate(50000);
           this.onChangeCodeFps(60);
           break;
       }
-      
+
     },
     onChangeBitrate(coderate) {
       Log.info('onChangeBitrate', coderate);
@@ -280,7 +280,7 @@ export default {
       Log.info("onChangeResolution", val);
       this.setResolution(JSON.parse(JSON.stringify(val)));
       this.larksr?.setCloudAppSize(val.width, val.height);
-    },    
+    },
     aerialCheckedChange(val) {
       this.setAerialViewCheck(val);
       if(val === false) {
@@ -291,9 +291,9 @@ export default {
         this.onCancel();
         if(!this.aerailView)this.toggleAerailView();
         this.setShowAerialView(true);
-        this.setCustomContentAlertTitle('鸟瞰图');
+        this.setCustomContentAlertTitle(this.ui.aerial);
       }
-    },   
+    },
     resetResolution() {
       let found = false;
       for (let res of this.resolutions) {
@@ -302,7 +302,7 @@ export default {
         }
       }
 
-      if (!found) {        
+      if (!found) {
         this.resolutions.push({
           id: this.larksr.currentAppSize.width+''+this.larksr.currentAppSize.height,
           width: this.larksr.currentAppSize.width,
@@ -334,12 +334,12 @@ export default {
         codeFpsChange: 'modalSetting/codeFpsChange',
       })
   },
-  created() {
+    created() {
     if(this.larksr.params.useWebCodec) {
       this.resolutions.unshift({ id: '76804320', width: 7680, height: 4320 })
     }
   },
-  mounted() {  
+  mounted() {
     if (this.larksr && this.larksr.currentAppSize) {
       this.larksr.on("appresize", () => {
         this.resetResolution();

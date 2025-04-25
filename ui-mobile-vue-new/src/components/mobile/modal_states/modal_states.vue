@@ -3,7 +3,7 @@
     <div class="mobile-modal-title">
       <i class="iconfont icon-arrow" @click="closeModal"></i>
       <span class="mobile-modal-title-text">
-        网络
+        {{ ui.net}}
       </span>
     </div>
     <div class="state-content">
@@ -88,7 +88,7 @@ export default {
       }
       return obj
     },
-    
+
     ...mapGetters({
       screenOrientation: 'screenOrientation',
       viewPort: 'viewPort',
@@ -140,15 +140,15 @@ export default {
             runTimeSeconds: timeFormat.format((runTimeSeconds)),
             runTimeMinutes: timeFormat.format((runTimeMinutes)),
             runTimeHours: timeFormat.format((runTimeHours)),
-            frameWidth: aggregatedStats.frameWidth, 
+            frameWidth: aggregatedStats.frameWidth,
             frameHeight: aggregatedStats.frameHeight,
-            receivedBytesMeasurement, 
+            receivedBytesMeasurement,
             receivedBytes: numberFormat.format(receivedBytes),
             framesDecoded: numberFormat.format(aggregatedStats.framesDecoded),
             packetsLost: aggregatedStats.packetsLost,
             bitrate: (aggregatedStats.bitrate / 1000).toFixed(2),
             framerate: aggregatedStats.framerate,
-            framesDropped: aggregatedStats.framesDropped, 
+            framesDropped: aggregatedStats.framesDropped,
             currentRoundTripTime: rtt,
             packetsLostPerc: aggregatedStats.packetsLostPerc.toFixed(3),
             //
@@ -173,7 +173,7 @@ export default {
         this.$refs['content'+index][0].style['max-height'] = '28.3rem';
         this.$refs['content'+index][0].style['margin-bottom'] = '1.2rem';
       }
-      
+
       this.$refs['caret'+index][0].style.transition = 'all 0.1s';
       this.$refs['content'+index][0].style.transition = 'all 0.3s';
     },

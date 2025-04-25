@@ -17,56 +17,61 @@
                   <div class="pop-panel-top pop-panel-top-part">
                     <div v-if="videoInput" @click.prevent="toogleCameraPanelFn">
                       <i :class="videoPaused?'iconfont icon-camera':'iconfont icon-camera_1 check-color'"></i>
-                      <p>摄像头</p>
+                      <p>{{ ui.camera }}</p>
                     </div>
                     <div v-if="audioInput" @click.prevent="toggleMic">
                       <i :class="audioPaused?'iconfont icon-mic':'iconfont icon-mic_1 check_color'"></i>
-                      <p>麦克风</p>
+                      <p>{{ ui.mic }}</p>
                     </div>
                     <div v-if="isLiveStream" @click.prevent="streamFn">
                       <i class="iconfont icon-stream"></i>
-                      <p>推流</p>
+                      <p>{{ ui.liveStream}}</p>
                     </div>
                   </div>
                   <div v-if="videoInput || audioInput || isLiveStream" class="customContentAlert-divider"></div>
                   <div class="pop-panel-bottom">
                     <div @click.prevent="showStates">
                       <i class="iconfont icon-menuBarIcon4"></i>
-                      <p>网络</p>
+                      <p>{{ ui.net}}</p>
                     </div>
                     <div @click.prevent="toogleGamePanelFn">
                       <i class="iconfont icon-game"></i>
-                      <p>工具</p>
+                      <p>{{ ui.tools }}</p>
                     </div>
                     <div @click.prevent="showSetting">
                       <i class="iconfont icon-menuBarIcon5"></i>
-                      <p>设置</p>
+                      <p>{{ ui.setting }}</p>
                     </div>
                     <div @click.prevent="restartFn">
                       <i class="iconfont icon-menuBarIcon2"></i>
-                      <p>重启应用</p>
+                      <p>{{ ui.restart }}</p>
                     </div>
                     <div v-if="!isIOS" @click.prevent="onFullScreen">
                       <i v-if="!isFullScreen" class="iconfont icon-menuBarIcon3"></i>
                       <i v-if="isFullScreen" class="iconfont icon-menuBarIcon3_click"></i>
-                      <p>{{!isFullScreen?'全屏':'退出全屏'}}</p>
+                      <p>{{!isFullScreen? ui.fullScreen :ui.fullScreenExit}}</p>
                     </div>
                     <div @click.prevent="onQuit">
                       <i class="iconfont icon-login"></i>
-                      <p>退出</p>
+                      <p>{{ ui.exit }}</p>
                     </div>
                     <div @click.prevent="showHelp">
                       <i class="iconfont icon-menuBarIcon6"></i>
-                      <p>帮助</p>
+                      <p>{{ ui.help }}</p>
                     </div>
                     <div @click.prevent="lockCBFn">
+
                       <i v-if="isFix" class="iconfont icon-lock"></i>
                       <i v-if="!isFix" class="iconfont icon-unlock"></i>
-                      <p>{{!isFix?'锁定':'解锁'}}</p>
+                      <p>{{!isFix?ui.lock:ui.unlock}}</p>
+                    </div>
+                    <div @click="changeTextInputFn">
+                      <i :class="enableChineseInput?'iconfont icon-shurufa':'iconfont icon-shurufa_off'"></i>
+                      <p>{{ui.chineseInput}}</p>
                     </div>
                     <div @click="closePopPanel">
                       <i class="iconfont icon-guanbi"></i>
-                      <p>关闭</p>
+                      <p>{{ ui.close }}</p>
                     </div>
                   </div>
                 </div>
@@ -75,21 +80,21 @@
               <div v-if="isShowCameralPanel" class="camera-panel">
                 <div class="camera-panel-item">
                   <i @click.prevent="cameraClickFn('user')" :class="mobileCamera==='user'&&!videoPaused?'iconfont icon-video_f check_color':'iconfont icon-video_f'"></i>
-                  <p>前置摄像头</p>
+                  <p>{{ ui.cameraFront }}</p>
                 </div>
                 <div class="camera-panel-item">
                   <i @click.prevent="toogleCameraPanelFn" class="iconfont icon-back"></i>
                 </div>
                 <div @click.prevent="cameraClickFn('environment')" class="camera-panel-item">
                   <i :class="mobileCamera==='environment'&&!videoPaused?'iconfont icon-video_b check_color':'iconfont icon-video_b'"></i>
-                  <p>后置摄像头</p>
+                  <p>{{ ui.cameraBack }}</p>
                 </div>
               </div>
-              <!-- 工具 -->
+              <!-- {{ ui.tools }} -->
               <div v-if="isShowGamePanel" class="game-panel">
                 <div class="game-panel-item">
                   <i :class="!vmouseMode?'check-color iconfont icon-finger':'iconfont icon-finger'" @click.prevent="touchFingerClick"></i>
-                  <p>触屏</p>
+                  <p>{{ ui.touch }}</p>
                 </div>
                 <div class="game-panel-item-row">
                   <div class="game-panel-item" @click="toogleMousePanelFn">
@@ -119,21 +124,21 @@
                         <rect x="27" y="21" width="6" height="8" rx="3" :fill="(vmouseMode)?'#00B031':'#999999'"/>
                       </svg>
                     </template>
-                    <p>鼠标</p>
+                    <p>{{ ui.mouse }}</p>
                   </div>
                   <div class="game-panel-item">
                     <i @click="toogleGamePanelFn" class="iconfont icon-back"></i>
                   </div>
                   <div class="game-panel-item">
                     <i :class="vkeyboard?'check-color iconfont icon-keyboard':'iconfont icon-keyboard'" @click.prevent="vKeyboardClick"></i>
-                    <p>键盘</p>
+                    <p>{{ ui.keyboard }}</p>
                   </div>
                 </div>
                 <div class="game-panel-item joystick-item" @click.prevent="toggleJoyStick">
                   <i class="iconfont icon-joystick_1">
                     <i :class="joystick? 'check-color iconfont icon-joystick_2':'iconfont icon-joystick_2'"></i>
                   </i>
-                  <p>摇杆</p>
+                  <p>{{ ui.joystick }}</p>
                 </div>
               </div>
               <!-- 鼠标面板 -->
@@ -143,7 +148,7 @@
                     <rect x="20" y="15" width="20" height="30" rx="10" :stroke="(mouseButton == 'mid' && vmouseMode)?'#00B031':'#DDD'" stroke-width="3"/>
                     <rect x="27" y="21" width="6" height="8" rx="3" :fill="(mouseButton == 'mid' && vmouseMode)?'#00B031':'#999999'"/>
                   </svg>
-                  <p>鼠标滚轮</p>
+                  <p>{{ ui.mouseMidKey }}</p>
                 </div>
                 <div class="mouse-panel-item-row">
                   <div class="mouse-panel-item" @click.prevent="onSetMouseLeft">
@@ -152,7 +157,7 @@
                       <rect x="20" y="15" width="20" height="30" rx="10" :stroke="(mouseButton == 'left' && vmouseMode)?'#00B031':'#DDD'" stroke-width="3"/>
                       <rect x="27" y="21" width="6" height="8" rx="3" :fill="(mouseButton == 'left' && vmouseMode)?'#DDDDDD':'#999999'"/>
                     </svg>
-                    <p>鼠标左键</p>
+                    <p>{{ ui.mouseLeftKey }}</p>
                   </div>
                   <div class="mouse-panel-item">
                     <i @click="toogleMousePanelFn" class="iconfont icon-back"></i>
@@ -163,7 +168,7 @@
                       <rect x="20" y="15" width="20" height="30" rx="10" :stroke="(mouseButton == 'right' && vmouseMode)?'#00B031':'#DDD'" stroke-width="3"/>
                       <rect x="27" y="21" width="6" height="8" rx="3" :fill="(mouseButton == 'right' && vmouseMode)?'#DDDDDD':'#999999'"/>
                     </svg>
-                    <p>鼠标右键</p>
+                    <p>{{ ui.mouseRightKey }}</p>
                   </div>
                 </div>
               </div>
@@ -208,7 +213,7 @@ export default {
       VCursor
   },
   data() {
-     
+
       return {
           controlBarUrl: require('@/assets/images/mobile/icon_logo_bg.png'),
           isIOS: Capabilities.os === 'iOS',
@@ -237,7 +242,7 @@ export default {
           isShowControlPanel: false,//是否展示控制面板
           selecteDevice: '',
           devices: [
-            { label: 'Front', deviceId: 'user', facingMode: 'user', }, 
+            { label: 'Front', deviceId: 'user', facingMode: 'user', },
             { label: 'Back', deviceId: 'environment', facingMode: 'environment', }
           ],
           selecteAudioDevice: '',
@@ -249,6 +254,9 @@ export default {
       }
   },
   computed: {
+      enableChineseInput() {
+        return this.$store.state.enableChineseInput;
+      },
       positionStyle() {
         if(this.isShowMobileHelp ||
           this.isShowMobileStateModal ||
@@ -334,7 +342,7 @@ export default {
         isShowMobileStream: state => state.modalStream.isShowMobileStream,
         isShowMobileSettingModal: state => state.modalSetting.isShowMobileSettingModal,
         aerialViewCheck: state => state.modalSetting.aerialViewCheck,
-        mobileCamera: state => state.modalCamera.mobileCamera,       
+        mobileCamera: state => state.modalCamera.mobileCamera,
         showWebMenu: (state) => state.showWebMenu,
       }),
       ...mapGetters({
@@ -372,7 +380,7 @@ export default {
       this.setIsShowMobileHelp(true);
     },
 		restartFn() {
-			this.showModalConfirm({title: '重启应用', des: '请确认是否重启应用'})
+			this.showModalConfirm({title: this.ui.restart, des: this.ui.restartTip})
 			.then(()=>{
         Log.info('restart Appli confirm');
         this.larksr?.restartCloudApp();
@@ -391,7 +399,7 @@ export default {
       this.setIsShowMobileStream(true);
     },
     onQuit() {
-      this.showModalConfirm({ title: '退出应用', des: '确认是否退出应用', code: 920 })
+      this.showModalConfirm({ title: this.ui.quit, des: '确认是否退出应用', code: 920 })
       .then(()=>{
           Log.info('user confirm');
           Unit.quit();
@@ -472,12 +480,12 @@ export default {
     },
     touchFingerClick() {
       if (this.vmouseMode) {
-        this.toast({ text: '您已切换到触摸模式', position: 2 });
+        this.toast({ text: this.ui.touchMode, position: 2 });
         this.mouseButton = 'none';
         this.toggleVMouseMode();
       } else {
         this.toggleVMouseMode();
-        this.toast({ text: '您已切换到鼠标左键', position: 2 });
+        this.toast({ text: this.ui.mouseLeft, position: 2 });
         this.mouseButton = 'left';
       }
     },
@@ -495,10 +503,10 @@ export default {
       if (this.mouseButton == 'mid') {
         this.mouseButton = 'none';
         this.toggleVMouseMode();
-        this.toast({ text: '您已切换到触摸模式', position: 2 });
+        this.toast({ text: this.ui.touchMode, position: 2 });
       } else {
         if(!this.vmouseMode) this.toggleVMouseMode();
-        this.toast({ text: '您已切换到鼠标滚轮', position: 2 });
+        this.toast({ text: this.ui.mouseMid, position: 2 });
         this.mouseButton = 'mid';
       }
     },
@@ -508,11 +516,11 @@ export default {
       if (this.mouseButton == 'left') {
         this.mouseButton = 'none';
         this.toggleVMouseMode();
-        this.toast({ text: '您已切换到触摸模式', position: 2 });
+        this.toast({ text: this.ui.touchMode, position: 2 });
       } else {
         if(!this.vmouseMode) this.toggleVMouseMode();
         this.$nextTick(() => {
-          this.toast({ text: '您已切换到鼠标左键', position: 2 });
+          this.toast({ text: this.ui.mouseLeft, position: 2 });
           this.mouseButton = 'left';
         })
       }
@@ -523,11 +531,11 @@ export default {
       if (this.mouseButton == 'right') {
         this.mouseButton = 'none';
         this.toggleVMouseMode();
-        this.toast({ text: '您已切换到触摸模式', position: 2 });
+        this.toast({ text: this.ui.touchMode, position: 2 });
       } else {
         if(!this.vmouseMode) this.toggleVMouseMode();
         this.$nextTick(() => {
-          this.toast({ text: '您已切换到鼠标右键', position: 2 });
+          this.toast({ text: this.ui.mouseRight, position: 2 });
           this.mouseButton = 'right';
         })
       }
@@ -602,7 +610,7 @@ export default {
           if(this.timer) clearTimeout(this.timer);
           let x,y;
           let curPositionX,curPositionY;
-          
+
           // 注意旋转屏幕时坐标系的变换
           if (screenOrientation == 'landscape') {
             const limitWidth = viewPort.height-Unit.getMobliePixelWidth(110, this.mobilePixelUnit);
@@ -644,7 +652,7 @@ export default {
                 y = curPositionY;
               }
           }
-          
+
           this.setMobileControlBallPosition({
               x: x,
               y: y,
@@ -747,6 +755,10 @@ export default {
       showInput() {
           this.setInputMethodEnable(true);
           this.setInputMethodStart(true);
+      },
+      changeTextInputFn() {
+          const val = this.$store.state.enableChineseInput;
+          this.$store.commit('setEnableChineseInput', !val);
       },
       ...mapMutations({
           setMobileControlBallPosition: 'setMobileControlBallPosition',

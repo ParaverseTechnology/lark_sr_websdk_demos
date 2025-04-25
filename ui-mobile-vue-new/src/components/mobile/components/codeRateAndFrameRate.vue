@@ -8,7 +8,7 @@
     </div>
     <div class="rate-content">
       <p class="rate-content-title">
-        帧率
+        {{ ui.frameRate }}
       </p>
       <div class="code-box">
         <div :class="{'code-box-row': true, 'code-box-row-check':frameRate===30}" @click="changeFrameRate(30)">
@@ -22,7 +22,7 @@
       </div>
       <div class="customContentAlert-divider"></div>
       <p class="rate-content-title">
-        码率
+        {{ ui.codeRate }}
       </p>
       <div class="frame-box">
         <div v-for="item in frameRateList" :key="item.label" style="touch-action:auto;">
@@ -46,12 +46,12 @@ export default {
     return {
       frameRateList: [
         {label: 5000,sublabel: ""},
-        {label: 8000,sublabel: '流畅'},
-        {label: 10000,sublabel: '标清'},
+        {label: 8000,sublabel: this.ui.quality1},
+        {label: 10000,sublabel: this.ui.quality2},
         {label: 15000,sublabel: ""},
-        {label: 20000,sublabel: '高清'},
+        {label: 20000,sublabel: this.ui.quality3},
         {label: 30000,sublabel: ""},
-        {label: 50000,sublabel: '超清'},
+        {label: 50000,sublabel: this.ui.quality4},
         {label: 100000,sublabel: ""},
       ],
     }
