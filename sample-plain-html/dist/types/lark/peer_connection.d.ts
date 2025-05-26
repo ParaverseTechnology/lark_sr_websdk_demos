@@ -38,7 +38,8 @@ export declare enum WEBRTC_EVENT_TYPE {
     INFO = 24,
     AerialViewStatus = 25,
     AerialViewScreen = 26,
-    VideoFrame = 27
+    VideoFrame = 27,
+    TooltipInfo = 28
 }
 export interface GoogleBitRate {
     start: number;

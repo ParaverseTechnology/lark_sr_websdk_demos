@@ -902,6 +902,132 @@ export namespace CloudLark {
         public toJSON(): { [k: string]: any };
     }
 
+    /** Properties of a FoveatedAxisRendering. */
+    interface IFoveatedAxisRendering {
+
+        /** FoveatedAxisRendering enableFoveateAxisRendering */
+        enableFoveateAxisRendering?: (boolean|null);
+
+        /** FoveatedAxisRendering foveationCenterSizeX */
+        foveationCenterSizeX?: (number|null);
+
+        /** FoveatedAxisRendering foveationCenterSizeY */
+        foveationCenterSizeY?: (number|null);
+
+        /** FoveatedAxisRendering foveationCenterShiftX */
+        foveationCenterShiftX?: (number|null);
+
+        /** FoveatedAxisRendering foveationCenterShiftY */
+        foveationCenterShiftY?: (number|null);
+
+        /** FoveatedAxisRendering foveationEdgeRatioX */
+        foveationEdgeRatioX?: (number|null);
+
+        /** FoveatedAxisRendering foveationEdgeRatioY */
+        foveationEdgeRatioY?: (number|null);
+    }
+
+    /** Represents a FoveatedAxisRendering. */
+    class FoveatedAxisRendering implements IFoveatedAxisRendering {
+
+        /**
+         * Constructs a new FoveatedAxisRendering.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: CloudLark.IFoveatedAxisRendering);
+
+        /** FoveatedAxisRendering enableFoveateAxisRendering. */
+        public enableFoveateAxisRendering: boolean;
+
+        /** FoveatedAxisRendering foveationCenterSizeX. */
+        public foveationCenterSizeX: number;
+
+        /** FoveatedAxisRendering foveationCenterSizeY. */
+        public foveationCenterSizeY: number;
+
+        /** FoveatedAxisRendering foveationCenterShiftX. */
+        public foveationCenterShiftX: number;
+
+        /** FoveatedAxisRendering foveationCenterShiftY. */
+        public foveationCenterShiftY: number;
+
+        /** FoveatedAxisRendering foveationEdgeRatioX. */
+        public foveationEdgeRatioX: number;
+
+        /** FoveatedAxisRendering foveationEdgeRatioY. */
+        public foveationEdgeRatioY: number;
+
+        /**
+         * Creates a new FoveatedAxisRendering instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns FoveatedAxisRendering instance
+         */
+        public static create(properties?: CloudLark.IFoveatedAxisRendering): CloudLark.FoveatedAxisRendering;
+
+        /**
+         * Encodes the specified FoveatedAxisRendering message. Does not implicitly {@link CloudLark.FoveatedAxisRendering.verify|verify} messages.
+         * @param message FoveatedAxisRendering message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: CloudLark.IFoveatedAxisRendering, writer?: $protobuf.Writer): $protobuf.Writer;
+
+        /**
+         * Encodes the specified FoveatedAxisRendering message, length delimited. Does not implicitly {@link CloudLark.FoveatedAxisRendering.verify|verify} messages.
+         * @param message FoveatedAxisRendering message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: CloudLark.IFoveatedAxisRendering, writer?: $protobuf.Writer): $protobuf.Writer;
+
+        /**
+         * Decodes a FoveatedAxisRendering message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns FoveatedAxisRendering
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): CloudLark.FoveatedAxisRendering;
+
+        /**
+         * Decodes a FoveatedAxisRendering message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns FoveatedAxisRendering
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): CloudLark.FoveatedAxisRendering;
+
+        /**
+         * Verifies a FoveatedAxisRendering message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a FoveatedAxisRendering message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns FoveatedAxisRendering
+         */
+        public static fromObject(object: { [k: string]: any }): CloudLark.FoveatedAxisRendering;
+
+        /**
+         * Creates a plain object from a FoveatedAxisRendering message. Also converts values to other types if specified.
+         * @param message FoveatedAxisRendering
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: CloudLark.FoveatedAxisRendering, options?: $protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this FoveatedAxisRendering to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
     /** Properties of a FoveatedRendering. */
     interface IFoveatedRendering {
 
@@ -916,6 +1042,9 @@ export namespace CloudLark {
 
         /** FoveatedRendering foveationVerticalOffset */
         foveationVerticalOffset?: (number|null);
+
+        /** FoveatedRendering axis */
+        axis?: (CloudLark.IFoveatedAxisRendering|null);
     }
 
     /** Represents a FoveatedRendering. */
@@ -938,6 +1067,9 @@ export namespace CloudLark {
 
         /** FoveatedRendering foveationVerticalOffset. */
         public foveationVerticalOffset: number;
+
+        /** FoveatedRendering axis. */
+        public axis?: (CloudLark.IFoveatedAxisRendering|null);
 
         /**
          * Creates a new FoveatedRendering instance using the specified properties.
@@ -1411,6 +1543,114 @@ export namespace CloudLark {
         public toJSON(): { [k: string]: any };
     }
 
+    /** Properties of a XRNetworkControl. */
+    interface IXRNetworkControl {
+
+        /** XRNetworkControl onepacketFec */
+        onepacketFec?: (boolean|null);
+
+        /** XRNetworkControl dynamicBitrate */
+        dynamicBitrate?: (boolean|null);
+
+        /** XRNetworkControl resend */
+        resend?: (boolean|null);
+
+        /** XRNetworkControl fecType */
+        fecType?: (number|null);
+    }
+
+    /** Represents a XRNetworkControl. */
+    class XRNetworkControl implements IXRNetworkControl {
+
+        /**
+         * Constructs a new XRNetworkControl.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: CloudLark.IXRNetworkControl);
+
+        /** XRNetworkControl onepacketFec. */
+        public onepacketFec: boolean;
+
+        /** XRNetworkControl dynamicBitrate. */
+        public dynamicBitrate: boolean;
+
+        /** XRNetworkControl resend. */
+        public resend: boolean;
+
+        /** XRNetworkControl fecType. */
+        public fecType: number;
+
+        /**
+         * Creates a new XRNetworkControl instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns XRNetworkControl instance
+         */
+        public static create(properties?: CloudLark.IXRNetworkControl): CloudLark.XRNetworkControl;
+
+        /**
+         * Encodes the specified XRNetworkControl message. Does not implicitly {@link CloudLark.XRNetworkControl.verify|verify} messages.
+         * @param message XRNetworkControl message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: CloudLark.IXRNetworkControl, writer?: $protobuf.Writer): $protobuf.Writer;
+
+        /**
+         * Encodes the specified XRNetworkControl message, length delimited. Does not implicitly {@link CloudLark.XRNetworkControl.verify|verify} messages.
+         * @param message XRNetworkControl message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: CloudLark.IXRNetworkControl, writer?: $protobuf.Writer): $protobuf.Writer;
+
+        /**
+         * Decodes a XRNetworkControl message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns XRNetworkControl
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): CloudLark.XRNetworkControl;
+
+        /**
+         * Decodes a XRNetworkControl message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns XRNetworkControl
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): CloudLark.XRNetworkControl;
+
+        /**
+         * Verifies a XRNetworkControl message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a XRNetworkControl message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns XRNetworkControl
+         */
+        public static fromObject(object: { [k: string]: any }): CloudLark.XRNetworkControl;
+
+        /**
+         * Creates a plain object from a XRNetworkControl message. Also converts values to other types if specified.
+         * @param message XRNetworkControl
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: CloudLark.XRNetworkControl, options?: $protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this XRNetworkControl to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
     /** Properties of a StartNewVrStreamRequest. */
     interface IStartNewVrStreamRequest {
 
@@ -1419,6 +1659,9 @@ export namespace CloudLark {
 
         /** StartNewVrStreamRequest headsetController */
         headsetController?: (CloudLark.IHeadSetControllerDesc|null);
+
+        /** StartNewVrStreamRequest network */
+        network?: (CloudLark.IXRNetworkControl|null);
     }
 
     /** Represents a StartNewVrStreamRequest. */
@@ -1435,6 +1678,9 @@ export namespace CloudLark {
 
         /** StartNewVrStreamRequest headsetController. */
         public headsetController?: (CloudLark.IHeadSetControllerDesc|null);
+
+        /** StartNewVrStreamRequest network. */
+        public network?: (CloudLark.IXRNetworkControl|null);
 
         /**
          * Creates a new StartNewVrStreamRequest instance using the specified properties.
@@ -7807,6 +8053,9 @@ export namespace CloudLark {
 
         /** VideoReconfigure fps */
         fps?: (number|null);
+
+        /** VideoReconfigure forceidr */
+        forceidr?: (boolean|null);
     }
 
     /** Represents a VideoReconfigure. */
@@ -7824,8 +8073,11 @@ export namespace CloudLark {
         /** VideoReconfigure fps. */
         public fps?: (number|null);
 
+        /** VideoReconfigure forceidr. */
+        public forceidr?: (boolean|null);
+
         /** VideoReconfigure video. */
-        public video?: ("bitrate"|"fps");
+        public video?: ("bitrate"|"fps"|"forceidr");
 
         /**
          * Creates a new VideoReconfigure instance using the specified properties.
@@ -8994,91 +9246,91 @@ export namespace CloudLark {
         }
     }
 
-    /** Properties of a StreamVideoControlForceIDR. */
-    interface IStreamVideoControlForceIDR {
+    /** Properties of a TooltipInfo. */
+    interface ITooltipInfo {
 
-        /** StreamVideoControlForceIDR enable */
-        enable?: (boolean|null);
+        /** TooltipInfo text */
+        text?: (string|null);
     }
 
-    /** Represents a StreamVideoControlForceIDR. */
-    class StreamVideoControlForceIDR implements IStreamVideoControlForceIDR {
+    /** Represents a TooltipInfo. */
+    class TooltipInfo implements ITooltipInfo {
 
         /**
-         * Constructs a new StreamVideoControlForceIDR.
+         * Constructs a new TooltipInfo.
          * @param [properties] Properties to set
          */
-        constructor(properties?: CloudLark.IStreamVideoControlForceIDR);
+        constructor(properties?: CloudLark.ITooltipInfo);
 
-        /** StreamVideoControlForceIDR enable. */
-        public enable: boolean;
+        /** TooltipInfo text. */
+        public text: string;
 
         /**
-         * Creates a new StreamVideoControlForceIDR instance using the specified properties.
+         * Creates a new TooltipInfo instance using the specified properties.
          * @param [properties] Properties to set
-         * @returns StreamVideoControlForceIDR instance
+         * @returns TooltipInfo instance
          */
-        public static create(properties?: CloudLark.IStreamVideoControlForceIDR): CloudLark.StreamVideoControlForceIDR;
+        public static create(properties?: CloudLark.ITooltipInfo): CloudLark.TooltipInfo;
 
         /**
-         * Encodes the specified StreamVideoControlForceIDR message. Does not implicitly {@link CloudLark.StreamVideoControlForceIDR.verify|verify} messages.
-         * @param message StreamVideoControlForceIDR message or plain object to encode
+         * Encodes the specified TooltipInfo message. Does not implicitly {@link CloudLark.TooltipInfo.verify|verify} messages.
+         * @param message TooltipInfo message or plain object to encode
          * @param [writer] Writer to encode to
          * @returns Writer
          */
-        public static encode(message: CloudLark.IStreamVideoControlForceIDR, writer?: $protobuf.Writer): $protobuf.Writer;
+        public static encode(message: CloudLark.ITooltipInfo, writer?: $protobuf.Writer): $protobuf.Writer;
 
         /**
-         * Encodes the specified StreamVideoControlForceIDR message, length delimited. Does not implicitly {@link CloudLark.StreamVideoControlForceIDR.verify|verify} messages.
-         * @param message StreamVideoControlForceIDR message or plain object to encode
+         * Encodes the specified TooltipInfo message, length delimited. Does not implicitly {@link CloudLark.TooltipInfo.verify|verify} messages.
+         * @param message TooltipInfo message or plain object to encode
          * @param [writer] Writer to encode to
          * @returns Writer
          */
-        public static encodeDelimited(message: CloudLark.IStreamVideoControlForceIDR, writer?: $protobuf.Writer): $protobuf.Writer;
+        public static encodeDelimited(message: CloudLark.ITooltipInfo, writer?: $protobuf.Writer): $protobuf.Writer;
 
         /**
-         * Decodes a StreamVideoControlForceIDR message from the specified reader or buffer.
+         * Decodes a TooltipInfo message from the specified reader or buffer.
          * @param reader Reader or buffer to decode from
          * @param [length] Message length if known beforehand
-         * @returns StreamVideoControlForceIDR
+         * @returns TooltipInfo
          * @throws {Error} If the payload is not a reader or valid buffer
          * @throws {$protobuf.util.ProtocolError} If required fields are missing
          */
-        public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): CloudLark.StreamVideoControlForceIDR;
+        public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): CloudLark.TooltipInfo;
 
         /**
-         * Decodes a StreamVideoControlForceIDR message from the specified reader or buffer, length delimited.
+         * Decodes a TooltipInfo message from the specified reader or buffer, length delimited.
          * @param reader Reader or buffer to decode from
-         * @returns StreamVideoControlForceIDR
+         * @returns TooltipInfo
          * @throws {Error} If the payload is not a reader or valid buffer
          * @throws {$protobuf.util.ProtocolError} If required fields are missing
          */
-        public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): CloudLark.StreamVideoControlForceIDR;
+        public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): CloudLark.TooltipInfo;
 
         /**
-         * Verifies a StreamVideoControlForceIDR message.
+         * Verifies a TooltipInfo message.
          * @param message Plain object to verify
          * @returns `null` if valid, otherwise the reason why it is not
          */
         public static verify(message: { [k: string]: any }): (string|null);
 
         /**
-         * Creates a StreamVideoControlForceIDR message from a plain object. Also converts values to their respective internal types.
+         * Creates a TooltipInfo message from a plain object. Also converts values to their respective internal types.
          * @param object Plain object
-         * @returns StreamVideoControlForceIDR
+         * @returns TooltipInfo
          */
-        public static fromObject(object: { [k: string]: any }): CloudLark.StreamVideoControlForceIDR;
+        public static fromObject(object: { [k: string]: any }): CloudLark.TooltipInfo;
 
         /**
-         * Creates a plain object from a StreamVideoControlForceIDR message. Also converts values to other types if specified.
-         * @param message StreamVideoControlForceIDR
+         * Creates a plain object from a TooltipInfo message. Also converts values to other types if specified.
+         * @param message TooltipInfo
          * @param [options] Conversion options
          * @returns Plain object
          */
-        public static toObject(message: CloudLark.StreamVideoControlForceIDR, options?: $protobuf.IConversionOptions): { [k: string]: any };
+        public static toObject(message: CloudLark.TooltipInfo, options?: $protobuf.IConversionOptions): { [k: string]: any };
 
         /**
-         * Converts this StreamVideoControlForceIDR to JSON.
+         * Converts this TooltipInfo to JSON.
          * @returns JSON object
          */
         public toJSON(): { [k: string]: any };
@@ -9176,9 +9428,6 @@ export namespace CloudLark {
 
         /** ClientInput appControl */
         appControl?: (CloudLark.IApplicationControl|null);
-
-        /** ClientInput forceIdr */
-        forceIdr?: (CloudLark.IStreamVideoControlForceIDR|null);
     }
 
     /** Represents a ClientInput. */
@@ -9280,11 +9529,8 @@ export namespace CloudLark {
         /** ClientInput appControl. */
         public appControl?: (CloudLark.IApplicationControl|null);
 
-        /** ClientInput forceIdr. */
-        public forceIdr?: (CloudLark.IStreamVideoControlForceIDR|null);
-
         /** ClientInput input. */
-        public input?: ("mouseMove"|"mouseDown"|"mouseUp"|"mouseWheel"|"keyDown"|"keyUp"|"clientEnter"|"clientLeave"|"dispatchController"|"requesController"|"textInput"|"gamepadInputJoystickStates"|"gamepadInputButtonDown"|"gamepadInputButtonUp"|"gamepadInputTriger"|"clientDcMsg"|"touchMove"|"touchDown"|"touchUp"|"aiVoicestreamStart"|"aiVoicestreamSlice"|"aiVoicestreamStop"|"aiVoicestreamReset"|"aiVoiceText"|"rtmpStart"|"rtmpStop"|"videoConfigure"|"clientStatics"|"showDebuglayout"|"appControl"|"forceIdr");
+        public input?: ("mouseMove"|"mouseDown"|"mouseUp"|"mouseWheel"|"keyDown"|"keyUp"|"clientEnter"|"clientLeave"|"dispatchController"|"requesController"|"textInput"|"gamepadInputJoystickStates"|"gamepadInputButtonDown"|"gamepadInputButtonUp"|"gamepadInputTriger"|"clientDcMsg"|"touchMove"|"touchDown"|"touchUp"|"aiVoicestreamStart"|"aiVoicestreamSlice"|"aiVoicestreamStop"|"aiVoicestreamReset"|"aiVoiceText"|"rtmpStart"|"rtmpStop"|"videoConfigure"|"clientStatics"|"showDebuglayout"|"appControl");
 
         /**
          * Creates a new ClientInput instance using the specified properties.
@@ -9533,6 +9779,9 @@ export namespace CloudLark {
 
         /** AppNotification videoFrame */
         videoFrame?: (CloudLark.IStreamVideoFrame|null);
+
+        /** AppNotification tooltipInfo */
+        tooltipInfo?: (CloudLark.ITooltipInfo|null);
     }
 
     /** Represents an AppNotification. */
@@ -9598,8 +9847,11 @@ export namespace CloudLark {
         /** AppNotification videoFrame. */
         public videoFrame?: (CloudLark.IStreamVideoFrame|null);
 
+        /** AppNotification tooltipInfo. */
+        public tooltipInfo?: (CloudLark.ITooltipInfo|null);
+
         /** AppNotification notify. */
-        public notify?: ("resize"|"mousemode"|"updatePlayers"|"requestInput"|"gamepadOutput"|"datachannelState"|"appDcMsg"|"cursorStyle"|"aiVoiceRealtimeParseresult"|"aiVoiceResult"|"aiVoiceServiceStatus"|"aiVoiceErr"|"rtmpState"|"rtmpError"|"notifyFeatures"|"serverStatics"|"appControlResult"|"videoFrame");
+        public notify?: ("resize"|"mousemode"|"updatePlayers"|"requestInput"|"gamepadOutput"|"datachannelState"|"appDcMsg"|"cursorStyle"|"aiVoiceRealtimeParseresult"|"aiVoiceResult"|"aiVoiceServiceStatus"|"aiVoiceErr"|"rtmpState"|"rtmpError"|"notifyFeatures"|"serverStatics"|"appControlResult"|"videoFrame"|"tooltipInfo");
 
         /**
          * Creates a new AppNotification instance using the specified properties.
