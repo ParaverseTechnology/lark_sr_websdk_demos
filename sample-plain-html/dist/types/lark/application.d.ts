@@ -50,7 +50,8 @@ export declare enum APP_EVENT_TYPE {
     RTC_RETRY_SUCCESS = 24,
     AerialViewStatus = 25,
     AerialViewScreen = 26,
-    START_XR_STREAM_RESPONSE = 27
+    START_XR_STREAM_RESPONSE = 27,
+    TooltipInfo = 28
 }
 export interface AppEvent extends LocalEvent<APP_EVENT_TYPE> {
     data?: any;
@@ -163,6 +164,7 @@ export default class Application extends EventBase<APP_EVENT_TYPE, AppEvent> {
     private onAerialViewStatus;
     private onAerialViewScreen;
     private onVideoFrame;
+    private onToolTipinfo;
     private onShareMediaError;
     private onShareMediaInfo;
     private onShareMediaOffer;

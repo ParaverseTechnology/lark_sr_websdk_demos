@@ -249,7 +249,11 @@ declare enum LarkSRClientEvent {
     AERIAL_VIEW_SCREEN = "aerialviewscreen",
     /**
      */
-    START_XR_STREAM_RESPONSE = "startxrstreamresponse"
+    START_XR_STREAM_RESPONSE = "startxrstreamresponse",
+    /**
+     * Tooltip info
+     */
+    TOOLTIP_INFO = "tooltipinfo"
 }
 /**
  * LarkSR 发出的事件
