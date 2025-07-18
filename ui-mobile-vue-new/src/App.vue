@@ -543,7 +543,8 @@ export default {
         setInputMethodEnable: "setInputMethodEnable",
         setInputMethodStart: "setInputMethodStart",
         setControlBallInputMethod: 'setControlBallInputMethod',
-        setShowWebMenu: 'setShowWebMenu'
+        setShowWebMenu: 'setShowWebMenu',
+        setQualityMode: 'modalSetting/setQualityMode',
     }),
     ...mapActions({
       "resize": "resize",
@@ -553,7 +554,9 @@ export default {
       'confirm': 'modalConfirm/showModalConfirm',
       'resetLocalization': 'resetLocalization',
       'toggleVKeyboard': 'toggleVKeyboard',
-      'setFlipMouseWheel': 'flipMouseWheel'
+      'setFlipMouseWheel': 'flipMouseWheel',
+      'coderateChange': 'modalSetting/coderateChange',
+      'codeFpsChange': 'modalSetting/codeFpsChange',
     }),
   },
   mounted() {
@@ -585,6 +588,7 @@ export default {
         // show log
         // logLevel: 'warn',
 
+        // codeRate: 50000,
         // 单独上传流程要求渲染服务器版本大于3290）
         useSeparateMediaSharePeer: true,
         // 默认可以大于服务器端分辨率推流
@@ -684,8 +688,13 @@ export default {
 
     // 监听连接成功事件
     larksr.on("connect", (e) => {
-      console.log("LarkSRClientEvent CONNECT", e);
-
+      console.log("LarkSRClientEvent CONNECT", e, larksr.params);
+      // set coderate
+      this.coderateChange(larksr.params.codeRate);
+      // set frameRate
+      this.codeFpsChange(larksr.params.frameRate);
+      // 画质
+      this.setQualityMode();
       // 可能从getstartappinfo之后才获取来的参数.
       // 后台配置的是否显示玩家列表参数
       store.commit("playerMode/setShowPlayerList", larksr.params.showPlayerList);

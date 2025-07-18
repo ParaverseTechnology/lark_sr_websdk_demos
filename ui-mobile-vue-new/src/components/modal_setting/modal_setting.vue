@@ -55,10 +55,10 @@
                 <div class="quality content-row">
                   <span>{{ ui.quality }}</span>
                   <div class="quality-btn">
-                    <p @click="qualityClick('0')" :class="{'quality-btn-active': qualityTab==='0'}">{{ ui.quality1 }}</p>
-                    <p @click="qualityClick('1')" :class="{'quality-btn-active': qualityTab==='1'}">{{ ui.quality2 }}</p>
-                    <p @click="qualityClick('2')" :class="{'quality-btn-active': qualityTab==='2'}">{{ ui.quality3 }}</p>
-                    <p @click="qualityClick('3')" :class="{'quality-btn-active': qualityTab==='3'}">{{ ui.quality4 }}</p>
+                    <p @click="qualityClick('0')" :class="{'quality-btn-active': selectFps===60&&selectCoderate===8000}"> {{ ui.quality1 }}</p>
+                    <p @click="qualityClick('1')" :class="{'quality-btn-active': selectFps===60&&selectCoderate===10000}">{{ ui.quality2 }}</p>
+                    <p @click="qualityClick('2')" :class="{'quality-btn-active': selectFps===60&&selectCoderate===20000}">{{ ui.quality3 }}</p>
+                    <p @click="qualityClick('3')" :class="{'quality-btn-active': selectFps===60&&selectCoderate===50000}">{{ ui.quality4 }}</p>
                   </div>
                 </div>
                 <div class="customContentAlert-divider"></div>

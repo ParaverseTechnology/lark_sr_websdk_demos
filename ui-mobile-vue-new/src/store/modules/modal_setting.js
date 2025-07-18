@@ -14,7 +14,19 @@ export const ModalSetting/*: Module<ControlBarInterface, RootState>*/ = {
         state.isShowSettingAlert = isShowSettingAlert;
       },
       setQualityMode (state, qualityMode) {
-        state.qualityMode = qualityMode;
+        if (qualityMode) {
+          state.qualityMode = qualityMode;
+        } else {
+          if (state.coderate==8000 && state.fps == 60) {
+            state.qualityMode = '0';
+          } else if (state.coderate==10000 && state.fps == 60) {
+            state.qualityMode = '1';
+          } else if (state.coderate==20000 && state.fps == 60) {
+            state.qualityMode = '2';
+          } else if (state.coderate==50000 && state.fps == 60) {
+            state.qualityMode = '3';
+          }
+        }
       },
       setCoderate (state, coderate) {
         state.coderate = coderate;
