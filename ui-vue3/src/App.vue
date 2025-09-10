@@ -242,7 +242,7 @@ onMounted(() => {
     // 初始化您的授权ID
     // "SDK 授权码，联系 business@pingxingyun.com 获取,注意是 SDK 本身的授权码，不是服务器上的授权"
     // 使用 Unit.queryString("sdkID") 可从 url 载入名称为 sdkID 的参数
-    larksr.value.initSDKAuthCode("381f9336504844d4b9b3cf7bdf4d59ca")
+    larksr.value.initSDKAuthCode("SDK 授权码，联系 business@pingxingyun.com 获取,注意是 SDK 本身的授权码，不是服务器上的授权")
     .then(() => {
 
       // 连接平行云托管平台的应用
