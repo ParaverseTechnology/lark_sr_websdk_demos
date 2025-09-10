@@ -1,0 +1,18 @@
+{
+  "files": [],
+  "references": [
+    { "path": "./tsconfig.app.json" },
+    { "path": "./tsconfig.node.json" }
+  ],
+  "compilerOptions": {
+     "baseUrl": ".",
+     "paths": {
+       "@/*":["src/*"],
+       "vuex": ["./node_modules/vuex/types"],
+       "*": ["src/types/*", "node_modules/*", "vuex.d.ts"]
+     },
+     "allowJs": true,
+     "types": ["element-plus/global", "vuex"],
+     "isolatedModules": true
+   },
+}

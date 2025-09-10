@@ -1,0 +1,32 @@
+
+
+.toast {
+    position: fixed;
+    bottom: px2rem(115);
+    z-index: 30;
+    text-align: center;
+    overflow: hidden;
+    white-space: nowrap;
+    word-break: break-all;
+    color: var(--webclient-toast-font-color);
+    font-size: px2rem(18);
+    line-height: px2rem(40);
+    height: px2rem(40);
+    letter-spacing: px2rem(3);
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    .toastText {
+        background-color: var(--webclient-toast-bg-05);
+        line-height: px2rem(40);
+        height: px2rem(40);
+        min-width: px2rem(526);
+        padding: 0 px2rem(5);
+        border-radius: px2rem(10);
+        display: flex;
+        text-align: center;
+        justify-content: center;
+        align-items: center;
+    }
+}

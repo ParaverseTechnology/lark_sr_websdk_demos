@@ -1,0 +1,16 @@
+.vmouse {
+    top: 30px;
+    left: 30px;
+    position: absolute;
+    position: absolute;
+    z-index: $z-index-index + 3;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    width: px2rem(48.5 * 2);
+    height: px2rem(51.2 * 2);
+    img {
+        width: px2rem(48.5);
+        height: px2rem(51.2);
+    }
+}

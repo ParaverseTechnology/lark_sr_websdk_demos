@@ -1,0 +1,22 @@
+.state {
+    padding-top: 20px;
+    &-row {
+        display: flex;
+        >p {
+            width: 50%;
+            margin: 3px 0;
+            text-align: left;
+        }
+        >p:nth-of-type(1) {
+            width: 40%;
+        }
+        >p:nth-of-type(2) {
+            width: 60%;
+        }
+    }
+    .customContentAlert-divider {
+        width: 100%;
+        border-bottom: 1px solid var(--webclient-dialog-divider,rgba(255, 255, 255, 0.20));
+        margin: 20px 0;
+    }
+}

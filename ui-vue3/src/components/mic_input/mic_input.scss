@@ -1,0 +1,95 @@
+.mic-input {
+    display: flex;
+    align-items: center;
+    >i {
+        font-size: 11px;
+        font-weight: 600;
+        color: var(--webclient-menubar-icon-color);
+        cursor: pointer;
+    }
+    .menu-icon {
+        height: 28px;
+        box-sizing: border-box;
+        cursor: pointer;
+        margin: 0 3px;
+        position: relative;
+        >i {
+            font-size: 28px;
+            color: var(--webclient-menubar-icon-color);
+        }
+        >i:hover {
+            color: var(--webclient-menubar-icon-hover-color);
+        }
+        .icon-click,.icon-click:hover {
+            color:var(--webclient-check-color);
+        }
+    }
+    .top {
+        top: 50px;
+    }
+    .bottom {
+        bottom: 50px;
+    }
+    .setup {
+        min-width: 200px;
+        position: absolute;
+        left: -50px;
+        background-color: var(--webclient-menubar-select-bg);
+        border-radius: 0.44444rem;
+        padding: 0.89rem;
+        box-sizing: border-box;
+        color: var(--webclient-menubar-select-font-color, #454545);
+        font-family: Noto Sans SC;
+        font-size: 1.33333rem;
+        &-title {
+            padding: 0.44rem;
+            margin: 0;
+            color: var(--webclient-menubar-select-title-font-color);
+            font-size: 1.11rem;
+            text-align: left;
+        }
+        &-row {
+            width: 100%;
+            padding: 0.44rem;
+            box-sizing: border-box;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            >span {
+                display: inline-block;
+                margin-right: 30px;
+            }
+            >i {
+                color:var(--webclient-check-color);
+                font-weight: 600;
+                font-size: 16px;
+            }
+        }
+        &-row:hover {
+            background: var(--webclient-menubar-select-hover-bg);
+            color: var(--webclient-menubar-select-hover-font-color,#454545);
+        }
+    }
+}
+
+.mic-input.mic-input-mobile {
+    top: px2rem(20);
+    left: px2rem(200);
+    .icon {
+        width: px2rem(55);
+        height: px2rem(55);
+    }
+    .icon img {
+        width: px2rem(40);
+        height: px2rem(40);
+    }
+    .icon-setup {
+        left: 50px;
+    }
+    .setup {
+        left: 80px;
+        select {
+            width: 100px;
+        }
+    }
+}

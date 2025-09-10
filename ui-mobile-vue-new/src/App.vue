@@ -931,7 +931,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import "App.scss";
+@import "./App.scss";
 .virtualInput {
   position:absolute;
   z-index: -100;

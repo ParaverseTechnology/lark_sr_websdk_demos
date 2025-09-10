@@ -1,0 +1,150 @@
+.customContentAlert {
+  position: absolute;
+  z-index: $z-index-modal;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: $color-bg-trans01-black;
+  top: 0;
+  &-container {
+      width: px2rem(527);
+      overflow: auto;
+      word-break: break-word;
+      color: var(--webclient-dialog-font-color);
+      border-radius: px2rem(2);
+      .customContentAlert-title {
+          position: relative;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          padding: 1.33rem 1.78rem;
+          background-color: var(--webclient-dialog-title-bg);;
+          &-tab {
+            display: flex;
+            p {
+              margin: 0;
+              width: 11.56rem;
+              height: 3.56rem;
+              line-height: 3.56rem;
+              font-size: 1.55556rem;
+              background-color: var(--webclient-setting-titletab-bg);
+              color: var(--webclient-setting-titletab-font-color);
+              cursor: pointer;
+              text-align: center;
+            }
+            .active {
+              background-color: var(--webclient-setting-titletab-font-color);
+              color: var(--webclient-setting-titletab-bg);
+            }
+            &-left {
+              border-top-left-radius: 3.56rem;
+              border-bottom-left-radius: 3.56rem;
+            }
+            &-right {
+              border-top-right-radius: 3.56rem;
+              border-bottom-right-radius: 3.56rem;
+            }
+          }
+          .close {
+            position: absolute;
+            right: 20px;
+            i {
+                color: var(--webclient-dialog-font-color);
+                font-size: 1.8rem;
+                cursor: pointer;
+            }
+          }
+      }
+      .customContentAlert-content {
+          font-family: Noto Sans SC;
+          font-size: 1.33333rem;
+          letter-spacing: px2rem(2);
+          padding: 20px 20px 0 20px;
+          box-sizing: border-box;
+          background-color: var(--webclient-dialog-body-bg);
+          >p {
+            margin: 0;
+            text-align: left;
+          }
+          .quality,.content-row {
+            display: flex;
+            align-items: center;
+            >span {
+              width: 6.67rem;
+              text-align: left;
+            }
+            &-btn,.ratio-btn {
+              width: calc(100% - 6.67rem);
+              display: flex;
+              align-items: center;
+              justify-content: space-around;
+              >p {
+                margin: 0;
+                border-radius: 0.44444rem;
+                color: var(--webclient-dialog-font-color);
+                padding: 0.74rem 1.78rem;
+                cursor: pointer;
+              }
+              .quality-btn-active {
+                color: var(--webclient-setting-btn-active-font-color)!important;
+                background-color: var(--webclient-setting-btn-active-bg)!important;
+              }
+            }
+            .ratio-btn {
+              justify-content: flex-end!important;
+            }
+          }
+          .setting-row {
+            >span {
+              width: 14rem;
+            }
+          }
+          .custom {
+            &-content {
+              width: calc(100% - 6.67rem);
+              display: flex;
+              align-items: center;
+              justify-content: flex-end;
+              >span {
+                display: inline-block;
+                width: 25%;;
+              }
+              >div {
+                width: 50%;
+              }
+            }
+          }
+          .custom-code {
+            margin-bottom: 1.78rem;
+          }
+      }
+      .customContentAlert-divider {
+          width: 100%;
+          border-bottom: 1px solid var(--webclient-dialog-divider);
+          margin: 20px 0;
+      }
+      .button-group {
+        display: flex;
+        justify-content: flex-end;
+        box-sizing: border-box;
+        background-color: var(--webclient-dialog-body-bg);
+        padding: 20px;
+        .button {
+            border-radius: 0.45rem;
+            border: 0px solid #999;
+            background: var(--webclient-dialog-button-bg);
+            color: var(--webclient-dialog-button-font-color,#DDD);
+            font-family: Noto Sans SC;
+            font-size: 1.33333rem;
+            text-align: center;
+        }
+        .button+.button {
+            margin-left: 2rem;
+        }
+        .button:hover {
+          background-color: var(--webclient-dialog-button-hover-bg)!important;
+        }
+    }
+  }
+}
+
