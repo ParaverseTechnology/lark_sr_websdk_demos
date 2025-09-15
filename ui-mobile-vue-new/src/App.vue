@@ -920,6 +920,8 @@ export default {
     this.larksr?.close();
   },
   beforeDestroy() {
+    // 主动关闭
+    this.larksr?.close();
     if(this.isMobile) {
       this.$refs.input.removeEventListener('keyup',this.sysKeybaordEnterOrBackspace)
     } else {
