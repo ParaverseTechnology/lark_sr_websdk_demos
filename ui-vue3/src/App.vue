@@ -333,6 +333,11 @@ onMounted(() => {
     // 监听连接成功事件
     larksr.value.on("connect", (e) => {
       console.log("LarkSRClientEvent CONNECT", e, larksr.value.params);
+      if (larksr.value.params.initResolutionType===1) { //适应客户端窗口分辨率
+        const width = larksr.value.screenState.syncClientViewport.width;
+        const height = larksr.value.screenState.syncClientViewport.height;
+        larksr.value?.setCloudAppSize(width, height);
+      }
       // set coderate
       
       modalSettingStore.coderateChange(larksr.value.params.codeRate);
@@ -554,10 +559,20 @@ onMounted(() => {
         if (resizeTimeout.value) {
           window.clearTimeout(resizeTimeout.value);
         }
-        resizeTimeout.value = window.setTimeout(() => {
+
+        if (Capabilities.os === 'iOS') {
+          resizeTimeout.value = window.setTimeout(() => {
+            commStore.resize();
+            resizeTimeout.value = null;
+          }, 200);
+        } else {
           commStore.resize();
-          resizeTimeout.value = null;
-        }, 200);
+        }
+        if (larksr.value.params.initResolutionType===1) { //适应客户端窗口分辨率
+          const width = larksr.value.screenState.syncClientViewport.width;
+          const height = larksr.value.screenState.syncClientViewport.height;
+          larksr.value?.setCloudAppSize(width, height);
+        }
     });
     window.addEventListener("orientationchange", () => {
         if (resizeTimeout.value) {

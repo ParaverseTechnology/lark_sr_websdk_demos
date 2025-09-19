@@ -689,6 +689,11 @@ export default {
     // 监听连接成功事件
     larksr.on("connect", (e) => {
       console.log("LarkSRClientEvent CONNECT", e, larksr.params);
+      if (this.larksr.params.initResolutionType===1) { //适应客户端窗口分辨率
+        const width = this.larksr.screenState.syncClientViewport.width;
+        const height = this.larksr.screenState.syncClientViewport.height;
+        this.larksr?.setCloudAppSize(width, height);
+      }
       // set coderate
       this.coderateChange(larksr.params.codeRate);
       // set frameRate
@@ -899,10 +904,19 @@ export default {
         if (resizeTimeout) {
             window.clearTimeout(resizeTimeout);
         }
-        resizeTimeout = window.setTimeout(() => {
+        if (Capabilities.os === 'iOS') {
+          resizeTimeout = window.setTimeout(() => {
             this.resize();
             resizeTimeout = null;
-        }, 200);
+          }, 200);
+        } else {
+          this.resize();
+        }
+        if (this.larksr.params.initResolutionType===1) { //适应客户端窗口分辨率
+          const width = this.larksr.screenState.syncClientViewport.width;
+          const height = this.larksr.screenState.syncClientViewport.height;
+          this.larksr?.setCloudAppSize(width, height);
+        }
     });
     window.addEventListener("orientationchange", () => {
         if (resizeTimeout) {
@@ -917,7 +931,7 @@ export default {
   },
   beforeUnmount() {
     // 主动关闭
-    this.larksr?.close();
+    // this.larksr?.close();
   },
   beforeDestroy() {
     // 主动关闭
