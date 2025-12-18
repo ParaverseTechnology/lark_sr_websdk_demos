@@ -1,0 +1,86 @@
+.mobile-modal-resolutionratio {
+  background-color: var(--webclient-modal_bg, #5A5A5A);
+  transition: all .2s;
+  top: 0;
+  right: -100%;
+  position: absolute;
+  touch-action: auto;
+  z-index: 99;
+  &-title {
+    height: 5.2071rem;
+    padding: 1.18rem;
+    box-sizing: border-box;
+    background-color: var(--webclient-modal-title-bg,#454545);
+    color: var(--webclient-modal-font-color,#DDDDDD);
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    touch-action: auto;
+    i {
+      display: inline-block;
+      transform: rotate(180deg);
+      font-size: 2.54rem;
+      vertical-align: middle;
+      touch-action: auto;
+    }
+    &-text {
+      font-size: 1.6568rem;
+      vertical-align: middle;
+      touch-action: auto;
+    }
+  }
+}
+.resolution-ratio-content {
+  overflow-y: auto;
+  height: calc(100% - 5.2071rem);
+  padding: 1.89rem 0.95rem;
+  box-sizing: border-box;
+  color: var(--webclient-modal-font-color,#DDDDDD);
+  touch-action: auto;
+  &-title {
+    text-align: left;
+    font-size: 1.42012rem;
+    padding: 0 0.95rem;
+    margin: 0;
+    height: 3.43rem;
+    line-height: 3.43rem;
+    touch-action: auto;
+  }
+  .resolution-ratio-box {
+    touch-action: auto;
+    &-row {
+      height: 3.43rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 0.95rem;
+      box-sizing: border-box;
+      margin-bottom: 0.95rem;
+      touch-action: auto;
+      &-icon {
+        font-size: 2.3rem;
+        touch-action: auto;
+      }
+      &-label {
+        font-size: 1.42012rem;
+        touch-action: auto;
+      }
+      >div {
+        touch-action: auto;
+        i {
+          vertical-align: middle;
+        }
+        >span {
+          display: inline-block;
+          margin-left: 1.89rem;
+        }
+      }
+    }
+    .resolution-ratio-box-row-check {
+      touch-action: auto;
+      background: var(--webclient-modal-row-check-bg,#454545);
+      color: var(--webclient-modal-row-check-font-color,#DDD);
+      border-radius: 0.47337rem;
+    }
+  }
+}

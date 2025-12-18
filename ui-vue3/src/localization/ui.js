@@ -497,6 +497,9 @@ export default class UI extends LocalizationBase {
     get mouseLeft() {
         return this.getVrAppliMsg('mouseLeft');
     }
+    get mouseMid() {
+        return this.getVrAppliMsg('mouseMid');
+    }
     get mouseRight() {
         return this.getVrAppliMsg('mouseRight');
     }

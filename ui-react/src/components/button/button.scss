@@ -1,0 +1,57 @@
+.button {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  // flex: 1;
+  transition: all .1s;
+  position: relative;
+  height: 100%;
+  border-radius: 0.44444rem;
+  padding: 0.89rem 1.78rem;
+  box-sizing: border-box;
+  cursor: pointer;
+  float: none;
+  >.info {
+      position: absolute;
+      color: #fff;
+      bottom: 30px;
+      left: 0;
+      width: 100%;
+      background-color: rgba(0,0,0,.7);
+      /* border-radius: 5px; */
+      /* padding: 2px 5px; */
+      font-size: 12px;
+      overflow: hidden;
+      white-space: nowrap;
+      text-align: center;
+  }
+  .buttonTitle {
+      overflow: hidden;
+      white-space: nowrap;
+      text-align: center;
+  }
+  .buttonRow {
+      display: flex;
+      flex-direction: row;
+      height: 100%;
+      align-items: center;
+      .buttonRowCell {
+          display: flex;
+          flex: 1;
+          height: 100%;
+          width: auto;
+          margin: 2px;
+      }
+  }
+  img {
+      display: block;
+      height: 100%;
+      width: auto;
+      pointer-events: none;
+  }
+}
+.button:hover {
+  background: var(--webclient-confirm-button-hover-bg)!important;
+  // box-shadow: 0 0 10px  rgba(255, 255, 255, 0.5);
+}

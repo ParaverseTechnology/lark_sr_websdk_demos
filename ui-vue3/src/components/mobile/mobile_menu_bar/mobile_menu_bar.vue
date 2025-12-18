@@ -20,7 +20,7 @@
         <div v-if="isLiveStream" class="mobilebar-box-item service" @click.prevent="streamFn">
           <i class="iconfont icon-stream"></i>
         </div>
-        <div v-if="videoInput || audioInput || isLiveStream || aivoicestatus" class="menu-devider"></div>
+        <div v-if="videoInput || audioInput || isLiveStream" class="menu-devider"></div>
         <div class="mobilebar-box-item" @click.prevent="changeTextInputFn">
           <i :class="commStore.enableChineseInput?'iconfont icon-shurufa':'iconfont icon-shurufa_off'"></i>
         </div>

@@ -1,0 +1,64 @@
+.mobile-modal-states {
+  background-color: var(--webclient-modal_bg, #5A5A5A);
+  transition: all .2s;
+  top: 0;
+  right: -100%;
+  position: absolute;
+  touch-action: auto;
+  z-index: 99;
+  &-title {
+    height: 5.2071rem;
+    padding: 1.18rem;
+    box-sizing: border-box;
+    background-color: var(--webclient-modal-title-bg,#454545);
+    color: var(--webclient-modal-font-color,#DDDDDD);
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    i {
+      display: inline-block;
+      transform: rotate(180deg);
+      font-size: 2.54rem;
+      vertical-align: middle;
+    }
+    &-text {
+      font-size: 1.6568rem;
+      vertical-align: middle;
+    }
+  }
+}
+.state-content {
+  overflow-y: auto;
+  height: calc(100% - 5.2071rem);
+  touch-action: auto;
+}
+.state {
+  color: var(--webclient-modal-font-color,#DDDDDD);
+  padding-top: 20px;
+  font-family: Noto Sans SC;
+  font-size: 1.42012rem;
+  padding: 1.89rem;
+  box-sizing: border-box;
+  touch-action: auto;
+  &-row {
+    display: flex;
+    align-items: center;
+  touch-action: auto;
+    >p {
+        width: 50%;
+        margin: 3px 0;
+        text-align: left;
+    }
+    >p:nth-of-type(1) {
+        width: 40%;
+    }
+    >p:nth-of-type(2) {
+        width: 60%;
+    }
+  }
+  .customContentAlert-divider {
+    width: 100%;
+    border-bottom: 1px solid var(--webclient-dialog-divider);
+    margin: 1.5rem 0;
+  }
+}

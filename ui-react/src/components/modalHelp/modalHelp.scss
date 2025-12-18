@@ -1,0 +1,29 @@
+.help-row {
+  border-bottom: 1px solid var(--webclient-dialog-divider);
+  cursor: pointer;
+  &-title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.8rem 5px 1.8rem 0;
+    box-sizing: border-box;
+    >i {
+      cursor: pointer;
+      font-size: 2rem;
+      transform: rotate(0deg);
+    }
+    >i.active {
+      transform: rotate(180deg);
+      transition: all 0.3s;
+    }
+    >p {
+      margin: 0;
+    }
+  }
+  &-content {
+    text-align: left;
+    margin-bottom: 0px;
+    max-height: 0px;
+    overflow: auto;
+  }
+}

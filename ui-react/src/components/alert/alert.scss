@@ -1,0 +1,82 @@
+.modalAlertPanel {
+  position: absolute;
+  z-index: $z-index-modal;
+  background-color: $color-bg-trans01-black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  top: 0;
+  overflow-x: hidden;
+  overflow-y: hidden;
+  .container {
+      width: px2rem(527);
+      background-color: var(--webclient-dialog-body-bg, $color-bg-trans80-blue);
+      overflow: auto;
+      word-break: break-word;
+      color: var(--webclient-dialog-font-color, #fff);
+      border-radius: px2rem(2);
+      font-family: var(--webclient-alert-font-family, auto);
+      box-sizing: border-box;
+      .container-title {
+          // width: px2rem(527);
+          height: 5.3rem;
+          padding: 0 20px;
+          box-sizing: border-box;
+          background: var(--webclient-dialog-title-bg);
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          >div:nth-of-type(1) {
+              p {
+                  margin: 0;
+                  color: var(--webclient-dialog-font-color);
+                  font-family: Noto Sans SC;
+                  font-size: 1.55556rem;
+                  font-style: normal;
+                  font-weight: 500;
+                  line-height: normal;
+              }
+          }
+      }
+      .content {
+          height: px2rem(145);
+          line-height: px2rem(40);
+          display: flex;
+          align-items: center;
+          font-size: px2rem(22);
+          letter-spacing: px2rem(2);
+          margin: 0 20px;
+          overflow-y: auto;
+          color: var(--webclient-dialog-font-color,#DDD);
+          p {
+              max-height: px2rem(145);
+              text-align: left;
+          }
+      }
+      .modalConfirmPanel-divider {
+          background-color: var(--webclient-dialog-divider);
+          width: calc(100% - 40px);
+          height: 1px;
+          margin: 20px;
+      }
+      .button-group {
+          display: flex;
+          justify-content: flex-end;
+          box-sizing: border-box;
+          margin: 20px 0;
+          padding: 0 20px;
+          .button {
+              border-radius: 0.45rem;
+              border: 0px solid #999;
+              background: var(--webclient-dialog-button-bg);
+              color: var(--webclient-dialog-button-font-color,#DDD);
+              font-family: Noto Sans SC;
+              font-size: 1.33333rem;
+              text-align: center;
+          }
+          .button:hover {
+              background-color: var(--webclient-dialog-button-hover-bg)!important;
+          }
+      }
+  }
+}

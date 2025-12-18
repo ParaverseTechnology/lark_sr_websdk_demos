@@ -1,0 +1,15 @@
+export const CursorType = {
+	ARROW    : 0,
+	IBEAM    : 1,
+	WAIT     : 2,
+	CROSS    : 3,
+	SIZENWSE : 4,
+	SIZENESW : 5,
+	SIZEWE   : 6,
+	SIZENS   : 7,
+	SIZEALL  : 8,
+	NO       : 9,
+	HAND     : 10,
+	CUSTOM   : 11,
+	DEFAULT  : 1000,
+}

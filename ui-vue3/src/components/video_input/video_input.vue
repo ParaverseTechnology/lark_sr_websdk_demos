@@ -13,8 +13,8 @@
         <el-icon v-else @click="toggleSetupPanel"><ArrowUp /></el-icon>
         <div v-if="setupPanel" :class="{'setup':true, 'top': commStore.menubarPosition==='top','bottom': commStore.menubarPosition==='bottom'}">
             <p class="setup-title">{{ ui.selectCamera }}</p>
-            <template v-if="devices.length">
-                <div v-for="(device, key) in devices" @click="videoCheck(device)" class="setup-row" :key="key">
+            <template v-if="devices.list.length">
+                <div v-for="(device, key) in devices.list" @click="videoCheck(device)" class="setup-row" :key="key">
                     <span> {{ device.label }}</span>
                     <el-icon v-if="selecteDevice === device.deviceId"><Check /></el-icon>
                 </div>

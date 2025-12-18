@@ -1,0 +1,33 @@
+.rttInfo {
+  pointer-events: none;
+  text-align: center;
+  line-height: px2rem(25);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  left: px2rem(48);
+  top: px2rem(30);
+  z-index: 9;
+  .icon-rtt {
+      margin-right: px2rem(8);
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-position: center;
+      display: inline-block;
+      width: px2rem(25);
+      height: px2rem(25);
+  }
+}
+.rttInfo.rttBad {
+  color: red;
+  .icon-rtt {
+      background-image: url("../../assets/img/mobile/network_cell_bad.png");
+  }
+}
+.rttInfo.rttGood {
+  color: #34a853;
+  .icon-rtt {
+      background-image: url("../../assets/img/mobile/network_cell.png");
+  }
+}

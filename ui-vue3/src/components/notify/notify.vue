@@ -6,7 +6,7 @@
         <Btn 
             :info="ui.buttonClose"
             v-bind:src="CloseImg"
-            v-on:click="clearNotify"
+            v-on:click="clearNotifyFn"
         />
     </div>
 </template>

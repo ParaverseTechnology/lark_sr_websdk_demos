@@ -1,0 +1,193 @@
+
+.v-box {
+  width: 6rem;
+  background-color: var(--webclient-mob-menubar-bg,#545454);
+  position: absolute;
+  top: 0;
+  transition: all .2s;
+  z-index: 1200;
+  touch-action: auto;
+}
+.mobilebar {
+  width: 6rem;
+  background-color: var(--webclient-mob-menubar-bg,#545454);
+  // position: absolute;
+  // top: 0;
+  transition: all .2s;
+  overflow-y: auto;
+  overflow-x: auto;
+  touch-action: auto;
+  // -webkit-overflow-scrolling: touch;
+  z-index: 1200;
+  .check-color {
+    color: var(--webclient-check-color)!important;
+    touch-action: auto;
+  }
+  &-box {
+    touch-action: auto;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0 0.89rem;
+    box-sizing: border-box;
+    &-arrow {
+      touch-action: auto;
+      margin: 3rem 0 1rem 0;
+      >i {
+        touch-action: auto;
+        font-size: 2.84rem;
+        background-color: var(--webclient-mob-menubar-icon-color);
+        color: var(--webclient-mob-menubar-bg,#545454);
+        border-radius: 50%;
+      }
+    }
+    &-close {
+      width: 3rem;
+      height: 3rem;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: var(--webclient-mob-menubar-icon-close-bg,rgba(51, 51, 51, 0.40));
+      border-radius: 50%;
+      margin: 1rem 0 3rem 0;
+      color: var(--webclient-mob-menubar-icon-color, #DDD);
+      touch-action: auto;
+      >i {
+        font-size: 2.34rem;
+      }
+    }
+    .menu-devider {
+      touch-action: auto;
+      width: 3.12rem;
+      height: 1px;
+      margin: 0.8rem 0;
+      background-color: var(--webclient-mob-menubar-icon-color, #DDD);
+    }
+    &-item {
+      touch-action: auto;
+      margin: 0.5rem 0;
+      color: var(--webclient-mob-menubar-icon-color, #DDD);
+      >i {
+        font-size: 3.72rem;
+      }
+    }
+    .service {
+      touch-action: auto;
+      // position: relative;
+      i {
+        font-size: 3.4rem;
+        display: inline-block;
+        margin: 0 0.2rem;
+      }
+      &-camera {
+        touch-action: auto;
+        width: 8.8rem;
+        position: absolute;
+        z-index: -1;
+        top: 6.8rem;
+        // left: calc(-7.5rem - 10px);
+        background-color: var(--webclient-mob-menubar-bg,#545454);
+        color:var(--webclient-mob-menubar-icon-color, #DDD);
+        padding: 0.6rem;
+        transition: all .5s;
+        i {
+          font-size: 3.4rem;
+        }
+      }
+      .icon-yuyin- {
+        font-size: 3rem;
+      }
+    }
+    &-game {
+      touch-action: auto;
+      >i {
+        font-size: 2.04rem;
+      }
+    }
+    .game-arrow{
+      touch-action: auto;
+      display: block;
+      transform: rotate(90deg);
+      transition: all .5s;
+    }
+    .game-box {
+      touch-action: auto;
+      width: 100%;
+      border-radius: 0.71006rem;
+      background: rgba(255, 255, 255, 0.10);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      color: var(--webclient-mob-menubar-icon-color, #DDD);;
+      transition: all .5s;
+      &-item {
+        touch-action: auto;
+        margin: 1.28rem 0;
+        text-align: center;
+        >i {
+          display: inline-block;
+          font-size: 3rem;
+          touch-action: auto;
+        }
+        >img {
+          width: 2.2rem;
+          touch-action: auto;
+        }
+        >svg {
+          width: 5rem;
+          height: 5rem;
+          touch-action: auto;
+        }
+      }
+      .mouse-item {
+        margin: 0;
+      }
+      .game-box-item:nth-of-type(1) {
+        margin-top: 1.99rem;
+      }
+      .game-box-item:last-of-type(1) {
+        margin-bottom: 1.99rem;
+      }
+      .joystick-item {
+        position: relative;
+        touch-action: auto;
+        >i:nth-of-type(2) {
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%,-50%);
+          font-size: 1.1rem;
+        }
+      }
+    }
+  }
+}
+.mobilebar-shrink {
+  width: 6rem;
+  position: absolute;
+  top: 0;
+  transition: all .2s;
+  overflow-y: auto;
+  overflow-x: auto;
+  touch-action: auto;
+  -webkit-overflow-scrolling: touch;
+  z-index: 1200;
+  top: 50%;
+  transform: translateY(-50%);
+  &-arrow {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+      >i {
+        line-height: normal;
+        display: inline-block;
+        font-size: 2.84rem;
+        background-color: var(--webclient-mob-menubar-bg,#545454);
+        color: var(--webclient-mob-menubar-icon-color,#DDD);
+        border-radius: 50%;
+        transform: rotate(180deg);
+      }
+  }
+}
