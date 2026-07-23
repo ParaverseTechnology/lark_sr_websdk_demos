@@ -12,6 +12,7 @@ export interface ChannelEvent extends LocalEvent<CHANNEL_EVENT_TYPE> {
 }
 export interface WebscocketConfig {
     serverAddress: string;
+    proxyBasePath?: string;
     ip: string;
     port: string;
     renderSSLServerPort?: string;

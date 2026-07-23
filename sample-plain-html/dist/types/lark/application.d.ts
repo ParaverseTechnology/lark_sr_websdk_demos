@@ -51,7 +51,8 @@ export declare enum APP_EVENT_TYPE {
     AerialViewStatus = 25,
     AerialViewScreen = 26,
     START_XR_STREAM_RESPONSE = 27,
-    TooltipInfo = 28
+    TooltipInfo = 28,
+    OPEN_URL = 29
 }
 export interface AppEvent extends LocalEvent<APP_EVENT_TYPE> {
     data?: any;
@@ -95,6 +96,7 @@ export default class Application extends EventBase<APP_EVENT_TYPE, AppEvent> {
     releaseSharePc(): void;
     closeSharePc(): void;
     clear(): void;
+    closeDataChannel(): void;
     changeOperater(uid: number): void;
     inputText(text: string): void;
     sendTextToDataChannel(text: string): void;
@@ -165,6 +167,7 @@ export default class Application extends EventBase<APP_EVENT_TYPE, AppEvent> {
     private onAerialViewScreen;
     private onVideoFrame;
     private onToolTipinfo;
+    private onOpenUrl;
     private onShareMediaError;
     private onShareMediaInfo;
     private onShareMediaOffer;

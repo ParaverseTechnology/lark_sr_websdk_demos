@@ -29,10 +29,15 @@ export default class Recorder extends EventBase<RecodeEventType, RecodeEvent> {
     private sampleRate;
     private sampleBits;
     private recorder;
+    private legacyRecorder;
+    private workletNode;
     private source;
     private stream;
     private buffer;
     private bufferSize;
+    private pendingSamples;
+    private pendingSampleLength;
+    private sliceId;
     get voiceId(): number;
     updateVoiceId(): number;
     private _voiceId;
@@ -43,6 +48,9 @@ export default class Recorder extends EventBase<RecodeEventType, RecodeEvent> {
     });
     start(): Promise<number>;
     pause(): void;
+    private createAudioProcessor;
+    private appendAudioSamples;
+    private processAudioChunk;
     clear(): void;
     /**
      * @deprecated

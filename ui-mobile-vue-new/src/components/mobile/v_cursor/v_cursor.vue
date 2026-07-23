@@ -315,14 +315,14 @@
             }),
             ...mapActions({
                 resize: 'resize',
-                toggleState: 'stateModal/toggleState',
+                toggleState: 'stateModalMdl/toggleState',
                 toggleVMouseMode: 'toggleVMouseMode',
                 toggleVKeyboard: 'toggleVKeyboard',
                 toggleModalSetup: 'toggleModalSetup',
-                showModalAlert: 'modalAlert/showModalAlert',
+                showModalAlert: 'modalAlertMdl/showModalAlert',
                 toggleMenu: 'toggleMenu',
                 toggleJoyStick: 'toggleJoyStick',
-                showModalConfirm: 'modalConfirm/showModalConfirm',
+                showModalConfirm: 'modalConfirmMdl/showModalConfirm',
             }),
         },
         mounted() {

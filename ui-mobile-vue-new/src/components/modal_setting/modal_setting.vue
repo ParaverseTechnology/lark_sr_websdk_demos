@@ -173,7 +173,7 @@ export default {
       viewPortStyle: 'viewPortStyle',
       isChangedScaledMode: 'isChangedScaledMode',
       initCursorMode: "initCursorMode",
-      isInteractiveMode: 'playerMode/isInteractiveMode',
+      isInteractiveMode: 'playerModeMdl/isInteractiveMode',
     }),
     ...mapState({
       larksr: state => state.larksr,
@@ -319,7 +319,7 @@ export default {
     ...mapMutations({
       setIsShowSettingAlert: 'modalSetting/setIsShowSettingAlert',
       setCustomContentAlertTitle: 'customContentAlert/setCustomContentAlertTitle',
-      setShowPlayerList: 'playerMode/setShowPlayerList',
+      setShowPlayerList: 'playerModeMdl/setShowPlayerList',
       setQualityMode: 'modalSetting/setQualityMode',
       setResolution: 'modalSetting/setResolution',
       setAerialViewCheck: 'modalSetting/setAerialViewCheck',

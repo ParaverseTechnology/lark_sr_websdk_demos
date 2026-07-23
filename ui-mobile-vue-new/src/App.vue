@@ -38,6 +38,7 @@
         </div>
       </div>
     </div>
+    <!-- <div ref="inputTextClassBox" v-if="!isMobile" :class="inputTextClass" :style="{top: (menubarPosition==='top'?curMousePositionY-0+30:curMousePositionY-80)+'px'}"> -->
     <div ref="inputTextClassBox" v-if="!isMobile" :class="inputTextClass" :style="{top: (menubarPosition==='top'?curMousePositionY-0+30:curMousePositionY-80)+'px'}">
       <el-row type="flex" justify="space-between" align="middle">
         <textarea
@@ -224,8 +225,8 @@ export default {
       enableChineseInput: (state) => state.enableChineseInput,
     }),
     ...mapGetters({
-      isObMode: "playerMode/isObMode",
-      playerList: "playerMode/playerList",
+      isObMode: "playerModeMdl/isObMode",
+      playerList: "playerModeMdl/playerList",
       viewPortStyle: 'viewPortStyle'
     }),
   },
@@ -538,8 +539,8 @@ export default {
     ...mapMutations({
         setLarksr: "setLarksr",
         setAggregatedStats: "setAggregatedStats",
-        setNickName: "playerMode/setNickName",
-        setShareUrl: "playerMode/setShareUrl",
+        setNickName: "playerModeMdl/setNickName",
+        setShareUrl: "playerModeMdl/setShareUrl",
         setInputMethodEnable: "setInputMethodEnable",
         setInputMethodStart: "setInputMethodStart",
         setControlBallInputMethod: 'setControlBallInputMethod',
@@ -548,10 +549,10 @@ export default {
     }),
     ...mapActions({
       "resize": "resize",
-      'toast': 'toast/toast',
-      'notify': 'notifyBar/notify',
-      'alert': 'modalAlert/showModalAlert',
-      'confirm': 'modalConfirm/showModalConfirm',
+      'toast': 'toastMdl/toast',
+      'notify': 'notifyBarMdl/notify',
+      'alert': 'modalAlertMdl/showModalAlert',
+      'confirm': 'modalConfirmMdl/showModalConfirm',
       'resetLocalization': 'resetLocalization',
       'toggleVKeyboard': 'toggleVKeyboard',
       'setFlipMouseWheel': 'flipMouseWheel',
@@ -563,7 +564,7 @@ export default {
     // 从 url 载入参数
     Load.InitProcess();
     // init player mode params
-    store.dispatch('playerMode/initFromLoader');
+    store.dispatch('playerModeMdl/initFromLoader');
     if(this.isMobile) {
       this.$refs.input.addEventListener('keyup',this.sysKeybaordEnterOrBackspace)
     } else {
@@ -586,7 +587,7 @@ export default {
         // 测试载入背景图
         // loadingBgUrl: "https://home-obs.pingxingyun.com/homePage_4_0/bg.jpg",
         // show log
-        // logLevel: 'warn',
+        // logLevel: 'null',
 
         // codeRate: 50000,
         // 单独上传流程要求渲染服务器版本大于3290）
@@ -702,7 +703,7 @@ export default {
       this.setQualityMode();
       // 可能从getstartappinfo之后才获取来的参数.
       // 后台配置的是否显示玩家列表参数
-      store.commit("playerMode/setShowPlayerList", larksr.params.showPlayerList);
+      store.commit("playerModeMdl/setShowPlayerList", larksr.params.showPlayerList);
       // 移动端输入键盘类型
       store.commit('setMobileKeyboardType', larksr.params.mobileKeyboardType);
       // joystick
@@ -849,7 +850,7 @@ export default {
     });
     larksr.on('playerlist', (e) => {
       console.log('PLAYER_LIST', e.data);
-      store.dispatch('playerMode/updatePlayerList', e.data);
+      store.dispatch('playerModeMdl/updatePlayerList', e.data);
     });
 
 

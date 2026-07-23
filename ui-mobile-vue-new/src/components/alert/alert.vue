@@ -40,7 +40,7 @@ export default {
             if (this.modalAlert.callback) {
                 this.modalAlert.callback();
             }
-            this.$store.commit('modalAlert/reset')
+            this.$store.commit('modalAlertMdl/reset')
         },
         onKeyup(e) {
             if (e.key == 'Enter') {

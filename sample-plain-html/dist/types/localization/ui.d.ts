@@ -59,4 +59,6 @@ export default class UI extends LocalizationBase {
     get PLAY_FAILED(): string;
     get LOCK_POINTER_FAILED(): string;
     get LOCK_POINTER_FAILED_SECURITY_ERROR(): string;
+    get OBTAIN_OPERATION_PERMISSION(): string;
+    get LOUSE_OPERATION_PERMISSION(): string;
 }

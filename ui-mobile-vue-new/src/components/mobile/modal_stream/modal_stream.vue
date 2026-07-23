@@ -218,9 +218,9 @@ export default {
       this.setRtmpstreamstate(this.status);
     },
     ...mapActions({
-        toast: "toast/toast",
-        notify: "notifyBar/notify",
-        alert: "modalAlert/showModalAlert",
+        toast: "toastMdl/toast",
+        notify: "notifyBarMdl/notify",
+        alert: "modalAlertMdl/showModalAlert",
     }),
     ...mapMutations({
       setIsShowMobileStream: 'modalStream/setIsShowMobileStream',

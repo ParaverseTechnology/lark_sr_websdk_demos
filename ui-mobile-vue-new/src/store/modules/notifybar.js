@@ -1,24 +1,8 @@
-// import { 
-//     Module
-// } from 'vuex';
-// import { RootState } from '../root_state';
-
-// export interface NotifyInterface {
-// 	show: boolean;
-// 	msg: string;
-// 	level: string;
-// }
-
 export const defaultNotify/*: NotifyInterface*/ = {
 	show: false,
 	msg: '',
 	level: 'INFO'
 };
-
-// export interface NotifyState {
-// 	notify: NotifyInterface;
-// 	timeout: number,
-// }
 
 export const NotifyBar/*: Module<NotifyState, RootState>*/ = {
 	namespaced: true,

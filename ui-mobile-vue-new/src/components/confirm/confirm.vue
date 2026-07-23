@@ -34,7 +34,7 @@ export default {
     computed: {
         ...mapState({
             ui: state => state.ui,
-            modalConfirm: state => state.modalConfirm.modalConfirm,
+            modalConfirm: state => state.modalConfirmMdl.modalConfirm,
         }),
         ...mapGetters([
             'viewPortStyle'
@@ -46,14 +46,14 @@ export default {
             if (this.modalConfirm.onCancel) {
                 this.modalConfirm.onCancel();
             }
-            this.$store.commit('modalConfirm/reset');
+            this.$store.commit('modalConfirmMdl/reset');
         },
         onSubmit() {
             Log.info('onSubmit');
             if (this.modalConfirm.onSubmit) {
                 this.modalConfirm.onSubmit();
             }
-            this.$store.commit('modalConfirm/reset');
+            this.$store.commit('modalConfirmMdl/reset');
         },
         onKeyup(e) {
             if (e.key == 'Enter') {

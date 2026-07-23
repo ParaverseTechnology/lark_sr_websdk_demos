@@ -661,6 +661,15 @@ export namespace CloudLark {
 
         /** StartStreamRequest useWebcodec */
         useWebcodec?: (boolean|null);
+
+        /** StartStreamRequest maxWidth */
+        maxWidth?: (number|null);
+
+        /** StartStreamRequest maxHeight */
+        maxHeight?: (number|null);
+
+        /** StartStreamRequest devicePixelRatio */
+        devicePixelRatio?: (number|null);
     }
 
     /** Represents a StartStreamRequest. */
@@ -686,6 +695,15 @@ export namespace CloudLark {
 
         /** StartStreamRequest useWebcodec. */
         public useWebcodec: boolean;
+
+        /** StartStreamRequest maxWidth. */
+        public maxWidth: number;
+
+        /** StartStreamRequest maxHeight. */
+        public maxHeight: number;
+
+        /** StartStreamRequest devicePixelRatio. */
+        public devicePixelRatio: number;
 
         /**
          * Creates a new StartStreamRequest instance using the specified properties.
@@ -5025,6 +5043,9 @@ export namespace CloudLark {
 
         /** AppResize height */
         height?: (number|null);
+
+        /** AppResize devicePixelRatio */
+        devicePixelRatio?: (number|null);
     }
 
     /** Represents an AppResize. */
@@ -5041,6 +5062,9 @@ export namespace CloudLark {
 
         /** AppResize height. */
         public height: number;
+
+        /** AppResize devicePixelRatio. */
+        public devicePixelRatio: number;
 
         /**
          * Creates a new AppResize instance using the specified properties.
@@ -8056,6 +8080,9 @@ export namespace CloudLark {
 
         /** VideoReconfigure forceidr */
         forceidr?: (boolean|null);
+
+        /** VideoReconfigure superResolution */
+        superResolution?: (CloudLark.ISuperResolutionReconfigure|null);
     }
 
     /** Represents a VideoReconfigure. */
@@ -8076,8 +8103,11 @@ export namespace CloudLark {
         /** VideoReconfigure forceidr. */
         public forceidr?: (boolean|null);
 
+        /** VideoReconfigure superResolution. */
+        public superResolution?: (CloudLark.ISuperResolutionReconfigure|null);
+
         /** VideoReconfigure video. */
-        public video?: ("bitrate"|"fps"|"forceidr");
+        public video?: ("bitrate"|"fps"|"forceidr"|"superResolution");
 
         /**
          * Creates a new VideoReconfigure instance using the specified properties.
@@ -8145,6 +8175,108 @@ export namespace CloudLark {
 
         /**
          * Converts this VideoReconfigure to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of a SuperResolutionReconfigure. */
+    interface ISuperResolutionReconfigure {
+
+        /** SuperResolutionReconfigure enable */
+        enable?: (boolean|null);
+
+        /** SuperResolutionReconfigure width */
+        width?: (number|null);
+
+        /** SuperResolutionReconfigure height */
+        height?: (number|null);
+    }
+
+    /** Represents a SuperResolutionReconfigure. */
+    class SuperResolutionReconfigure implements ISuperResolutionReconfigure {
+
+        /**
+         * Constructs a new SuperResolutionReconfigure.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: CloudLark.ISuperResolutionReconfigure);
+
+        /** SuperResolutionReconfigure enable. */
+        public enable: boolean;
+
+        /** SuperResolutionReconfigure width. */
+        public width: number;
+
+        /** SuperResolutionReconfigure height. */
+        public height: number;
+
+        /**
+         * Creates a new SuperResolutionReconfigure instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns SuperResolutionReconfigure instance
+         */
+        public static create(properties?: CloudLark.ISuperResolutionReconfigure): CloudLark.SuperResolutionReconfigure;
+
+        /**
+         * Encodes the specified SuperResolutionReconfigure message. Does not implicitly {@link CloudLark.SuperResolutionReconfigure.verify|verify} messages.
+         * @param message SuperResolutionReconfigure message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: CloudLark.ISuperResolutionReconfigure, writer?: $protobuf.Writer): $protobuf.Writer;
+
+        /**
+         * Encodes the specified SuperResolutionReconfigure message, length delimited. Does not implicitly {@link CloudLark.SuperResolutionReconfigure.verify|verify} messages.
+         * @param message SuperResolutionReconfigure message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: CloudLark.ISuperResolutionReconfigure, writer?: $protobuf.Writer): $protobuf.Writer;
+
+        /**
+         * Decodes a SuperResolutionReconfigure message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns SuperResolutionReconfigure
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): CloudLark.SuperResolutionReconfigure;
+
+        /**
+         * Decodes a SuperResolutionReconfigure message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns SuperResolutionReconfigure
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): CloudLark.SuperResolutionReconfigure;
+
+        /**
+         * Verifies a SuperResolutionReconfigure message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a SuperResolutionReconfigure message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns SuperResolutionReconfigure
+         */
+        public static fromObject(object: { [k: string]: any }): CloudLark.SuperResolutionReconfigure;
+
+        /**
+         * Creates a plain object from a SuperResolutionReconfigure message. Also converts values to other types if specified.
+         * @param message SuperResolutionReconfigure
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: CloudLark.SuperResolutionReconfigure, options?: $protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this SuperResolutionReconfigure to JSON.
          * @returns JSON object
          */
         public toJSON(): { [k: string]: any };
@@ -9246,6 +9378,132 @@ export namespace CloudLark {
         }
     }
 
+    /** Properties of a BigDataPacket. */
+    interface IBigDataPacket {
+
+        /** BigDataPacket sessionId */
+        sessionId?: (number|null);
+
+        /** BigDataPacket packetId */
+        packetId?: (number|null);
+
+        /** BigDataPacket packetCount */
+        packetCount?: (number|null);
+
+        /** BigDataPacket totalSize */
+        totalSize?: (number|null);
+
+        /** BigDataPacket packetSize */
+        packetSize?: (number|null);
+
+        /** BigDataPacket isLast */
+        isLast?: (boolean|null);
+
+        /** BigDataPacket data */
+        data?: (Uint8Array|null);
+    }
+
+    /** Represents a BigDataPacket. */
+    class BigDataPacket implements IBigDataPacket {
+
+        /**
+         * Constructs a new BigDataPacket.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: CloudLark.IBigDataPacket);
+
+        /** BigDataPacket sessionId. */
+        public sessionId: number;
+
+        /** BigDataPacket packetId. */
+        public packetId: number;
+
+        /** BigDataPacket packetCount. */
+        public packetCount: number;
+
+        /** BigDataPacket totalSize. */
+        public totalSize: number;
+
+        /** BigDataPacket packetSize. */
+        public packetSize: number;
+
+        /** BigDataPacket isLast. */
+        public isLast: boolean;
+
+        /** BigDataPacket data. */
+        public data: Uint8Array;
+
+        /**
+         * Creates a new BigDataPacket instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns BigDataPacket instance
+         */
+        public static create(properties?: CloudLark.IBigDataPacket): CloudLark.BigDataPacket;
+
+        /**
+         * Encodes the specified BigDataPacket message. Does not implicitly {@link CloudLark.BigDataPacket.verify|verify} messages.
+         * @param message BigDataPacket message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: CloudLark.IBigDataPacket, writer?: $protobuf.Writer): $protobuf.Writer;
+
+        /**
+         * Encodes the specified BigDataPacket message, length delimited. Does not implicitly {@link CloudLark.BigDataPacket.verify|verify} messages.
+         * @param message BigDataPacket message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: CloudLark.IBigDataPacket, writer?: $protobuf.Writer): $protobuf.Writer;
+
+        /**
+         * Decodes a BigDataPacket message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns BigDataPacket
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): CloudLark.BigDataPacket;
+
+        /**
+         * Decodes a BigDataPacket message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns BigDataPacket
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): CloudLark.BigDataPacket;
+
+        /**
+         * Verifies a BigDataPacket message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a BigDataPacket message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns BigDataPacket
+         */
+        public static fromObject(object: { [k: string]: any }): CloudLark.BigDataPacket;
+
+        /**
+         * Creates a plain object from a BigDataPacket message. Also converts values to other types if specified.
+         * @param message BigDataPacket
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: CloudLark.BigDataPacket, options?: $protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this BigDataPacket to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
     /** Properties of a TooltipInfo. */
     interface ITooltipInfo {
 
@@ -9428,6 +9686,9 @@ export namespace CloudLark {
 
         /** ClientInput appControl */
         appControl?: (CloudLark.IApplicationControl|null);
+
+        /** ClientInput bigDataPacket */
+        bigDataPacket?: (CloudLark.IBigDataPacket|null);
     }
 
     /** Represents a ClientInput. */
@@ -9529,8 +9790,11 @@ export namespace CloudLark {
         /** ClientInput appControl. */
         public appControl?: (CloudLark.IApplicationControl|null);
 
+        /** ClientInput bigDataPacket. */
+        public bigDataPacket?: (CloudLark.IBigDataPacket|null);
+
         /** ClientInput input. */
-        public input?: ("mouseMove"|"mouseDown"|"mouseUp"|"mouseWheel"|"keyDown"|"keyUp"|"clientEnter"|"clientLeave"|"dispatchController"|"requesController"|"textInput"|"gamepadInputJoystickStates"|"gamepadInputButtonDown"|"gamepadInputButtonUp"|"gamepadInputTriger"|"clientDcMsg"|"touchMove"|"touchDown"|"touchUp"|"aiVoicestreamStart"|"aiVoicestreamSlice"|"aiVoicestreamStop"|"aiVoicestreamReset"|"aiVoiceText"|"rtmpStart"|"rtmpStop"|"videoConfigure"|"clientStatics"|"showDebuglayout"|"appControl");
+        public input?: ("mouseMove"|"mouseDown"|"mouseUp"|"mouseWheel"|"keyDown"|"keyUp"|"clientEnter"|"clientLeave"|"dispatchController"|"requesController"|"textInput"|"gamepadInputJoystickStates"|"gamepadInputButtonDown"|"gamepadInputButtonUp"|"gamepadInputTriger"|"clientDcMsg"|"touchMove"|"touchDown"|"touchUp"|"aiVoicestreamStart"|"aiVoicestreamSlice"|"aiVoicestreamStop"|"aiVoicestreamReset"|"aiVoiceText"|"rtmpStart"|"rtmpStop"|"videoConfigure"|"clientStatics"|"showDebuglayout"|"appControl"|"bigDataPacket");
 
         /**
          * Creates a new ClientInput instance using the specified properties.
@@ -9723,6 +9987,96 @@ export namespace CloudLark {
         public toJSON(): { [k: string]: any };
     }
 
+    /** Properties of an AppOpenUrl. */
+    interface IAppOpenUrl {
+
+        /** AppOpenUrl url */
+        url?: (string|null);
+    }
+
+    /** Represents an AppOpenUrl. */
+    class AppOpenUrl implements IAppOpenUrl {
+
+        /**
+         * Constructs a new AppOpenUrl.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: CloudLark.IAppOpenUrl);
+
+        /** AppOpenUrl url. */
+        public url: string;
+
+        /**
+         * Creates a new AppOpenUrl instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns AppOpenUrl instance
+         */
+        public static create(properties?: CloudLark.IAppOpenUrl): CloudLark.AppOpenUrl;
+
+        /**
+         * Encodes the specified AppOpenUrl message. Does not implicitly {@link CloudLark.AppOpenUrl.verify|verify} messages.
+         * @param message AppOpenUrl message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: CloudLark.IAppOpenUrl, writer?: $protobuf.Writer): $protobuf.Writer;
+
+        /**
+         * Encodes the specified AppOpenUrl message, length delimited. Does not implicitly {@link CloudLark.AppOpenUrl.verify|verify} messages.
+         * @param message AppOpenUrl message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: CloudLark.IAppOpenUrl, writer?: $protobuf.Writer): $protobuf.Writer;
+
+        /**
+         * Decodes an AppOpenUrl message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns AppOpenUrl
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): CloudLark.AppOpenUrl;
+
+        /**
+         * Decodes an AppOpenUrl message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns AppOpenUrl
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): CloudLark.AppOpenUrl;
+
+        /**
+         * Verifies an AppOpenUrl message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates an AppOpenUrl message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns AppOpenUrl
+         */
+        public static fromObject(object: { [k: string]: any }): CloudLark.AppOpenUrl;
+
+        /**
+         * Creates a plain object from an AppOpenUrl message. Also converts values to other types if specified.
+         * @param message AppOpenUrl
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: CloudLark.AppOpenUrl, options?: $protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this AppOpenUrl to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
     /** Properties of an AppNotification. */
     interface IAppNotification {
 
@@ -9782,6 +10136,12 @@ export namespace CloudLark {
 
         /** AppNotification tooltipInfo */
         tooltipInfo?: (CloudLark.ITooltipInfo|null);
+
+        /** AppNotification bigDataPacket */
+        bigDataPacket?: (CloudLark.IBigDataPacket|null);
+
+        /** AppNotification openUrl */
+        openUrl?: (CloudLark.IAppOpenUrl|null);
     }
 
     /** Represents an AppNotification. */
@@ -9850,8 +10210,14 @@ export namespace CloudLark {
         /** AppNotification tooltipInfo. */
         public tooltipInfo?: (CloudLark.ITooltipInfo|null);
 
+        /** AppNotification bigDataPacket. */
+        public bigDataPacket?: (CloudLark.IBigDataPacket|null);
+
+        /** AppNotification openUrl. */
+        public openUrl?: (CloudLark.IAppOpenUrl|null);
+
         /** AppNotification notify. */
-        public notify?: ("resize"|"mousemode"|"updatePlayers"|"requestInput"|"gamepadOutput"|"datachannelState"|"appDcMsg"|"cursorStyle"|"aiVoiceRealtimeParseresult"|"aiVoiceResult"|"aiVoiceServiceStatus"|"aiVoiceErr"|"rtmpState"|"rtmpError"|"notifyFeatures"|"serverStatics"|"appControlResult"|"videoFrame"|"tooltipInfo");
+        public notify?: ("resize"|"mousemode"|"updatePlayers"|"requestInput"|"gamepadOutput"|"datachannelState"|"appDcMsg"|"cursorStyle"|"aiVoiceRealtimeParseresult"|"aiVoiceResult"|"aiVoiceServiceStatus"|"aiVoiceErr"|"rtmpState"|"rtmpError"|"notifyFeatures"|"serverStatics"|"appControlResult"|"videoFrame"|"tooltipInfo"|"bigDataPacket"|"openUrl");
 
         /**
          * Creates a new AppNotification instance using the specified properties.

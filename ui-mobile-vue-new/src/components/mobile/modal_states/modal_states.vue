@@ -181,7 +181,7 @@ export default {
       this.setIsShowMobileHelp(false);
     },
     ...mapMutations({
-      setIsShowMobileHelp: 'stateModal/setIsShowMobileStateModal'
+      setIsShowMobileHelp: 'stateModalMdl/setIsShowMobileStateModal'
     })
   }
 }

@@ -23,7 +23,7 @@
                     </div>
                 </Tooltip>
             </div>
-            <el-divider v-if="isLiveStream || videoInput || audioInput || aivoicestatus" direction="vertical" style="height:2rem"></el-divider>
+            <el-divider v-if="isLiveStream || videoInput || audioInput" direction="vertical" style="height:2rem"></el-divider>
             <!-- 右侧基础菜单 -->
             <div class="basemenu">
                 <Tooltip>
@@ -440,12 +440,12 @@ export default {
             resize: 'resize',
             toggleScaleToFitScreen: 'toggleScaleToFitScreen',
             toggleScaleToFillStretch: 'toggleScaleToFillStretch',
-            toggleState: 'stateModal/toggleState',
+            toggleState: 'stateModalMdl/toggleState',
             toggleVMouseMode: 'toggleVMouseMode',
             toggleVKeyboard: 'toggleVKeyboard',
             toggleModalSetup: 'toggleModalSetup',
-            showModalAlert: 'modalAlert/showModalAlert',
-            showModalConfirm: 'modalConfirm/showModalConfirm',
+            showModalAlert: 'modalAlertMdl/showModalAlert',
+            showModalConfirm: 'modalConfirmMdl/showModalConfirm',
             toggleInitCursorMode: 'toggleInitCursorMode',
             toggleMenu: 'toggleMenu',
             toggleJoyStick: 'toggleJoyStick',

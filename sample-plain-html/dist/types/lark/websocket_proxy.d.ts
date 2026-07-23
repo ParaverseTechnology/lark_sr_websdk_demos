@@ -12,6 +12,7 @@ export interface ProxyEvent extends LocalEvent<PROXY_EVENT_TYPE> {
 }
 export interface ProxyConfig {
     serverAddress: string;
+    proxyBasePath?: string;
     appServer: string;
     appPort: string;
 }

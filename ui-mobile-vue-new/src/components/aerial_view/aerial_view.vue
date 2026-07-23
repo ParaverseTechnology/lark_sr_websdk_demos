@@ -264,9 +264,9 @@ export default {
             this.toggleAerailView();
         },
         ...mapActions({
-            toast: "toast/toast",
-            notify: "notifyBar/notify",
-            alert: "modalAlert/showModalAlert",
+            toast: "toastMdl/toast",
+            notify: "notifyBarMdl/notify",
+            alert: "modalAlertMdl/showModalAlert",
             toggleAerailView: 'toggleAerailView',
         }),
         ...mapMutations({

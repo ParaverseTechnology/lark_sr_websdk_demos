@@ -207,15 +207,15 @@ export default {
             this.setShowPlayerList(false);
         },
         ...mapMutations({
-            'setShowPlayerList': 'playerMode/setShowPlayerList',
+            'setShowPlayerList': 'playerModeMdl/setShowPlayerList',
         }),
         ...mapActions({
-            'toast': 'toast/toast',
-            'notify': 'notifyBar/notify',
-            'showInfo': 'settingInfoPannel/showInfo',
-            'closeInfo': 'settingInfoPannel/closeInfo',
-            'alert': 'modalAlert/showModalAlert',
-            'confirm': 'modalConfirm/showModalConfirm',
+            'toast': 'toastMdl/toast',
+            'notify': 'notifyBarMdl/notify',
+            'showInfo': 'settingInfoPannelMdl/showInfo',
+            'closeInfo': 'settingInfoPannelMdl/closeInfo',
+            'alert': 'modalAlertMdl/showModalAlert',
+            'confirm': 'modalConfirmMdl/showModalConfirm',
         }),
     },
     mounted() {

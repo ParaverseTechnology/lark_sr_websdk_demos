@@ -20,7 +20,7 @@
         <div v-if="isLiveStream" class="mobilebar-box-item service" @click.prevent="streamFn">
           <i class="iconfont icon-stream"></i>
         </div>
-        <div v-if="videoInput || audioInput || isLiveStream || aivoicestatus" class="menu-devider"></div>
+        <div v-if="videoInput || audioInput || isLiveStream" class="menu-devider"></div>
         <div class="mobilebar-box-item" @click.prevent="changeTextInputFn">
           <i :class="enableChineseInput?'iconfont icon-shurufa':'iconfont icon-shurufa_off'"></i>
         </div>
@@ -488,18 +488,18 @@ export default {
     },
     ...mapMutations({
       setIsShowMobileHelp: 'modalHelp/setIsShowMobileHelp',
-      setIsShowMobileStateModal: 'stateModal/setIsShowMobileStateModal',
+      setIsShowMobileStateModal: 'stateModalMdl/setIsShowMobileStateModal',
       setIsShowCameraModal: 'modalCamera/setIsShowCameraModal',
       setIsShowMobileStream: 'modalStream/setIsShowMobileStream',
       setIsShowMobileSettingModal: 'modalSetting/setIsShowMobileSettingModal'
     }),
     ...mapActions({
       toggleVKeyboard: 'toggleVKeyboard',
-      confirm: "modalConfirm/showModalConfirm",
-      showModalConfirm: 'modalConfirm/showModalConfirm',
+      confirm: "modalConfirmMdl/showModalConfirm",
+      showModalConfirm: 'modalConfirmMdl/showModalConfirm',
       toggleJoyStick: 'toggleJoyStick',
       toggleVMouseMode: 'toggleVMouseMode',
-      toast: "toast/toast"
+      toast: "toastMdl/toast"
     }),
   }
 }

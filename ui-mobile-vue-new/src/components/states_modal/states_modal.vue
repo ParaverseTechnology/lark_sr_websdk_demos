@@ -85,7 +85,7 @@ export default {
     computed: {
         ...mapState({
             ui: state => state.ui,
-            stateModal: state => state.stateModal.stateModal,
+            stateModal: state => state.stateModalMdl.stateModal,
             states: (state) => {
                 const { aggregatedStats, } = state;
                 // Calculate duration of run
@@ -153,7 +153,7 @@ export default {
             this.setCustomContentAlertTitle('');
         },
         ...mapActions({
-            toggleState: 'stateModal/toggleState',
+            toggleState: 'stateModalMdl/toggleState',
         }),
         ...mapMutations({
             setCustomContentAlertTitle: 'customContentAlert/setCustomContentAlertTitle'

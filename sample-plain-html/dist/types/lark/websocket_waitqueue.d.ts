@@ -11,6 +11,7 @@ export interface WaitQueueEvent extends LocalEvent<WAITQUEUE_EVENT_TYPE> {
 }
 export interface WaitQueueConfig {
     serverAddress: string;
+    proxyBasePath?: string;
     appliId: string;
     groupId?: string;
     targetServerIp?: string;

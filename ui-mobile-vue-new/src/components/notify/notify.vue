@@ -47,7 +47,7 @@ export default {
             Log.info('close notify bar');
         },
         ...mapMutations({
-            clearNotify: 'notifyBar/clearNotify' 
+            clearNotify: 'notifyBarMdl/clearNotify' 
         })
     }
 }

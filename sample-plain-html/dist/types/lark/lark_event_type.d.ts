@@ -110,5 +110,6 @@ export declare enum LarkEventType {
     LK_DATA_CHANNEL_RENDERSERVER_SEND_BINARY = 20301
 }
 export default class LarkEvent {
+    static GetLogErrorEventMessageByType(type: LarkEventType): string;
     static GetEventMessageByType(type: LarkEventType): string;
 }

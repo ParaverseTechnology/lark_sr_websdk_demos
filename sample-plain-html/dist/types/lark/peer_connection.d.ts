@@ -39,7 +39,8 @@ export declare enum WEBRTC_EVENT_TYPE {
     AerialViewStatus = 25,
     AerialViewScreen = 26,
     VideoFrame = 27,
-    TooltipInfo = 28
+    TooltipInfo = 28,
+    OPEN_URL = 29
 }
 export interface GoogleBitRate {
     start: number;
@@ -122,8 +123,14 @@ export default class PeerConnection extends EventBase<WEBRTC_EVENT_TYPE, WebRTCE
     get currentAppSize(): CloudLark.IAppResize | null;
     private _currentAppSize;
     private webcodec;
+    private bitDataMap;
+    private nextSessionId;
+    private sendPacketTimer;
+    private packetQueue;
     constructor(larksr: LarkSR, config: WebRTCConfig, webcodec: WebCodec);
     create(streams?: MediaStream | undefined | null, config?: CloudLark.IRTCConfiguration | null | undefined): Promise<void>;
+    creatDataChannel(): void;
+    closeDataChannel(): void;
     createOffer(): void;
     close(): void;
     setAudioEnable(enable: boolean): void;
@@ -193,6 +200,7 @@ export default class PeerConnection extends EventBase<WEBRTC_EVENT_TYPE, WebRTCE
     private getStateChrome;
     private onBadNetWork;
     private onDataChannelMessage;
+    private processDataChannelMessage;
     private onCreateOfferSuccess;
     private onIceCandidate;
     private onIceStateChange;

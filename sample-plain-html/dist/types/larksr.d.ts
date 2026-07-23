@@ -253,7 +253,15 @@ declare enum LarkSRClientEvent {
     /**
      * Tooltip info
      */
-    TOOLTIP_INFO = "tooltipinfo"
+    TOOLTIP_INFO = "tooltipinfo",
+    /**
+     * CloudApp request showing a url
+     */
+    OPEN_URL = "openurl",
+    /**
+     * 等待队列状态更新
+     */
+    WAITQUEUE_STATUS = "waitqueuestatus"
 }
 /**
  * LarkSR 发出的事件
@@ -287,6 +295,16 @@ interface ILarkSRConfig {
      * 使用托管服务时@see CreateLarkSRClientFromePXYHost @see larksr.connectWithPxyHost
      */
     serverAddress?: string;
+    /**
+     * 当设置时请求地址变为
+     * /proxyBasePath/API
+     */
+    proxyBasePath?: string;
+    /**
+     * 当设置时websocket地址变为
+     * /proxyBaesPaht/API
+     */
+    proxyWsBasePath?: string;
     /**
      * 可选项。 sdk 授权码。如果不在此处填，则必须在后续的实例里调用 initSDKAuthCode 初始化。
      */
@@ -362,7 +380,7 @@ interface ILarkSRConfig {
     /**
      * 可选项，优选选择的视频编码格式
      */
-    preferDecoder?: 'auto' | 'vp8' | 'vp9' | 'h264' | 'h265' | 'hevc' | 'av1x';
+    preferDecoder?: 'auto' | 'vp8' | 'vp9' | 'h264' | 'h265' | 'hevc' | 'av1x' | 'av1';
     /**
      * 可选项，视频在容器中的缩放模式
      * ScaleMode: 'contain' | 'fill_clip' | 'fill_stretch'
@@ -988,6 +1006,7 @@ declare class LarkSR extends EventBase<LarkSRClientEvent, LarkSREvent> {
      * @param binary 字节消息
      */
     sendBinaryToDataChannel(binary: Uint8Array): void;
+    closeDataChannel(): void;
     /**
      * 手动向iframe外抛出事件
      * 注意一般只在用 iframe 二次集成时才用到

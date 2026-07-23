@@ -208,6 +208,7 @@ export interface IAppliParams {
     useWebCodec: boolean;
     mobileWebMenuType: number;
     showWebMenu: number;
+    showWebCloseBtn: number;
     /**
       * 强制指定云端应用分辨率
       * @width
@@ -296,6 +297,7 @@ export declare class AppliParams implements IAppliParams {
     useWebCodec: boolean;
     mobileWebMenuType: number;
     showWebMenu: number;
+    showWebCloseBtn: number;
     forceResolution: boolean;
     ignoreCloudDesktopResolution: boolean;
     ignoreScreenOrientation: boolean;

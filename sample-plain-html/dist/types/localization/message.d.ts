@@ -46,6 +46,9 @@ export default class Message extends LocalizationBase {
     get connectToAppServerTimeout(): string;
     get appStartStreamTimeout(): string;
     get noOperationTimeout(): string;
+    get WEB_CLIENT_LOAD_SUCCESS(): string;
+    get USER_CAPTURE_FRAME(): string;
+    get TASK_CREATE_FAILED(): string;
     get RENDER_SERVER_CONNECTED(): string;
     get RENDER_SERVER_FAILED(): string;
     get RENDER_SERVER_CLOSE(): string;
@@ -77,6 +80,15 @@ export default class Message extends LocalizationBase {
     get LK_NOTIFY_CLIENT_LOGOUT_PLAYER_LOGOUT(): string;
     get LK_NOTIFY_CLIENT_LOGOUT_TASKOWNER_LOGOUT(): string;
     get LK_APP_PROCESS_NOTIFI_APP_QUIT(): string;
+    get STARTVRSTREAM_START_PROCESS_FAILED(): string;
+    get STARTVRSTREAM_START_DRIVER_RUNTIME_TIMEOUT(): string;
+    get STARTVRSTREAM_START_DRIVER_RUNTIME_UDPPORT_ERROR(): string;
+    get STARTVRSTREAM_START_DRIVER_RUNTIME_ENCODER_ERROR(): string;
+    get DATA_CHANNEL_CLOSE(): string;
+    get DATA_CHANNEL_ERROR(): string;
     get LK_LOADING_TIMEOUT(): string;
     get WAIT_QUEUE_COUNT(): string;
+    get GET_TASKINFO_FAIL(): string;
+    get SERVER_ADDRESS_NOT_SET(): string;
+    get AUTHCODE_VERIFICATION_FAILED(): string;
 }

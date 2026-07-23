@@ -91,6 +91,7 @@ export interface StartAppInfo {
     liveStreaming?: number;
     mobileKeyboardType?: number;
     showWebMenu?: number;
+    showWebCloseBtn?: number;
     frameRate?: number;
     imeFirstNotice?: number;
 }
@@ -113,6 +114,7 @@ export default class API {
     private static GetAppliListPath;
     private static RegionListPath;
     private static TestEnableWaitQueue;
+    static GetUrl(config: ILarkSRConfig): string | undefined;
     static HostAppliGetUrl(params: {
         appliId: string;
         playerMode?: number;

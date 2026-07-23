@@ -163,7 +163,7 @@ export default {
       viewPort: 'viewPort',
       mobilePixelUnit: 'mobilePixelUnit',
       isFlipMouseWheel: "isFlipMouseWheel",
-      isInteractiveMode: 'playerMode/isInteractiveMode',
+      isInteractiveMode: 'playerModeMdl/isInteractiveMode',
     }),
     ...mapState({
       larksr: state => state.larksr,
@@ -273,7 +273,7 @@ export default {
       codeFpsChange: 'modalSetting/codeFpsChange',
     }),
     ...mapMutations({
-      setShowPlayerList: 'playerMode/setShowPlayerList',
+      setShowPlayerList: 'playerModeMdl/setShowPlayerList',
       setIsShowMobileSettingModal: 'modalSetting/setIsShowMobileSettingModal',
       setIsShowQualityModalForSetting: 'modalStream/setIsShowQualityModalForSetting',
       setIsShowResolutionRatioModalForSetting: 'modalStream/setIsShowResolutionRatioModalForSetting',
