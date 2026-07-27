@@ -286,7 +286,7 @@ export default class Load {
 	}
 
 	static getLogLevel(level) {
-		if ((level && level === 'info') || level === 'warn') {
+		if ((level && level === 'info') || level === 'warn' || level === 'null') {
 			return level;
 		} else {
 			return 'warn';

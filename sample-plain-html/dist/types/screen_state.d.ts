@@ -17,7 +17,7 @@ export interface ContainerStyle {
     height: string;
     cursor: any;
 }
-export declare type ScreenOrientation = 'portrait' | 'landscape';
+export type ScreenOrientation = 'portrait' | 'landscape';
 export declare enum CursorType {
     ARROW = 0,
     IBEAM = 1,

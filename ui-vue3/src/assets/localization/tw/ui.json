@@ -135,6 +135,7 @@
 
         "APP_RETRY_CONFIRM": "檢測到雲端應用退出，是否關閉？選擇確定退出當前頁面，選擇取消重新啓動。",
         "APP_RETRY": "雲端應用退出，重新啓動中",
+        "APP_RECONNECTION_TIMEOUT": "斷線重連超時，是否關閉？選擇確定退出當前頁面，選擇取消重新啟動",
 
         "playerNotOwner": "您不是管理員無法分配操作權",
         "playerAlready": "該用戶已經擁有操作權",
@@ -256,7 +257,8 @@
             "helpTitle4": "如何收縮/顯示控制球",
             "helpContent4": "點擊【解鎖】進行控制球菜單解鎖，關閉控制球菜單面板2秒後控制球收縮到屏幕側邊，點擊控制球，控制球彈出顯示；如需持續顯示控制球，點擊【鎖定】進行控制球菜單鎖定，控制球將不會收縮至屏幕側邊",
             "chineseInput": "中文輸入",
-            "disableChineseInput": "禁止中文輸入"
+            "disableChineseInput": "禁止中文輸入",
+            "reconnentionTip": "斷線重連中，請稍候"
         }
 }
 }

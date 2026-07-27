@@ -104,10 +104,12 @@
 </template>
 
 <script>
-import { LarkSR } from "larksr_websdk";
+import { LarkSR }          from "larksr_websdk";
 import { mapState, mapGetters, mapMutations, mapActions } from "vuex";
-import Unit from './utils/unit';
-import Capabilities from './utils/capabilities'
+import Unit                from './utils/unit';
+import Capabilities        from './utils/capabilities';
+import axios               from 'axios';
+import {Message}           from 'element-ui'
 import Alert               from './components/alert/alert';
 import Btn                 from './components/button/button';
 import Notify              from './components/notify/notify';
@@ -168,7 +170,13 @@ export default {
       closeImg: require("@/assets/images/close.svg"),
       showUI: false,
       urlShowWebMenu: null,
-      textInputTimer: null
+      textInputTimer: null,
+      taskid: null,
+      timerId: null, //时钟，多次尝试重连
+      timeoutTimer: null,//时钟结束，重新进一次应用
+      taskRunningFlag: null, //当前task任务是否正在运行
+      taskCloseType: 0,
+      serverAddress: "http://192.168.0.184:8181/"
     };
   },
   watch: {
@@ -212,11 +220,11 @@ export default {
       menubarPosition: state => state.menubarPosition,
       inputMethodEnable: (state) => state.inputMethodEnable,
       controlBallInputMethod: state => state.controlBallInputMethod, // 是否是控制球点开的输入中文框
-      modalConfirm: (state) => state.modalConfirm.modalConfirm,
+      modalConfirm: (state) => state.modalConfirmMdl.modalConfirm,
       isShowHelpAlert: state => state.modalHelp.isShowHelpAlert,
       isShowSettingAlert: state => state.modalSetting.isShowSettingAlert,
       isShowStreamAlert: state => state.modalStream.isShowStreamAlert,
-      modalAlert: (state) => state.modalAlert.modalAlert,
+      modalAlert: (state) => state.modalAlertMdl.modalAlert,
       notifyBar: (state) => state.notifyBar,
       mobileWebMenuType: state => state.mobileWebMenuType,
       mobileKeyboardType: state => state.mobileKeyboardType,
@@ -241,11 +249,10 @@ export default {
         // 参考查询应用一栏文档
         // https://showdoc.pingxingyun.com/web/#/75/1697
         // 如 222.128.6.137:8181 系统下的 879414254636105728 应用
-        params.appliId = Load.appliId;
+        params.appliId =  Load.appliId;
 
         if (!params.appliId) {
-          this.alert({des: "请设置appliId参数"})
-          .then(() => {
+          this.alert({des: "请设置appliId参数"}).then(() => {
             Unit.quit();
           });
           return;
@@ -334,9 +341,7 @@ export default {
           params = Object.assign(params, Load.extraparams)
         }
 
-        await larksr.connect(params);
-
-        console.log("connect", params);
+        await larksr.connect(params); 
 
         // 设置网页 title
         if (larksr.params.appliName) {
@@ -536,6 +541,81 @@ export default {
         this.mousePositionY = e.clientY;
       }
     },
+    
+    // 开始计时执行重启
+    startReload() {
+      store.commit('modalAlertMdl/reset');
+      this.alert({ des: this.ui.reconnentionTip, code: '' }).then(() => {
+        store.commit('modalAlertMdl/reset');
+      });
+      this.doReload()
+      // 设置时间间隔为5s
+      this.timerId = setInterval(this.doReload, 5000);
+      // 20秒后停止计时器
+      this.timeoutTimer = setTimeout(() => {
+          this.stopClock();
+      }, 20000);
+    },
+    doReload() {
+      this.getTaskRunning();
+      if(this.taskRunningFlag) {// 服务端应用正在运行中
+        this.larksr.connect({
+          appliId: Load.appliId,
+          taskId: this.taskid
+        }).catch(function (e) {
+          console.error('enter appli falied', e);
+        });
+      } else if(this.taskRunningFlag === false) {// 服务端应用已退出
+        store.dispatch('modalConfirmMdl/showModalConfirm', { des: this.ui.APP_RETRY_CONFIRM, code: 900})
+        .then(() => {
+            Log.info('use quit.reopen app failed.');
+            Unit.quit();
+        })
+        .catch(() => {
+          window.open(location.href, '_self');
+        });
+      }
+    },
+    // 停止计时
+    stopClock() {      
+      clearInterval(this.timerId);
+      clearTimeout(this.timeoutTimer);   
+      store.commit('modalAlertMdl/reset');   
+      this.doReload();
+      store.dispatch('modalConfirmMdl/showModalConfirm', { des: this.ui.APP_RECONNECTION_TIMEOUT, code: '' })
+        .then(() => {
+            Log.info('use quit.reopen app failed.');
+            Unit.quit();
+        })
+        .catch(() => {
+          window.open(location.href, '_self');
+        });
+    },
+    // 1.查询服务端该task是否正在运行
+    async getTaskRunning() {
+      await axios({
+        method: 'get',
+        url: `${this.serverAddress}taskInfo/getTask`,
+        params: {taskId: this.taskid},
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+            'x-requested-with': 'XMLHttpRequest'
+      }
+      }).then(res => {
+        if (res.status === 200 && res.data.code === 1000) {
+          // 任务状态：0 同步中，1 就绪，3 运行中，9 已结束
+          if(res.data.result.status === 3) {
+            this.taskRunningFlag = true;
+          } else {
+            this.taskRunningFlag = false;
+          }
+        }
+      }).catch(err => {
+        if (err.response?.status == 504||err.response?.status == 404) {
+          Message.error({message: '服务器被吃了⊙﹏⊙∥'});
+        }
+      })
+    },
     ...mapMutations({
         setLarksr: "setLarksr",
         setAggregatedStats: "setAggregatedStats",
@@ -578,7 +658,7 @@ export default {
         // 服务器地址,实际使用中填写您的服务器地址
         // 如：http://222.128.6.137:8181/
         // serverAddress: "http://222.128.6.137:8181/",
-        serverAddress: "http://192.168.0.184:8181/",
+        serverAddress: this.serverAddress,
         // 视频缩放模式，默认保留宽高比，不会拉伸并完整显示在容器中
         // scaleMode: "contain",
         // 0 -》 用户手动触发, 1 -》 首次点击进入触发, 2 -》 每次点击触发
@@ -689,7 +769,11 @@ export default {
 
     // 监听连接成功事件
     larksr.on("connect", (e) => {
-      console.log("LarkSRClientEvent CONNECT", e, larksr.params);
+      console.log("LarkSRClientEvent CONNECT", e, larksr.params); 
+      this.taskCloseType =  larksr.params.taskCloseType;
+      store.commit('modalAlertMdl/reset');
+      store.commit('modalConfirmMdl/reset');
+      this.taskRunningFlag = null;
       if (this.larksr.params.initResolutionType===1) { //适应客户端窗口分辨率
         const width = this.larksr.screenState.syncClientViewport.width;
         const height = this.larksr.screenState.syncClientViewport.height;
@@ -728,6 +812,12 @@ export default {
       this.setFlipMouseWheel(larksr.params.mouseZoomDirection);
     });
 
+    larksr.on("taskcreatesuccess", (e) => {
+      // Log.info('LarkSRClientEvent taskcreatesuccess', e.data.taskid);
+      // 保存taskid, 用于断线重连
+      this.taskid = e.data.taskid;
+    })
+
     larksr.on("gotremotesteam", (e) => {
       console.log("LarkSRClientEvent gotremotesteam", e);
     });
@@ -735,6 +825,21 @@ export default {
     larksr.on("meidaloaded", (e) => {
       console.log("LarkSRClientEvent meidaloaded", e);
       this.cloudReady = true;
+      
+      // 加载成功后，不再继续重试或者重新加载
+      clearInterval(this.timerId);
+      clearTimeout(this.timeoutTimer)
+    });
+
+    larksr.on("larkevent", (e) => {
+      // console.log('LarkSRClientEvent larkevent', e);
+      if(e.larkevent == 102 || e.larkevent == 202){
+        Log.info("连接服务器的websocket代理关闭，即将进行断线重连");
+        // 应用流路关闭方式为延迟关闭 执行断线重连逻辑 taskCloseType===1
+        if(this.taskCloseType === 1) {
+          this.startReload();
+        }
+      }
     });
 
     larksr.on("mediaplaysuccess", (e) => {
@@ -764,6 +869,7 @@ export default {
 
     larksr.on('error', (e) => {
         console.error("LarkSRClientEvent error", e.message);
+        this.showUI = false;
         this.alert({des: e.message, code: e.code})
         .then(() => {
             Unit.quit();

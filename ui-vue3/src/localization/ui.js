@@ -213,6 +213,8 @@ export default class UI extends LocalizationBase {
     //
     get APP_RETRY_CONFIRM() { return this.getNotice('APP_RETRY_CONFIRM'); }
 
+    get APP_RECONNECTION_TIMEOUT() { return this.getNotice('APP_RECONNECTION_TIMEOUT'); }
+
     // playermode
     get playerNotOwner() { return this.getNotice('playerNotOwner'); }
     get playerAlready() { return this.getNotice('playerAlready'); }
@@ -594,6 +596,10 @@ export default class UI extends LocalizationBase {
 
     get disableChineseInput() {
         return this.getVrAppliMsg('disableChineseInput');
+    }
+
+    get reconnentionTip() {
+        return this.getVrAppliMsg('reconnentionTip');
     }
 }
 

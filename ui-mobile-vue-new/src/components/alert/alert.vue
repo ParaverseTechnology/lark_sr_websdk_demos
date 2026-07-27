@@ -29,7 +29,7 @@ export default {
     computed: {
         ...mapState({
             ui: state => state.ui,
-            modalAlert: state => state.modalAlert.modalAlert
+            modalAlert: state => state.modalAlertMdl.modalAlert
         }),
         ...mapGetters([
             'viewPortStyle'

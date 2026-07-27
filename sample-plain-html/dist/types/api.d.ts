@@ -41,6 +41,7 @@ export interface GetTaskResult {
     liveStreaming?: number;
     mobileKeyboardType?: number;
     imeFirstNotice?: number;
+    taskCloseType?: number;
 }
 export interface StartAppInfo {
     appliId: string;
@@ -94,8 +95,9 @@ export interface StartAppInfo {
     showWebCloseBtn?: number;
     frameRate?: number;
     imeFirstNotice?: number;
+    taskCloseType?: number;
 }
-declare type HostAppliGetUrlReturnParams = {
+type HostAppliGetUrlReturnParams = {
     appliId: string;
     wsId: string;
     timestamp: string;

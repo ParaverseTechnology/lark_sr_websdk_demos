@@ -224,6 +224,7 @@ export interface IAppliParams {
      */
     ignoreScreenOrientation: boolean;
     imeFirstNotice: number;
+    taskCloseType: number;
 }
 export declare enum AppliType {
     DESKTOP = 1,
@@ -302,6 +303,7 @@ export declare class AppliParams implements IAppliParams {
     ignoreCloudDesktopResolution: boolean;
     ignoreScreenOrientation: boolean;
     imeFirstNotice: number;
+    taskCloseType: number;
     static copyAndCreate(params?: IAppliParams): AppliParams;
     static setUpWithSDKConfig(params: IAppliParams, config: ILarkSRConfig): AppliParams;
 }

@@ -138,7 +138,9 @@ import { useModalStreamStore } from '@/stores/modal_stream.js';
 import { useModalAlertStore } from '@/stores/modal_alert';
 import { useNotifyBarStore } from '@/stores/notifybar';
 import { usePlayerModeStore } from '@/stores/player_mode';
-import { useToastStore } from '@/stores/toast'
+import { useToastStore } from '@/stores/toast';
+import { ElMessage } from 'element-plus';
+import axios from "axios";
 
 // const store = useStore();
 const commStore = useCommStore();
@@ -188,6 +190,13 @@ const showUI = ref(false);
 const urlShowWebMenu = ref(null);
 const textInputTimer = ref(null);
 
+const taskid = ref(null);
+const timerId = ref(null); //时钟，多次尝试重连
+const timeoutTimer = ref(null);//时钟结束，重新进一次应用
+const taskRunningFlag = ref(null); //当前task任务是否正在运行
+const taskCloseType = ref(0);
+const serverAddress = "http://192.168.0.184:8181/";
+
 
 const nicknameRequireClass = computed(() => {
   return nicknameRequire.value ? "warning" : "";
@@ -221,7 +230,7 @@ onMounted(() => {
         // 服务器地址,实际使用中填写您的服务器地址
         // 如：http://222.128.6.137:8181/
         // serverAddress: "http://222.128.6.137:8181/",
-        serverAddress: "http://192.168.0.184:8181/",
+        serverAddress: serverAddress,
         // 视频缩放模式，默认保留宽高比，不会拉伸并完整显示在容器中
         // scaleMode: "contain",
         // 0 -》 用户手动触发, 1 -》 首次点击进入触发, 2 -》 每次点击触发
@@ -333,6 +342,10 @@ onMounted(() => {
     // 监听连接成功事件
     larksr.value.on("connect", (e) => {
       console.log("LarkSRClientEvent CONNECT", e, larksr.value.params);
+      taskCloseType.value =  larksr.value?.params.taskCloseType;
+      modalAlertStore.reset();
+      modalConfirmStore.reset();
+      taskRunningFlag.value = null;
       if (larksr.value.params.initResolutionType===1) { //适应客户端窗口分辨率
         const width = larksr.value.screenState.syncClientViewport.width;
         const height = larksr.value.screenState.syncClientViewport.height;
@@ -372,6 +385,12 @@ onMounted(() => {
       commStore.setFlipMouseWheel(larksr.value.params.mouseZoomDirection);
     });
 
+    larksr.value.on("taskcreatesuccess", (e) => {
+      // Log.info('LarkSRClientEvent taskcreatesuccess', e.data.taskid);
+      // 保存taskid, 用于断线重连
+      taskid.value = e.data.taskid;
+    })
+
     larksr.value.on("gotremotesteam", (e) => {
       console.log("LarkSRClientEvent gotremotesteam", e);
     });
@@ -379,6 +398,21 @@ onMounted(() => {
     larksr.value.on("meidaloaded", (e) => {
       console.log("LarkSRClientEvent meidaloaded", e);
       cloudReady.value = true;
+
+      // 加载成功后，不再继续重试或者重新加载
+      clearInterval(timerId.value);
+      clearTimeout(timeoutTimer.value)
+    });
+
+    larksr.value.on("larkevent", (e) => {
+      // console.log('LarkSRClientEvent larkevent', e);
+      if(e.larkevent == 102 || e.larkevent == 202){
+        Log.info("连接服务器的websocket代理关闭，即将进行断线重连");
+        // 应用流路关闭方式为延迟关闭 执行断线重连逻辑 taskCloseType===1
+        if(taskCloseType.value === 1) {
+          startReload();
+        }
+      }
     });
 
     larksr.value.on("mediaplaysuccess", (e) => {
@@ -409,13 +443,10 @@ onMounted(() => {
 
     larksr.value.on('error', (e) => {
         console.error("LarkSRClientEvent error", e.message);
+        showUI.value = false;
         modalAlertStore.showModalAlert({des: e.message, code: e.code}).then(() => {
           Unit.quit();
         });
-        // this.alert({des: e.message, code: e.code})
-        // .then(() => {
-        //     Unit.quit();
-        // });
     });
 
     larksr.value.on('info', (e) => {
@@ -627,18 +658,12 @@ const start = async() => {
     // 参考查询应用一栏文档
     // https://showdoc.pingxingyun.com/web/#/75/1697
     // 如 222.128.6.137:8181 系统下的 879414254636105728 应用
-    params.appliId = '1405971684749475840'
-    // Load.appliId;
+    params.appliId =  Load.appliId;
 
     if (!params.appliId) {
-      modalAlertStore.showModalAlert({des: "请设置appliId参数"})
-      .then(() => {
+      modalAlertStore.showModalAlert({des: "请设置appliId参数"}).then(() => {
         Unit.quit();
       });
-      // this.alert({des: "请设置appliId参数"})
-      // .then(() => {
-      //   Unit.quit();
-      // });
       return;
     }
 
@@ -727,8 +752,6 @@ const start = async() => {
 
     await larksr.value.connect(params);
 
-    console.log("connect", params);
-
     // 设置网页 title
     if (larksr.value.params.appliName) {
       document.title = decodeURI(decodeURI(larksr.value.params.appliName));
@@ -736,14 +759,9 @@ const start = async() => {
   } catch(e) {
     console.error('connect and int failed.', e);
     modalAlertStore.showModalAlert({des: e.message ? e.message : JSON.stringify(e)})
-    // store.dispatch('modalAlert/showModalAlert', )
     .then(() => {
       Unit.quit();
     });
-    // this.alert({des: e.message ? e.message : JSON.stringify(e)})
-    // .then(() => {
-    //   Unit.quit();
-    // });
   }
 };
 
@@ -788,7 +806,6 @@ const onSubmitNickName = () => {
 const onQuit = () => {
 // code 920 // 用户主动点击关闭按钮
   modalConfirmStore.showModalConfirm({ title: commStore.ui.quit, des: commStore.ui.quitTip, code: 920 })
-  // store.dispatch('modalConfirm/showModalConfirm', )
   .then(()=>{
     Log.info('user confirm');
     Unit.quit();
@@ -796,14 +813,6 @@ const onQuit = () => {
   .catch((e) => {
       Log.info('user cancle');
   });
-// this.confirm({ title: this.ui.quit, des: this.ui.quitTip, code: 920 })
-// .then(()=>{
-//     Log.info('user confirm');
-//     Unit.quit();
-// })
-// .catch((e) => {
-//     Log.info('user cancle');
-// });
 };
 const appContainerTouch = () => {
   onMutePlay();
@@ -863,7 +872,6 @@ const inputTextareaKeydown = (e) => {
 const inputTextareaKeyup = (e) => {
   if(e.key === 'Enter'){
     commStore.setInputMethodEnable( false);
-    // this.setInputMethodEnable(false);
     if (larksr.value) {
       Log.info("submit input text", inputText.value);
       larksr.value.inputText(inputText.value);
@@ -895,9 +903,7 @@ const onInputMethodBlur = () => {
 };
 const onSubmitInputText = () => {
   commStore.setInputMethodStart(false);
-  // this.setInputMethodStart(false);
   commStore.setInputMethodEnable( false);
-  // this.setInputMethodEnable(false);
   if (larksr.value) {
     Log.info("submit input text", inputText.value);
     larksr.value.inputText(inputText.value);
@@ -938,9 +944,7 @@ const compositionEnd = (e) => {
 const onCloseInputText = () => {
   inputText.value = "";
   commStore.setInputMethodStart( false);
-  // this.setInputMethodStart(false);
   commStore.setInputMethodEnable( false);
-  // this.setInputMethodEnable(false);
   if (larksr.value) {
     larksr.value.op.setKeyboardEnable(true);
   }
@@ -949,6 +953,80 @@ const appContainerMousedown = (e) => {
   if(!commStore.isMobile) {
     mousePositionY.value = e.clientY;
   }
+};
+// 开始计时执行重启
+const startReload = () => {
+  modalAlertStore.reset();
+  modalAlertStore.showModalAlert({des: commStore.ui.reconnentionTip, code: ''}).then(() => {
+    modalAlertStore.reset();
+  });
+  doReload()
+  // 设置时间间隔为5s
+  timerId.value = setInterval(doReload, 5000);
+  // 20秒后停止计时器
+  timeoutTimer.value = setTimeout(() => {
+    stopClock();
+  }, 20000);
+};
+const doReload = () => {
+  getTaskRunning();
+  if(taskRunningFlag.value) {// 服务端应用正在运行中
+    larksr.value.connect({
+      appliId: Load.appliId,
+      taskId: taskid.value
+    }).catch(function (e) {
+      console.error('enter appli falied', e);
+    });
+  } else if(taskRunningFlag.value === false) {// 服务端应用已退出
+    modalConfirmStore.showModalConfirm({ title: commStore.ui.quit, des: commStore.ui.APP_RETRY_CONFIRM, code: 900 })
+    .then(()=>{
+      Log.info('use quit.reopen app failed.');
+      Unit.quit();
+    })
+    .catch((e) => {
+      window.open(location.href, '_self');
+    });
+  }
+};
+// 停止计时
+const stopClock = () => {      
+  clearInterval(timerId.value);
+  clearTimeout(timeoutTimer.value);
+  modalAlertStore.reset();
+  doReload();
+  modalConfirmStore.showModalConfirm({ title: commStore.ui.quit, des: commStore.ui.APP_RECONNECTION_TIMEOUT, code: '' })
+  .then(()=>{
+    Log.info('use quit.reopen app failed.');
+    Unit.quit();
+  })
+  .catch((e) => {
+    window.open(location.href, '_self');
+  });
+};
+// 1.查询服务端该task是否正在运行
+const getTaskRunning = async() => {
+  await axios({
+    method: 'get',
+    url: `${serverAddress}taskInfo/getTask`,
+    params: {taskId: taskid.value},
+    headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+        'x-requested-with': 'XMLHttpRequest'
+  }
+  }).then(res => {
+    if (res.status === 200 && res.data.code === 1000) {
+      // 任务状态：0 同步中，1 就绪，3 运行中，9 已结束
+      if(res.data.result.status === 3) {
+        taskRunningFlag.value = true;
+      } else {
+        taskRunningFlag.value = false;
+      }
+    }
+  }).catch(err => {
+    if (err.response?.status == 504||err.response?.status == 404) {
+      ElMessage.error({message: '服务器被吃了⊙﹏⊙∥'});
+    }
+  })
 };
 </script>
 

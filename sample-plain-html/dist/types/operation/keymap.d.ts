@@ -18,7 +18,7 @@ export declare class VirtualKey implements IVirtualKey {
     vkey: number;
     unicode: number;
 }
-export declare type VritualKeyMapOptions = {
+export type VritualKeyMapOptions = {
     [key: string]: VirtualKey;
 };
 export declare const KEYMAP: VritualKeyMapOptions;

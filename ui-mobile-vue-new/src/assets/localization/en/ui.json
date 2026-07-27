@@ -135,6 +135,7 @@
 
         "APP_RETRY_CONFIRM": "Cloud application closed. Quit now?",
         "APP_RETRY": "Cloud application closed. Reopening...",
+        "APP_RECONNECTION_TIMEOUT": "Disconnection reconnection timed out, do you want to close? Select OK to exit the current page, or select Cancel to restart",
 
         "playerNotOwner": "You are not task owner.",
         "playerAlready": "Already can operate",
@@ -256,7 +257,8 @@
             "helpTitle4": "How to shrink/display control balls",
             "helpContent4": "Click [Unlock] to unlock the control ball menu. After closing the control ball menu panel for 2 seconds, the control ball will shrink to the side of the screen. Click on the control ball, and the control ball will pop up for display; To continuously display the control ball, click [Lock] to lock the control ball menu. The control ball will not shrink to the side of the screen",
             "chineseInput": "Chinese Input",
-            "disableChineseInput": "Prohibit Chinese Input"
+            "disableChineseInput": "Prohibit Chinese Input",
+            "reconnentionTip": "Please wait while the connection is being reconnected"
         }
     }
 }
