@@ -99,7 +99,14 @@
     <Toast v-if="cloudReady" />
     <!-- 确认框 -->
     <Confirm v-if="modalConfirm.show"/>
-
+    <!-- 剪贴板 -->
+    <ClipboardPanel
+      v-if="showClipboardPanel"
+      :content="clipboardContent"
+      @close="onCloseClipboardPanel"
+      @copied="onClipboardCopied"
+      @copy-error="onClipboardCopyError"
+    />
   </div>
 </template>
 
@@ -125,6 +132,7 @@ import ModallSetting       from './components/modal_setting/modal_setting';
 import LiveStreaming       from './components/live_streaming/live_streaming';
 import MobileMenuBar       from './components/mobile/mobile_menu_bar/mobile_menu_bar.vue'
 import ControlBallM        from "./components/mobile/control_ball/control_ball"
+import ClipboardPanel      from "./components/clipboard_panel/clipboard_panel.vue"
 import Load                from './load';
 import store               from "@/store";
 import Log                 from "@/utils/log";
@@ -146,7 +154,8 @@ export default {
     ModallSetting,
     LiveStreaming,
     MobileMenuBar,
-    ControlBallM
+    ControlBallM,
+    ClipboardPanel
   },
   data() {
     return {
@@ -176,7 +185,9 @@ export default {
       timeoutTimer: null,//时钟结束，重新进一次应用
       taskRunningFlag: null, //当前task任务是否正在运行
       taskCloseType: 0,
-      serverAddress: "http://192.168.0.184:8181/"
+      serverAddress: "http://192.168.0.184:8181/",
+      clipboardContent: "",
+      showClipboardPanel: false,
     };
   },
   watch: {
@@ -515,6 +526,24 @@ export default {
       if(!this.larksr?.op.enableParse) {
         e.preventDefault();
       }
+    },    
+    onClipboardContent(e) {
+      const text = e && e.data && e.data.text;
+      if (typeof text !== "string") {
+        Log.warn("ignore unsupported clipboard content", e && e.data);
+        return;
+      }
+      this.clipboardContent = text;
+      this.showClipboardPanel = true;
+    },
+    onCloseClipboardPanel() {
+      this.showClipboardPanel = false;
+    },
+    onClipboardCopied() {
+      this.toast({ text: this.ui.copySuccess, position: 2 });
+    },
+    onClipboardCopyError() {
+      this.toast({ text: this.ui.copyFailed, position: 2, level: 3 });
     },
     compositionEnd(e) {
       if(e.type === 'compositionstart' && !this.controlBallInputMethod) { // 中文输入start
@@ -880,6 +909,23 @@ export default {
         console.log("LarkSRClientEvent info", e);
         this.toast({text: e.message});
     });
+    
+    
+    /**
+        * 云端应用同步过来的剪贴板内容。
+        * 事件 data 结构：
+        * {
+        *   text?: string | null;
+        *   binary?: Uint8Array | null;
+        *   format: string; // 例如 text/plain
+        *   payload?: "text" | "binary";
+        * }
+     */
+     larksr.on('clipboardcontent', (e) => {
+      Log.info("on clipboardcontent", e.data);
+      this.onClipboardContent(e);
+    });
+
     console.log("load appli success", larksr);
 
     larksr.on('resourcenotenough', (e) => {

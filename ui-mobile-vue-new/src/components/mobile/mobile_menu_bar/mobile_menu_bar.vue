@@ -411,8 +411,9 @@ export default {
     },
     toggleMic() {
       Log.info("toggleMic", this.audioDeviceId);
-      if (!this.audioPaused) {
-        this.larksr?.pauseAudioSending();
+      if (!this.audioPaused) { // 音频开启状态
+        this.larksr?.closeAudio()
+        // this.larksr?.pauseAudioSending();
         // this.audioTrackEnable = !this.audioPaused;
         this.$forceUpdate();
       } else {

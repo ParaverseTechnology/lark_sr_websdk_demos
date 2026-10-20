@@ -335,6 +335,18 @@ export default class UI extends LocalizationBase {
     get copy() {
         return this.getVrAppliMsg('copy');
     }
+    
+    get cloudClipboard() {
+        return this.getVrAppliMsg('cloudClipboard');
+    }
+    
+    get cloudClipboardContent() {
+        return this.getVrAppliMsg('cloudClipboardContent');
+    }
+    
+    get copyFailed() {
+        return this.getVrAppliMsg('copyFailed');
+    }
 
     get role() {
         return this.getVrAppliMsg('role');

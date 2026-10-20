@@ -449,7 +449,8 @@ const openAudio = async() => {
 const toggleMic = () => {
   Log.info("toggleMic", this.audioDeviceId);
   if (!audioPaused.value) {
-    larksr.value?.pauseAudioSending();
+    // larksr.value?.pauseAudioSending();
+    larksr.value?.closeAudio()
     // audioTrack.valueEnable = !audioPaused.value;
     // forceUpdate();
   } else {

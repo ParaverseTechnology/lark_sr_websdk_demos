@@ -101,6 +101,14 @@
       <Toast v-if="cloudReady" />
       <!-- 确认框 -->
       <Confirm v-if="modalConfirmStore.modalConfirm.show"/>
+      <!-- 云端剪贴板 -->
+      <ClipboardPanel
+        v-if="showClipboardPanel"
+        :content="clipboardContent"
+        @close="onCloseClipboardPanel"
+        @copied="onClipboardCopied"
+        @copy-error="onClipboardCopyError"
+      />
 
   </div>
 </template>
@@ -130,6 +138,7 @@ import LiveStreaming       from './components/live_streaming/live_streaming.vue'
 import MobileMenuBar       from './components/mobile/mobile_menu_bar/mobile_menu_bar.vue';
 import ControlBallM        from "./components/mobile/control_ball/control_ball.vue";
 import ModallSetting       from './components/modal_setting/modal_setting.vue';
+import ClipboardPanel      from "./components/clipboard_panel/clipboard_panel.vue";
 import { useCommStore } from '@/stores/comm';
 import { useModalConfirmStore } from '@/stores/modal_confirm';
 import { useModalHelpStore } from '@/stores/modal_help';
@@ -196,6 +205,10 @@ const timeoutTimer = ref(null);//时钟结束，重新进一次应用
 const taskRunningFlag = ref(null); //当前task任务是否正在运行
 const taskCloseType = ref(0);
 const serverAddress = "http://192.168.0.184:8181/";
+
+
+const showClipboardPanel = ref(false)
+const clipboardContent = ref("")
 
 
 const nicknameRequireClass = computed(() => {
@@ -536,6 +549,20 @@ onMounted(() => {
       playerModeStore.updatePlayerList(e.data);
     });
 
+    /**
+      * 云端应用同步过来的剪贴板内容。
+      * 事件 data 结构：
+      * {
+      *   text?: string | null;
+      *   binary?: Uint8Array | null;
+      *   format: string; // 例如 text/plain
+      *   payload?: "text" | "binary";
+      * }
+   */
+    larksr.value.on('clipboardcontent', (e) => {
+      Log.info("on clipboardcontent", e.data);
+      onClipboardContent(e);
+    });
     // reset states.
     commStore.setLarksr(larksr.value);
     // setLarksr(larksr.value);
@@ -764,7 +791,24 @@ const start = async() => {
     });
   }
 };
-
+function onClipboardContent(e) {
+  const text = e && e.data && e.data.text;
+  if (typeof text !== "string") {
+    Log.warn("ignore unsupported clipboard content", e && e.data);
+    return;
+  }
+  clipboardContent.value = text;
+  showClipboardPanel.value = true;
+}
+function onCloseClipboardPanel() {
+  showClipboardPanel.value = false;
+}
+function onClipboardCopied() {
+  toastStore.toastAct({text: commStore.ui.copySuccess, position: 2, level: 3});
+}
+function onClipboardCopyError() {
+  toastStore.toastAct({text: commStore.ui.cloudClipboardCopyFailed, position: 2, level: 3});
+}
 const onInputFocus = () => {
   console.log("on focus");
   nicknameRequire.value = false;
@@ -847,6 +891,7 @@ const sysKeybaordEnterOrBackspace = (e) => {
   }
 };
 const inputTextareaKeydown = (e) => {
+  const otherKeys = ['AltLeft', 'AltRight', 'ControlLeft', 'ControlRight', 'ShiftRight', 'ShiftLeft', 'CapsLock', 'Tab', 'Delete', 'ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'MetaLeft', 'Insert', 'MetaRight'];
   if(e.key === 'Backspace') {
     if(inputText.value === "") {
       larksr.value.keyDown('Backspace', false);
@@ -855,21 +900,31 @@ const inputTextareaKeydown = (e) => {
         if(textInputTimer.value) clearTimeout(textInputTimer.value);
       },50)
     }
-  } else if((e.key === 'c'|| e.key === 'v' || e.key === 'a' || e.key === 'x') && e.ctrlKey) {
-    larksr.value.keyDown('ControlLeft', false);
-    larksr.value.keyDown(e.code, false);
+  } else if((e.key === 'c'|| e.key === 'v' || e.key === 'a' || e.key === 'x'||e.key === 'C'|| e.key === 'V' || e.key === 'A' || e.key === 'X') && (e.ctrlKey || e.metaKey)) {
     if(inputText.value) {
       larksr.value.inputText(inputText.value);
       inputText.value = "";
     }
-    textInputTimer.value = setTimeout(() => {
-      larksr.value.keyUp(e.code);
-      larksr.value.keyUp('ControlLeft');
-      if(textInputTimer.value) clearTimeout(textInputTimer.value);
-    },50)
+    if(commStore.enableChineseInput && (e.key === 'v' || e.key === 'V')  && (e.ctrlKey || e.metaKey)) {
+      return
+    } else {
+      console.log('....')
+      e.ctrlKey ? larksr.value.keyDown('ControlLeft', false) : larksr.value.keyDown('MetaLeft', false);
+      larksr.value.keyDown(e.code, false);
+      textInputTimer.value = setTimeout(() => {
+        larksr.value.keyUp(e.code);
+        e.ctrlKey ? larksr.value.keyUp('ControlLeft') : larksr.value.keyUp('MetaLeft');
+        if(textInputTimer.value) clearTimeout(textInputTimer.value);
+      },50)
+    }
+  } else if(otherKeys.findIndex(item => e.code===item) !== -1) {
+    let isrepeat = false;
+    if(e.repeat) isrepeat = true;
+    larksr.value.keyDown(e.code, isrepeat);
   }
 };
 const inputTextareaKeyup = (e) => {
+  const otherKeys = ['AltLeft', 'AltRight', 'ControlLeft', 'ControlRight', 'ShiftRight', 'ShiftLeft', 'CapsLock', 'Tab', 'Delete', 'ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'MetaLeft', 'Insert', 'MetaRight'];
   if(e.key === 'Enter'){
     commStore.setInputMethodEnable( false);
     if (larksr.value) {
@@ -878,6 +933,8 @@ const inputTextareaKeyup = (e) => {
     }
     inputTextareaRef.value.blur();
     inputText.value = "";
+  }else if(otherKeys.findIndex(item => e.code===item) !== -1) {
+    larksr.value.keyUp(e.code);
   }
 };
 const onInputMethodFocus = () => {

@@ -42,7 +42,7 @@
           <p>{{status.text}}</p>
       </div>
       <el-row type="flex" justify="center" class="button-group">
-        <Btn v-if="status.code == 1" class="submit" :title="$t('message.vrAppli.close')" submit="false" @click="onCancelLive"/>
+        <Btn v-if="status.code == 1" class="submit" :title="ui.close" submit="false" @click="onCancelLive"/>
         <Btn v-else class="submit" :title="ui.liveSubmit" submit="false" @click="onSubmit"/>
       </el-row>
     </div>

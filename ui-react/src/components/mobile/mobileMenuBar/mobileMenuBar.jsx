@@ -295,7 +295,8 @@ export default function MobileMenuBar() {
   const toggleMic = () => {
     Log.info("toggleMic", audioDeviceId);
     if (!audioPaused) {
-      larksr?.pauseAudioSending();
+      larksr?.closeAudio()
+      // larksr?.pauseAudioSending();
       // audioTrackEnable = !audioPaused;
     } else {
       openAudio();
